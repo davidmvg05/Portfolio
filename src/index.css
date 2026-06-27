@@ -129,6 +129,7 @@ h1, h2, h3, h4 {
   align-self: center;
   background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-purple) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -191,6 +192,7 @@ h1, h2, h3, h4 {
   margin: 0 0.2rem;
   background: linear-gradient(90deg, var(--text-primary), var(--accent-purple));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -314,12 +316,14 @@ h1, h2, h3, h4 {
   line-height: 1.1;
   background: linear-gradient(to right, #fff, var(--text-secondary), var(--accent-purple));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 [data-theme='light'] .home-title {
   background: linear-gradient(to right, #111, var(--text-secondary), var(--accent-purple));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
