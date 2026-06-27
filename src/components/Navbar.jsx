@@ -58,7 +58,7 @@ function Navbar({ isDarkMode, toggleTheme }) {
         <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="logo-link">
           <span className="logo-bracket">&lt;</span>
           <span className="logo-name">David Gomes</span>
-          <span className="logo-bracket">/&gt;</span>
+          <span className="logo-bracket">/ &gt;</span>
         </a>
 
         {/* Right Side: Navigation Menu & Theme Switcher */}
