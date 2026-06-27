@@ -227,6 +227,7 @@ h1, h2, h3, h4 {
   transform: translateX(-5px);
   color: var(--accent-blue);
   transition: var(--transition);
+  letter-spacing: 0.5px; /* Controla a distância entre a / e o > */
 }
 
 .nav-link .link-text {
