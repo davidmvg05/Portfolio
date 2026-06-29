@@ -347,12 +347,12 @@ function App() {
             <div className="other-skills-grid">
               <span className="constellation-node">HTML</span>
               <span className="constellation-node">CSS</span>
-              <span className="constellation-node">Sass</span>
               <span className="constellation-node">Node.js</span>
               <span className="constellation-node">Premiere Pro</span>
               <span className="constellation-node">Photoshop</span>
               <span className="constellation-node">Git & GitHub</span>
               <span className="constellation-node">JavaScript</span>
+              <span className="constellation-node">Sass</span>
             </div>
           </div>
         </section>
