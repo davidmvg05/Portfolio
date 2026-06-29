@@ -345,8 +345,8 @@ function App() {
               Other Planetary Technologies
             </h4>
             <div className="other-skills-grid">
-              <span className="constellation-node">Three.js</span>
-              <span className="constellation-node">Framer Motion</span>
+              <span className="constellation-node">HTML</span>
+              <span className="constellation-node">CSS</span>
               <span className="constellation-node">Sass</span>
               <span className="constellation-node">Node.js</span>
               <span className="constellation-node">Premiere Pro</span>
