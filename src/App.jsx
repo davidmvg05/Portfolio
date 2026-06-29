@@ -97,7 +97,7 @@ function App() {
         {/* --- Home Section --- */}
         <section id="home">
           <div className="home-content">
-            <span className="home-subtitle">Creative Developer & Animator</span>
+            <span className="home-subtitle">Marketing Digital e Creative Developer</span>
             <h1 className="home-title">Crafting Motion In The Digital Space</h1>
             <p className="home-description">
               Hi, I'm David Gomes. I build highly animated, interactive web experiences and high-fidelity motion graphics. Let's explore the galaxy of design and code.
