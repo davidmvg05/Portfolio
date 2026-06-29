@@ -352,6 +352,7 @@ function App() {
               <span className="constellation-node">Premiere Pro</span>
               <span className="constellation-node">Photoshop</span>
               <span className="constellation-node">Git & GitHub</span>
+              <span className="constellation-node">JavaScript</span>
             </div>
           </div>
         </section>
