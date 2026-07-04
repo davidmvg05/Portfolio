@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
+import RocketConstellation from './components/RocketConstellation';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass } from 'lucide-react';
 
 // Custom SVG components since lucide-react brand icons are removed in recent versions
@@ -97,14 +98,23 @@ function App() {
         {/* --- Home Section --- */}
         <section id="home">
           <div className="home-content">
-            <span className="home-subtitle">Marketing Digital e Creative Developer</span>
-            <h1 className="home-title">Crafting Motion In The Digital Space</h1>
-            <p className="home-description">
-              Hi, I'm David Gomes. I build highly animated, interactive web experiences and high-fidelity motion graphics. Let's explore the galaxy of design and code.
-            </p>
-            <div className="home-cta-container">
-              <a href="#projects" className="btn btn-primary">View Projects</a>
-              <a href="#contact" className="btn btn-secondary">Get In Touch</a>
+            <span className="home-subtitle">Digital Marketing and Creative Developer</span>
+            
+            <div className="home-split-container">
+              <div className="home-text-side">
+                <h1 className="home-title">Crafting Motion In The Digital Space</h1>
+                <p className="home-description">
+                  Hi, I'm David Gomes. I build highly animated, interactive web experiences and high-fidelity motion graphics. Let's explore the galaxy of design and code.
+                </p>
+                <div className="home-cta-container">
+                  <a href="#projects" className="btn btn-primary">View Projects</a>
+                  <a href="#contact" className="btn btn-secondary">Get In Touch</a>
+                </div>
+              </div>
+              
+              <div className="home-visual-side">
+                <RocketConstellation />
+              </div>
             </div>
           </div>
           <div className="scroll-indicator">
