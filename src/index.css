@@ -309,22 +309,44 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
 }
 
+@keyframes textGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .home-title {
-  font-size: 4.5rem;
+  font-size: 5rem;
   font-weight: 800;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   line-height: 1.1;
-  background: linear-gradient(to right, #fff, var(--text-secondary), var(--accent-purple));
+  background: linear-gradient(90deg, #fff, var(--accent-blue), var(--accent-purple), #fff);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: textGradient 8s ease-in-out infinite;
 }
 
 [data-theme='light'] .home-title {
-  background: linear-gradient(to right, #111, var(--text-secondary), var(--accent-purple));
+  background: linear-gradient(90deg, #111, var(--accent-blue), var(--accent-purple), #111);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: textGradient 8s ease-in-out infinite;
+}
+
+.home-humor {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--accent-blue);
+  max-width: 650px;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .home-description {
@@ -526,6 +548,42 @@ h1, h2, h3, h4 {
 }
 
 /* --- Section: Projects --- */
+/* --- Projects Category Toggle Tabs --- */
+.projects-toggle-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.projects-toggle-btn {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.7rem 1.8rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+}
+
+.projects-toggle-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+  box-shadow: 0 0 15px var(--accent-blue-glow);
+}
+
+.projects-toggle-btn.active {
+  background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px var(--accent-purple-glow);
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

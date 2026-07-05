@@ -4,49 +4,13 @@ import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass } from 'lucide-react';
 
-// Custom SVG components since lucide-react brand icons are removed in recent versions
-const GithubIcon = ({ size = 24, ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
-
-const LinkedinIcon = ({ size = 24, ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme ? savedTheme === 'dark' : true; // Starts in dark mode
   });
+
+  const [projectCategory, setProjectCategory] = useState('projects'); // 'projects' or 'academic'
 
   // Apply theme attributes to document element
   useEffect(() => {
@@ -65,9 +29,59 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    alert('✨ Your message has been beamed across the galaxy successfully! David will get back to you soon.');
+    alert('✨ A tua mensagem foi transmitida com sucesso através da galáxia! O David responderá em breve.');
     e.target.reset();
   };
+
+  const mainProjects = [
+    {
+      title: "Navegação Cósmica",
+      description: "Um painel interativo 3D para rastreio de coordenadas estelares com física de fluidos e distorções magnéticas.",
+      tags: ["React", "WebGL", "Three.js"],
+      link: "#projects",
+      icon: "compass"
+    },
+    {
+      title: "Motor de Efeitos Stardust",
+      description: "Um motor de partículas de alto desempenho que cria constelações dinâmicas que reagem ao movimento e velocidade do cursor.",
+      tags: ["Canvas API", "CSS Keyframes", "Vite"],
+      link: "#projects",
+      icon: "briefcase"
+    },
+    {
+      title: "Curta-Metragem Gravity",
+      description: "Um projeto de animação CGI focado em simulação de fluidos, estética de gravidade zero e design de som ambiente.",
+      tags: ["Blender", "VFX", "After Effects"],
+      link: "#projects",
+      icon: "graduation"
+    }
+  ];
+
+  const academicProjects = [
+    {
+      title: "Estudo de Branding Digital",
+      description: "Análise completa do posicionamento online de marcas de retalho em Portugal, desenvolvendo diretrizes estratégicas para redes sociais e presença web.",
+      tags: ["Análise de Mercado", "SEO", "Estratégia"],
+      link: "#projects",
+      icon: "compass"
+    },
+    {
+      title: "Planeamento de E-Commerce",
+      description: "Protótipo funcional de uma loja online com integração de carrinho e checkout, focado em facilidade de uso e design centrado no utilizador.",
+      tags: ["Figma", "UI/UX", "User Flow"],
+      link: "#projects",
+      icon: "briefcase"
+    },
+    {
+      title: "Auditoria SEO Local",
+      description: "Otimização técnica SEO para pequenos negócios locais, focando em posicionamento orgânico e melhoria de performance de página.",
+      tags: ["SEO Técnico", "Google Analytics"],
+      link: "#projects",
+      icon: "graduation"
+    }
+  ];
+
+  const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
 
   return (
     <>
@@ -97,14 +111,17 @@ function App() {
         {/* --- Home Section --- */}
         <section id="home">
           <div className="home-content">
-            <span className="home-subtitle">Marketing Digital e Creative Developer</span>
-            <h1 className="home-title">Crafting Motion In The Digital Space</h1>
+            <h1 className="home-title">David Gomes</h1>
+            <span className="home-subtitle">Digital Marketing and Creative Developer</span>
+            <p className="home-humor">
+              A converter café em campanhas e cliques em conversões... enquanto escrevo código que brilha no escuro. ☕✨
+            </p>
             <p className="home-description">
-              Hi, I'm David Gomes. I build highly animated, interactive web experiences and high-fidelity motion graphics. Let's explore the galaxy of design and code.
+              Olá, sou o David Gomes. Desenvolvo experiências web altamente interativas e animadas, e motion graphics de alta fidelidade. Vamos explorar o universo do design e do código.
             </p>
             <div className="home-cta-container">
-              <a href="#projects" className="btn btn-primary">View Projects</a>
-              <a href="#contact" className="btn btn-secondary">Get In Touch</a>
+              <a href="#projects" className="btn btn-primary">Ver Projetos</a>
+              <a href="#contact" className="btn btn-secondary">Contactar</a>
             </div>
           </div>
           <div className="scroll-indicator">
@@ -123,11 +140,11 @@ function App() {
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-card">
-                <div className="timeline-date">2024 - PRESENT</div>
-                <h3>Multimedia Art & Animation</h3>
-                <h4>Higher Education Institute</h4>
+                <div className="timeline-date">Março 2026 - Julho 2026</div>
+                <h3>Estágio</h3>
+                <h4>Alfaiate da Web</h4>
                 <p>
-                  Specializing in 3D scene compositing, procedural visual effects, and advanced motion graphics. Bridging the gap between storytelling and interactive technologies.
+                  Experiência prática em planeamento estratégico de marketing digital, gestão de redes sociais (otimização de conteúdos orgânicos e anúncios pagos) e desenvolvimento de websites modernos focados em experiência do utilizador (UX/UI) e otimização de taxas de conversão.
                 </p>
               </div>
             </div>
@@ -136,24 +153,11 @@ function App() {
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-card">
-                <div className="timeline-date">2023 - 2024</div>
-                <h3>Creative Web Engineering</h3>
-                <h4>React Bits Workshop</h4>
+                <div className="timeline-date">2023 - 2026</div>
+                <h3>Marketing Digital</h3>
+                <h4>IPLUSO</h4>
                 <p>
-                  Learned to implement premium WebGL rendering, shaders, and complex animations inside React web apps to build breathtaking user interfaces.
-                </p>
-              </div>
-            </div>
-
-            {/* Timeline item 3 */}
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-card">
-                <div className="timeline-date">2022 - 2023</div>
-                <h3>3D Modeling & Compositing</h3>
-                <h4>Digital Arts Academy</h4>
-                <p>
-                  Mastered pipeline workflows in Blender and Adobe After Effects, developing particle simulations, light dynamics, and procedural textures.
+                  Especialização em planeamento e gestão de estratégias digitais, social media marketing, SEO (otimização para motores de pesquisa), campanhas de publicidade online, e-commerce e análise de dados para monitorização de KPIs.
                 </p>
               </div>
             </div>
@@ -162,100 +166,54 @@ function App() {
 
         {/* --- Projects Section --- */}
         <section id="projects">
-          <h2 className="section-title">Featured Projects</h2>
+          <h2 className="section-title">Projects</h2>
+          
+          {/* Projects/Academic Toggle Tab */}
+          <div className="projects-toggle-container">
+            <button 
+              className={`projects-toggle-btn ${projectCategory === 'projects' ? 'active' : ''}`}
+              onClick={() => setProjectCategory('projects')}
+            >
+              Projetos
+            </button>
+            <button 
+              className={`projects-toggle-btn ${projectCategory === 'academic' ? 'active' : ''}`}
+              onClick={() => setProjectCategory('academic')}
+            >
+              Trabalhos Académicos
+            </button>
+          </div>
+
           <div className="projects-grid">
-            {/* Project 1 */}
-            <div className="project-card">
-              <div className="project-image-container">
-                <div className="project-image-placeholder">
-                  <Compass size={40} style={{ marginBottom: '10px' }} />
-                  <span>Interactive Cosmos</span>
+            {activeProjects.map((project, idx) => (
+              <div key={idx} className="project-card">
+                <div className="project-image-container">
+                  <div className="project-image-placeholder">
+                    {project.icon === 'compass' && <Compass size={40} style={{ marginBottom: '10px' }} />}
+                    {project.icon === 'briefcase' && <Briefcase size={40} style={{ marginBottom: '10px' }} />}
+                    {project.icon === 'graduation' && <GraduationCap size={40} style={{ marginBottom: '10px' }} />}
+                    <span>{project.title}</span>
+                  </div>
+                  <div className="project-icon">
+                    <Code size={18} />
+                  </div>
                 </div>
-                <div className="project-icon">
-                  <Code size={18} />
-                </div>
-              </div>
-              <div className="project-content">
-                <h3 className="project-title">Cosmic Navigation</h3>
-                <p className="project-description">
-                  An interactive WebGL dashboard that tracks real-time stellar coordinates with fluid physics and magnetic field distortions.
-                </p>
-                <div className="project-tags">
-                  <span className="tag">React</span>
-                  <span className="tag">WebGL</span>
-                  <span className="tag">Three.js</span>
-                </div>
-                <div className="project-links">
-                  <a href="#projects" className="project-link">
-                    <GithubIcon size={16} /> Code
-                  </a>
-                  <a href="#projects" className="project-link">
-                    Live Demo <ExternalLink size={16} />
-                  </a>
+                <div className="project-content">
+                  <h3 className="project-title">{project.title}</h3>
+                  <p className="project-description">{project.description}</p>
+                  <div className="project-tags">
+                    {project.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="tag">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="project-links">
+                    <a href={project.link} className="project-link">
+                      Ver Mais <ExternalLink size={16} />
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Project 2 */}
-            <div className="project-card">
-              <div className="project-image-container">
-                <div className="project-image-placeholder">
-                  <Briefcase size={40} style={{ marginBottom: '10px' }} />
-                  <span>Stardust VFX</span>
-                </div>
-                <div className="project-icon">
-                  <Award size={18} />
-                </div>
-              </div>
-              <div className="project-content">
-                <h3 className="project-title">Stardust FX Engine</h3>
-                <p className="project-description">
-                  A high-performance particle engine in React that creates dynamic constellation backgrounds reacting to user clicks and pointer speed.
-                </p>
-                <div className="project-tags">
-                  <span className="tag">Canvas API</span>
-                  <span className="tag">CSS Keyframes</span>
-                  <span className="tag">Vite</span>
-                </div>
-                <div className="project-links">
-                  <a href="#projects" className="project-link">
-                    <GithubIcon size={16} /> Code
-                  </a>
-                  <a href="#projects" className="project-link">
-                    Live Demo <ExternalLink size={16} />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 3 */}
-            <div className="project-card">
-              <div className="project-image-container">
-                <div className="project-image-placeholder">
-                  <GraduationCap size={40} style={{ marginBottom: '10px' }} />
-                  <span>Gravity Cinema</span>
-                </div>
-                <div className="project-icon">
-                  <Compass size={18} />
-                </div>
-              </div>
-              <div className="project-content">
-                <h3 className="project-title">Gravity Short Film</h3>
-                <p className="project-description">
-                  A CGI short film project focused on fluid simulations, zero-gravity aesthetics, and ambient sound design integration.
-                </p>
-                <div className="project-tags">
-                  <span className="tag">Blender</span>
-                  <span className="tag">VFX</span>
-                  <span className="tag">After Effects</span>
-                </div>
-                <div className="project-links">
-                  <a href="#projects" className="project-link">
-                    Showreel <ExternalLink size={16} />
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -266,7 +224,7 @@ function App() {
             {/* Left Box: Creative Development */}
             <div className="skills-category">
               <h3>
-                <Code size={20} /> Development
+                <Code size={20} /> Desenvolvimento
               </h3>
               <div className="skills-list">
                 <div className="skill-item">
@@ -304,7 +262,7 @@ function App() {
             {/* Right Box: Animation & VFX */}
             <div className="skills-category">
               <h3>
-                <Compass size={20} /> Visual Arts
+                <Compass size={20} /> Artes Visuais
               </h3>
               <div className="skills-list">
                 <div className="skill-item">
@@ -342,56 +300,45 @@ function App() {
 
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
             <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '1.2rem' }}>
-              Other Planetary Technologies
+              Outras Skills
             </h4>
             <div className="other-skills-grid">
               <span className="constellation-node">HTML</span>
               <span className="constellation-node">CSS</span>
-              <span className="constellation-node">DDS</span>
-              <span className="constellation-node">Premiere Pro</span>
-              <span className="constellation-node">Photoshop</span>
-              <span className="constellation-node">Git & GitHub</span>
               <span className="constellation-node">JavaScript</span>
-              <span className="constellation-node">Sass</span>
+              <span className="constellation-node">Google Antigravity</span>
+              <span className="constellation-node">GitHub</span>
+              <span className="constellation-node">Automations</span>
             </div>
           </div>
         </section>
 
         {/* --- Contact Section --- */}
         <section id="contact">
-          <h2 className="section-title">Communicate</h2>
+          <h2 className="section-title">Contacto</h2>
           <div className="contact-wrapper">
             <div className="contact-info">
-              <p>Have an interesting project or want to chat about animation? Beam a message over!</p>
+              <p>Tens um projeto interessante ou queres falar sobre animação? Envia uma mensagem!</p>
             </div>
             <form className="contact-form" onSubmit={handleFormSubmit}>
               <div className="form-group">
-                <label htmlFor="name">&lt;Name/&gt;</label>
-                <input type="text" id="name" required placeholder="Your earth name..." />
+                <label htmlFor="name">&lt;Nome/&gt;</label>
+                <input type="text" id="name" required placeholder="O teu nome..." />
               </div>
               <div className="form-group">
                 <label htmlFor="email">&lt;Email/&gt;</label>
-                <input type="email" id="email" required placeholder="your.address@domain.com" />
+                <input type="email" id="email" required placeholder="o.teu.email@dominio.com" />
               </div>
               <div className="form-group">
-                <label htmlFor="message">&lt;Message/&gt;</label>
-                <textarea id="message" rows="5" required placeholder="Type your transmission here..."></textarea>
+                <label htmlFor="message">&lt;Mensagem/&gt;</label>
+                <textarea id="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
               </div>
               <div className="form-submit-container">
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Send Transmission <Send size={16} />
+                  Enviar Transmissão <Send size={16} />
                 </button>
               </div>
             </form>
-
-            <div className="footer-socials">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="GitHub">
-                <GithubIcon size={20} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="LinkedIn">
-                <LinkedinIcon size={20} />
-              </a>
-            </div>
           </div>
         </section>
       </main>
