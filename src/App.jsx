@@ -113,11 +113,8 @@ function App() {
           <div className="home-content">
             <h1 className="home-title">David Gomes</h1>
             <span className="home-subtitle">Digital Marketing and Creative Developer</span>
-            <p className="home-humor">
-              A converter café em campanhas e cliques em conversões... enquanto escrevo código que brilha no escuro. ☕✨
-            </p>
             <p className="home-description">
-              Olá, sou o David Gomes. Desenvolvo experiências web altamente interativas e animadas, e motion graphics de alta fidelidade. Vamos explorar o universo do design e do código.
+              A converter café em campanhas e cliques em conversões... enquanto escrevo código que brilha no escuro. ☕✨
             </p>
             <div className="home-cta-container">
               <a href="#projects" className="btn btn-primary">Ver Projetos</a>
