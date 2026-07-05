@@ -382,20 +382,23 @@ function App() {
           <div className="footer-columns">
             {/* Column 1 */}
             <div className="footer-column">
-              <h4 className="footer-logo">&lt; David Gomes / &gt;</h4>
+              <h4 className="footer-logo">
+                <span className="logo-bracket">&lt;</span>
+                <span className="logo-name">David Gomes</span>
+                <span className="logo-bracket">/ &gt;</span>
+              </h4>
               <p className="footer-subtext">Digital Marketing</p>
-              <p className="footer-db-info">Base de dados: Cloudflare (Gratuito)</p>
             </div>
             
             {/* Column 2 */}
             <div className="footer-column">
-              <h4 className="footer-title">&lt;div&gt;</h4>
+              <h4 className="footer-title">&lt; / div&gt;</h4>
               <div className="footer-nav-links">
-                <a href="#home">&lt; Home &gt;</a>
-                <a href="#journey">&lt; Journey &gt;</a>
-                <a href="#projects">&lt; Projects &gt;</a>
-                <a href="#skills">&lt; Skills &gt;</a>
-                <a href="#contact">&lt; Contact &gt;</a>
+                <a href="#home">&gt; Home</a>
+                <a href="#journey">&gt; Journey</a>
+                <a href="#projects">&gt; Projects</a>
+                <a href="#skills">&gt; Skills</a>
+                <a href="#contact">&gt; Contact</a>
               </div>
             </div>
             
