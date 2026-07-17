@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass } from 'lucide-react';
+import logoLego from './assets/logo_lego.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -96,11 +97,11 @@ function App() {
 
   const academicProjects = [
     {
-      title: "Estudo de Branding Digital",
-      description: "Análise completa do posicionamento online de marcas de retalho em Portugal, desenvolvendo diretrizes estratégicas para redes sociais e presença web.",
-      tags: ["Análise de Mercado", "SEO", "Estratégia"],
-      link: "#projects",
-      icon: "compass"
+      title: "Plano de Social Media Marketing - LEGO",
+      description: "Relatório estratégico e plano dedicado a estabelecer a presença digital da LEGO nas redes sociais em Portugal. De forma a evitar a desativação das contas por direitos de autor, as contas de redes sociais foram criadas sob o nome LE9O.",
+      tags: ["Strategy", "Social Media", "Creativity"],
+      link: "https://drive.google.com/file/d/1CfjDuzcDUe0H9oEi0J_X2UT36oVvk2Og/view?usp=drive_link",
+      image: logoLego
     },
     {
       title: "Planeamento de E-Commerce",
@@ -222,12 +223,16 @@ function App() {
             {activeProjects.map((project, idx) => (
               <div key={idx} className="project-card">
                 <div className="project-image-container">
-                  <div className="project-image-placeholder">
-                    {project.icon === 'compass' && <Compass size={40} style={{ marginBottom: '10px' }} />}
-                    {project.icon === 'briefcase' && <Briefcase size={40} style={{ marginBottom: '10px' }} />}
-                    {project.icon === 'graduation' && <GraduationCap size={40} style={{ marginBottom: '10px' }} />}
-                    <span>{project.title}</span>
-                  </div>
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="project-card-image" />
+                  ) : (
+                    <div className="project-image-placeholder">
+                      {project.icon === 'compass' && <Compass size={40} style={{ marginBottom: '10px' }} />}
+                      {project.icon === 'briefcase' && <Briefcase size={40} style={{ marginBottom: '10px' }} />}
+                      {project.icon === 'graduation' && <GraduationCap size={40} style={{ marginBottom: '10px' }} />}
+                      <span>{project.title}</span>
+                    </div>
+                  )}
                   <div className="project-icon">
                     <Code size={18} />
                   </div>
