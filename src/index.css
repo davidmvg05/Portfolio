@@ -985,7 +985,7 @@ h1, h2, h3, h4 {
 .footer-columns {
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 20rem;
 }
 
 .footer-column {
