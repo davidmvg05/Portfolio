@@ -311,6 +311,10 @@ function App() {
                     cardClass += " teleport";
                   }
 
+                  if (project.image) {
+                    cardClass += " has-image";
+                  }
+
                   const handleCardClick = () => {
                     if (idx === (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length) {
                       prevSlide();
