@@ -177,15 +177,7 @@ function App() {
     setActiveSlideIdx((prev) => (prev === 0 ? activeProjects.length - 1 : prev - 1));
   };
 
-  const isMobile = windowWidth <= 768;
-  const currentCardWidth = isMobile ? 290 : 420;
-  const currentGap = 32; // matching gap: 2rem
 
-  const trackStyle = {
-    transform: `translateX(-${activeSlideIdx * (currentCardWidth + currentGap)}px)`,
-    paddingLeft: `calc(50% - ${currentCardWidth / 2}px)`,
-    paddingRight: `calc(50% - ${currentCardWidth / 2}px)`
-  };
 
   return (
     <>
@@ -289,43 +281,65 @@ function App() {
             </button>
 
             <div className="projects-carousel-viewport">
-              <div className="projects-carousel-track" style={trackStyle}>
-                {activeProjects.map((project, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`project-card ${idx === activeSlideIdx ? 'active' : ''}`}
-                  >
-                    <div className="project-image-container">
-                      {project.image ? (
-                        <img src={project.image} alt={project.title} className="project-card-image" />
-                      ) : (
-                        <div className="project-image-placeholder">
-                          {project.icon === 'compass' && <Compass size={32} style={{ marginBottom: '5px' }} />}
-                          {project.icon === 'briefcase' && <Briefcase size={32} style={{ marginBottom: '5px' }} />}
-                          {project.icon === 'graduation' && <GraduationCap size={32} style={{ marginBottom: '5px' }} />}
-                          <span style={{ fontSize: '0.9rem', textAlign: 'center', padding: '0 10px' }}>{project.title}</span>
+              <div className="projects-carousel-track">
+                {activeProjects.map((project, idx) => {
+                  let cardClass = "project-card";
+                  if (idx === activeSlideIdx) {
+                    cardClass += " active";
+                  } else if (idx === (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length) {
+                    cardClass += " prev";
+                  } else if (idx === (activeSlideIdx + 1) % activeProjects.length) {
+                    cardClass += " next";
+                  } else {
+                    cardClass += " hidden";
+                  }
+
+                  const handleCardClick = () => {
+                    if (idx === (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length) {
+                      prevSlide();
+                    } else if (idx === (activeSlideIdx + 1) % activeProjects.length) {
+                      nextSlide();
+                    }
+                  };
+
+                  return (
+                    <div 
+                      key={idx} 
+                      className={cardClass}
+                      onClick={handleCardClick}
+                    >
+                      <div className="project-image-container">
+                        {project.image ? (
+                          <img src={project.image} alt={project.title} className="project-card-image" />
+                        ) : (
+                          <div className="project-image-placeholder">
+                            {project.icon === 'compass' && <Compass size={32} style={{ marginBottom: '5px' }} />}
+                            {project.icon === 'briefcase' && <Briefcase size={32} style={{ marginBottom: '5px' }} />}
+                            {project.icon === 'graduation' && <GraduationCap size={32} style={{ marginBottom: '5px' }} />}
+                            <span style={{ fontSize: '0.9rem', textAlign: 'center', padding: '0 10px' }}>{project.title}</span>
+                          </div>
+                        )}
+                        <div className="project-icon">
+                          <Code size={18} />
                         </div>
-                      )}
-                      <div className="project-icon">
-                        <Code size={18} />
+                      </div>
+                      <div className="project-content">
+                        <h3 className="project-title">{project.title}</h3>
+                        <p className="project-description">{project.description}</p>
+                        <div className="project-tags">
+                          {project.tags.map((tag, tIdx) => (
+                            <span key={tIdx} className="tag">{tag}</span>
+                          ))}
+                        </div>
+                        <div className="project-links">
+                          <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                            Ver Mais <ExternalLink size={16} />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                    <div className="project-content">
-                      <h3 className="project-title">{project.title}</h3>
-                      <p className="project-description">{project.description}</p>
-                      <div className="project-tags">
-                        {project.tags.map((tag, tIdx) => (
-                          <span key={tIdx} className="tag">{tag}</span>
-                        ))}
-                      </div>
-                      <div className="project-links">
-                        <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
-                          Ver Mais <ExternalLink size={16} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
