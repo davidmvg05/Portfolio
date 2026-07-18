@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
-import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass } from 'lucide-react';
+import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight } from 'lucide-react';
 import logoLego from './assets/logo_lego.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
@@ -49,6 +49,16 @@ function App() {
   });
 
   const [projectCategory, setProjectCategory] = useState('projects'); // 'projects' or 'academic'
+  const [activeSlideIdx, setActiveSlideIdx] = useState(0);
+  const [activeJourneyDetail, setActiveJourneyDetail] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  // Track resizing to center cards perfectly in carousel
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Apply theme attributes to document element
   useEffect(() => {
@@ -61,6 +71,11 @@ function App() {
     }
   }, [isDarkMode]);
 
+  // Reset active slide when switching category tabs
+  useEffect(() => {
+    setActiveSlideIdx(0);
+  }, [projectCategory]);
+
   const toggleTheme = () => {
     setIsDarkMode((prev) => !prev);
   };
@@ -70,6 +85,31 @@ function App() {
     alert('✨ A tua mensagem foi transmitida com sucesso através da galáxia! O David responderá em breve.');
     e.target.reset();
   };
+
+  const journeyItems = [
+    {
+      date: "Março 2026 - Julho 2026",
+      title: "Estágio",
+      company: "Alfaiate da Web",
+      description: "Experiência prática em planeamento estratégico de marketing digital, gestão de redes sociais e desenvolvimento de websites.",
+      fullDescription: "Como estagiário na equipa de Marketing Digital da Alfaiate da Web, colaborei ativamente no planeamento estratégico e na execução de campanhas multicanal. As minhas principais responsabilidades incluíram:\n\n" +
+        "• **Planeamento de Campanhas de Marketing**: Elaboração de calendários editoriais e definição de objetivos (KPIs) para clientes de diversos setores.\n" +
+        "• **Gestão de Redes Sociais**: Criação, agendamento e otimização de conteúdos orgânicos e anúncios pagos (Meta Ads, Google Ads) focados na conversão.\n" +
+        "• **Otimização de Websites**: Apoio no design e desenvolvimento de landing pages e sites focados em UX/UI (User Experience/User Interface), garantindo uma navegação intuitiva e focada na conversão de leads.\n" +
+        "• **Análise de Dados**: Utilização de ferramentas analíticas para monitorização de tráfego, cliques e comportamento do utilizador, gerando relatórios de desempenho mensais."
+    },
+    {
+      date: "2023 - 2026",
+      title: "Marketing Digital",
+      company: "IPLUSO",
+      description: "Especialização em planeamento estratégico, SEO, e-commerce e análise de dados para tomada de decisões digitais.",
+      fullDescription: "O Curso Técnico Superior Profissional (CTeSP) em Marketing Digital na IPLUSO proporcionou-me uma base académica sólida e prática em diversas vertentes da comunicação digital, com foco em:\n\n" +
+        "• **Estratégia e Marketing Digital**: Definição de personas, jornadas de compra e planeamento integrado de presença online.\n" +
+        "• **SEO (Search Engine Optimization)**: Otimização técnica de páginas web e estratégias de conteúdos para melhorar o posicionamento orgânico nos motores de pesquisa.\n" +
+        "• **E-Commerce**: Gestão e estruturação de lojas online, análise de plataformas de venda e implementação de métodos de conversão digital.\n" +
+        "• **Web Analytics e Publicidade**: Criação de campanhas de tráfego pago e análise aprofundada de dados através do Google Analytics para apoio à tomada de decisões estratégicas."
+    }
+  ];
 
   const mainProjects = [
     {
@@ -104,6 +144,13 @@ function App() {
       image: logoLego
     },
     {
+      title: "Plano de Marketing - MyMatchCare",
+      description: "Plano estratégico e operacional de marketing digital desenvolvido para a MyMatchCare, uma plataforma portuguesa que liga famílias que necessitam de cuidados domiciliários para idosos a cuidadores qualificados. O plano focou-se em canais de captação de leads e atração digital.",
+      tags: ["Strategy", "Creativity", "Digital Marketing"],
+      link: "https://drive.google.com/file/d/1ePLlSWq0tLf2d1wPk2B_eECeE65sAq3r/view?usp=drive_link",
+      icon: "briefcase"
+    },
+    {
       title: "Planeamento de E-Commerce",
       description: "Protótipo funcional de uma loja online com integração de carrinho e checkout, focado em facilidade de uso e design centrado no utilizador.",
       tags: ["Figma", "UI/UX", "User Flow"],
@@ -121,13 +168,35 @@ function App() {
 
   const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
 
+  const nextSlide = () => {
+    if (activeSlideIdx < activeProjects.length - 1) {
+      setActiveSlideIdx((prev) => prev + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (activeSlideIdx > 0) {
+      setActiveSlideIdx((prev) => prev - 1);
+    }
+  };
+
+  const isMobile = windowWidth <= 768;
+  const currentCardWidth = isMobile ? 290 : 420;
+  const currentGap = 32; // matching gap: 2rem
+
+  const trackStyle = {
+    transform: `translateX(-${activeSlideIdx * (currentCardWidth + currentGap)}px)`,
+    paddingLeft: `calc(50% - ${currentCardWidth / 2}px)`,
+    paddingRight: `calc(50% - ${currentCardWidth / 2}px)`
+  };
+
   return (
     <>
       {/* Background Starfield and Fluid Simulation Cursor */}
       <Starfield isDarkMode={isDarkMode} />
       <div className="nebula-bg" />
       
-      {/* SplashCursor is placed here with the props requested */}
+      {/* SplashCursor */}
       <div style={{ pointerEvents: 'none' }}>
         <SplashCursor
           SIM_RESOLUTION={128}
@@ -171,31 +240,24 @@ function App() {
         <section id="journey">
           <h2 className="section-title">My Journey</h2>
           <div className="timeline">
-            {/* Timeline item 1 */}
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-card">
-                <div className="timeline-date">Março 2026 - Julho 2026</div>
-                <h3>Estágio</h3>
-                <h4>Alfaiate da Web</h4>
-                <p>
-                  Experiência prática em planeamento estratégico de marketing digital, gestão de redes sociais (otimização de conteúdos orgânicos e anúncios pagos) e desenvolvimento de websites modernos focados em experiência do utilizador (UX/UI) e otimização de taxas de conversão.
-                </p>
+            {journeyItems.map((item, idx) => (
+              <div key={idx} className="timeline-item">
+                <div className="timeline-dot"></div>
+                <div className="timeline-card">
+                  <div className="timeline-date">{item.date}</div>
+                  <h3>{item.title}</h3>
+                  <h4>{item.company}</h4>
+                  <p>{item.description}</p>
+                  <button 
+                    className="btn btn-secondary btn-sm" 
+                    style={{ marginTop: '1.2rem', padding: '0.4rem 1.2rem', fontSize: '0.85rem' }}
+                    onClick={() => setActiveJourneyDetail(item)}
+                  >
+                    Ver Mais
+                  </button>
+                </div>
               </div>
-            </div>
-
-            {/* Timeline item 2 */}
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-card">
-                <div className="timeline-date">2023 - 2026</div>
-                <h3>Marketing Digital</h3>
-                <h4>IPLUSO</h4>
-                <p>
-                  Especialização em planeamento e gestão de estratégias digitais, social media marketing, SEO (otimização para motores de pesquisa), campanhas de publicidade online, e-commerce e análise de dados para monitorização de KPIs.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -219,40 +281,66 @@ function App() {
             </button>
           </div>
 
-          <div className="projects-grid">
-            {activeProjects.map((project, idx) => (
-              <div key={idx} className="project-card">
-                <div className="project-image-container">
-                  {project.image ? (
-                    <img src={project.image} alt={project.title} className="project-card-image" />
-                  ) : (
-                    <div className="project-image-placeholder">
-                      {project.icon === 'compass' && <Compass size={40} style={{ marginBottom: '10px' }} />}
-                      {project.icon === 'briefcase' && <Briefcase size={40} style={{ marginBottom: '10px' }} />}
-                      {project.icon === 'graduation' && <GraduationCap size={40} style={{ marginBottom: '10px' }} />}
-                      <span>{project.title}</span>
+          {/* Sliding Carousel Container */}
+          <div className="projects-carousel-container">
+            <button 
+              className="carousel-nav-btn prev-btn" 
+              onClick={prevSlide} 
+              disabled={activeSlideIdx === 0}
+              aria-label="Projeto anterior"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <div className="projects-carousel-viewport">
+              <div className="projects-carousel-track" style={trackStyle}>
+                {activeProjects.map((project, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`project-card ${idx === activeSlideIdx ? 'active' : ''}`}
+                  >
+                    <div className="project-image-container">
+                      {project.image ? (
+                        <img src={project.image} alt={project.title} className="project-card-image" />
+                      ) : (
+                        <div className="project-image-placeholder">
+                          {project.icon === 'compass' && <Compass size={32} style={{ marginBottom: '5px' }} />}
+                          {project.icon === 'briefcase' && <Briefcase size={32} style={{ marginBottom: '5px' }} />}
+                          {project.icon === 'graduation' && <GraduationCap size={32} style={{ marginBottom: '5px' }} />}
+                          <span style={{ fontSize: '0.9rem', textAlign: 'center', padding: '0 10px' }}>{project.title}</span>
+                        </div>
+                      )}
+                      <div className="project-icon">
+                        <Code size={18} />
+                      </div>
                     </div>
-                  )}
-                  <div className="project-icon">
-                    <Code size={18} />
+                    <div className="project-content">
+                      <h3 className="project-title">{project.title}</h3>
+                      <p className="project-description">{project.description}</p>
+                      <div className="project-tags">
+                        {project.tags.map((tag, tIdx) => (
+                          <span key={tIdx} className="tag">{tag}</span>
+                        ))}
+                      </div>
+                      <div className="project-links">
+                        <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                          Ver Mais <ExternalLink size={16} />
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="project-content">
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-                  <div className="project-tags">
-                    {project.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                  <div className="project-links">
-                    <a href={project.link} className="project-link">
-                      Ver Mais <ExternalLink size={16} />
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <button 
+              className="carousel-nav-btn next-btn" 
+              onClick={nextSlide} 
+              disabled={activeSlideIdx === activeProjects.length - 1}
+              aria-label="Próximo projeto"
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
         </section>
 
@@ -426,6 +514,21 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Journey Detail Modal overlay */}
+      {activeJourneyDetail && (
+        <div className="journey-modal-overlay" onClick={() => setActiveJourneyDetail(null)}>
+          <div className="journey-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="journey-modal-close" onClick={() => setActiveJourneyDetail(null)}>&times;</button>
+            <span className="journey-modal-date">{activeJourneyDetail.date}</span>
+            <h3 className="journey-modal-title">{activeJourneyDetail.title}</h3>
+            <h4 className="journey-modal-subtitle">{activeJourneyDetail.company}</h4>
+            <div className="journey-modal-body">
+              {activeJourneyDetail.fullDescription}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

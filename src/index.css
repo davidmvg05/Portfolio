@@ -592,29 +592,63 @@ h1, h2, h3, h4 {
   margin: 0 auto;
 }
 
+.projects-carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  padding: 2.5rem 0;
+}
+
+.projects-carousel-track {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  width: max-content;
+}
+
 .project-card {
+  flex: 0 0 420px;
+  width: 420px;
   background-color: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: var(--card-shadow);
   backdrop-filter: blur(10px);
-  transition: var(--transition);
+  transition: transform 0.5s, filter 0.5s, opacity 0.5s, border-color 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
   height: 100%;
+  opacity: 0.35;
+  filter: blur(4px);
+  transform: scale(0.9);
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
+.project-card.active {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.03);
   border-color: var(--accent-purple);
-  box-shadow: 0 12px 30px var(--accent-purple-glow);
+  box-shadow: 0 15px 35px var(--accent-purple-glow);
+}
+
+.project-card.active:hover {
+  transform: scale(1.05);
 }
 
 .project-image-container {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 140px;
   background-color: #0b0c16;
   display: flex;
   align-items: center;
@@ -1103,4 +1137,164 @@ h1, h2, h3, h4 {
     flex-direction: row;
     justify-content: center;
   }
+
 }
+
+/* --- Carousel Navigation Buttons --- */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  outline: none;
+}
+
+.carousel-nav-btn:hover:not(:disabled) {
+  background-color: var(--accent-purple);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 15px var(--accent-purple-glow);
+  color: #fff;
+}
+
+.carousel-nav-btn.prev-btn {
+  left: -24px;
+}
+
+.carousel-nav-btn.next-btn {
+  right: -24px;
+}
+
+.carousel-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  color: var(--text-secondary);
+  border-color: var(--glass-border);
+}
+
+/* --- Journey Detail Modal Overlay --- */
+.journey-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.25s ease;
+  padding: 1.5rem;
+}
+
+.journey-modal-content {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  max-width: 600px;
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(25px);
+  animation: modalScaleUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  color: var(--text-primary);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.journey-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+}
+
+.journey-modal-close:hover {
+  color: var(--accent-purple);
+  transform: rotate(90deg);
+}
+
+.journey-modal-date {
+  font-family: var(--font-mono);
+  color: var(--accent-blue);
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.journey-modal-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.journey-modal-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.journey-modal-body {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive adjustments for project carousel on mobile */
+@media (max-width: 768px) {
+  .project-card {
+    flex: 0 0 290px;
+    width: 290px;
+  }
+  
+  .carousel-nav-btn.prev-btn {
+    left: -12px;
+  }
+  
+  .carousel-nav-btn.next-btn {
+    right: -12px;
+  }
+  
+  .journey-modal-content {
+    padding: 1.5rem;
+  }
+  
+  .journey-modal-title {
+    font-size: 1.5rem;
+  }
+}
+
