@@ -690,7 +690,6 @@ h1, h2, h3, h4 {
   object-fit: cover;
   transition: var(--transition);
 }
-
 .project-card:hover .project-card-image {
   transform: scale(1.05);
 }
@@ -698,9 +697,8 @@ h1, h2, h3, h4 {
 /* Branding logo layout for cards with images */
 .project-card.has-image .project-image-container {
   height: 160px;
-  background-color: #ffffff; /* Clean white background for brand logos */
+  background-color: #0b0c16;
 }
-
 .project-card.has-image .project-card-image {
   object-fit: contain;
   padding: 0.8rem;
