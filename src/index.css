@@ -606,7 +606,7 @@ h1, h2, h3, h4 {
   position: relative;
   width: 100%;
   height: 380px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .projects-carousel-track {
@@ -635,6 +635,10 @@ h1, h2, h3, h4 {
   pointer-events: none;
   transform: translateX(0) scale(0.85);
   z-index: 1;
+}
+
+.project-card.teleport {
+  transition: none !important;
 }
 
 .project-card.active {

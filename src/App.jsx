@@ -51,6 +51,7 @@ function App() {
 
   const [projectCategory, setProjectCategory] = useState('projects'); // 'projects' or 'academic'
   const [activeSlideIdx, setActiveSlideIdx] = useState(0);
+  const [teleportIdx, setTeleportIdx] = useState(null);
   const [activeJourneyDetail, setActiveJourneyDetail] = useState(null);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
@@ -170,11 +171,23 @@ function App() {
   const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
 
   const nextSlide = () => {
-    setActiveSlideIdx((prev) => (prev === activeProjects.length - 1 ? 0 : prev + 1));
+    const nextIdx = (activeSlideIdx + 1) % activeProjects.length;
+    const teleportingCard = (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length;
+    setTeleportIdx(teleportingCard);
+    setActiveSlideIdx(nextIdx);
+    setTimeout(() => {
+      setTeleportIdx(null);
+    }, 50);
   };
 
   const prevSlide = () => {
-    setActiveSlideIdx((prev) => (prev === 0 ? activeProjects.length - 1 : prev - 1));
+    const prevIdx = (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length;
+    const teleportingCard = (activeSlideIdx + 1) % activeProjects.length;
+    setTeleportIdx(teleportingCard);
+    setActiveSlideIdx(prevIdx);
+    setTimeout(() => {
+      setTeleportIdx(null);
+    }, 50);
   };
 
 
@@ -292,6 +305,10 @@ function App() {
                     cardClass += " next";
                   } else {
                     cardClass += " hidden";
+                  }
+
+                  if (idx === teleportIdx) {
+                    cardClass += " teleport";
                   }
 
                   const handleCardClick = () => {
