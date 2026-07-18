@@ -4,6 +4,7 @@ import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight } from 'lucide-react';
 import logoLego from './assets/logo_lego.webp';
+import logoMymatchcare from './assets/logo_mymatchcare.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -148,7 +149,7 @@ function App() {
       description: "Plano estratégico e operacional de marketing digital desenvolvido para a MyMatchCare, uma plataforma portuguesa que liga famílias que necessitam de cuidados domiciliários para idosos a cuidadores qualificados. O plano focou-se em canais de captação de leads e atração digital.",
       tags: ["Strategy", "Creativity", "Digital Marketing"],
       link: "https://drive.google.com/file/d/1ePLlSWq0tLf2d1wPk2B_eECeE65sAq3r/view?usp=drive_link",
-      icon: "briefcase"
+      image: logoMymatchcare
     },
     {
       title: "Planeamento de E-Commerce",
