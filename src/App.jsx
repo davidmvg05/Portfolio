@@ -146,7 +146,7 @@ function App() {
     },
     {
       title: "Plano de Marketing - MyMatchCare",
-      description: "Plano estratégico e operacional de marketing digital desenvolvido para a MyMatchCare, uma plataforma portuguesa que liga famílias que necessitam de cuidados domiciliários para idosos a cuidadores qualificados. O plano focou-se em canais de captação de leads e atração digital.",
+      description: "Plano estratégico e operacional de marketing digital desenvolvido para a MyMatchCare, uma plataforma portuguesa que liga famílias que necessitam de cuidados domiciliários para idosos a cuidadores qualificados (realizado durante o estágio mas não foi aplicado). O plano focou-se em canais de captação de leads e atração digital.",
       tags: ["Strategy", "Creativity", "Digital Marketing"],
       link: "https://drive.google.com/file/d/1ePLlSWq0tLf2d1wPk2B_eECeE65sAq3r/view?usp=drive_link",
       image: logoMymatchcare
@@ -170,15 +170,11 @@ function App() {
   const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
 
   const nextSlide = () => {
-    if (activeSlideIdx < activeProjects.length - 1) {
-      setActiveSlideIdx((prev) => prev + 1);
-    }
+    setActiveSlideIdx((prev) => (prev === activeProjects.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    if (activeSlideIdx > 0) {
-      setActiveSlideIdx((prev) => prev - 1);
-    }
+    setActiveSlideIdx((prev) => (prev === 0 ? activeProjects.length - 1 : prev - 1));
   };
 
   const isMobile = windowWidth <= 768;
@@ -287,7 +283,6 @@ function App() {
             <button 
               className="carousel-nav-btn prev-btn" 
               onClick={prevSlide} 
-              disabled={activeSlideIdx === 0}
               aria-label="Projeto anterior"
             >
               <ChevronLeft size={24} />
@@ -337,7 +332,6 @@ function App() {
             <button 
               className="carousel-nav-btn next-btn" 
               onClick={nextSlide} 
-              disabled={activeSlideIdx === activeProjects.length - 1}
               aria-label="Próximo projeto"
             >
               <ChevronRight size={24} />
