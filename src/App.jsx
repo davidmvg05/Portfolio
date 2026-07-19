@@ -5,6 +5,7 @@ import SplashCursor from './components/SplashCursor';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight } from 'lucide-react';
 import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
+import logoOmega from './assets/logo_omega.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -153,11 +154,15 @@ function App() {
       image: logoMymatchcare
     },
     {
-      title: "Planeamento de E-Commerce",
-      description: "Protótipo funcional de uma loja online com integração de carrinho e checkout, focado em facilidade de uso e design centrado no utilizador.",
-      tags: ["Figma", "UI/UX", "User Flow"],
-      link: "#projects",
-      icon: "briefcase"
+      title: "E-Commerce - Omega",
+      description: (
+        <>
+          Construção de uma loja online completa (e-Store) para a conceituada marca de relógios Omega. Se deseja explorar e testar a loja (protegida por palavra-passe), copie a seguinte frase: <strong>"Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."</strong> e envie-me através de uma <a href="#contact" className="project-desc-link">mensagem</a>.
+        </>
+      ),
+      tags: ["Shopify", "UI/UX", "Strategy"],
+      link: "https://omega-estore.myshopify.com/?pb=0",
+      image: logoOmega
     },
     {
       title: "Auditoria SEO Local",
