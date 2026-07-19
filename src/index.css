@@ -700,8 +700,8 @@ h1, h2, h3, h4 {
   background-color: #0b0c16;
 }
 .project-card.has-image .project-card-image {
-  object-fit: contain;
-  padding: 0.8rem;
+  object-fit: cover;
+  padding: 0;
 }
 
 .project-image-placeholder {
