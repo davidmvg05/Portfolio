@@ -3,8 +3,8 @@ import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight } from 'lucide-react';
-import logoLego from './assets/logo_lego.webp';
-import logoMymatchcare from './assets/logo_mymatchcare.webp';
+import logoLego from './assets/logo_lego.png';
+import logoMymatchcare from './assets/logo_mymatchcare.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
