@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
-import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check } from 'lucide-react';
 import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
 import logoOmega from './assets/logo_omega.png';
@@ -43,6 +43,31 @@ const LinkedinIcon = ({ size = 24, ...props }) => (
     <circle cx="4" cy="4" r="2" />
   </svg>
 );
+
+const CopyableText = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (e) => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
+  return (
+    <span className="copyable-text-container" onClick={handleCopy} title="Clique para copiar">
+      <span className="copyable-text-content">{text}</span>
+      <span className={`copy-tooltip-btn ${copied ? 'copied' : ''}`}>
+        {copied ? <Check size={12} /> : <Copy size={12} />}
+        <span>{copied ? 'Copiado!' : 'Copiar'}</span>
+      </span>
+    </span>
+  );
+};
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -157,7 +182,7 @@ function App() {
       title: "E-Commerce - Omega",
       description: (
         <>
-          Construção de uma loja online completa (e-Store) para a conceituada marca de relógios Omega. Se deseja explorar e testar a loja (protegida por palavra-passe), copie a seguinte frase: <strong>"Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."</strong> e envie-me através de uma <a href="#contact" className="project-desc-link">mensagem</a>.
+          Construção de uma loja online completa (e-Store) para a conceituada marca de relógios Omega. Se deseja explorar e testar a loja (protegida por palavra-passe), copie a seguinte frase: <CopyableText text="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega." /> e envie-me através de uma <a href="#contact" className="project-desc-link">mensagem</a>.
         </>
       ),
       tags: ["Shopify", "UI/UX", "Strategy"],
