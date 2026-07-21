@@ -80,6 +80,8 @@ function App() {
   const [teleportIdx, setTeleportIdx] = useState(null);
   const [activeJourneyDetail, setActiveJourneyDetail] = useState(null);
   const [isOmegaModalOpen, setIsOmegaModalOpen] = useState(false);
+  const [contactStatus, setContactStatus] = useState({ type: null, message: '' });
+  const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // Track resizing to center cards perfectly in carousel
@@ -111,6 +113,7 @@ function App() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setContactStatus({ type: 'loading', message: '⚡ A enviar mensagem...' });
     const formData = new FormData(e.target);
     formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
     formData.append("subject", "Contacto do Portfolio");
@@ -122,19 +125,22 @@ function App() {
       });
       const data = await response.json();
       if (data.success) {
-        alert('✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve.');
+        setContactStatus({ type: 'success', message: '✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve.' });
         e.target.reset();
+        // Clear message after 5 seconds
+        setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       } else {
-        alert('❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.');
+        setContactStatus({ type: 'error', message: '❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.' });
       }
     } catch (error) {
       console.error("Form submit error:", error);
-      alert('❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.');
+      setContactStatus({ type: 'error', message: '❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.' });
     }
   };
 
   const handleOmegaSubmit = async (e) => {
     e.preventDefault();
+    setOmegaStatus({ type: 'loading', message: '⚡ A enviar pedido...' });
     const formData = new FormData(e.target);
     formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
     formData.append("subject", "Pedido de Palavra-Passe Omega");
@@ -146,14 +152,19 @@ function App() {
       });
       const data = await response.json();
       if (data.success) {
-        alert('✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve.');
-        setIsOmegaModalOpen(false);
+        setOmegaStatus({ type: 'success', message: '✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve.' });
+        e.target.reset();
+        // Close modal after 3 seconds
+        setTimeout(() => {
+          setIsOmegaModalOpen(false);
+          setOmegaStatus({ type: null, message: '' });
+        }, 3000);
       } else {
-        alert('❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.');
+        setOmegaStatus({ type: 'error', message: '❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.' });
       }
     } catch (error) {
       console.error("Omega submit error:", error);
-      alert('❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.');
+      setOmegaStatus({ type: 'error', message: '❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.' });
     }
   };
 
@@ -563,10 +574,15 @@ function App() {
                 <label htmlFor="message">&lt;Mensagem/&gt;</label>
                 <textarea id="message" name="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
               </div>
-              <div className="form-submit-container">
+              <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   Enviar Transmissão <Send size={16} />
                 </button>
+                {contactStatus.message && (
+                  <p className={`form-status-msg ${contactStatus.type}`} style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}>
+                    {contactStatus.message}
+                  </p>
+                )}
               </div>
             </form>
           </div>
@@ -659,10 +675,15 @@ function App() {
                   defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
                 ></textarea>
               </div>
-              <div className="form-submit-container" style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1.5rem' }}>
+              <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   Solicitar Acesso <Send size={16} />
                 </button>
+                {omegaStatus.message && (
+                  <p className={`form-status-msg ${omegaStatus.type}`} style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}>
+                    {omegaStatus.message}
+                  </p>
+                )}
               </div>
             </form>
           </div>
