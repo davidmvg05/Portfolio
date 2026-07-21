@@ -604,15 +604,15 @@ function App() {
               setIsOmegaModalOpen(false);
             }}>
               <div className="form-group">
-                <label htmlFor="omega-name">Nome</label>
-                <input type="text" id="omega-name" required placeholder="O teu nome" />
+                <label htmlFor="omega-name">&lt;Nome/&gt;</label>
+                <input type="text" id="omega-name" required placeholder="O teu nome..." />
               </div>
               <div className="form-group">
-                <label htmlFor="omega-email">E-mail</label>
-                <input type="email" id="omega-email" required placeholder="O teu e-mail" />
+                <label htmlFor="omega-email">&lt;Email/&gt;</label>
+                <input type="email" id="omega-email" required placeholder="o.teu.email@dominio.com" />
               </div>
               <div className="form-group">
-                <label htmlFor="omega-message">Mensagem</label>
+                <label htmlFor="omega-message">&lt;Mensagem/&gt;</label>
                 <textarea 
                   id="omega-message" 
                   rows="4" 
@@ -620,8 +620,8 @@ function App() {
                   defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
                 ></textarea>
               </div>
-              <div className="form-submit-container" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
-                <button type="submit" className="cta-btn primary">
+              <div className="form-submit-container" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+                <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   Solicitar Acesso <Send size={16} />
                 </button>
               </div>

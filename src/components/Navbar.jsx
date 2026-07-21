@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
+
 
 function Navbar({ isDarkMode, toggleTheme }) {
   const [activeSection, setActiveSection] = useState('home');
@@ -82,20 +82,45 @@ function Navbar({ isDarkMode, toggleTheme }) {
             })}
           </nav>
 
-          {/* Sun / Moon Theme Switcher */}
-          <button
-            onClick={toggleTheme}
-            className="theme-toggle-btn"
-            aria-label="Toggle theme"
-          >
-            <div className={`theme-toggle-icon-container ${isDarkMode ? 'dark' : 'light'}`}>
-              {isDarkMode ? (
-                <Moon className="theme-icon moon-icon" size={20} />
-              ) : (
-                <Sun className="theme-icon sun-icon" size={20} />
-              )}
+          {/* BB-8 Toggle Switch */}
+          <label className="bb8-toggle" aria-label="Alterar tema (BB-8)">
+            <input 
+              className="bb8-toggle__checkbox" 
+              type="checkbox" 
+              checked={isDarkMode}
+              onChange={toggleTheme}
+            />
+            <div className="bb8-toggle__container">
+              <div className="bb8-toggle__scenery">
+                <div className="bb8-toggle__star"></div>
+                <div className="bb8-toggle__star"></div>
+                <div className="bb8-toggle__star"></div>
+                <div className="bb8-toggle__star"></div>
+                <div className="bb8-toggle__star"></div>
+                <div className="bb8-toggle__star"></div>
+                <div className="bb8-toggle__star"></div>
+                <div className="tatto-1"></div>
+                <div className="tatto-2"></div>
+                <div className="gomrassen"></div>
+                <div className="hermes"></div>
+                <div className="chenini"></div>
+                <div className="bb8-toggle__cloud"></div>
+                <div className="bb8-toggle__cloud"></div>
+                <div className="bb8-toggle__cloud"></div>
+              </div>
+              <div className="bb8">
+                <div className="bb8__head-container">
+                  <div className="bb8__antenna"></div>
+                  <div className="bb8__antenna"></div>
+                  <div className="bb8__head"></div>
+                </div>
+                <div className="bb8__body"></div>
+              </div>
+              <div className="artificial__hidden">
+                <div className="bb8__shadow"></div>
+              </div>
             </div>
-          </button>
+          </label>
         </div>
       </div>
     </header>
