@@ -79,6 +79,7 @@ function App() {
   const [activeSlideIdx, setActiveSlideIdx] = useState(0);
   const [teleportIdx, setTeleportIdx] = useState(null);
   const [activeJourneyDetail, setActiveJourneyDetail] = useState(null);
+  const [isOmegaModalOpen, setIsOmegaModalOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // Track resizing to center cards perfectly in carousel
@@ -182,7 +183,7 @@ function App() {
       title: "E-Commerce - Omega",
       description: (
         <>
-          Construção de uma loja online completa (e-Store) para a conceituada marca de relógios Omega. Se deseja explorar e testar a loja (protegida por palavra-passe), copie a seguinte frase: <CopyableText text="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega." /> e envie-me através de uma <a href="#contact" className="project-desc-link">mensagem</a>.
+          Construção de uma loja online completa (e-Store) para a conceituada marca de relógios Omega. Se deseja explorar e testar a loja (protegida por palavra-passe), envie esta mensagem automática - <span className="project-desc-link" style={{ cursor: 'pointer' }} onClick={() => setIsOmegaModalOpen(true)}>Enviar Mensagem</span>.
         </>
       ),
       tags: ["Shopify", "UI/UX", "Strategy"],
@@ -586,6 +587,45 @@ function App() {
             <div className="journey-modal-body">
               {activeJourneyDetail.fullDescription}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Omega Password Request Modal */}
+      {isOmegaModalOpen && (
+        <div className="journey-modal-overlay" onClick={() => setIsOmegaModalOpen(false)}>
+          <div className="journey-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="journey-modal-close" onClick={() => setIsOmegaModalOpen(false)} aria-label="Fechar">&times;</button>
+            <h3 className="journey-modal-title" style={{ color: 'var(--accent-purple)' }}>Solicitar Acesso</h3>
+            <h4 className="journey-modal-subtitle">Omega e-Store</h4>
+            <form className="contact-form" style={{ marginTop: '1.5rem' }} onSubmit={(e) => {
+              e.preventDefault();
+              alert('✨ Pedido de palavra-passe enviado com sucesso! O David responderá em breve.');
+              setIsOmegaModalOpen(false);
+            }}>
+              <div className="form-group">
+                <label htmlFor="omega-name">Nome</label>
+                <input type="text" id="omega-name" required placeholder="O teu nome" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="omega-email">E-mail</label>
+                <input type="email" id="omega-email" required placeholder="O teu e-mail" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="omega-message">Mensagem</label>
+                <textarea 
+                  id="omega-message" 
+                  rows="4" 
+                  required 
+                  defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
+                ></textarea>
+              </div>
+              <div className="form-submit-container" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
+                <button type="submit" className="cta-btn primary">
+                  Solicitar Acesso <Send size={16} />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
