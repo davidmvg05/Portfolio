@@ -620,7 +620,7 @@ function App() {
                   defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
                 ></textarea>
               </div>
-              <div className="form-submit-container" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+              <div className="form-submit-container" style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   Solicitar Acesso <Send size={16} />
                 </button>
