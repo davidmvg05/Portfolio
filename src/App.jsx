@@ -109,10 +109,52 @@ function App() {
     setIsDarkMode((prev) => !prev);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    alert('✨ A tua mensagem foi transmitida com sucesso através da galáxia! O David responderá em breve.');
-    e.target.reset();
+    const formData = new FormData(e.target);
+    formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
+    formData.append("subject", "Contacto do Portfolio");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert('✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve.');
+        e.target.reset();
+      } else {
+        alert('❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.');
+      }
+    } catch (error) {
+      console.error("Form submit error:", error);
+      alert('❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.');
+    }
+  };
+
+  const handleOmegaSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
+    formData.append("subject", "Pedido de Palavra-Passe Omega");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert('✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve.');
+        setIsOmegaModalOpen(false);
+      } else {
+        alert('❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.');
+      }
+    } catch (error) {
+      console.error("Omega submit error:", error);
+      alert('❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.');
+    }
   };
 
   const journeyItems = [
@@ -511,15 +553,15 @@ function App() {
             <form className="contact-form" onSubmit={handleFormSubmit}>
               <div className="form-group">
                 <label htmlFor="name">&lt;Nome/&gt;</label>
-                <input type="text" id="name" required placeholder="O teu nome..." />
+                <input type="text" id="name" name="name" required placeholder="O teu nome..." />
               </div>
               <div className="form-group">
                 <label htmlFor="email">&lt;Email/&gt;</label>
-                <input type="email" id="email" required placeholder="o.teu.email@dominio.com" />
+                <input type="email" id="email" name="email" required placeholder="o.teu.email@dominio.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="message">&lt;Mensagem/&gt;</label>
-                <textarea id="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
+                <textarea id="message" name="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
               </div>
               <div className="form-submit-container">
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -598,23 +640,20 @@ function App() {
             <button className="journey-modal-close" onClick={() => setIsOmegaModalOpen(false)} aria-label="Fechar">&times;</button>
             <h3 className="journey-modal-title" style={{ color: 'var(--accent-purple)' }}>Solicitar Acesso</h3>
             <h4 className="journey-modal-subtitle">Omega e-Store</h4>
-            <form className="contact-form" style={{ marginTop: '1.5rem' }} onSubmit={(e) => {
-              e.preventDefault();
-              alert('✨ Pedido de palavra-passe enviado com sucesso! O David responderá em breve.');
-              setIsOmegaModalOpen(false);
-            }}>
+            <form className="contact-form" style={{ marginTop: '1.5rem' }} onSubmit={handleOmegaSubmit}>
               <div className="form-group">
                 <label htmlFor="omega-name">&lt;Nome/&gt;</label>
-                <input type="text" id="omega-name" required placeholder="O teu nome..." />
+                <input type="text" id="omega-name" name="name" required placeholder="O teu nome..." />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-email">&lt;Email/&gt;</label>
-                <input type="email" id="omega-email" required placeholder="o.teu.email@dominio.com" />
+                <input type="email" id="omega-email" name="email" required placeholder="o.teu.email@dominio.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-message">&lt;Mensagem/&gt;</label>
                 <textarea 
                   id="omega-message" 
+                  name="message"
                   rows="4" 
                   required 
                   defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
