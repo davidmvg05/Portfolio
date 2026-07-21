@@ -119,11 +119,15 @@ function App() {
     formData.append("subject", "Contacto do Portfolio");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const fetchPromise = fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData
       });
+      const delayPromise = new Promise(resolve => setTimeout(resolve, 3000));
+      
+      const [response] = await Promise.all([fetchPromise, delayPromise]);
       const data = await response.json();
+
       if (data.success) {
         setContactStatus({ type: 'success', message: '✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve.' });
         e.target.reset();
@@ -131,10 +135,14 @@ function App() {
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       } else {
         setContactStatus({ type: 'error', message: '❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.' });
+        // Clear message after 5 seconds
+        setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       }
     } catch (error) {
       console.error("Form submit error:", error);
       setContactStatus({ type: 'error', message: '❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.' });
+      // Clear message after 5 seconds
+      setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
     }
   };
 
@@ -146,25 +154,33 @@ function App() {
     formData.append("subject", "Pedido de Palavra-Passe Omega");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const fetchPromise = fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData
       });
+      const delayPromise = new Promise(resolve => setTimeout(resolve, 3000));
+
+      const [response] = await Promise.all([fetchPromise, delayPromise]);
       const data = await response.json();
+
       if (data.success) {
         setOmegaStatus({ type: 'success', message: '✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve.' });
         e.target.reset();
-        // Close modal after 3 seconds
+        // Close modal after 5 seconds
         setTimeout(() => {
           setIsOmegaModalOpen(false);
           setOmegaStatus({ type: null, message: '' });
-        }, 3000);
+        }, 5000);
       } else {
         setOmegaStatus({ type: 'error', message: '❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.' });
+        // Clear message after 5 seconds
+        setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
       }
     } catch (error) {
       console.error("Omega submit error:", error);
       setOmegaStatus({ type: 'error', message: '❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.' });
+      // Clear message after 5 seconds
+      setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
     }
   };
 
