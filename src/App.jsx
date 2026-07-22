@@ -82,6 +82,8 @@ function App() {
   const [isOmegaModalOpen, setIsOmegaModalOpen] = useState(false);
   const [contactStatus, setContactStatus] = useState({ type: null, message: '' });
   const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
+  const [typedWords, setTypedWords] = useState(["", "", ""]);
+  const [activeWordIdx, setActiveWordIdx] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // Track resizing to center cards perfectly in carousel
@@ -89,6 +91,48 @@ function App() {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Sequential typing animation for Websites, Ads, Automations in My Journey
+  useEffect(() => {
+    const words = ["Websites", "Ads", "Automations"];
+    let currentWordIdx = 0;
+    let currentCharIdx = 0;
+    let currentText = ["", "", ""];
+    let timeoutId;
+
+    const type = () => {
+      if (currentWordIdx >= words.length) {
+        setActiveWordIdx(-1);
+        // Wait 4 seconds after typing all three words, then restart
+        timeoutId = setTimeout(() => {
+          currentWordIdx = 0;
+          currentCharIdx = 0;
+          currentText = ["", "", ""];
+          setTypedWords(["", "", ""]);
+          setActiveWordIdx(0);
+          type();
+        }, 4000);
+        return;
+      }
+
+      setActiveWordIdx(currentWordIdx);
+      const targetWord = words[currentWordIdx];
+      if (currentCharIdx < targetWord.length) {
+        currentText[currentWordIdx] += targetWord[currentCharIdx];
+        setTypedWords([...currentText]);
+        currentCharIdx++;
+        timeoutId = setTimeout(type, 120); // Typing speed per character
+      } else {
+        // Word typed, delay slightly before starting next word
+        currentWordIdx++;
+        currentCharIdx = 0;
+        timeoutId = setTimeout(type, 400);
+      }
+    };
+
+    type();
+    return () => clearTimeout(timeoutId);
   }, []);
 
   // Apply theme attributes to document element
@@ -390,9 +434,18 @@ function App() {
             {/* Left Side: Waving Words & Stats */}
             <div className="journey-left">
               <div className="waving-words-container">
-                <span className="waving-word">Websites</span>
-                <span className="waving-word">Ads</span>
-                <span className="waving-word">Automations</span>
+                <span className="waving-word">
+                  {typedWords[0]}
+                  {activeWordIdx === 0 && <span className="typing-cursor">|</span>}
+                </span>
+                <span className="waving-word">
+                  {typedWords[1]}
+                  {activeWordIdx === 1 && <span className="typing-cursor">|</span>}
+                </span>
+                <span className="waving-word">
+                  {typedWords[2]}
+                  {activeWordIdx === 2 && <span className="typing-cursor">|</span>}
+                </span>
               </div>
               <div className="journey-squares-grid">
                 <div className="journey-info-square">
