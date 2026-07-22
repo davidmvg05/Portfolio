@@ -579,15 +579,27 @@ function App() {
             </div>
             <form className="contact-form" onSubmit={handleFormSubmit}>
               <div className="form-group">
-                <label htmlFor="name">&lt;Nome/&gt;</label>
+                <label htmlFor="name" className="form-label-bracketed">
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">Nome</span>
+                  <span className="bracket">/&gt;</span>
+                </label>
                 <input type="text" id="name" name="name" required placeholder="O teu nome..." />
               </div>
               <div className="form-group">
-                <label htmlFor="email">&lt;Email/&gt;</label>
-                <input type="email" id="email" name="email" required placeholder="o.teu.email@dominio.com" />
+                <label htmlFor="email" className="form-label-bracketed">
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">Email</span>
+                  <span className="bracket">/&gt;</span>
+                </label>
+                <input type="email" id="email" name="email" required placeholder="seu@email.com" />
               </div>
               <div className="form-group">
-                <label htmlFor="message">&lt;Mensagem/&gt;</label>
+                <label htmlFor="message" className="form-label-bracketed">
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">Mensagem</span>
+                  <span className="bracket">/&gt;</span>
+                </label>
                 <textarea id="message" name="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
               </div>
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -674,15 +686,27 @@ function App() {
             <h4 className="journey-modal-subtitle">Omega e-Store</h4>
             <form className="contact-form" style={{ marginTop: '1.5rem' }} onSubmit={handleOmegaSubmit}>
               <div className="form-group">
-                <label htmlFor="omega-name">&lt;Nome/&gt;</label>
+                <label htmlFor="omega-name" className="form-label-bracketed">
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">Nome</span>
+                  <span className="bracket">/&gt;</span>
+                </label>
                 <input type="text" id="omega-name" name="name" required placeholder="O teu nome..." />
               </div>
               <div className="form-group">
-                <label htmlFor="omega-email">&lt;Email/&gt;</label>
-                <input type="email" id="omega-email" name="email" required placeholder="o.teu.email@dominio.com" />
+                <label htmlFor="omega-email" className="form-label-bracketed">
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">Email</span>
+                  <span className="bracket">/&gt;</span>
+                </label>
+                <input type="email" id="omega-email" name="email" required placeholder="seu@email.com" />
               </div>
               <div className="form-group">
-                <label htmlFor="omega-message">&lt;Mensagem/&gt;</label>
+                <label htmlFor="omega-message" className="form-label-bracketed">
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">Mensagem</span>
+                  <span className="bracket">/&gt;</span>
+                </label>
                 <textarea 
                   id="omega-message" 
                   name="message"

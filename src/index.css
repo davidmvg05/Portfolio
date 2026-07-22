@@ -24,7 +24,7 @@
 
 [data-theme='light'] {
   /* Light Mode */
-  --bg-primary: #f5f6fa;
+  --bg-primary: #e5e5e5;
   --bg-secondary: #ffffff;
   --text-primary: #121829;
   --text-secondary: #5a6485;
@@ -1056,6 +1056,10 @@ h1, h2, h3, h4 {
   padding: 4rem 2rem 2rem 2rem;
   margin-top: 5rem;
   width: 100%;
+}
+
+[data-theme='light'] .site-footer {
+  background-color: #76767666;
 }
 
 .footer-container {
@@ -2378,4 +2382,33 @@ h1, h2, h3, h4 {
 .form-status-msg.error {
   color: #ef4444;
   text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* --- Form Label Bracketed Styling --- */
+.form-label-bracketed {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.form-label-bracketed .bracket {
+  color: var(--accent-blue);
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+
+.form-label-bracketed .link-text {
+  color: var(--accent-purple);
+  margin: 0 0.2rem;
+  transition: var(--transition);
+}
+
+.form-group:focus-within .form-label-bracketed .bracket {
+  text-shadow: 0 0 8px var(--accent-blue-glow);
+}
+
+.form-group:focus-within .form-label-bracketed .link-text {
+  text-shadow: 0 0 8px var(--accent-purple-glow);
 }
