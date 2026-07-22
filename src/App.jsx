@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
@@ -84,7 +84,10 @@ function App() {
   const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
   const [typedWords, setTypedWords] = useState(["", "", ""]);
   const [activeWordIdx, setActiveWordIdx] = useState(0);
+  const [startTyping, setStartTyping] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  
+  const journeyRef = useRef(null);
 
   // Track resizing to center cards perfectly in carousel
   useEffect(() => {
@@ -93,8 +96,29 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Intersection Observer to trigger typing only when My Journey is visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStartTyping(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (journeyRef.current) {
+      observer.observe(journeyRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   // Sequential typing animation for Websites, Ads, Automations in My Journey
   useEffect(() => {
+    if (!startTyping) return;
+    
     const words = ["Websites", "Ads", "Automations"];
     let currentWordIdx = 0;
     let currentCharIdx = 0;
@@ -242,58 +266,49 @@ function App() {
     },
     {
       date: "2024-2026",
-      title: "Marketing Digital",
+      title: "CTeSP em Marketing Digital",
       company: "IPLUSO",
-      description: "Especialização em planeamento estratégico, SEO, e-commerce e análise de dados para tomada de decisões digitais.",
-      fullDescription: "O Curso Técnico Superior Profissional (CTeSP) em Marketing Digital na IPLUSO proporcionou-me uma base académica sólida e prática em diversas vertentes da comunicação digital, com foco em:\n\n" +
-        "• **Estratégia e Marketing Digital**: Definição de personas, jornadas de compra e planeamento integrado de presença online.\n" +
-        "• **SEO (Search Engine Optimization)**: Otimização técnica de páginas web e estratégias de conteúdos para melhorar o posicionamento orgânico nos motores de pesquisa.\n" +
-        "• **E-Commerce**: Gestão e estruturação de lojas online, análise de plataformas de venda e implementação de métodos de conversão digital.\n" +
-        "• **Web Analytics e Publicidade**: Criação de campanhas de tráfego pago e análise aprofundada de dados através do Google Analytics para apoio à tomada de decisões estratégicas.",
+      description: "Conclusão do CTeSP no IPLUSO com média final de 17.00.",
+      fullDescription: "Conclusão do CTeSP em Marketing Digital na IPLUSO com média final de 17.00. Tendo obtido as seguintes classificações:",
       grades: [
-        { subject: "Introdução ao Marketing", score: "17" },
-        { subject: "Comunicação e Relações Públicas", score: "16" },
-        { subject: "SEO e Posicionamento Orgânico", score: "18" },
-        { subject: "SEM e Publicidade Paga", score: "17" },
-        { subject: "Gestão de Redes Sociais (Social Media)", score: "18" },
-        { subject: "E-Commerce e Lojas Online", score: "17" },
-        { subject: "UX/UI e Web Design", score: "16" },
-        { subject: "Copywriting e Marketing de Conteúdo", score: "17" },
-        { subject: "Web Analytics e Google Analytics", score: "17" },
-        { subject: "Email Marketing e Automação", score: "18" },
-        { subject: "Estratégia de Marketing Digital", score: "18" },
-        { subject: "Comportamento do Consumidor Online", score: "17" },
-        { subject: "Marketing de Afiliados e Influenciadores", score: "16" },
-        { subject: "Legislação e Ética no Digital", score: "15" },
-        { subject: "Empreendedorismo Digital", score: "17" },
-        { subject: "Inglês Técnico Aplicado", score: "18" },
-        { subject: "Projeto Final / Estágio", score: "18" }
+        { subject: "Marketing para Dispositivos Móveis", score: "20" },
+        { subject: "Marketing Digital", score: "19" },
+        { subject: "Português e Técnicas de Comunicação", score: "19" },
+        { subject: "Fundamentos de Linguagens Web", score: "19" },
+        { subject: "Estratégia e Planeamento de Campanhas", score: "19" },
+        { subject: "Métricas e Avaliação de Desempenho", score: "19" },
+        { subject: "Estágio", score: "19" },
+        { subject: "Marketing em Redes Sociais", score: "18" },
+        { subject: "Estudos de Mercado", score: "18" },
+        { subject: "Ecommerce", score: "17" },
+        { subject: "E-mail Marketing", score: "16" },
+        { subject: "Composição de Imagem Digital", score: "16" },
+        { subject: "Optimização para Motores de Pesquisa", score: "16" },
+        { subject: "Marketing de Conteúdos", score: "16" },
+        { subject: "Sistemas e Gestão de Conteúdo Online", score: "16" },
+        { subject: "Publicidade Online", score: "16" },
+        { subject: "Direito da Comunicação e da Informação", score: "14" },
+        { subject: "Fundamentos de Marketing", score: "14" },
+        { subject: "Comportamento do Consumidor", score: "11" },
+        { subject: "Inglês", score: "10" }
       ]
     },
     {
-      date: "2019-2022",
+      date: "2019-2023",
       title: "Conclusão do Ensino Secundário - Ciências e Tecnologia",
       company: "Ensino Secundário",
-      description: "Completion of regular, scientific-humanistic high school in Science and Technology.",
-      fullDescription: "Conclusão do ensino secundário regular científico-humanístico na área de Ciências e Tecnologia, desenvolvendo raciocínio lógico, analítico e de métodos científicos nas seguintes áreas de estudo:",
+      description: "Conclusão do Ensino Secundário - Curso Científico-Humanístico de Ciências e Tecnologias, com a classificação final de 15 valores.",
+      fullDescription: "Conclusão do Ensino Secundário - Curso Científico-Humanístico de Ciências e Tecnologias, conferente do nivel 3 de qualificação do Quadro Nacional de Qualificações e do Quadro Europeu de Qualificações, com a classificação final de 15 valores.  Tendo obtido as seguintes classificações:",
       grades: [
-        { subject: "Português", score: "16" },
-        { subject: "Matemática A", score: "17" },
-        { subject: "Física e Química A", score: "16" },
-        { subject: "Biologia e Geologia", score: "17" },
-        { subject: "Filosofia", score: "15" },
-        { subject: "Inglês", score: "18" },
         { subject: "Educação Física", score: "17" },
-        { subject: "Biologia", score: "17" },
-        { subject: "Química", score: "16" },
-        { subject: "Física", score: "17" },
-        { subject: "Geologia", score: "16" },
-        { subject: "Aplicações Informáticas B", score: "18" },
-        { subject: "Geometria Descritiva A", score: "16" },
-        { subject: "Introdução às Ciências", score: "16" },
-        { subject: "Métodos Científicos", score: "17" },
-        { subject: "Cidadania e Desenvolvimento", score: "19" },
-        { subject: "Projeto de Ciências", score: "18" }
+        { subject: "Biologia e Geologia", score: "17" },
+        { subject: "Filosofia", score: "16" },
+        { subject: "Psicologia B", score: "16" },
+        { subject: "Inglês", score: "15" },
+        { subject: "Português", score: "13" },
+        { subject: "Matemática A", score: "13" },
+        { subject: "Física e Química A", score: "13" },
+        { subject: "Biologia", score: "13" }
       ]
     }
   ];
@@ -428,7 +443,7 @@ function App() {
         </section>
 
         {/* --- Journey Section --- */}
-        <section id="journey">
+        <section id="journey" ref={journeyRef}>
           <h2 className="section-title">My Journey</h2>
           <div className="journey-container">
             {/* Left Side: Waving Words & Stats */}
