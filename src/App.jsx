@@ -96,28 +96,8 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Scroll listener to trigger typing when page is scrolled 1%
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight <= 0) return;
-      const scrollPercent = (window.scrollY / scrollHeight) * 100;
-      if (scrollPercent >= 1) {
-        setStartTyping(true);
-        window.removeEventListener('scroll', handleScroll);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // run once immediately in case page is already scrolled
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Sequential typing animation for Websites, Ads, Automations in My Journey
   useEffect(() => {
-    if (!startTyping) return;
-    
     const words = ["Websites", "Ads", "Automations"];
     let currentWordIdx = 0;
     let currentCharIdx = 0;
