@@ -96,23 +96,22 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Intersection Observer to trigger typing only when My Journey is visible
+  // Scroll listener to trigger typing when page is scrolled 1%
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStartTyping(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight <= 0) return;
+      const scrollPercent = (window.scrollY / scrollHeight) * 100;
+      if (scrollPercent >= 1) {
+        setStartTyping(true);
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
 
-    if (journeyRef.current) {
-      observer.observe(journeyRef.current);
-    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // run once immediately in case page is already scrolled
 
-    return () => observer.disconnect();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Sequential typing animation for Websites, Ads, Automations in My Journey
