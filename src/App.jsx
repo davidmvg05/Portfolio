@@ -197,7 +197,7 @@ function App() {
         "• **Análise de Dados**: Utilização de ferramentas analíticas para monitorização de tráfego, cliques e comportamento do utilizador, gerando relatórios de desempenho mensais."
     },
     {
-      date: "2023 - 2026",
+      date: "2024-2026",
       title: "Marketing Digital",
       company: "IPLUSO",
       description: "Especialização em planeamento estratégico, SEO, e-commerce e análise de dados para tomada de decisões digitais.",
@@ -205,7 +205,52 @@ function App() {
         "• **Estratégia e Marketing Digital**: Definição de personas, jornadas de compra e planeamento integrado de presença online.\n" +
         "• **SEO (Search Engine Optimization)**: Otimização técnica de páginas web e estratégias de conteúdos para melhorar o posicionamento orgânico nos motores de pesquisa.\n" +
         "• **E-Commerce**: Gestão e estruturação de lojas online, análise de plataformas de venda e implementação de métodos de conversão digital.\n" +
-        "• **Web Analytics e Publicidade**: Criação de campanhas de tráfego pago e análise aprofundada de dados através do Google Analytics para apoio à tomada de decisões estratégicas."
+        "• **Web Analytics e Publicidade**: Criação de campanhas de tráfego pago e análise aprofundada de dados através do Google Analytics para apoio à tomada de decisões estratégicas.",
+      grades: [
+        { subject: "Introdução ao Marketing", score: "17" },
+        { subject: "Comunicação e Relações Públicas", score: "16" },
+        { subject: "SEO e Posicionamento Orgânico", score: "18" },
+        { subject: "SEM e Publicidade Paga", score: "17" },
+        { subject: "Gestão de Redes Sociais (Social Media)", score: "18" },
+        { subject: "E-Commerce e Lojas Online", score: "17" },
+        { subject: "UX/UI e Web Design", score: "16" },
+        { subject: "Copywriting e Marketing de Conteúdo", score: "17" },
+        { subject: "Web Analytics e Google Analytics", score: "17" },
+        { subject: "Email Marketing e Automação", score: "18" },
+        { subject: "Estratégia de Marketing Digital", score: "18" },
+        { subject: "Comportamento do Consumidor Online", score: "17" },
+        { subject: "Marketing de Afiliados e Influenciadores", score: "16" },
+        { subject: "Legislação e Ética no Digital", score: "15" },
+        { subject: "Empreendedorismo Digital", score: "17" },
+        { subject: "Inglês Técnico Aplicado", score: "18" },
+        { subject: "Projeto Final / Estágio", score: "18" }
+      ]
+    },
+    {
+      date: "2019-2022",
+      title: "Conclusão do Ensino Secundário - Ciências e Tecnologia",
+      company: "Ensino Secundário",
+      description: "Completion of regular, scientific-humanistic high school in Science and Technology.",
+      fullDescription: "Conclusão do ensino secundário regular científico-humanístico na área de Ciências e Tecnologia, desenvolvendo raciocínio lógico, analítico e de métodos científicos nas seguintes áreas de estudo:",
+      grades: [
+        { subject: "Português", score: "16" },
+        { subject: "Matemática A", score: "17" },
+        { subject: "Física e Química A", score: "16" },
+        { subject: "Biologia e Geologia", score: "17" },
+        { subject: "Filosofia", score: "15" },
+        { subject: "Inglês", score: "18" },
+        { subject: "Educação Física", score: "17" },
+        { subject: "Biologia", score: "17" },
+        { subject: "Química", score: "16" },
+        { subject: "Física", score: "17" },
+        { subject: "Geologia", score: "16" },
+        { subject: "Aplicações Informáticas B", score: "18" },
+        { subject: "Geometria Descritiva A", score: "16" },
+        { subject: "Introdução às Ciências", score: "16" },
+        { subject: "Métodos Científicos", score: "17" },
+        { subject: "Cidadania e Desenvolvimento", score: "19" },
+        { subject: "Projeto de Ciências", score: "18" }
+      ]
     }
   ];
 
@@ -341,25 +386,49 @@ function App() {
         {/* --- Journey Section --- */}
         <section id="journey">
           <h2 className="section-title">My Journey</h2>
-          <div className="timeline">
-            {journeyItems.map((item, idx) => (
-              <div key={idx} className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-card">
-                  <div className="timeline-date">{item.date}</div>
-                  <h3>{item.title}</h3>
-                  <h4>{item.company}</h4>
-                  <p>{item.description}</p>
-                  <button 
-                    className="btn btn-secondary btn-sm" 
-                    style={{ marginTop: '1.2rem', padding: '0.4rem 1.2rem', fontSize: '0.85rem' }}
-                    onClick={() => setActiveJourneyDetail(item)}
-                  >
-                    Ver Mais
-                  </button>
+          <div className="journey-container">
+            {/* Left Side: Waving Words & Stats */}
+            <div className="journey-left">
+              <div className="waving-words-container">
+                <span className="waving-word">Websites</span>
+                <span className="waving-word">Ads</span>
+                <span className="waving-word">Automations</span>
+              </div>
+              <div className="journey-squares-grid">
+                <div className="journey-info-square">
+                  <div className="journey-square-val-big">17.00</div>
+                  <div className="journey-square-lbl">Nota final</div>
+                </div>
+                <div className="journey-info-square">
+                  <div className="journey-square-val-text">Marketing Digital</div>
+                  <div className="journey-square-lbl">Especialização</div>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Right Side: Timeline Cards */}
+            <div className="journey-right">
+              <div className="timeline-right-aligned">
+                {journeyItems.map((item, idx) => (
+                  <div key={idx} className="timeline-right-item">
+                    <div className="timeline-right-dot"></div>
+                    <div className="timeline-right-card">
+                      <div className="timeline-date">{item.date}</div>
+                      <h3>{item.title}</h3>
+                      <h4>{item.company}</h4>
+                      <p>{item.description}</p>
+                      <button 
+                        className="btn btn-secondary btn-sm" 
+                        style={{ marginTop: '1.2rem', padding: '0.4rem 1.2rem', fontSize: '0.85rem' }}
+                        onClick={() => setActiveJourneyDetail(item)}
+                      >
+                        Ver Mais
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -671,7 +740,28 @@ function App() {
             <h3 className="journey-modal-title">{activeJourneyDetail.title}</h3>
             <h4 className="journey-modal-subtitle">{activeJourneyDetail.company}</h4>
             <div className="journey-modal-body">
-              {activeJourneyDetail.fullDescription}
+              <p style={{ whiteSpace: 'pre-wrap' }}>{activeJourneyDetail.fullDescription}</p>
+              
+              {activeJourneyDetail.grades && (
+                <div className="journey-grades-table-container">
+                  <table className="journey-grades-table">
+                    <thead>
+                      <tr>
+                        <th>Nome da Disciplina</th>
+                        <th>Nota (- /20)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activeJourneyDetail.grades.map((grade, gIdx) => (
+                        <tr key={gIdx}>
+                          <td>{grade.subject}</td>
+                          <td>{grade.score}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         </div>
