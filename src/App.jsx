@@ -86,6 +86,7 @@ function App() {
   const [activeWordIdx, setActiveWordIdx] = useState(0);
   const [activeProjectId, setActiveProjectId] = useState(null);
   const [isPdfFullscreen, setIsPdfFullscreen] = useState(false);
+  const [activePdfUrl, setActivePdfUrl] = useState(null);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   
   const journeyRef = useRef(null);
@@ -620,6 +621,9 @@ function App() {
                               onClick={(e) => {
                                 e.preventDefault();
                                 setActiveProjectId(project.id);
+                                if (projectDetails[project.id]) {
+                                  setActivePdfUrl(projectDetails[project.id].pdfUrl);
+                                }
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                               }}
                             >
@@ -815,7 +819,7 @@ function App() {
                 <div className="project-page-left">
                   <div className="pdf-viewer-card">
                     <iframe 
-                      src={project.pdfUrl} 
+                      src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
                       title={project.title} 
                       className="pdf-iframe"
                     ></iframe>
@@ -832,9 +836,29 @@ function App() {
                     <ul className="doc-list">
                       {project.documents.map((doc, idx) => (
                         <li key={idx}>
-                          <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
-                            {doc.name} &rarr;
-                          </a>
+                          {doc.external ? (
+                            <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
+                              {doc.name} &rarr;
+                            </a>
+                          ) : (
+                            <button 
+                              onClick={() => setActivePdfUrl(doc.url)} 
+                              className="doc-link-btn"
+                              style={{
+                                background: 'none',
+                                border: 'none',
+                                padding: 0,
+                                font: 'inherit',
+                                cursor: 'pointer',
+                                textAlign: 'left',
+                                color: (activePdfUrl || project.pdfUrl) === doc.url ? 'var(--accent-purple)' : 'var(--accent-blue)',
+                                fontWeight: (activePdfUrl || project.pdfUrl) === doc.url ? '700' : '500',
+                                transition: 'var(--transition)'
+                              }}
+                            >
+                              {doc.name} {(activePdfUrl || project.pdfUrl) === doc.url ? '👁️' : '→'}
+                            </button>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -875,7 +899,7 @@ function App() {
               {isPdfFullscreen && (
                 <div className="pdf-fullscreen-overlay">
                   <button className="pdf-fullscreen-close" onClick={() => setIsPdfFullscreen(false)}>&times; Fechar</button>
-                  <iframe src={project.pdfUrl} title={project.title} className="pdf-fullscreen-iframe"></iframe>
+                  <iframe src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} title={project.title} className="pdf-fullscreen-iframe"></iframe>
                 </div>
               )}
             </div>
