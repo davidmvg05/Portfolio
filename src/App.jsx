@@ -374,11 +374,11 @@ function App() {
     },
     omega: {
       title: "E-Commerce - Omega",
-      description: "Construção de uma loja online completa (e-Store) para a marca OMEGA. Um projeto académico completo focado na transposição de comércio eletrónico premium. A loja OMEGA e-Store foi desenhada com fricção positiva e foco em branding. Pode testar a loja no Shopify ou solicitar a palavra-passe diretamente abaixo.",
+      description: "Construção de uma loja online completa (e-Store) para a marca OMEGA. Um projeto académico completo focado na transposição de comércio eletrónico premium. A loja OMEGA e-Store foi desenhada com fricção positiva e foco em branding. Pode testar a loja no Shopify diretamente abaixo.",
       pdfUrl: "./documents/omega_memoria.pdf",
       documents: [
         { name: "Memória Descritiva e Justificativa (PDF)", url: "./documents/omega_memoria.pdf" },
-        { name: "Loja Online Shopify (Palavra-passe: ai?nuncausei)", url: "https://omega-estore.myshopify.com/?pb=0", external: true }
+        { name: "Loja Online Shopify", url: "https://omega-estore.myshopify.com/?pb=0", external: true }
       ],
       skills: ["E-Commerce Strategy", "UI/UX Design", "Positive Friction Branding", "Copywriting"],
       platforms: ["Shopify", "Figma", "Canva", "Google ColorZilla"]
@@ -832,15 +832,9 @@ function App() {
                     <ul className="doc-list">
                       {project.documents.map((doc, idx) => (
                         <li key={idx}>
-                          {doc.external ? (
-                            <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
-                              {doc.name} &rarr;
-                            </a>
-                          ) : (
-                            <a href={doc.url} download className="doc-link">
-                              {doc.name} &darr;
-                            </a>
-                          )}
+                          <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
+                            {doc.name} &rarr;
+                          </a>
                         </li>
                       ))}
                     </ul>
@@ -848,7 +842,7 @@ function App() {
                     {activeProjectId === 'omega' && (
                       <div className="omega-action-container" style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px dashed var(--glass-border)' }}>
                         <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                          Se deseja explorar e testar a loja (protegida por palavra-passe), envie esta mensagem automática:
+                          Se deseja explorar e testar a loja, envie esta mensagem automática:
                         </p>
                         <button className="btn btn-primary" onClick={() => setIsOmegaModalOpen(true)}>
                           Enviar Mensagem
