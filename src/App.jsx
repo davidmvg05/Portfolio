@@ -358,7 +358,7 @@ function App() {
       description: "Plano estratégico focado em estabelecer a presença digital da LEGO nas redes sociais em Portugal. De forma a evitar a desativação das contas por direitos de autor, as contas de redes sociais foram criadas sob o nome LE9O. O plano aborda análises de público, calendário editorial de posts e dinâmicas criativas específicas para o público português.",
       pdfUrl: "./documents/lego_social_media.pdf",
       documents: [
-        { name: "Plano de Social Media LE9O (PDF)", url: "./documents/lego_social_media.pdf" }
+        { name: "Plano de Social Media LE9O", url: "./documents/lego_social_media.pdf" }
       ],
       skills: ["Strategy", "Social Media Marketing", "Creativity", "Planeamento Editorial"],
       platforms: ["Instagram", "Facebook", "TikTok", "Canva"]
@@ -368,7 +368,7 @@ function App() {
       description: "Plano estratégico e operacional de marketing digital desenvolvido para a plataforma de cuidados domiciliários MyMatchCare. Desenvolvido durante o estágio de Marketing Digital, este plano foca-se em canais de captação orgânica e tráfego pago para conectar famílias e cuidadores qualificados. Embora estruturado de forma operacional, o plano não chegou a ser aplicado pela marca.",
       pdfUrl: "./documents/mymatchcare_plan.pdf",
       documents: [
-        { name: "Plano de Marketing MyMatchCare (PDF)", url: "./documents/mymatchcare_plan.pdf" }
+        { name: "Plano de Marketing MyMatchCare", url: "./documents/mymatchcare_plan.pdf" }
       ],
       skills: ["Strategy", "Lead Generation", "Digital Marketing", "Análise de Canais"],
       platforms: ["Google Ads", "Meta Ads", "SEO", "WordPress"]
@@ -378,7 +378,7 @@ function App() {
       description: "Construção de uma loja online completa (e-Store) para a marca OMEGA. Um projeto académico completo focado na transposição de comércio eletrónico premium. A loja OMEGA e-Store foi desenhada com fricção positiva e foco em branding. Pode testar a loja no Shopify diretamente abaixo.",
       pdfUrl: "./documents/omega_memoria.pdf",
       documents: [
-        { name: "Memória Descritiva e Justificativa (PDF)", url: "./documents/omega_memoria.pdf" },
+        { name: "Memória Descritiva e Justificativa", url: "./documents/omega_memoria.pdf" },
         { name: "Loja Online Shopify", url: "https://omega-estore.myshopify.com/?pb=0", external: true }
       ],
       skills: ["E-Commerce Strategy", "UI/UX Design", "Positive Friction Branding", "Copywriting"],
@@ -856,7 +856,7 @@ function App() {
                                 transition: 'var(--transition)'
                               }}
                             >
-                              {doc.name} {(activePdfUrl || project.pdfUrl) === doc.url ? '👁️' : '→'}
+                              {doc.name} &rarr;
                             </button>
                           )}
                         </li>
