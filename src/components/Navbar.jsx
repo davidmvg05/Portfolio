@@ -37,6 +37,30 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeProjectId]);
 
+  // Clear highlighted active section when browsing a subpage
+  useEffect(() => {
+    if (activeProjectId) {
+      setActiveSection('');
+    } else {
+      const scrollPosition = window.scrollY + 150;
+      let matched = false;
+      for (const item of menuItems) {
+        const id = item.toLowerCase();
+        const element = document.getElementById(id);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(id);
+            matched = true;
+            break;
+          }
+        }
+      }
+      if (!matched) setActiveSection('home');
+    }
+  }, [activeProjectId]);
+
   const handleLinkClick = (e, id) => {
     e.preventDefault();
     if (activeProjectId) {

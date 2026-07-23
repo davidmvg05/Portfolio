@@ -434,37 +434,37 @@ function App() {
       <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={setActiveProjectId} />
 
       <main className="container">
-        {/* --- Home Section --- */}
-        <section id="home">
-          <div className="home-content">
-            <h1 className="home-title">David Gomes</h1>
-            <span className="home-subtitle">Digital Marketing and Creative Developer</span>
-            <p className="home-description">
-              Mais marketer do que developer… mas adoro brincar aos dois. 😎 Não sou programador. Só tenho ideias demasiado teimosas para não as criar. 🤫
-            </p>
-            <div className="home-cta-container">
-              <a href="#projects" onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById('projects');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }} className="btn btn-primary">Ver Projetos</a>
-              <a href="#contact" onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById('contact');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }} className="btn btn-secondary">Contactar</a>
-            </div>
-          </div>
-          <div className="scroll-indicator">
-            <span>SCROLL DOWN</span>
-            <div className="mouse">
-              <div className="wheel"></div>
-            </div>
-          </div>
-        </section>
-
         {activeProjectId === null && (
           <>
+            {/* --- Home Section --- */}
+            <section id="home">
+              <div className="home-content">
+                <h1 className="home-title">David Gomes</h1>
+                <span className="home-subtitle">Digital Marketing and Creative Developer</span>
+                <p className="home-description">
+                  Mais marketer do que developer… mas adoro brincar aos dois. 😎 Não sou programador. Só tenho ideias demasiado teimosas para não as criar. 🤫
+                </p>
+                <div className="home-cta-container">
+                  <a href="#projects" onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById('projects');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }} className="btn btn-primary">Ver Projetos</a>
+                  <a href="#contact" onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById('contact');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }} className="btn btn-secondary">Contactar</a>
+                </div>
+              </div>
+              <div className="scroll-indicator">
+                <span>SCROLL DOWN</span>
+                <div className="mouse">
+                  <div className="wheel"></div>
+                </div>
+              </div>
+            </section>
+
             {/* --- Journey Section --- */}
             <section id="journey" ref={journeyRef}>
           <h2 className="section-title">My Journey</h2>
@@ -891,13 +891,7 @@ function App() {
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (
           <div className="privacy-page-view" style={{ padding: '6rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <h1 className="project-page-title" style={{ marginBottom: '2rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
-            <button className="btn btn-secondary btn-sm" onClick={() => {
-              setActiveProjectId(null);
-              window.scrollTo({ top: 0, behavior: 'auto' });
-            }} style={{ marginTop: '2rem' }}>
-              &larr; Voltar ao Início
-            </button>
+            <h1 className="project-page-title" style={{ marginBottom: '0', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
           </div>
         )}
       </main>
