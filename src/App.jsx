@@ -6,6 +6,7 @@ import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, Che
 import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
 import logoOmega from './assets/logo_omega.png';
+import logoShifter from './assets/logo_shifter.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -395,11 +396,12 @@ function App() {
       image: logoOmega
     },
     {
-      title: "Auditoria SEO Local",
-      description: "Otimização técnica SEO para pequenos negócios locais, focando em posicionamento orgânico e melhoria de performance de página.",
-      tags: ["SEO Técnico", "Google Analytics"],
-      link: "#projects",
-      icon: "graduation"
+      id: "shifter",
+      title: "Auditoria de SEO",
+      description: "Auditoria estruturada de SEO de uma publicação online existente, avaliando o desempenho na página, segmentação de keywords e lacunas de conteúdo.",
+      tags: ["SEO", "Audit", "Strategy"],
+      link: "#",
+      image: logoShifter
     }
   ];
 
@@ -434,6 +436,16 @@ function App() {
       ],
       skills: ["E-Commerce Strategy", "UI/UX Design", "Positive Friction Branding", "Copywriting"],
       platforms: ["Shopify", "Figma", "Canva", "Google ColorZilla"]
+    },
+    shifter: {
+      title: "Auditoria de SEO",
+      description: "Auditoria estruturada de SEO de uma publicação online existente, avaliando o desempenho na página, segmentação de keywords e lacunas de conteúdo, seguida por um plano de ação concreto para melhorar a visibilidade orgânica.",
+      pdfUrl: "./documents/shifter_seo.pdf",
+      documents: [
+        { name: "Auditoria de SEO Shifter", url: "./documents/shifter_seo.pdf" }
+      ],
+      skills: ["SEO Auditing", "On-Page SEO", "Keyword Research", "Content Gap Analysis"],
+      platforms: ["Google Search Console", "Screaming Frog", "Semrush", "Google Analytics"]
     }
   };
 
@@ -1007,42 +1019,25 @@ function App() {
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (
           <div className="privacy-page-view" style={{ padding: '8rem 1.5rem 4rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1 className="project-page-title" style={{ marginBottom: '3rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
-            <div className="privacy-content-wrapper" style={{ maxWidth: '800px', width: '100%', color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '1rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              
-              <section>
-                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>1. Introdução</h2>
-                <p>
-                  Bem-vindo à nossa Política de Privacidade. Valorizamos a confiança que deposita em nós ao partilhar as suas informações pessoais. Esta página descreve de forma clara e transparente como recolhemos, guardamos e processamos os seus dados pessoais ao navegar no nosso website, em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD).
+            <h1 className="project-page-title" style={{ marginBottom: '2.5rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
+            <div className="privacy-content-wrapper" style={{ maxWidth: '800px', width: '100%', color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '0.98rem' }}>
+              <p style={{ marginBottom: '1.2rem' }}>
+                <strong>1. Introdução:</strong> Bem-vindo à nossa Política de Privacidade. Valorizamos a confiança que deposita em nós ao partilhar as suas informações pessoais. Esta página descreve de forma clara e transparente como recolhemos, guardamos e processamos os seus dados pessoais ao navegar no nosso website, em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD).
+              </p>
+              <p style={{ marginBottom: '1.2rem' }}>
+                <strong>2. Recolha de Dados:</strong> As informações pessoais são recolhidas principalmente quando nos envia mensagens voluntariamente através dos formulários de contacto (tanto o formulário geral de contacto na página principal quanto o formulário de pedido de palavra-passe para o projeto Omega). Recolhemos o seu nome, endereço de e-mail e a mensagem que decidir escrever. Estes dados são tratados exclusivamente para responder ao seu contacto.
+              </p>
+              <p style={{ marginBottom: '1.2rem' }}>
+                <strong>3. Cookies:</strong> Além dos cookies essenciais que garantem o funcionamento básico do site, utilizamos cookies estatísticos e analíticos de terceiros através do Google Analytics 4 e do Google Tag Manager (GTM). Estes cookies só serão carregados e ativados após o seu consentimento explícito clicando em "Aceitar Todos" no nosso banner de cookies. Se decidir rejeitá-los ou não fizer uma escolha, os mesmos não serão instalados.
+              </p>
+              <p style={{ marginBottom: '1.2rem' }}>
+                <strong>4. Os Seus Direitos:</strong> De acordo com as leis em vigor, tem o direito de solicitar o acesso, retificação ou eliminação total de quaisquer dados que tenhamos armazenado relacionados consigo.
+              </p>
+              <div style={{ background: 'rgba(255, 107, 107, 0.05)', borderLeft: '3px solid #ff6b6b', padding: '1rem', borderRadius: '8px', marginTop: '1.5rem' }}>
+                <p style={{ color: 'var(--text-primary)', fontWeight: 'bold', margin: 0 }}>
+                  ⚠️ Importante: Se desejar que eu elimine definitivamente todos os seus dados pessoais recolhidos a partir deste site, deverá submeter o seu pedido contactando-me diretamente através do formulário de contacto presente na página inicial (homepage).
                 </p>
-              </section>
-
-              <section>
-                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>2. Recolha de Dados</h2>
-                <p>
-                  As informações pessoais são recolhidas principalmente quando nos envia mensagens voluntariamente através dos formulários de contacto (tanto o formulário geral de contacto na página principal quanto o formulário de pedido de palavra-passe para o projeto Omega). Recolhemos o seu nome, endereço de e-mail e a mensagem que decidir escrever. Estes dados são tratados exclusivamente para responder ao seu contacto.
-                </p>
-              </section>
-
-              <section>
-                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>3. Cookies</h2>
-                <p>
-                  Além dos cookies essenciais que garantem o funcionamento básico do site, utilizamos cookies estatísticos e analíticos de terceiros através do Google Analytics 4 e do Google Tag Manager (GTM). Estes cookies só serão carregados e ativados após o seu consentimento explícito clicando em "Aceitar Todos" no nosso banner de cookies. Se decidir rejeitá-los ou não fizer uma escolha, os mesmos não serão instalados.
-                </p>
-              </section>
-
-              <section>
-                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>4. Os Seus Direitos</h2>
-                <p>
-                  De acordo com as leis em vigor, tem o direito de solicitar o acesso, retificação ou eliminação total de quaisquer dados que tenhamos armazenado relacionados consigo.
-                </p>
-                <div style={{ background: 'rgba(255, 107, 107, 0.05)', borderLeft: '3px solid #ff6b6b', padding: '1rem', borderRadius: '4px', marginTop: '1rem' }}>
-                  <p style={{ color: 'var(--text-primary)', fontWeight: 'bold', margin: 0 }}>
-                    ⚠️ Importante: Se desejar que eu elimine definitivamente todos os seus dados pessoais recolhidos a partir deste site, deverá submeter o seu pedido contactando-me diretamente através do formulário de contacto presente na página inicial (homepage).
-                  </p>
-                </div>
-              </section>
-
+              </div>
             </div>
           </div>
         )}
