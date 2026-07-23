@@ -655,7 +655,7 @@ function App() {
         {/* --- Skills Section --- */}
         <section id="skills">
           <h2 className="section-title">Skills & Competências</h2>
-          <div className="skills-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          <div className="skills-container" style={{ display: 'grid', gridAutoFlow: windowWidth > 768 ? 'column' : 'row', gridAutoColumns: windowWidth > 768 ? '1fr' : 'auto', gap: '2rem', alignItems: 'stretch' }}>
             {/* Card 1: Websites */}
             <div className="skills-category">
               <h3>
