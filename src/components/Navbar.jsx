@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 
-function Navbar({ isDarkMode, toggleTheme }) {
+function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }) {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
 
@@ -10,15 +10,15 @@ function Navbar({ isDarkMode, toggleTheme }) {
   // Handle scroll to highlight active section and add background color to navbar
   useEffect(() => {
     const handleScroll = () => {
-      // Check scroll position to add background color to navbar
+      if (activeProjectId) return; // Don't track active sections when on subpages
+      
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
 
-      // Determine which section is currently in view
-      const scrollPosition = window.scrollY + 150; // offset for nav height
+      const scrollPosition = window.scrollY + 150;
       for (const item of menuItems) {
         const id = item.toLowerCase();
         const element = document.getElementById(id);
@@ -35,20 +35,33 @@ function Navbar({ isDarkMode, toggleTheme }) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeProjectId]);
 
   const handleLinkClick = (e, id) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      // Smooth scroll to the section
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-      // Set active manually (so there's immediate feedback)
-      setActiveSection(id);
+    if (activeProjectId) {
+      if (setActiveProjectId) {
+        setActiveProjectId(null);
+      }
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     }
+    setActiveSection(id);
   };
 
   return (

@@ -84,7 +84,8 @@ function App() {
   const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
   const [typedWords, setTypedWords] = useState(["", "", ""]);
   const [activeWordIdx, setActiveWordIdx] = useState(0);
-  const [startTyping, setStartTyping] = useState(false);
+  const [activeProjectId, setActiveProjectId] = useState(null);
+  const [isPdfFullscreen, setIsPdfFullscreen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   
   const journeyRef = useRef(null);
@@ -318,26 +319,25 @@ function App() {
 
   const academicProjects = [
     {
+      id: "lego",
       title: "Plano de Social Media Marketing - LEGO",
-      description: "Relatório estratégico e plano dedicado a estabelecer a presença digital da LEGO nas redes sociais em Portugal. De forma a evitar a desativação das contas por direitos de autor, as contas de redes sociais foram criadas sob o nome LE9O.",
+      description: "Plano estratégico focado em estabelecer a presença digital da LEGO nas redes sociais em Portugal.",
       tags: ["Strategy", "Social Media", "Creativity"],
-      link: "https://drive.google.com/file/d/1CfjDuzcDUe0H9oEi0J_X2UT36oVvk2Og/view?usp=drive_link",
+      link: "./documents/lego_social_media.pdf",
       image: logoLego
     },
     {
+      id: "mymatchcare",
       title: "Plano de Marketing - MyMatchCare",
-      description: "Plano estratégico e operacional de marketing digital desenvolvido para a MyMatchCare, uma plataforma portuguesa que liga famílias que necessitam de cuidados domiciliários para idosos a cuidadores qualificados (realizado durante o estágio mas não foi aplicado). O plano focou-se em canais de captação de leads e atração digital.",
+      description: "Plano estratégico de marketing digital desenvolvido para a plataforma de cuidados domiciliários MyMatchCare.",
       tags: ["Strategy", "Creativity", "Digital Marketing"],
-      link: "https://drive.google.com/file/d/1ePLlSWq0tLf2d1wPk2B_eECeE65sAq3r/view?usp=drive_link",
+      link: "./documents/mymatchcare_plan.pdf",
       image: logoMymatchcare
     },
     {
+      id: "omega",
       title: "E-Commerce - Omega",
-      description: (
-        <>
-          Construção de uma loja online completa (e-Store) para a conceituada marca de relógios Omega. Se deseja explorar e testar a loja (protegida por palavra-passe), envie esta mensagem automática - <span className="project-desc-link" style={{ cursor: 'pointer' }} onClick={() => setIsOmegaModalOpen(true)}>Enviar Mensagem</span>.
-        </>
-      ),
+      description: "Construção de uma loja online completa (e-Store) para a marca OMEGA.",
       tags: ["Shopify", "UI/UX", "Strategy"],
       link: "https://omega-estore.myshopify.com/?pb=0",
       image: logoOmega
@@ -350,6 +350,40 @@ function App() {
       icon: "graduation"
     }
   ];
+
+  const projectDetails = {
+    lego: {
+      title: "Plano de Social Media Marketing - LEGO",
+      description: "Plano estratégico focado em estabelecer a presença digital da LEGO nas redes sociais em Portugal. De forma a evitar a desativação das contas por direitos de autor, as contas de redes sociais foram criadas sob o nome LE9O. O plano aborda análises de público, calendário editorial de posts e dinâmicas criativas específicas para o público português.",
+      pdfUrl: "./documents/lego_social_media.pdf",
+      documents: [
+        { name: "Plano de Social Media LE9O (PDF)", url: "./documents/lego_social_media.pdf" }
+      ],
+      skills: ["Strategy", "Social Media Marketing", "Creativity", "Planeamento Editorial"],
+      platforms: ["Instagram", "Facebook", "TikTok", "Canva"]
+    },
+    mymatchcare: {
+      title: "Plano de Marketing - MyMatchCare",
+      description: "Plano estratégico e operacional de marketing digital desenvolvido para a plataforma de cuidados domiciliários MyMatchCare. Desenvolvido durante o estágio de Marketing Digital, este plano foca-se em canais de captação orgânica e tráfego pago para conectar famílias e cuidadores qualificados. Embora estruturado de forma operacional, o plano não chegou a ser aplicado pela marca.",
+      pdfUrl: "./documents/mymatchcare_plan.pdf",
+      documents: [
+        { name: "Plano de Marketing MyMatchCare (PDF)", url: "./documents/mymatchcare_plan.pdf" }
+      ],
+      skills: ["Strategy", "Lead Generation", "Digital Marketing", "Análise de Canais"],
+      platforms: ["Google Ads", "Meta Ads", "SEO", "WordPress"]
+    },
+    omega: {
+      title: "E-Commerce - Omega",
+      description: "Construção de uma loja online completa (e-Store) para a marca OMEGA. Um projeto académico completo focado na transposição de comércio eletrónico premium. A loja OMEGA e-Store foi desenhada com fricção positiva e foco em branding. Pode testar a loja no Shopify ou solicitar a palavra-passe diretamente abaixo.",
+      pdfUrl: "./documents/omega_memoria.pdf",
+      documents: [
+        { name: "Memória Descritiva e Justificativa (PDF)", url: "./documents/omega_memoria.pdf" },
+        { name: "Loja Online Shopify (Palavra-passe: ai?nuncausei)", url: "https://omega-estore.myshopify.com/?pb=0", external: true }
+      ],
+      skills: ["E-Commerce Strategy", "UI/UX Design", "Positive Friction Branding", "Copywriting"],
+      platforms: ["Shopify", "Figma", "Canva", "Google ColorZilla"]
+    }
+  };
 
   const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
 
@@ -397,7 +431,7 @@ function App() {
       </div>
 
       {/* Floating Navbar */}
-      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={setActiveProjectId} />
 
       <main className="container">
         {/* --- Home Section --- */}
@@ -406,11 +440,19 @@ function App() {
             <h1 className="home-title">David Gomes</h1>
             <span className="home-subtitle">Digital Marketing and Creative Developer</span>
             <p className="home-description">
-              A converter café em campanhas e cliques em conversões... enquanto escrevo código que brilha no escuro. ☕✨
+              Mais marketer do que developer… mas adoro brincar aos dois. 😎 Não sou programador. Só tenho ideias demasiado teimosas para não as criar. 🤫
             </p>
             <div className="home-cta-container">
-              <a href="#projects" className="btn btn-primary">Ver Projetos</a>
-              <a href="#contact" className="btn btn-secondary">Contactar</a>
+              <a href="#projects" onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('projects');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }} className="btn btn-primary">Ver Projetos</a>
+              <a href="#contact" onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }} className="btn btn-secondary">Contactar</a>
             </div>
           </div>
           <div className="scroll-indicator">
@@ -421,8 +463,10 @@ function App() {
           </div>
         </section>
 
-        {/* --- Journey Section --- */}
-        <section id="journey" ref={journeyRef}>
+        {activeProjectId === null && (
+          <>
+            {/* --- Journey Section --- */}
+            <section id="journey" ref={journeyRef}>
           <h2 className="section-title">My Journey</h2>
           <div className="journey-container">
             {/* Left Side: Waving Words & Stats */}
@@ -569,9 +613,23 @@ function App() {
                           ))}
                         </div>
                         <div className="project-links">
-                          <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
-                            Ver Mais <ExternalLink size={16} />
-                          </a>
+                          {project.id ? (
+                            <a 
+                              href={`#project-${project.id}`} 
+                              className="project-link" 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setActiveProjectId(project.id);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                              }}
+                            >
+                              Ver Mais &rarr;
+                            </a>
+                          ) : (
+                            <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                              Ver Mais <ExternalLink size={16} />
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -731,6 +789,115 @@ function App() {
             </form>
           </div>
         </section>
+          </>
+        )}
+
+        {/* Project Subpage View */}
+        {activeProjectId && activeProjectId !== 'privacy-policy' && (() => {
+          const project = projectDetails[activeProjectId];
+          if (!project) return null;
+          return (
+            <div className="project-page-view">
+              <button className="btn btn-secondary btn-sm" onClick={() => {
+                setActiveProjectId(null);
+                setTimeout(() => {
+                  const el = document.getElementById('projects');
+                  if (el) el.scrollIntoView({ behavior: 'auto' });
+                }, 50);
+              }} style={{ marginBottom: '2rem' }}>
+                &larr; Voltar
+              </button>
+              <h1 className="project-page-title">{project.title}</h1>
+              <p className="project-page-desc">{project.description}</p>
+              
+              <div className="project-page-grid">
+                {/* Left Column: PDF Embed */}
+                <div className="project-page-left">
+                  <div className="pdf-viewer-card">
+                    <iframe 
+                      src={project.pdfUrl} 
+                      title={project.title} 
+                      className="pdf-iframe"
+                    ></iframe>
+                    <button className="btn btn-primary btn-sm pdf-fullscreen-btn" onClick={() => setIsPdfFullscreen(true)}>
+                      Ver em Ecrã Inteiro
+                    </button>
+                  </div>
+                </div>
+
+                {/* Right Column: Documents, Skills, Platforms */}
+                <div className="project-page-right">
+                  <div className="project-info-card">
+                    <h3>Documentos Disponíveis</h3>
+                    <ul className="doc-list">
+                      {project.documents.map((doc, idx) => (
+                        <li key={idx}>
+                          {doc.external ? (
+                            <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
+                              {doc.name} &rarr;
+                            </a>
+                          ) : (
+                            <a href={doc.url} download className="doc-link">
+                              {doc.name} &darr;
+                            </a>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {activeProjectId === 'omega' && (
+                      <div className="omega-action-container" style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px dashed var(--glass-border)' }}>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                          Se deseja explorar e testar a loja (protegida por palavra-passe), envie esta mensagem automática:
+                        </p>
+                        <button className="btn btn-primary" onClick={() => setIsOmegaModalOpen(true)}>
+                          Enviar Mensagem
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="project-info-card" style={{ marginTop: '1.5rem' }}>
+                    <h3>Skills</h3>
+                    <div className="project-page-tags">
+                      {project.skills.map((skill, idx) => (
+                        <span key={idx} className="tag">{skill}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="project-info-card" style={{ marginTop: '1.5rem' }}>
+                    <h3>Plataformas</h3>
+                    <div className="project-page-tags">
+                      {project.platforms.map((platform, idx) => (
+                        <span key={idx} className="tag tag-platform">{platform}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Fullscreen PDF Modal */}
+              {isPdfFullscreen && (
+                <div className="pdf-fullscreen-overlay">
+                  <button className="pdf-fullscreen-close" onClick={() => setIsPdfFullscreen(false)}>&times; Fechar</button>
+                  <iframe src={project.pdfUrl} title={project.title} className="pdf-fullscreen-iframe"></iframe>
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
+        {/* Privacy Policy Page View */}
+        {activeProjectId === 'privacy-policy' && (
+          <div className="privacy-page-view" style={{ padding: '4rem 1.5rem', minHeight: '60vh' }}>
+            <button className="btn btn-secondary btn-sm" onClick={() => setActiveProjectId(null)} style={{ marginBottom: '2rem' }}>
+              &larr; Voltar
+            </button>
+            <h1 className="project-page-title" style={{ marginBottom: '2rem' }}>Política de Privacidade</h1>
+            {/* Left the page body empty/blank as requested */}
+          </div>
+        )}
       </main>
 
       <footer className="site-footer">
@@ -772,8 +939,21 @@ function App() {
             </div>
           </div>
           
-          <div className="footer-bottom">
+          <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
             <p>/* © 2026 David Gomes - Developed with Google Antigravity */</p>
+            <a 
+              href="#privacy-policy" 
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveProjectId('privacy-policy');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} 
+              style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'var(--transition)' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--accent-blue)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
+            >
+              Política de Privacidade
+            </a>
           </div>
         </div>
       </footer>
