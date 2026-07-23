@@ -890,12 +890,14 @@ function App() {
 
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (
-          <div className="privacy-page-view" style={{ padding: '4rem 1.5rem', minHeight: '60vh' }}>
-            <button className="btn btn-secondary btn-sm" onClick={() => setActiveProjectId(null)} style={{ marginBottom: '2rem' }}>
-              &larr; Voltar
+          <div className="privacy-page-view" style={{ padding: '6rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <h1 className="project-page-title" style={{ marginBottom: '2rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
+            <button className="btn btn-secondary btn-sm" onClick={() => {
+              setActiveProjectId(null);
+              window.scrollTo({ top: 0, behavior: 'auto' });
+            }} style={{ marginTop: '2rem' }}>
+              &larr; Voltar ao Início
             </button>
-            <h1 className="project-page-title" style={{ marginBottom: '2rem' }}>Política de Privacidade</h1>
-            {/* Left the page body empty/blank as requested */}
           </div>
         )}
       </main>
