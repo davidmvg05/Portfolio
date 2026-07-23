@@ -97,9 +97,10 @@ function App() {
   
   const journeyRef = useRef(null);
 
-  // Load GA4 dynamically only when cookieConsent is 'accepted'
+  // Load GA4 and GTM dynamically only when cookieConsent is 'accepted'
   useEffect(() => {
     if (cookieConsent === 'accepted') {
+      // 1. Google Analytics 4 (GA4)
       if (!document.getElementById('ga4-script-1')) {
         const script1 = document.createElement('script');
         script1.id = 'ga4-script-1';
@@ -116,6 +117,27 @@ function App() {
           gtag('config', 'G-Y5YRVVJ7HB');
         `;
         document.head.appendChild(script2);
+      }
+
+      // 2. Google Tag Manager (GTM)
+      if (!document.getElementById('gtm-script')) {
+        const scriptGTM = document.createElement('script');
+        scriptGTM.id = 'gtm-script';
+        scriptGTM.innerHTML = `
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-K4P3GSHG');
+        `;
+        document.head.appendChild(scriptGTM);
+      }
+
+      if (!document.getElementById('gtm-noscript')) {
+        const noscript = document.createElement('noscript');
+        noscript.id = 'gtm-noscript';
+        noscript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4P3GSHG" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+        document.body.insertBefore(noscript, document.body.firstChild);
       }
     }
   }, [cookieConsent]);
@@ -984,8 +1006,44 @@ function App() {
 
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (
-          <div className="privacy-page-view" style={{ padding: '6rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <h1 className="project-page-title" style={{ marginBottom: '0', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
+          <div className="privacy-page-view" style={{ padding: '8rem 1.5rem 4rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 className="project-page-title" style={{ marginBottom: '3rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
+            <div className="privacy-content-wrapper" style={{ maxWidth: '800px', width: '100%', color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '1rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              
+              <section>
+                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>1. Introdução</h2>
+                <p>
+                  Bem-vindo à nossa Política de Privacidade. Valorizamos a confiança que deposita em nós ao partilhar as suas informações pessoais. Esta página descreve de forma clara e transparente como recolhemos, guardamos e processamos os seus dados pessoais ao navegar no nosso website, em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD).
+                </p>
+              </section>
+
+              <section>
+                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>2. Recolha de Dados</h2>
+                <p>
+                  As informações pessoais são recolhidas principalmente quando nos envia mensagens voluntariamente através dos formulários de contacto (tanto o formulário geral de contacto na página principal quanto o formulário de pedido de palavra-passe para o projeto Omega). Recolhemos o seu nome, endereço de e-mail e a mensagem que decidir escrever. Estes dados são tratados exclusivamente para responder ao seu contacto.
+                </p>
+              </section>
+
+              <section>
+                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>3. Cookies</h2>
+                <p>
+                  Além dos cookies essenciais que garantem o funcionamento básico do site, utilizamos cookies estatísticos e analíticos de terceiros através do Google Analytics 4 e do Google Tag Manager (GTM). Estes cookies só serão carregados e ativados após o seu consentimento explícito clicando em "Aceitar Todos" no nosso banner de cookies. Se decidir rejeitá-los ou não fizer uma escolha, os mesmos não serão instalados.
+                </p>
+              </section>
+
+              <section>
+                <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>4. Os Seus Direitos</h2>
+                <p>
+                  De acordo com as leis em vigor, tem o direito de solicitar o acesso, retificação ou eliminação total de quaisquer dados que tenhamos armazenado relacionados consigo.
+                </p>
+                <div style={{ background: 'rgba(255, 107, 107, 0.05)', borderLeft: '3px solid #ff6b6b', padding: '1rem', borderRadius: '4px', marginTop: '1rem' }}>
+                  <p style={{ color: 'var(--text-primary)', fontWeight: 'bold', margin: 0 }}>
+                    ⚠️ Importante: Se desejar que eu elimine definitivamente todos os seus dados pessoais recolhidos a partir deste site, deverá submeter o seu pedido contactando-me diretamente através do formulário de contacto presente na página inicial (homepage).
+                  </p>
+                </div>
+              </section>
+
+            </div>
           </div>
         )}
       </main>
@@ -1161,9 +1219,11 @@ function App() {
       {/* Cookie Consent Banner */}
       {cookieConsent === null && (
         <div className="cookie-banner">
-          <div className="cookie-banner-header">Política de Cookies</div>
-          <div className="cookie-banner-desc">
-            Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website. Ao clicar em "Aceitar Todos", consente a utilização dos cookies.
+          <div className="cookie-banner-content">
+            <div className="cookie-banner-header">Política de Cookies</div>
+            <div className="cookie-banner-desc">
+              Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website.<br />Ao clicar em "Aceitar Todos", consente a utilização dos cookies.
+            </div>
           </div>
           <div className="cookie-banner-actions">
             <button 

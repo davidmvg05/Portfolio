@@ -2825,7 +2825,7 @@ h1, h2, h3, h4 {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  max-width: 650px;
+  max-width: 850px;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
@@ -2834,9 +2834,18 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(15px);
   z-index: 10000;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
   animation: slideUpCookie 0.5s ease-out forwards;
+}
+
+.cookie-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
 }
 
 .cookie-banner-header {
@@ -2854,9 +2863,8 @@ h1, h2, h3, h4 {
 
 .cookie-banner-actions {
   display: flex;
-  justify-content: flex-end;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 @keyframes slideUpCookie {
@@ -2867,5 +2875,16 @@ h1, h2, h3, h4 {
   to {
     transform: translate(-50%, 0);
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cookie-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cookie-banner-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }
