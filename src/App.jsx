@@ -698,6 +698,20 @@ function App() {
               </div>
             </div>
           </div>
+
+          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+            <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '1.2rem' }}>
+              Outras Skills
+            </h4>
+            <div className="other-skills-grid">
+              <span className="constellation-node">HTML</span>
+              <span className="constellation-node">CSS</span>
+              <span className="constellation-node">JavaScript</span>
+              <span className="constellation-node">Google Antigravity</span>
+              <span className="constellation-node">GitHub</span>
+              <span className="constellation-node">Automations</span>
+            </div>
+          </div>
         </section>
 
         {/* --- Contact Section --- */}
