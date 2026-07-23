@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
-import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check } from 'lucide-react';
+import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet } from 'lucide-react';
 import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
 import logoOmega from './assets/logo_omega.png';
@@ -379,7 +379,7 @@ function App() {
       pdfUrl: "./documents/omega_memoria.pdf",
       documents: [
         { name: "Memória Descritiva e Justificativa", url: "./documents/omega_memoria.pdf" },
-        { name: "Loja Online Shopify", url: "https://omega-estore.myshopify.com/?pb=0", external: true }
+        { name: "Loja Online Shopify", url: "shopify" }
       ],
       skills: ["E-Commerce Strategy", "UI/UX Design", "Positive Friction Branding", "Copywriting"],
       platforms: ["Shopify", "Figma", "Canva", "Google ColorZilla"]
@@ -664,7 +664,7 @@ function App() {
               <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '0.5rem' }}>
                 {["UX/UI", "WordPress", "Shopify", "Visual Studio Code", "Claude", "Figma"].map((skill) => (
                   <div key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-secondary)', transition: 'var(--transition)' }}>
-                    &gt; {skill}
+                    {skill}
                   </div>
                 ))}
               </div>
@@ -678,7 +678,7 @@ function App() {
               <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '0.5rem' }}>
                 {["Canva", "MetaBusiness", "DaVinci"].map((skill) => (
                   <div key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-secondary)', transition: 'var(--transition)' }}>
-                    &gt; {skill}
+                    {skill}
                   </div>
                 ))}
               </div>
@@ -692,7 +692,7 @@ function App() {
               <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '0.5rem' }}>
                 {["Google ADS", "Meta ADS"].map((skill) => (
                   <div key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-secondary)', transition: 'var(--transition)' }}>
-                    &gt; {skill}
+                    {skill}
                   </div>
                 ))}
               </div>
@@ -781,18 +781,36 @@ function App() {
               <p className="project-page-desc">{project.description}</p>
               
               <div className="project-page-grid">
-                {/* Left Column: PDF Embed */}
+                {/* Left Column: PDF Embed or Tablet view */}
                 <div className="project-page-left">
-                  <div className="pdf-viewer-card">
-                    <iframe 
-                      src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
-                      title={project.title} 
-                      className="pdf-iframe"
-                    ></iframe>
-                    <button className="btn btn-primary btn-sm pdf-fullscreen-btn" onClick={() => setIsPdfFullscreen(true)}>
-                      Ver em Ecrã Inteiro
-                    </button>
-                  </div>
+                  {activePdfUrl === 'shopify' ? (
+                    <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
+                      <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
+                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Acesso Protegido</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
+                        O acesso à loja está protegido por palavra-passe.
+                      </p>
+                      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        <button className="btn btn-primary btn-sm" onClick={() => setIsOmegaModalOpen(true)}>
+                          Enviar Transmissão
+                        </button>
+                        <a href="https://omega-estore.myshopify.com/?pb=0" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                          Ecommerce Omega
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="pdf-viewer-card">
+                      <iframe 
+                        src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
+                        title={project.title} 
+                        className="pdf-iframe"
+                      ></iframe>
+                      <button className="btn btn-primary btn-sm pdf-fullscreen-btn" onClick={() => setIsPdfFullscreen(true)}>
+                        Ver em Ecrã Inteiro
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Right Column: Documents, Skills, Platforms */}
@@ -897,11 +915,34 @@ function App() {
             <div className="footer-column">
               <h4 className="footer-title">&lt; / div&gt;</h4>
               <div className="footer-nav-links">
-                <a href="#home">&gt; Home</a>
-                <a href="#journey">&gt; Journey</a>
-                <a href="#projects">&gt; Projects</a>
-                <a href="#skills">&gt; Skills</a>
-                <a href="#contact">&gt; Contact</a>
+                {['Home', 'Journey', 'Projects', 'Skills', 'Contact'].map((item) => {
+                  const id = item.toLowerCase();
+                  return (
+                    <a 
+                      key={item} 
+                      href={`#${id}`} 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (activeProjectId) {
+                          setActiveProjectId(null);
+                          setTimeout(() => {
+                            const element = document.getElementById(id);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }, 100);
+                        } else {
+                          const element = document.getElementById(id);
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }
+                      }}
+                    >
+                      &gt; {item}
+                    </a>
+                  );
+                })}
               </div>
             </div>
             

@@ -352,7 +352,7 @@ h1, h2, h3, h4 {
 .home-description {
   font-size: 1.2rem;
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 850px;
   margin-bottom: 2rem;
 }
 
