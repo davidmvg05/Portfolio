@@ -661,10 +661,10 @@ function App() {
               <h3>
                 <Code size={20} /> Websites
               </h3>
-              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '0.5rem' }}>
                 {["UX/UI", "WordPress", "Shopify", "Visual Studio Code", "Claude", "Figma"].map((skill) => (
-                  <div key={skill} className="skill-item" style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '0.8rem 1.2rem', borderRadius: '8px', border: '1px solid var(--glass-border)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
-                    {skill}
+                  <div key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-secondary)', transition: 'var(--transition)' }}>
+                    &gt; {skill}
                   </div>
                 ))}
               </div>
@@ -675,10 +675,10 @@ function App() {
               <h3>
                 <Compass size={20} /> Redes Sociais
               </h3>
-              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '0.5rem' }}>
                 {["Canva", "MetaBusiness", "DaVinci"].map((skill) => (
-                  <div key={skill} className="skill-item" style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '0.8rem 1.2rem', borderRadius: '8px', border: '1px solid var(--glass-border)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
-                    {skill}
+                  <div key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-secondary)', transition: 'var(--transition)' }}>
+                    &gt; {skill}
                   </div>
                 ))}
               </div>
@@ -689,10 +689,10 @@ function App() {
               <h3>
                 <Award size={20} /> ADS
               </h3>
-              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '0.5rem' }}>
                 {["Google ADS", "Meta ADS"].map((skill) => (
-                  <div key={skill} className="skill-item" style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '0.8rem 1.2rem', borderRadius: '8px', border: '1px solid var(--glass-border)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
-                    {skill}
+                  <div key={skill} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--text-secondary)', transition: 'var(--transition)' }}>
+                    &gt; {skill}
                   </div>
                 ))}
               </div>
