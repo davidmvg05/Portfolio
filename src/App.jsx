@@ -87,9 +87,38 @@ function App() {
   const [activeProjectId, setActiveProjectId] = useState(null);
   const [isPdfFullscreen, setIsPdfFullscreen] = useState(false);
   const [activePdfUrl, setActivePdfUrl] = useState(null);
+  const [cookieConsent, setCookieConsent] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('cookieConsent');
+    }
+    return null;
+  });
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   
   const journeyRef = useRef(null);
+
+  // Load GA4 dynamically only when cookieConsent is 'accepted'
+  useEffect(() => {
+    if (cookieConsent === 'accepted') {
+      if (!document.getElementById('ga4-script-1')) {
+        const script1 = document.createElement('script');
+        script1.id = 'ga4-script-1';
+        script1.async = true;
+        script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y5YRVVJ7HB';
+        document.head.appendChild(script1);
+
+        const script2 = document.createElement('script');
+        script2.id = 'ga4-script-2';
+        script2.innerHTML = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Y5YRVVJ7HB');
+        `;
+        document.head.appendChild(script2);
+      }
+    }
+  }, [cookieConsent]);
 
   // Track resizing to center cards perfectly in carousel
   useEffect(() => {
@@ -956,10 +985,7 @@ function App() {
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (
           <div className="privacy-page-view" style={{ padding: '6rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <h1 className="project-page-title" style={{ marginBottom: '2rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
-            <button className="btn btn-secondary btn-sm" onClick={handleBack} style={{ marginTop: '2rem' }}>
-              &larr; Voltar
-            </button>
+            <h1 className="project-page-title" style={{ marginBottom: '0', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
           </div>
         )}
       </main>
@@ -1129,6 +1155,35 @@ function App() {
                 )}
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* Cookie Consent Banner */}
+      {cookieConsent === null && (
+        <div className="cookie-banner">
+          <div className="cookie-banner-header">Política de Cookies</div>
+          <div className="cookie-banner-desc">
+            Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website. Ao clicar em "Aceitar Todos", consente a utilização dos cookies.
+          </div>
+          <div className="cookie-banner-actions">
+            <button 
+              className="btn btn-secondary btn-sm" 
+              onClick={() => {
+                localStorage.setItem('cookieConsent', 'rejected');
+                setCookieConsent('rejected');
+              }}
+            >
+              Rejeitar Essenciais
+            </button>
+            <button 
+              className="btn btn-primary btn-sm" 
+              onClick={() => {
+                localStorage.setItem('cookieConsent', 'accepted');
+                setCookieConsent('accepted');
+              }}
+            >
+              Aceitar Todos
+            </button>
           </div>
         </div>
       )}
