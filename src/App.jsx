@@ -386,6 +386,79 @@ function App() {
     }
   };
 
+  // Helper navigation routing functions with History pushState
+  const navigateToProject = (id) => {
+    setActiveProjectId(id);
+    if (projectDetails[id]) {
+      setActivePdfUrl(projectDetails[id].pdfUrl);
+    }
+    window.history.pushState({ projectId: id }, '', `?project=${id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToPrivacy = () => {
+    setActiveProjectId('privacy-policy');
+    window.history.pushState({ projectId: 'privacy-policy' }, '', '?page=privacy-policy');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateHome = () => {
+    setActiveProjectId(null);
+    window.history.pushState({ projectId: null }, '', window.location.pathname);
+  };
+
+  const handleBack = () => {
+    if (window.history.state && window.history.state.projectId) {
+      window.history.back();
+    } else {
+      navigateHome();
+    }
+  };
+
+  // Browser navigation Back/Forward button history handler
+  useEffect(() => {
+    const handlePopState = (event) => {
+      const state = event.state;
+      if (state && state.projectId) {
+        setActiveProjectId(state.projectId);
+        if (projectDetails[state.projectId]) {
+          setActivePdfUrl(projectDetails[state.projectId].pdfUrl);
+        }
+      } else {
+        const params = new URLSearchParams(window.location.search);
+        const projectParam = params.get('project');
+        const pageParam = params.get('page');
+        if (projectParam) {
+          setActiveProjectId(projectParam);
+          if (projectDetails[projectParam]) {
+            setActivePdfUrl(projectDetails[projectParam].pdfUrl);
+          }
+        } else if (pageParam === 'privacy-policy') {
+          setActiveProjectId('privacy-policy');
+        } else {
+          setActiveProjectId(null);
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    // Run initial URL params check on load
+    const params = new URLSearchParams(window.location.search);
+    const projectParam = params.get('project');
+    const pageParam = params.get('page');
+    if (projectParam) {
+      setActiveProjectId(projectParam);
+      if (projectDetails[projectParam]) {
+        setActivePdfUrl(projectDetails[projectParam].pdfUrl);
+      }
+    } else if (pageParam === 'privacy-policy') {
+      setActiveProjectId('privacy-policy');
+    }
+
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
 
   const nextSlide = () => {
@@ -432,7 +505,7 @@ function App() {
       </div>
 
       {/* Floating Navbar */}
-      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={setActiveProjectId} />
+      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={navigateHome} />
 
       <main className="container">
         {activeProjectId === null && (
@@ -620,11 +693,7 @@ function App() {
                               className="project-link" 
                               onClick={(e) => {
                                 e.preventDefault();
-                                setActiveProjectId(project.id);
-                                if (projectDetails[project.id]) {
-                                  setActivePdfUrl(projectDetails[project.id].pdfUrl);
-                                }
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                navigateToProject(project.id);
                               }}
                             >
                               Ver Mais &rarr;
@@ -768,13 +837,7 @@ function App() {
           if (!project) return null;
           return (
             <div className="project-page-view">
-              <button className="btn btn-secondary btn-sm" onClick={() => {
-                setActiveProjectId(null);
-                setTimeout(() => {
-                  const el = document.getElementById('projects');
-                  if (el) el.scrollIntoView({ behavior: 'auto' });
-                }, 50);
-              }} style={{ marginBottom: '2rem' }}>
+              <button className="btn btn-secondary btn-sm" onClick={handleBack} style={{ marginBottom: '2rem' }}>
                 &larr; Voltar
               </button>
               <h1 className="project-page-title">{project.title}</h1>
@@ -893,7 +956,10 @@ function App() {
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (
           <div className="privacy-page-view" style={{ padding: '6rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <h1 className="project-page-title" style={{ marginBottom: '0', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
+            <h1 className="project-page-title" style={{ marginBottom: '2rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
+            <button className="btn btn-secondary btn-sm" onClick={handleBack} style={{ marginTop: '2rem' }}>
+              &larr; Voltar
+            </button>
           </div>
         )}
       </main>
@@ -924,7 +990,7 @@ function App() {
                       onClick={(e) => {
                         e.preventDefault();
                         if (activeProjectId) {
-                          setActiveProjectId(null);
+                          navigateHome();
                           setTimeout(() => {
                             const element = document.getElementById(id);
                             if (element) {
@@ -966,8 +1032,7 @@ function App() {
               href="#privacy-policy" 
               onClick={(e) => {
                 e.preventDefault();
-                setActiveProjectId('privacy-policy');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                navigateToPrivacy();
               }} 
               style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'var(--transition)' }}
               onMouseEnter={(e) => e.target.style.color = 'var(--accent-blue)'}
