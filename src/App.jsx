@@ -654,96 +654,48 @@ function App() {
 
         {/* --- Skills Section --- */}
         <section id="skills">
-          <h2 className="section-title">Skills & Constellations</h2>
-          <div className="skills-container">
-            {/* Left Box: Creative Development */}
+          <h2 className="section-title">Skills & Competências</h2>
+          <div className="skills-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {/* Card 1: Websites */}
             <div className="skills-category">
               <h3>
-                <Code size={20} /> Desenvolvimento
+                <Code size={20} /> Websites
               </h3>
-              <div className="skills-list">
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span className="skill-name">React & JS</span>
-                    <span className="skill-percentage">90%</span>
+              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                {["UX/UI", "WordPress", "Shopify", "Visual Studio Code", "Claude", "Figma"].map((skill) => (
+                  <div key={skill} className="skill-item" style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '0.8rem 1.2rem', borderRadius: '8px', border: '1px solid var(--glass-border)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
+                    {skill}
                   </div>
-                  <div className="skill-bar-bg">
-                    <div className="skill-bar-fill" style={{ width: '90%' }}></div>
-                  </div>
-                </div>
-
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span className="skill-name">HTML5 & Vanilla CSS</span>
-                    <span className="skill-percentage">95%</span>
-                  </div>
-                  <div className="skill-bar-bg">
-                    <div className="skill-bar-fill" style={{ width: '95%' }}></div>
-                  </div>
-                </div>
-
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span className="skill-name">WebGL & Animation Hooks</span>
-                    <span className="skill-percentage">80%</span>
-                  </div>
-                  <div className="skill-bar-bg">
-                    <div className="skill-bar-fill" style={{ width: '80%' }}></div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Right Box: Animation & VFX */}
+            {/* Card 2: Redes Sociais */}
             <div className="skills-category">
               <h3>
-                <Compass size={20} /> Artes Visuais
+                <Compass size={20} /> Redes Sociais
               </h3>
-              <div className="skills-list">
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span className="skill-name">2D / 3D Animation</span>
-                    <span className="skill-percentage">85%</span>
+              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                {["Canva", "MetaBusiness", "DaVinci"].map((skill) => (
+                  <div key={skill} className="skill-item" style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '0.8rem 1.2rem', borderRadius: '8px', border: '1px solid var(--glass-border)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
+                    {skill}
                   </div>
-                  <div className="skill-bar-bg">
-                    <div className="skill-bar-fill" style={{ width: '85%' }}></div>
-                  </div>
-                </div>
-
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span className="skill-name">Blender 3D Modeling</span>
-                    <span className="skill-percentage">80%</span>
-                  </div>
-                  <div className="skill-bar-bg">
-                    <div className="skill-bar-fill" style={{ width: '80%' }}></div>
-                  </div>
-                </div>
-
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span className="skill-name">After Effects Compositing</span>
-                    <span className="skill-percentage">88%</span>
-                  </div>
-                  <div className="skill-bar-bg">
-                    <div className="skill-bar-fill" style={{ width: '88%' }}></div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
-          </div>
 
-          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '1.2rem' }}>
-              Outras Skills
-            </h4>
-            <div className="other-skills-grid">
-              <span className="constellation-node">HTML</span>
-              <span className="constellation-node">CSS</span>
-              <span className="constellation-node">JavaScript</span>
-              <span className="constellation-node">Google Antigravity</span>
-              <span className="constellation-node">GitHub</span>
-              <span className="constellation-node">Automations</span>
+            {/* Card 3: ADS */}
+            <div className="skills-category">
+              <h3>
+                <Award size={20} /> ADS
+              </h3>
+              <div className="skills-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                {["Google ADS", "Meta ADS"].map((skill) => (
+                  <div key={skill} className="skill-item" style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '0.8rem 1.2rem', borderRadius: '8px', border: '1px solid var(--glass-border)', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
+                    {skill}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -838,7 +790,7 @@ function App() {
                         <li key={idx}>
                           {doc.external ? (
                             <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
-                              {doc.name} &rarr;
+                              {doc.name}
                             </a>
                           ) : (
                             <button 
@@ -856,7 +808,7 @@ function App() {
                                 transition: 'var(--transition)'
                               }}
                             >
-                              {doc.name} &rarr;
+                              {doc.name}
                             </button>
                           )}
                         </li>
