@@ -1009,10 +1009,17 @@ function App() {
               {/* Fullscreen PDF Modal */}
               {isPdfFullscreen && (
                 <div className="pdf-fullscreen-overlay" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '5rem 1.5rem 1.5rem 1.5rem' }}>
-                  <button className="pdf-fullscreen-close" onClick={() => { setIsPdfFullscreen(false); setPdfZoom(100); }}>&times; Fechar</button>
+                  {/* Close button (Top Right) */}
+                  <button 
+                    className="pdf-fullscreen-close" 
+                    onClick={() => { setIsPdfFullscreen(false); setPdfZoom(100); }}
+                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', left: 'auto', margin: 0 }}
+                  >
+                    &times; Fechar
+                  </button>
                   
-                  {/* Zoom Controls (Opposite of Close button, Top Right) */}
-                  <div className="pdf-zoom-controls" style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', display: 'flex', gap: '0.8rem', zIndex: 2010, alignItems: 'center' }}>
+                  {/* Zoom Controls (Top Left) */}
+                  <div className="pdf-zoom-controls" style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', display: 'flex', gap: '0.8rem', zIndex: 2010, alignItems: 'center' }}>
                     <button 
                       className="btn btn-secondary btn-sm" 
                       onClick={() => setPdfZoom(Math.max(40, pdfZoom - 10))}
