@@ -1105,8 +1105,8 @@ function App() {
             </div>
           </div>
           
-          <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-            <p>/* © 2026 David Gomes - Developed with Google Antigravity */</p>
+          <div className="footer-bottom" style={{ display: 'flex', flexDirection: windowWidth <= 768 ? 'column-reverse' : 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+            <p style={{ margin: 0 }}>/* © 2026 David Gomes - Developed with Google Antigravity */</p>
             <a 
               href="#privacy-policy" 
               onClick={(e) => {

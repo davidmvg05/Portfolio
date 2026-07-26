@@ -12,9 +12,19 @@ function Starfield({ isDarkMode }) {
     let stars = [];
 
     // Resize handler
+    let lastWidth = 0;
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const currentWidth = window.innerWidth;
+      const currentHeight = window.innerHeight;
+      
+      // Ignore resizes that only affect height within a small margin (typically mobile address bar toggle)
+      if (lastWidth === currentWidth && canvas.width > 0) {
+        return;
+      }
+      
+      lastWidth = currentWidth;
+      canvas.width = currentWidth;
+      canvas.height = currentHeight;
       initStars();
     };
 

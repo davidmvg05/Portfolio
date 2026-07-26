@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-
+import { Menu, X } from 'lucide-react';
 
 function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }) {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = ['Home', 'Journey', 'Projects', 'Skills', 'Contact'];
 
@@ -88,19 +89,121 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
     setActiveSection(id);
   };
 
-  return (
-    <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-container">
-        {/* Left Side: Name */}
-        <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="logo-link">
-          <span className="logo-bracket">&lt;</span>
-          <span className="logo-name">David Gomes</span>
-          <span className="logo-bracket">/ &gt;</span>
-        </a>
+  const renderBB8Toggle = () => (
+    <label className="bb8-toggle" aria-label="Alterar tema (BB-8)">
+      <input 
+        className="bb8-toggle__checkbox" 
+        type="checkbox" 
+        checked={isDarkMode}
+        onChange={toggleTheme}
+      />
+      <div className="bb8-toggle__container">
+        <div className="bb8-toggle__scenery">
+          <div className="bb8-toggle__star"></div>
+          <div className="bb8-toggle__star"></div>
+          <div className="bb8-toggle__star"></div>
+          <div className="bb8-toggle__star"></div>
+          <div className="bb8-toggle__star"></div>
+          <div className="bb8-toggle__star"></div>
+          <div className="bb8-toggle__star"></div>
+          <div className="tatto-1"></div>
+          <div className="tatto-2"></div>
+          <div className="gomrassen"></div>
+          <div className="hermes"></div>
+          <div className="chenini"></div>
+          <div className="bb8-toggle__cloud"></div>
+          <div className="bb8-toggle__cloud"></div>
+          <div className="bb8-toggle__cloud"></div>
+        </div>
+        <div className="bb8">
+          <div className="bb8__head-container">
+            <div className="bb8__antenna"></div>
+            <div className="bb8__antenna"></div>
+            <div className="bb8__head"></div>
+          </div>
+          <div className="bb8__body"></div>
+        </div>
+        <div className="artificial__hidden">
+          <div className="bb8__shadow"></div>
+        </div>
+      </div>
+    </label>
+  );
 
-        {/* Right Side: Navigation Menu & Theme Switcher */}
-        <div className="nav-actions">
-          <nav className="nav-menu">
+  return (
+    <>
+      <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
+        <div className="navbar-container">
+          {/* Left Side: Name */}
+          <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="logo-link">
+            <span className="logo-bracket">&lt;</span>
+            <span className="logo-name">David Gomes</span>
+            <span className="logo-bracket">/ &gt;</span>
+          </a>
+
+          {/* Right Side: Desktop Navigation Menu & Theme Switcher */}
+          <div className="nav-actions">
+            <nav className="nav-menu">
+              {menuItems.map((item) => {
+                const id = item.toLowerCase();
+                const isActive = activeSection === id;
+                return (
+                  <a
+                    key={item}
+                    href={`#${id}`}
+                    onClick={(e) => handleLinkClick(e, id)}
+                    className={`nav-link ${isActive ? 'active' : ''}`}
+                  >
+                    <span className="bracket">&lt;</span>
+                    <span className="link-text">{item}</span>
+                    <span className="bracket">/&gt;</span>
+                  </a>
+                );
+              })}
+            </nav>
+
+            {renderBB8Toggle()}
+          </div>
+
+          {/* Hamburger Icon (Visible on Mobile) */}
+          <button 
+            className="hamburger-btn" 
+            onClick={() => setIsOpen(!isOpen)} 
+            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Drawer Overlay Backdrop */}
+      <div 
+        className={`mobile-drawer-overlay ${isOpen ? 'open' : ''}`} 
+        onClick={() => setIsOpen(false)} 
+      />
+
+      {/* Mobile Drawer Navigation (Visible on Mobile) */}
+      <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
+        <button 
+          className="mobile-drawer-close" 
+          onClick={() => setIsOpen(false)}
+          aria-label="Fechar menu"
+          style={{
+            position: 'absolute',
+            top: '1.5rem',
+            right: '1.5rem',
+            background: 'none',
+            border: 'none',
+            color: 'var(--text-primary)',
+            cursor: 'pointer',
+            padding: '0.5rem',
+            zIndex: 1010
+          }}
+        >
+          <X size={26} />
+        </button>
+        <div className="mobile-drawer-content" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: '1.5rem' }}>
+          <nav className="mobile-drawer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem' }}>
             {menuItems.map((item) => {
               const id = item.toLowerCase();
               const isActive = activeSection === id;
@@ -108,60 +211,40 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
                 <a
                   key={item}
                   href={`#${id}`}
-                  onClick={(e) => handleLinkClick(e, id)}
-                  className={`nav-link ${isActive ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    handleLinkClick(e, id);
+                  }}
+                  className={`mobile-drawer-link ${isActive ? 'active' : ''}`}
+                  style={{
+                    textDecoration: 'none',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '1.2rem',
+                    color: isActive ? 'var(--accent-purple)' : 'var(--text-secondary)',
+                    fontWeight: isActive ? '700' : '500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0.5rem 0',
+                    transition: 'var(--transition)'
+                  }}
                 >
-                  <span className="bracket">&lt;</span>
+                  <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginRight: '0.5rem', transition: 'var(--transition)' }}>&lt;</span>
                   <span className="link-text">{item}</span>
-                  <span className="bracket">/&gt;</span>
+                  <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginLeft: '0.5rem', transition: 'var(--transition)' }}>/&gt;</span>
                 </a>
               );
             })}
           </nav>
 
-          {/* BB-8 Toggle Switch */}
-          <label className="bb8-toggle" aria-label="Alterar tema (BB-8)">
-            <input 
-              className="bb8-toggle__checkbox" 
-              type="checkbox" 
-              checked={isDarkMode}
-              onChange={toggleTheme}
-            />
-            <div className="bb8-toggle__container">
-              <div className="bb8-toggle__scenery">
-                <div className="bb8-toggle__star"></div>
-                <div className="bb8-toggle__star"></div>
-                <div className="bb8-toggle__star"></div>
-                <div className="bb8-toggle__star"></div>
-                <div className="bb8-toggle__star"></div>
-                <div className="bb8-toggle__star"></div>
-                <div className="bb8-toggle__star"></div>
-                <div className="tatto-1"></div>
-                <div className="tatto-2"></div>
-                <div className="gomrassen"></div>
-                <div className="hermes"></div>
-                <div className="chenini"></div>
-                <div className="bb8-toggle__cloud"></div>
-                <div className="bb8-toggle__cloud"></div>
-                <div className="bb8-toggle__cloud"></div>
-              </div>
-              <div className="bb8">
-                <div className="bb8__head-container">
-                  <div className="bb8__antenna"></div>
-                  <div className="bb8__antenna"></div>
-                  <div className="bb8__head"></div>
-                </div>
-                <div className="bb8__body"></div>
-              </div>
-              <div className="artificial__hidden">
-                <div className="bb8__shadow"></div>
-              </div>
-            </div>
-          </label>
+          <div className="mobile-drawer-toggle-wrapper" style={{ paddingBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Alterar Tema</span>
+            {renderBB8Toggle()}
+          </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }
 
 export default Navbar;
+

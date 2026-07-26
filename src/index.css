@@ -50,6 +50,12 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body, #root {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -1009,10 +1015,6 @@ h1, h2, h3, h4 {
 @media (max-width: 900px) {
   .logo-name {
     font-size: 1.2rem;
-  }
-  
-  .nav-menu {
-    display: none; /* In a production app, we would make a hamburger menu. Here we optimize for single page layout scroll */
   }
   
   .home-title {
@@ -2886,5 +2888,176 @@ h1, h2, h3, h4 {
   .cookie-banner-actions {
     width: 100%;
     justify-content: flex-end;
+  }
+}
+
+/* --- Mobile Menu & Hamburger Navigation Styles --- */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 1010;
+  transition: var(--transition);
+  padding: 0.5rem;
+  outline: none;
+}
+
+.hamburger-btn:hover {
+  color: var(--accent-purple);
+}
+
+/* Mobile Drawer Overlay Backdrop */
+.mobile-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile Drawer panel */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 290px;
+  height: 100vh;
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-left: 1px solid var(--glass-border);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 6rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .nav-actions {
+    display: none !important; /* Hide desktop links and toggle button */
+  }
+
+  /* Projects Carousel Mobile Layout Adjustment (Native Swipe Scroll) */
+  .carousel-nav-btn {
+    display: none !important; /* Remove navigation arrows on mobile */
+  }
+
+  .projects-carousel-viewport {
+    height: auto !important;
+    overflow-x: auto !important;
+    display: flex !important;
+    padding: 1.5rem 2rem !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important;
+    width: 100% !important;
+  }
+
+  .projects-carousel-viewport::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .projects-carousel-track {
+    display: flex !important;
+    position: static !important;
+    width: auto !important;
+    transform: none !important;
+    gap: 1.2rem !important;
+  }
+
+  .project-card {
+    position: static !important;
+    width: 275px !important;
+    height: 420px !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    scroll-snap-align: center !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+  }
+
+  .project-card.prev, 
+  .project-card.next,
+  .project-card.hidden {
+    position: static !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    display: flex !important;
+  }
+
+  .project-card .project-title {
+    font-size: 1.1rem !important;
+  }
+
+  .project-card .project-description {
+    font-size: 0.8rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .project-card .tag {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  .project-card .project-link {
+    font-size: 0.8rem !important;
+  }
+
+  .project-card .project-content {
+    padding: 0.8rem 1rem !important;
+  }
+
+  /* Footer Centering on Mobile */
+  .site-footer {
+    text-align: center !important;
+  }
+
+  .footer-columns {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2.5rem !important;
+  }
+
+  .footer-column {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .footer-nav-links {
+    justify-content: center !important;
+  }
+
+  .footer-social-links {
+    justify-content: center !important;
   }
 }
