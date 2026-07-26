@@ -87,7 +87,6 @@ function App() {
   const [activeWordIdx, setActiveWordIdx] = useState(0);
   const [activeProjectId, setActiveProjectId] = useState(null);
   const [isPdfFullscreen, setIsPdfFullscreen] = useState(false);
-  const [pdfZoom, setPdfZoom] = useState(100);
   const [activePdfUrl, setActivePdfUrl] = useState(null);
   const [cookieConsent, setCookieConsent] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -1008,61 +1007,9 @@ function App() {
               
               {/* Fullscreen PDF Modal */}
               {isPdfFullscreen && (
-                <div className="pdf-fullscreen-overlay" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '5rem 1.5rem 1.5rem 1.5rem' }}>
-                  {/* Close button (Top Right) */}
-                  <button 
-                    className="pdf-fullscreen-close" 
-                    onClick={() => { setIsPdfFullscreen(false); setPdfZoom(100); }}
-                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', left: 'auto', margin: 0 }}
-                  >
-                    &times; Fechar
-                  </button>
-                  
-                  {/* Zoom Controls (Top Left) */}
-                  <div className="pdf-zoom-controls" style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', display: 'flex', gap: '0.8rem', zIndex: 2010, alignItems: 'center' }}>
-                    <button 
-                      className="btn btn-secondary btn-sm" 
-                      onClick={() => setPdfZoom(Math.max(40, pdfZoom - 10))}
-                      style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
-                    >
-                      Afastar (-)
-                    </button>
-                    <span style={{ color: '#fff', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', minWidth: '45px', textAlign: 'center' }}>
-                      {pdfZoom}%
-                    </span>
-                    <button 
-                      className="btn btn-secondary btn-sm" 
-                      onClick={() => setPdfZoom(Math.min(150, pdfZoom + 10))}
-                      style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
-                    >
-                      Aproximar (+)
-                    </button>
-                  </div>
-
-                  <div 
-                    className="pdf-fullscreen-wrapper" 
-                    style={{ 
-                      width: '90%', 
-                      maxWidth: '1200px', 
-                      height: '100%', 
-                      borderRadius: '12px', 
-                      overflow: 'hidden', 
-                      background: '#fff', 
-                      boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
-                      position: 'relative'
-                    }}
-                  >
-                    <iframe 
-                      src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&zoom=${pdfZoom}`} 
-                      title={project.title} 
-                      className="pdf-fullscreen-iframe" 
-                      style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        border: 'none'
-                      }}
-                    ></iframe>
-                  </div>
+                <div className="pdf-fullscreen-overlay">
+                  <button className="pdf-fullscreen-close" onClick={() => setIsPdfFullscreen(false)}>&times; Fechar</button>
+                  <iframe src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} title={project.title} className="pdf-fullscreen-iframe"></iframe>
                 </div>
               )}
             </div>
