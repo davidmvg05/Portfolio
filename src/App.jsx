@@ -1042,21 +1042,28 @@ function App() {
                   <div 
                     className="pdf-fullscreen-wrapper" 
                     style={{ 
-                      width: `${pdfZoom}%`, 
-                      maxWidth: '100%', 
+                      width: '90%', 
+                      maxWidth: '1200px', 
                       height: '100%', 
                       borderRadius: '12px', 
                       overflow: 'hidden', 
                       background: '#fff', 
                       boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
-                      transition: 'width 0.25s cubic-bezier(0.25, 1, 0.5, 1)' 
+                      position: 'relative'
                     }}
                   >
                     <iframe 
                       src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
                       title={project.title} 
                       className="pdf-fullscreen-iframe" 
-                      style={{ width: '100%', height: '100%', border: 'none' }}
+                      style={{ 
+                        width: `${100 / (pdfZoom / 100)}%`, 
+                        height: `${100 / (pdfZoom / 100)}%`, 
+                        border: 'none',
+                        transform: `scale(${pdfZoom / 100})`,
+                        transformOrigin: 'top center',
+                        transition: 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), width 0.25s ease, height 0.25s ease'
+                      }}
                     ></iframe>
                   </div>
                 </div>
