@@ -7,6 +7,10 @@ import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
 import logoOmega from './assets/logo_omega.png';
 import logoShifter from './assets/logo_shifter.png';
+import logoLegoMobile from './assets/logo_lego_mobile.png';
+import logoMymatchcareMobile from './assets/logo_mymatchcare_mobile.png';
+import logoOmegaMobile from './assets/logo_omega_mobile.png';
+import logoShifterMobile from './assets/logo_shifter_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -95,8 +99,26 @@ function App() {
     return null;
   });
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  // Touch/Mouse swipe drag states for mobile projects carousel loop
+  const [startX, setStartX] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartTime, setDragStartTime] = useState(0);
   
   const journeyRef = useRef(null);
+
+  // Set browser scroll restoration to manual to prevent automatic jumping on state changes
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  // Always scroll window to top immediately when active page routing changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeProjectId]);
 
   // Load GA4 and GTM dynamically only when cookieConsent is 'accepted'
   useEffect(() => {
@@ -377,7 +399,8 @@ function App() {
       description: "Plano estratégico focado em estabelecer a presença digital da LEGO nas redes sociais em Portugal.",
       tags: ["Strategy", "Social Media", "Creativity"],
       link: "./documents/lego_social_media.pdf",
-      image: logoLego
+      image: logoLego,
+      mobileImage: logoLegoMobile
     },
     {
       id: "mymatchcare",
@@ -385,7 +408,8 @@ function App() {
       description: "Plano estratégico de marketing digital desenvolvido para a plataforma de cuidados domiciliários MyMatchCare.",
       tags: ["Strategy", "Creativity", "Digital Marketing"],
       link: "./documents/mymatchcare_plan.pdf",
-      image: logoMymatchcare
+      image: logoMymatchcare,
+      mobileImage: logoMymatchcareMobile
     },
     {
       id: "omega",
@@ -393,7 +417,8 @@ function App() {
       description: "Construção de uma loja online completa (e-Store) para a marca OMEGA.",
       tags: ["Shopify", "UI/UX", "Strategy"],
       link: "https://omega-estore.myshopify.com/?pb=0",
-      image: logoOmega
+      image: logoOmega,
+      mobileImage: logoOmegaMobile
     },
     {
       id: "shifter",
@@ -401,7 +426,8 @@ function App() {
       description: "Auditoria estruturada de SEO de uma publicação online existente, avaliando o desempenho na página, segmentação de keywords e lacunas de conteúdo.",
       tags: ["SEO", "Audit", "Strategy"],
       link: "#",
-      image: logoShifter
+      image: logoShifter,
+      mobileImage: logoShifterMobile
     }
   ];
 
@@ -456,13 +482,11 @@ function App() {
       setActivePdfUrl(projectDetails[id].pdfUrl);
     }
     window.history.pushState({ projectId: id }, '', `?project=${id}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateToPrivacy = () => {
     setActiveProjectId('privacy-policy');
     window.history.pushState({ projectId: 'privacy-policy' }, '', '?page=privacy-policy');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateHome = () => {
@@ -542,6 +566,37 @@ function App() {
     setTimeout(() => {
       setTeleportIdx(null);
     }, 50);
+  };
+
+  // Drag Gesture Handlers for Projects Carousel Touch / Mouse Swipe Snapping
+  const handleDragStart = (clientX) => {
+    if (windowWidth > 768) return; // Only enable swipe gestures on mobile devices
+    setIsDragging(true);
+    setStartX(clientX);
+    setDragOffset(0);
+    setDragStartTime(Date.now());
+  };
+
+  const handleDragMove = (clientX) => {
+    if (!isDragging) return;
+    const offset = clientX - startX;
+    setDragOffset(offset);
+  };
+
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const dragDuration = Date.now() - dragStartTime;
+    const velocity = Math.abs(dragOffset) / dragDuration; // px/ms
+
+    // Decide navigation based on distance (> 80px) or speed (> 0.4px/ms)
+    if (dragOffset < -80 || (dragOffset < -20 && velocity > 0.4)) {
+      nextSlide();
+    } else if (dragOffset > 80 || (dragOffset > 20 && velocity > 0.4)) {
+      prevSlide();
+    }
+    setDragOffset(0);
   };
 
 
@@ -690,7 +745,17 @@ function App() {
               <ChevronLeft size={24} />
             </button>
 
-            <div className="projects-carousel-viewport">
+            <div 
+              className="projects-carousel-viewport"
+              onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+              onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+              onTouchEnd={handleDragEnd}
+              onMouseDown={(e) => handleDragStart(e.clientX)}
+              onMouseMove={(e) => handleDragMove(e.clientX)}
+              onMouseUp={handleDragEnd}
+              onMouseLeave={handleDragEnd}
+              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+            >
               <div className="projects-carousel-track">
                 {activeProjects.map((project, idx) => {
                   let cardClass = "project-card";
@@ -712,23 +777,74 @@ function App() {
                     cardClass += " has-image";
                   }
 
+                  // Determine mobile vs desktop image
+                  const cardImage = (windowWidth <= 768 && project.mobileImage) ? project.mobileImage : project.image;
+
                   const handleCardClick = () => {
-                    if (idx === (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length) {
-                      prevSlide();
-                    } else if (idx === (activeSlideIdx + 1) % activeProjects.length) {
-                      nextSlide();
+                    if (windowWidth > 768) {
+                      if (idx === (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length) {
+                        prevSlide();
+                      } else if (idx === (activeSlideIdx + 1) % activeProjects.length) {
+                        nextSlide();
+                      }
                     }
                   };
+
+                  // Dynamic style transitions for mobile drag gesture peeking
+                  let cardStyle = {};
+                  if (windowWidth <= 768) {
+                    const isTransitioning = !isDragging;
+                    const transitionStyle = isTransitioning ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s, filter 0.5s' : 'none';
+                    
+                    if (idx === activeSlideIdx) {
+                      cardStyle = {
+                        transform: `translateX(${dragOffset}px) scale(1.03)`,
+                        opacity: 1,
+                        filter: 'none',
+                        pointerEvents: isDragging ? 'none' : 'auto',
+                        transition: transitionStyle,
+                        zIndex: 3
+                      };
+                    } else if (idx === (activeSlideIdx - 1 + activeProjects.length) % activeProjects.length) {
+                      cardStyle = {
+                        transform: `translateX(calc(-78% + ${dragOffset}px)) scale(0.82)`,
+                        opacity: 0.45,
+                        filter: 'blur(2px)',
+                        pointerEvents: 'auto',
+                        transition: transitionStyle,
+                        zIndex: 2
+                      };
+                    } else if (idx === (activeSlideIdx + 1) % activeProjects.length) {
+                      cardStyle = {
+                        transform: `translateX(calc(78% + ${dragOffset}px)) scale(0.82)`,
+                        opacity: 0.45,
+                        filter: 'blur(2px)',
+                        pointerEvents: 'auto',
+                        transition: transitionStyle,
+                        zIndex: 2
+                      };
+                    } else {
+                      cardStyle = {
+                        transform: 'translateX(200%) scale(0.7)',
+                        opacity: 0,
+                        filter: 'blur(4px)',
+                        pointerEvents: 'none',
+                        transition: 'opacity 0.5s',
+                        zIndex: 1
+                      };
+                    }
+                  }
 
                   return (
                     <div 
                       key={idx} 
                       className={cardClass}
                       onClick={handleCardClick}
+                      style={cardStyle}
                     >
                       <div className="project-image-container">
-                        {project.image ? (
-                          <img src={project.image} alt={project.title} className="project-card-image" />
+                        {cardImage ? (
+                          <img src={cardImage} alt={project.title} className="project-card-image" />
                         ) : (
                           <div className="project-image-placeholder">
                             {project.icon === 'compass' && <Compass size={32} style={{ marginBottom: '5px' }} />}

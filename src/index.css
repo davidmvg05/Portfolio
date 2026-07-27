@@ -2960,70 +2960,121 @@ h1, h2, h3, h4 {
     display: none !important; /* Hide desktop links and toggle button */
   }
 
-  /* Projects Carousel Mobile Layout Adjustment (Native Swipe Scroll) */
+  /* My Journey Mobile Layout adjustments */
+  .waving-words-container {
+    flex-direction: column !important;
+    gap: 0.8rem !important;
+    text-align: center !important;
+    padding: 1rem 0 !important;
+  }
+
+  .journey-squares-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .journey-info-square {
+    min-height: 120px !important;
+    padding: 1.5rem 1rem !important;
+  }
+
+  /* Timeline narrowing on Mobile */
+  .timeline-right-aligned {
+    padding-left: 1rem !important; /* Move card row further to the left */
+  }
+
+  .timeline-right-dot {
+    left: -1rem !important;
+  }
+
+  .timeline-right-card {
+    padding: 1.2rem !important; /* Shorten padding inside cards */
+    font-size: 0.9rem !important;
+  }
+
+  .timeline-right-card h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .timeline-right-card h4 {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  /* Projects Carousel Mobile Layout Adjustment (Snapping Swipe and Peeking Cards) */
   .carousel-nav-btn {
-    display: none !important; /* Remove navigation arrows on mobile */
+    display: none !important; /* Remove navigation arrows on mobile as swipe/drag handles it */
+  }
+
+  .projects-carousel-container {
+    overflow: visible !important;
   }
 
   .projects-carousel-viewport {
-    height: auto !important;
-    overflow-x: auto !important;
-    display: flex !important;
-    padding: 1.5rem 2rem !important;
-    scroll-snap-type: x mandatory !important;
-    scrollbar-width: none !important;
+    height: 480px !important;
+    overflow: visible !important; /* Keep overflow visible so card corners show as a peek */
     width: 100% !important;
-  }
-
-  .projects-carousel-viewport::-webkit-scrollbar {
-    display: none !important;
   }
 
   .projects-carousel-track {
     display: flex !important;
-    position: static !important;
-    width: auto !important;
-    transform: none !important;
-    gap: 1.2rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
   }
 
   .project-card {
-    position: static !important;
+    position: absolute !important;
     width: 275px !important;
-    height: 420px !important;
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-    pointer-events: auto !important;
-    scroll-snap-align: center !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
+    height: 430px !important;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s, filter 0.5s !important;
   }
 
-  .project-card.prev, 
-  .project-card.next,
-  .project-card.hidden {
-    position: static !important;
+  /* Overrides for mobile prev, next, hidden card positions */
+  .project-card.prev {
+    transform: translateX(-78%) scale(0.82) !important;
+    filter: blur(2px) !important;
+    opacity: 0.45 !important;
+    pointer-events: auto !important;
+  }
+
+  .project-card.next {
+    transform: translateX(78%) scale(0.82) !important;
+    filter: blur(2px) !important;
+    opacity: 0.45 !important;
+    pointer-events: auto !important;
+  }
+
+  .project-card.active {
+    transform: translateX(0) scale(1.03) !important;
     opacity: 1 !important;
     filter: none !important;
-    transform: none !important;
     pointer-events: auto !important;
-    display: flex !important;
+    z-index: 3 !important;
+  }
+
+  .project-card.hidden {
+    transform: translateX(200%) scale(0.7) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   .project-card .project-title {
-    font-size: 1.1rem !important;
+    font-size: 1.05rem !important;
   }
 
   .project-card .project-description {
-    font-size: 0.8rem !important;
-    line-height: 1.45 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
     margin-bottom: 0.8rem !important;
   }
 
   .project-card .tag {
     font-size: 0.7rem !important;
-    padding: 0.25rem 0.5rem !important;
+    padding: 0.2rem 0.45rem !important;
   }
 
   .project-card .project-link {
