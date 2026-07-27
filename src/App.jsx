@@ -1018,7 +1018,7 @@ function App() {
               </div>
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Enviar Transmissão <Send size={16} />
+                  Enviar Mensagem <Send size={16} />
                 </button>
                 {contactStatus.message && (
                   <p className={`form-status-msg ${contactStatus.type}`} style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}>

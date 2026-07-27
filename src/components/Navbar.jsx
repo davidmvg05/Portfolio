@@ -202,8 +202,13 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
         >
           <X size={26} />
         </button>
-        <div className="mobile-drawer-content" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: '1.5rem' }}>
-          <nav className="mobile-drawer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem' }}>
+        <div className="mobile-drawer-content" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '3rem', gap: '2rem' }}>
+          <div className="mobile-drawer-toggle-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Alterar Tema</span>
+            {renderBB8Toggle()}
+          </div>
+
+          <nav className="mobile-drawer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {menuItems.map((item) => {
               const id = item.toLowerCase();
               const isActive = activeSection === id;
@@ -224,6 +229,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
                     fontWeight: isActive ? '700' : '500',
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'flex-start',
                     padding: '0.5rem 0',
                     transition: 'var(--transition)'
                   }}
@@ -235,11 +241,6 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
               );
             })}
           </nav>
-
-          <div className="mobile-drawer-toggle-wrapper" style={{ paddingBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Alterar Tema</span>
-            {renderBB8Toggle()}
-          </div>
         </div>
       </div>
     </>

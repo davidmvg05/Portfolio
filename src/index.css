@@ -2950,14 +2950,102 @@ h1, h2, h3, h4 {
   transform: translateX(0);
 }
 
-@media (max-width: 768px) {
+/* Checkbox alignment layout overrides */
+.contact-form input[type="checkbox"] {
+  width: auto !important;
+  display: inline-block !important;
+  margin: 0 !important;
+}
+
+.checkbox-group {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 0.8rem !important;
+  margin: 1.2rem 0 !important;
+  text-align: left !important;
+}
+
+.checkbox-group input[type="checkbox"] {
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  cursor: pointer !important;
+  accent-color: var(--accent-purple) !important;
+}
+
+.checkbox-group label {
+  margin: 0 !important;
+  font-size: 0.85rem !important;
+  color: var(--text-secondary) !important;
+  cursor: pointer !important;
+  line-height: 1.4 !important;
+}
+
+@media (max-width: 1024px) {
   .hamburger-btn {
-    display: block;
+    display: block !important;
   }
 
   .nav-actions {
-    display: none !important; /* Hide desktop links and toggle button */
+    display: none !important; /* Hide desktop links and theme switcher */
   }
+}
+
+/* Fullscreen cover layout for Surface Pro, iPads and medium laptops (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mobile-drawer {
+    width: 100vw !important;
+    height: 100vh !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    transform: translateY(-100%) !important; /* Slide down from top */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    padding: 6rem 2rem 2rem 2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .mobile-drawer.open {
+    transform: translateY(0) !important;
+  }
+
+  .mobile-drawer-content {
+    width: 100% !important;
+    max-width: 450px !important;
+    margin: 0 auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 3rem !important;
+  }
+
+  .mobile-drawer-nav {
+    align-items: center !important;
+    text-align: center !important;
+    gap: 2rem !important;
+    width: 100% !important;
+  }
+
+  .mobile-drawer-link {
+    font-size: 1.6rem !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .mobile-drawer-toggle-wrapper {
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    border-bottom: 1px dashed var(--glass-border) !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
 
   /* My Journey Mobile Layout adjustments */
   .waving-words-container {
