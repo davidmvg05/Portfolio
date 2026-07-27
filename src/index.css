@@ -2950,7 +2950,7 @@ h1, h2, h3, h4 {
   transform: translateX(0);
 }
 
-/* Checkbox alignment layout overrides */
+/* Checkbox alignment layout overrides with custom rocket checkmark */
 .contact-form input[type="checkbox"] {
   width: auto !important;
   display: inline-block !important;
@@ -2967,11 +2967,41 @@ h1, h2, h3, h4 {
 }
 
 .checkbox-group input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
   flex-shrink: 0 !important;
-  width: 18px !important;
-  height: 18px !important;
+  width: 22px !important;
+  height: 22px !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 6px !important;
+  background: var(--bg-primary) !important;
   cursor: pointer !important;
-  accent-color: var(--accent-purple) !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: var(--transition) !important;
+  outline: none !important;
+}
+
+.checkbox-group input[type="checkbox"]:hover {
+  border-color: var(--accent-purple) !important;
+  box-shadow: 0 0 8px var(--accent-purple-glow) !important;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+  background: var(--accent-purple) !important;
+  border-color: var(--accent-purple) !important;
+  box-shadow: 0 0 10px var(--accent-purple-glow) !important;
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+  content: "🚀" !important;
+  font-size: 0.85rem !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 
 .checkbox-group label {
