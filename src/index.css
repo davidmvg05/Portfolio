@@ -2828,12 +2828,11 @@ h1, h2, h3, h4 {
   transform: translateX(-50%);
   width: 90%;
   max-width: 850px;
-  background: var(--glass-bg);
+  background: var(--bg-secondary);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
   z-index: 10000;
   display: flex;
   flex-direction: row;

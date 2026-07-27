@@ -994,6 +994,28 @@ function App() {
                 </label>
                 <textarea id="message" name="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
               </div>
+              <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
+                <input 
+                  type="checkbox" 
+                  id="privacy-consent-main" 
+                  name="privacy_consent" 
+                  required 
+                  style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
+                />
+                <label htmlFor="privacy-consent-main" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
+                  Li e aceito o tratamento dos meus dados pessoais como explicado pela{' '}
+                  <a 
+                    href="#privacy-policy" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToPrivacy();
+                    }}
+                    style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}
+                  >
+                    Política de Privacidade
+                  </a>.
+                </label>
+              </div>
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   Enviar Transmissão <Send size={16} />
@@ -1312,6 +1334,29 @@ function App() {
                   required 
                   defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
                 ></textarea>
+              </div>
+              <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
+                <input 
+                  type="checkbox" 
+                  id="privacy-consent-omega" 
+                  name="privacy_consent" 
+                  required 
+                  style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
+                />
+                <label htmlFor="privacy-consent-omega" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
+                  Li e aceito o tratamento dos meus dados pessoais como explicado pela{' '}
+                  <a 
+                    href="#privacy-policy" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOmegaModalOpen(false);
+                      navigateToPrivacy();
+                    }}
+                    style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}
+                  >
+                    Política de Privacidade
+                  </a>.
+                </label>
               </div>
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
