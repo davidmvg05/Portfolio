@@ -11,6 +11,10 @@ import logoLegoMobile from './assets/logo_lego_mobile.png';
 import logoMymatchcareMobile from './assets/logo_mymatchcare_mobile.png';
 import logoOmegaMobile from './assets/logo_omega_mobile.png';
 import logoShifterMobile from './assets/logo_shifter_mobile.png';
+import logoCiberseguranca from './assets/logo_cibersegurança.png';
+import logoCibersegurancaMobile from './assets/logo_cibersegurança_mobile.png';
+import logoOmega3d from './assets/logo_omega3d.png';
+import logoOmega3dMobile from './assets/logo_omage3d_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -428,6 +432,24 @@ function App() {
       link: "#",
       image: logoShifter,
       mobileImage: logoShifterMobile
+    },
+    {
+      id: "ciberseguranca",
+      title: "Campanha de Cibersegurança",
+      description: "Trabalho realizado na cadeira de marketing em dispositivos móveis, escolhi o tema da cibersegurança e desenvolvi uma estratégia focada em alertar e educar utilizadores sobre ameaças móveis.",
+      tags: ["Mobile Security", "Data Privacy", "Campaign"],
+      link: "./documents/cibersegurança.pdf",
+      image: logoCiberseguranca,
+      mobileImage: logoCibersegurancaMobile
+    },
+    {
+      id: "omega3d",
+      title: "Exposição no Metaverso - Omega",
+      description: "Desenvolvimento de modelos 3D, Experiências AR no GitHub e criação de espaços no metaverso utilizando a plataforma Spatial.",
+      tags: ["3D Modeling", "AR", "Metaverse"],
+      link: "#",
+      image: logoOmega3d,
+      mobileImage: logoOmega3dMobile
     }
   ];
 
@@ -472,6 +494,30 @@ function App() {
       ],
       skills: ["SEO Auditing", "On-Page SEO", "Keyword Research", "Content Gap Analysis"],
       platforms: ["Google Search Console", "Screaming Frog", "Semrush", "Google Analytics"]
+    },
+    ciberseguranca: {
+      title: "Campanha de Cibersegurança",
+      description: "Trabalho realizado na cadeira de marketing em dispositivos móveis, escolhi o tema da cibersegurança e desenvolvi uma estratégia com foco em alertar os utilizadores móveis acerca de práticas de segurança física e digital, privacidade online e engenharia social direcionada a smartphones.",
+      pdfUrl: "./documents/cibersegurança.pdf",
+      documents: [
+        { name: "Trabalho de Cibersegurança", url: "./documents/cibersegurança.pdf" }
+      ],
+      skills: ["Mobile Security", "Data Privacy", "Threat Analysis", "Awareness Campaign"],
+      platforms: ["Google", "ChatGPT"]
+    },
+    omega3d: {
+      title: "Exposição no Metaverso - Omega",
+      description: "Desenvolvimento de modelos 3D otimizados, experiências interativas de Realidade Aumentada (AR) integradas e hospedadas no GitHub, e a criação de showrooms imersivos no metaverso através da plataforma Spatial. Foco na integração 3D ao ecossistema de marca OMEGA.",
+      pdfUrl: null,
+      documents: [
+        { name: "Model 3D Pousa Pés", url: "https://sketchfab.com/3d-models/omega-otimizado-2de38c1144f84824bde7f5d643184c11", external: true },
+        { name: "Model 3D Pedra do Pedro", url: "https://sketchfab.com/3d-models/pedra-do-pedro-a60fa47a50674dafa59a5a8440ba26e4", external: true },
+        { name: "Model 3D Route 66 do Daniel", url: "https://sketchfab.com/3d-models/route-66-ddc18a292f9c44f2ad6f58fb51f3b1cc", external: true },
+        { name: "Model 3D Botão De Punho Omega", url: "https://sketchfab.com/3d-models/botao-de-punho-3d3a8afd2b6244c19a1c4e52f2afbd22", external: true },
+        { name: "Experiência AR no Github", url: "https://davidmvg05.github.io/Projeto-AR/", external: true }
+      ],
+      skills: ["Fotogrametria", "Modelos 3D", "Realidade Aumentada (AR)", "Espaços Virtuais (Metaverso)"],
+      platforms: ["RealityScan", "Sketchfab", "Github", "Spatial"]
     }
   };
 
@@ -1045,9 +1091,20 @@ function App() {
               <p className="project-page-desc">{project.description}</p>
               
               <div className="project-page-grid">
-                {/* Left Column: PDF Embed or Tablet view */}
+                 {/* Left Column: PDF Embed or Tablet view */}
                 <div className="project-page-left">
-                  {activePdfUrl === 'shopify' ? (
+                  {(!project.pdfUrl && activePdfUrl === null) ? (
+                    <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
+                      <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
+                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Experiência Virtual</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
+                        Modelos 3D interativos e experiências imersivas de realidade aumentada disponíveis para consulta externa.
+                      </p>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--accent-purple)', fontWeight: '500' }}>
+                        Selecione as experiências na barra lateral para explorar.
+                      </p>
+                    </div>
+                  ) : activePdfUrl === 'shopify' ? (
                     <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
                       <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
                       <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Acesso Protegido</h3>
@@ -1056,7 +1113,7 @@ function App() {
                       </p>
                       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                         <button className="btn btn-primary btn-sm" onClick={() => setIsOmegaModalOpen(true)}>
-                          Enviar Transmissão
+                          Enviar Mensagem
                         </button>
                         <a href="https://omega-estore.myshopify.com/?pb=0" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                           Ecommerce Omega
