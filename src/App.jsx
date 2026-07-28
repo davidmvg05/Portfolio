@@ -15,6 +15,8 @@ import logoCiberseguranca from './assets/logo_cibersegurança.png';
 import logoCibersegurancaMobile from './assets/logo_cibersegurança_mobile.png';
 import logoOmega3d from './assets/logo_omega3d.png';
 import logoOmega3dMobile from './assets/logo_omage3d_mobile.png';
+import logoMimosa from './assets/logo_mimosa.png';
+import logoMimosaMobile from './assets/logo_mimosa_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -450,6 +452,15 @@ function App() {
       link: "#",
       image: logoOmega3d,
       mobileImage: logoOmega3dMobile
+    },
+    {
+      id: "mimosa",
+      title: "Estudo de Mercado - Mimosa",
+      description: "Estudo de mercado estratégico com foco no lançamento de um novo segmento de iogurtes líquidos com pedaços de fruta.",
+      tags: ["Market Research", "Strategy", "Data Analysis"],
+      link: "./documents/estudodemercado_mimosa.pdf",
+      image: logoMimosa,
+      mobileImage: logoMimosaMobile
     }
   ];
 
@@ -518,6 +529,17 @@ function App() {
       ],
       skills: ["Fotogrametria", "Modelos 3D", "Realidade Aumentada (AR)", "Espaços Virtuais (Metaverso)"],
       platforms: ["RealityScan", "Sketchfab", "Github", "Spatial"]
+    },
+    mimosa: {
+      title: "Estudo de Mercado - Mimosa",
+      description: "Estudo de mercado aprofundado com foco estratégico no planeamento e lançamento de um novo segmento de iogurtes líquidos com pedaços de fruta para a marca Mimosa. O trabalho envolveu recolha primária de dados sobre hábitos de consumo e preferências, análise de segmentação, posicionamento e canais de distribuição recomendados.",
+      pdfUrl: "./documents/estudodemercado_mimosa.pdf",
+      documents: [
+        { name: "Estudo de Mercado - Mimosa", url: "./documents/estudodemercado_mimosa.pdf" },
+        { name: "Apresentação Mimosa", url: "./documents/apresentaçãofinal_mimosa.pdf" }
+      ],
+      skills: ["Market Research", "Product Launch Strategy", "Data Analysis", "Consumer Behavior"],
+      platforms: ["Google Forms", "Looker Studio", "Microsoft Excel", "Canva"]
     }
   };
 
