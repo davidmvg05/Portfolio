@@ -17,6 +17,10 @@ import logoOmega3d from './assets/logo_omega3d.png';
 import logoOmega3dMobile from './assets/logo_omage3d_mobile.png';
 import logoMimosa from './assets/logo_mimosa.png';
 import logoMimosaMobile from './assets/logo_mimosa_mobile.png';
+import logoStrongbulk from './assets/logo_strongbulk.png';
+import logoStrongbulkMobile from './assets/logo_strongbulk_mobile.png';
+import logoGotasalgada from './assets/logo_gotasalgada.png';
+import logoGotasalgadaMobile from './assets/logo_gotasalgada_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -461,6 +465,24 @@ function App() {
       link: "./documents/estudodemercado_mimosa.pdf",
       image: logoMimosa,
       mobileImage: logoMimosaMobile
+    },
+    {
+      id: "strongbulk",
+      title: "Email de Marketing - Myprotein e StrongBulk",
+      description: "Análise crítica do email de marketing da Myprotein e desenvolvimento de uma campanha de email de marketing para a StrongBulk, uma marca fictícia de fitness.",
+      tags: ["Email Marketing", "Copywriting", "Strategy"],
+      link: "./documents/analisecritica_emaildemarketing_myprotein.pdf",
+      image: logoStrongbulk,
+      mobileImage: logoStrongbulkMobile
+    },
+    {
+      id: "gotasalgada",
+      title: "Dossiê Técnico e Dossiê Pessoal - Gota Salgada",
+      description: "Desenvolvimento criativo e humorístico da marca Gota Salgada como concorrente do Pingo Doce, incluindo dossiês e apresentações.",
+      tags: ["Branding", "Creative Writing", "Humor"],
+      link: "./documents/dossietecnicoepessoal_gotasalgada.pdf",
+      image: logoGotasalgada,
+      mobileImage: logoGotasalgadaMobile
     }
   ];
 
@@ -540,6 +562,30 @@ function App() {
       ],
       skills: ["Market Research", "Product Launch Strategy", "Data Analysis", "Consumer Behavior"],
       platforms: ["Google Forms", "Looker Studio", "Microsoft Excel", "Canva"]
+    },
+    strongbulk: {
+      title: "Email de Marketing - Myprotein e StrongBulk",
+      description: "Na cadeira de email de marketing realizei dois projetos, um de analisar criticamente o email de marketing da Myprotein e construir um email como projeto final que desenvolvi para a StrongBulk uma marca fictícia. A escolha para analíse crítica recaiu sobre a Myprotein pois esta seria um concorrente da StrongBulk. Como desenvolvi um website em wordpress para a marca fictícia - StrongBulk - deu continuadade a marca e desenvolvi o email de marketing.",
+      pdfUrl: "./documents/analisecritica_emaildemarketing_myprotein.pdf",
+      documents: [
+        { name: "Analise Crítica - Myprotein", url: "./documents/analisecritica_emaildemarketing_myprotein.pdf" },
+        { name: "Apresentação - Myprotein", url: "./documents/apresentaçãofinal_myprotein.pdf" },
+        { name: "Email de Marketing - StrongBulk", url: "./documents/emaildemarketing_strongbulk.pdf" },
+        { name: "Apresentação - StrongBulk", url: "./documents/apresentaçãofinal_strongbulk.pdf" }
+      ],
+      skills: ["Email Marketing", "Competitor Analysis", "Copywriting", "Newsletter Design"],
+      platforms: ["Wordpress", "MailChimp", "Brave", "Canva"]
+    },
+    gotasalgada: {
+      title: "Dossiê Técnico e Dossiê Pessoal - Gota Salgada",
+      description: "Tive um gosto especial na elaboração deste trabalho devido ao poder humoristico do mesmo. Criamos a Gota Salgada como fosse concorrente do Pingo Doce. No entanto o trabalho não envolve diretamente tarefas relacionadas com o marketing digital.",
+      pdfUrl: "./documents/dossietecnicoepessoal_gotasalgada.pdf",
+      documents: [
+        { name: "Dossiê - Gota Salgada", url: "./documents/dossietecnicoepessoal_gotasalgada.pdf" },
+        { name: "Apresentação - Gota Salgada", url: "./documents/apresentacao_gotasalgada.pdf" }
+      ],
+      skills: ["CV Europass", "CV Vitae", "Humorous Branding", "Dossier Preparation"],
+      platforms: ["Canva", "ChatGPT", "Microsoft Word", "Adobe Acrobat"]
     }
   };
 
