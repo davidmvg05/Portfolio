@@ -21,6 +21,8 @@ import logoStrongbulk from './assets/logo_strongbulk.png';
 import logoStrongbulkMobile from './assets/logo_strongbulk_mobile.png';
 import logoGotasalgada from './assets/logo_gotasalgada.png';
 import logoGotasalgadaMobile from './assets/logo_gotasalgada_mobile.png';
+import logoApadariaportuguesa from './assets/logo_apadariaportuguesa.png';
+import logoApadariaportuguesaMobile from './assets/logo_apadariaportuguesa_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -483,6 +485,15 @@ function App() {
       link: "./documents/dossietecnicoepessoal_gotasalgada.pdf",
       image: logoGotasalgada,
       mobileImage: logoGotasalgadaMobile
+    },
+    {
+      id: "apadariaportuguesa",
+      title: "Análise da Presença Digital - A Padaria Portuguesa",
+      description: "Realizei uma análise detalhada sobre a presença digital da A Padaria Portuguesa, avaliar as campanhas digitais e a distribuição dos conteúdos pelas diversas plataformas digitais.",
+      tags: ["Digital Audit", "Strategy", "Social Media"],
+      link: "./documents/projeto_apadariaportuguesa.pdf",
+      image: logoApadariaportuguesa,
+      mobileImage: logoApadariaportuguesaMobile
     }
   ];
 
@@ -586,6 +597,16 @@ function App() {
       ],
       skills: ["CV Europass", "CV Vitae", "Humorous Branding", "Dossier Preparation"],
       platforms: ["Canva", "ChatGPT", "Microsoft Word", "Adobe Acrobat"]
+    },
+    apadariaportuguesa: {
+      title: "Análise da Presença Digital - A Padaria Portuguesa",
+      description: "Realizei uma análise detalhada sobre a presença digital da A Padaria Portuguesa, avaliar as campanhas digitais e a distribuição dos conteúdos pelas diversas plataformas digitais. Também irei desenvolver se a marca desenvolve parcerias no digital e/ou ações patrocinadas.",
+      pdfUrl: "./documents/projeto_apadariaportuguesa.pdf",
+      documents: [
+        { name: "Análise - A Padaria Portuguesa", url: "./documents/projeto_apadariaportuguesa.pdf" }
+      ],
+      skills: ["Digital Presence Audit", "Campaign Evaluation", "Content Distribution Strategy", "Sponsorship Analysis"],
+      platforms: ["Excel", "Google", "YouTube"]
     }
   };
 
