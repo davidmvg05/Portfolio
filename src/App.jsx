@@ -1211,20 +1211,21 @@ function App() {
                     </div>
                   ) : (
                     windowWidth <= 768 ? (
-                      <div className="pdf-mobile-fallback-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '450px', padding: '2.5rem 1.5rem', textAlign: 'center', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxSizing: 'border-box' }}>
-                        <FileText size={56} style={{ color: 'var(--accent-blue)', marginBottom: '1.2rem' }} />
+                      <div className="pdf-mobile-fallback-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '450px', padding: '2.5rem 1.5rem', textAlign: 'center', background: 'var(--bg-secondary)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxSizing: 'border-box' }}>
+                        <FileText size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.2rem' }} />
                         <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)', fontSize: '1.15rem' }}>Visualização do PDF</h4>
                         <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.8rem', lineHeight: '1.6', maxWidth: '300px' }}>
-                          Os telemóveis limitam a leitura de PDFs integrados. Abra o documento completo para ler todas as páginas de forma fluida.
+                          Os telemóveis limitam a leitura de PDFs integrados. Ao abrir o documento, poderá ler todas as páginas de forma fluída.
                         </p>
                         <a 
                           href={activePdfUrl || project.pdfUrl} 
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="btn btn-primary btn-sm"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.6rem 1.2rem' }}
                         >
-                          Abrir Documento Completo <ExternalLink size={16} />
+                          <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>Abrir Documento</span>
+                          <ExternalLink size={20} style={{ display: 'inline-block', verticalAlign: 'middle' }} />
                         </a>
                       </div>
                     ) : (
