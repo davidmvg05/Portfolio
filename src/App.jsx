@@ -129,7 +129,7 @@ function App() {
 
   // Always scroll window to top immediately when active page routing changes
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [activeProjectId]);
 
   // Load GA4 and GTM dynamically only when cookieConsent is 'accepted'
