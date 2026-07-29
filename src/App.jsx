@@ -27,6 +27,10 @@ import logoEdp from './assets/logo_edp.png';
 import logoEdpMobile from './assets/logo_edp_mobile.png';
 import logoRebottle from './assets/logo_rebottle.png';
 import logoRebottleMobile from './assets/logo_rebottle_mobile.png';
+import logoOmegaanalytics from './assets/logo_omegaanalytics.png';
+import logoOmegaanalyticsMobile from './assets/logo_omegaanalytics_mobile.png';
+import logoAdegasocalcos from './assets/logo_adegasocalcos.png';
+import logoAdegasocalcosMobile from './assets/logo_adegasocalcos_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -516,6 +520,24 @@ function App() {
       link: "./documents/analisecritica_larqestanley.pdf",
       image: logoRebottle,
       mobileImage: logoRebottleMobile
+    },
+    {
+      id: "omegaanalytics",
+      title: "Métricas - Omega",
+      description: "Análise detalhada de métricas digitais e avaliação de desempenho para a loja e-commerce fictícia Omega.",
+      tags: ["Analytics", "KPIs", "E-commerce Optimization"],
+      link: "./documents/projetofinal_omegaanalytics.pdf",
+      image: logoOmegaanalytics,
+      mobileImage: logoOmegaanalyticsMobile
+    },
+    {
+      id: "adegasocalcos",
+      title: "Estratégia e Planeamento - Adega Socalcos",
+      description: "Estratégia de comunicação e planeamento detalhado de campanhas focadas na marca fictícia de vinhos Adega Socalcos.",
+      tags: ["Marketing Strategy", "Campaign Planning", "Wine Culture"],
+      link: "./documents/projetofinal_adegasocalcos.pdf",
+      image: logoAdegasocalcos,
+      mobileImage: logoAdegasocalcosMobile
     }
   ];
 
@@ -655,6 +677,28 @@ function App() {
       ],
       skills: ["SEM (Search Engine Marketing)", "Display Advertising", "Keyword Research", "Competitor Analysis"],
       platforms: ["Google Ads", "Gemini", "Google Web Designer", "Google Sheets"]
+    },
+    omegaanalytics: {
+      title: "Métricas - Omega",
+      description: "Análise de métricas e avaliação de desempenho focadas na otimização de fluxos de navegação e conversão. É importante acrescentar que existem dois documentos: o primeiro foi o projeto entregue durante a cadeira de Métricas e Avaliação de Desempenho (Projeto Métricas - Omega). No entanto, devido às discrepâncias encontradas no trabalho, atualizei e corrigi toda a análise no documento posterior (Projeto Renovado Métricas - Omega).",
+      pdfUrl: "./documents/projetofinal_omegaanalytics.pdf",
+      documents: [
+        { name: "Projeto Métricas - Omega", url: "./documents/projetofinal_omegaanalytics.pdf" },
+        { name: "Projeto Renovado Métricas - Omega", url: "./documents/projetofinal_omegaanalytics_renovado.pdf" }
+      ],
+      skills: ["Digital Analytics", "Data Analysis", "KPI Measurement", "Performance Evaluation"],
+      platforms: ["Google Analytics 4", "Google Tag Manager", "Looker Studio"]
+    },
+    adegasocalcos: {
+      title: "Estratégia e Planeamento - Adega Socalcos",
+      description: "Realizei a estratégia e o planeamento de uma campanha integrada de comunicação para a Adega Socalcos, uma marca fictícia. Foi um trabalho onde me debrucei com gosto sobre a cultura dos vinhos e explorei a diversidade e as características das diferentes Castas Portuguesas. Confesso por experiência própria que a Quinta do Crasto tem um excelente vinho, tendo até subscrito a newsletter da marca.",
+      pdfUrl: "./documents/projetofinal_adegasocalcos.pdf",
+      documents: [
+        { name: "Projeto - Adega Socalcos", url: "./documents/projetofinal_adegasocalcos.pdf" },
+        { name: "Apresentação - Adega Socalcos", url: "./documents/apresentacao_adegasocalcos.pdf" }
+      ],
+      skills: ["Strategic Planning", "Campaign Strategy", "Market Segmentation", "Copywriting"],
+      platforms: ["Notion", "Gemini", "ChatGPT", "Canva", "Google Sheets"]
     }
   };
 
