@@ -728,7 +728,10 @@ function App() {
       description: "Desenvolvimento completo do website da Alfaiate da Web com foco rigoroso no fluxo de UX/UI e design responsivo, perfeitamente adaptado a múltiplos dispositivos. O projeto envolveu o mapeamento detalhado da jornada do utilizador, a arquitetura da informação e a criação de uma estrutura visual moderna e profissional que otimiza a conversão.",
       pdfUrl: "./documents/website_alfaiatedaweb.pdf",
       documents: [
-        { name: "Website - Antigo Vs Novo", url: "./documents/website_alfaiatedaweb.pdf" }
+        { name: "Website - Antigo Vs Novo", url: "./documents/website_alfaiatedaweb.pdf" },
+        { name: "Loop Infinito - Homepage", url: "./websites-phases/loopinfinite-alfaiatedaweb/index.html" },
+        { name: "Página da História", url: "./websites-phases/historia-alfaiatedaweb/index.html" },
+        { name: "Secção Portfólio - Redes Sociais", url: "./websites-phases/portfolio-alfaiatedaweb/index.html" }
       ],
       skills: ["UX/UI Design", "Responsive Design", "Information Architecture", "Web Development"],
       platforms: ["WordPress", "Elementor", "Gemini", "Claude Code", "Visual Studio Code"]

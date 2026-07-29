@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+</head>
+<style>
+    :root {
+      --color-bg: #ffffff;
+      --color-surface: #f5f4f0;
+      --color-border-strong: #8d0000;
+      --color-text-primary: #1a1a1a;
+      --color-text-secondary: #6b6b6b;
+      --color-text-tertiary: #a0a0a0;
+      --color-accent: #1a1a1a;
+    }
+
+    .portfolio-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 1.25rem 5rem;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 0.5px solid var(--color-border-strong);
+      background: var(--color-bg);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      border-color: var(--color-accent);
+    }
+
+    /* ── Grid ── */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+
+    .ig-item {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--color-surface);
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+      z-index: 1;
+    }
+
+    /* EFEITO HOVER: Aumentar e Sombra */
+    .ig-item:hover {
+      transform: scale(1.05);
+      z-index: 10;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .ig-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90%; max-height: 85vh; border-radius: 4px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 45px; cursor: pointer; line-height: 1; }
+
+    @media (max-width: 480px) {
+      .ig-grid { gap: 2px; }
+      .portfolio-section { padding: 2rem 0.5rem; }
+    }
+</style>
+
+<body>
+
+<section class="portfolio-section">
+    
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="bniequipas">BNI EQUIPAS</button>
+      <button class="filter-btn" data-filter="raiadinamica">Raia Dinâmica</button>
+      <button class="filter-btn" data-filter="mymatchcare">MyMatchCare</button>
+      <button class="filter-btn" data-filter="businesspoint">BusinessPoint</button>
+    </div>
+
+    <div class="ig-grid" id="igGrid">
+      <!-- POST 1 -->
+      <div class="ig-item" data-cat="bniequipas">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_bni_equipas.png" alt="Post publicado nas redes sociais do BNI EQUIPAS no Dia das Mâes"> 
+      </div>
+
+      
+      <!-- POST 2 -->
+      <div class="ig-item" data-cat="businesspoint">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_businesspoint.png" alt="Post BusinessPoint"> 
+      </div>
+
+      <!-- POST 3 -->
+      <div class="ig-item" data-cat="raiadinamica">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_raia_dinamica.png" alt="Post Raia Dinâmica">
+      </div>
+
+      <!-- POST 4 -->
+      <div class="ig-item" data-cat="bniequipas">
+          <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_bni_equipas_2.png" alt="Post BNI EQUIPAS">
+      </div>
+
+      <!-- POST 5 -->
+      <div class="ig-item" data-cat="mymatchcare">
+          <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_mymatchcare.png" alt="Post MyMatchCare">
+      </div>
+
+      <!-- POST 6 -->
+      <div class="ig-item" data-cat="businesspoint">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_businesspoint_2.png" alt="Post BNI EQUIPAS">
+      </div>
+
+      <!-- POST 7 -->
+      <div class="ig-item" data-cat="mymatchcare">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_mymatchcare_2.png" alt="Post MyMatchCare">
+      </div>
+
+      <!-- POST 8 -->
+      <div class="ig-item" data-cat="raiadinamica">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_raia_dinamica_2.png" alt="Post BNI EQUIPAS">
+      </div>
+
+
+      <!-- POST 9 -->
+      <div class="ig-item" data-cat="bniequipas">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/post_bni_equipas_3.png" alt="Post BNI EQUIPAS">
+      </div>
+      
+      
+    </div>
+</section>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.ig-item');
+
+    // 1. Lógica de Filtro
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.filter;
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        items.forEach(item => {
+          const isMatch = cat === 'todos' || item.dataset.cat === cat;
+          item.style.display = isMatch ? "block" : "none";
+        });
+      });
+    });
+
+    // 2. Criar Lightbox
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<span class="lightbox-close">&times;</span><img src="">';
+    document.body.appendChild(lb);
+    const lbImg = lb.querySelector('img');
+
+    // 3. Abrir ao clicar
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        if (img) {
+          lbImg.src = img.src;
+          lb.classList.add('active');
+        }
+      });
+    });
+
+    // 4. Fechar Lightbox
+    lb.addEventListener('click', () => lb.classList.remove('active'));
+</script>
+
+</body>
+</html>
+    

@@ -1,0 +1,152 @@
+/* Base resets and styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f7f7f7;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* 1. CONFIGURAÇÃO DO CONTENTOR */
+.carousel-container {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    width: 100%;
+}
+
+.cards-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* 2. ESTILO DOS CARTÕES */
+.service-card {
+    background: #ffffff;
+    border: 1px solid #8B0000;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    min-height: 380px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(139, 0, 0, 0.08);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 35px rgba(139, 0, 0, 0.25);
+    background-color: #fcfcfc;
+}
+
+.card-image {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+}
+
+.card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.card-cta {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #8B0000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.card-cta::after {
+    content: '→';
+    transition: transform 0.3s ease;
+}
+
+.card-cta:hover::after {
+    transform: translateX(5px);
+}
+
+/* 3. RESPONSIVIDADE (MOBILE CAROUSEL) */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .carousel-container {
+        overflow: hidden; /* Hide overflow to crop peeking cards */
+        padding: 40px 0; /* Remove horizontal padding so track can slide edge-to-edge */
+        width: 100vw;
+    }
+
+    .cards-grid-container {
+        display: flex; /* Turn grid into flex track */
+        flex-direction: row;
+        gap: 20px;
+        width: max-content; /* Prevent flex items from wrapping */
+        padding: 0;
+        touch-action: pan-y; /* Allow vertical scroll, hijack horizontal swipe */
+        cursor: grab;
+        user-select: none;
+    }
+
+    .cards-grid-container.dragging {
+        cursor: grabbing;
+    }
+
+    .service-card {
+        min-width: 75vw;
+        max-width: 75vw;
+        flex-shrink: 0;
+        transform: scale(0.92);
+        opacity: 0.6;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow: 0 5px 15px rgba(139, 0, 0, 0.05);
+    }
+
+    /* Active centered card styling */
+    .service-card.active {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
+    }
+
+    /* Overrides for mobile interactions (removes sticky hover states) */
+    .service-card:hover {
+        transform: scale(0.92);
+        background-color: #ffffff;
+        box-shadow: 0 5px 15px rgba(139, 0, 0, 0.05);
+    }
+    
+    .service-card.active:hover {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
+    }
+}

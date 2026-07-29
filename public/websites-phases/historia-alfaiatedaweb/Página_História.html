@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline 1</title>
+</head>
+
+<style>
+    .adw-timeline-wrap { width: 100%; }
+
+.adw-timeline-wrap .adw-tl-container {
+  position: relative;
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 50px 20px;
+  box-sizing: border-box;
+}
+
+.adw-timeline-wrap .adw-tl-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  top: 0;
+  background: #e0e0e0;
+}
+
+.adw-timeline-wrap .adw-tl-filler {
+  width: 100%;
+  height: 0%;
+  background: #8D0000;
+  transition: height 0.1s ease-out;
+}
+
+.adw-timeline-wrap .adw-tl-item {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 60px;
+  display: flex;
+  position: relative;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.adw-timeline-wrap .adw-tl-item.left  { justify-content: flex-start; }
+.adw-timeline-wrap .adw-tl-item.right { justify-content: flex-end; }
+
+.adw-timeline-wrap .adw-tl-content {
+  width: 42%;
+  max-width: 42%;
+  min-width: 0;
+  background: transparent;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.adw-timeline-wrap .adw-tl-item.left  .adw-tl-content { transform: translateX(-40px); }
+.adw-timeline-wrap .adw-tl-item.right .adw-tl-content { transform: translateX(40px); }
+
+.adw-timeline-wrap .adw-tl-content.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.adw-timeline-wrap .adw-tl-content:hover {
+  border-color: #8D0000;
+  box-shadow: 0 0 20px rgba(141,0,0,0.2);
+  cursor: pointer;
+}
+
+.adw-timeline-wrap .adw-tl-content .card-date {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8D0000;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.adw-timeline-wrap .adw-tl-content h3.card-title {
+  font-size: 1.2rem;
+  margin: 0 0 15px 0;
+  color: #000;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.adw-timeline-wrap .adw-tl-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+.adw-timeline-wrap .adw-tl-content img {
+  width: 70px;
+  height: auto;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.adw-timeline-wrap .adw-dot {
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: #e0e0e0;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  z-index: 5;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.adw-timeline-wrap .adw-dot.active {
+  background: #8D0000;
+  box-shadow: 0 0 8px #8D0000;
+}
+
+.adw-timeline-wrap .adw-tl-content .logos-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 15px;
+}
+
+.adw-timeline-wrap .adw-tl-content .logos-row img {
+  width: auto;
+  max-width: 140px;
+  height: 45px;
+  object-fit: contain;
+  margin-bottom: 0;
+}
+
+.adw-timeline-wrap .adw-tl-content img.logo-marca {
+  width: 120px;
+  height: auto;
+  margin-bottom: 15px;
+  display: block;
+}
+
+@media (max-width: 768px) {
+
+  .adw-timeline-wrap .adw-tl-line {
+    left: 24px;
+    transform: none;
+  }
+
+  .adw-timeline-wrap .adw-tl-container {
+    padding: 30px 16px 30px 60px;
+  }
+
+  .adw-timeline-wrap .adw-tl-item.left,
+  .adw-timeline-wrap .adw-tl-item.right {
+    justify-content: flex-start;
+  }
+
+  .adw-timeline-wrap .adw-tl-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  .adw-timeline-wrap .adw-tl-item.left  .adw-tl-content,
+  .adw-timeline-wrap .adw-tl-item.right .adw-tl-content {
+    transform: translateX(-20px);
+  }
+
+  .adw-timeline-wrap .adw-tl-content.show {
+    transform: translateX(0);
+  }
+
+  .adw-timeline-wrap .adw-dot {
+    left: -35px;
+    top: 10px;
+    transform: translateX(-50%);
+  }
+
+  .adw-timeline-wrap .adw-tl-content img {
+    width: 70px;
+  }
+}
+</style>
+
+<body>
+    <div class="adw-timeline-wrap">
+        <div class="adw-tl-container">
+            <div class="adw-tl-line">
+                <div class="adw-tl-filler">
+                </div>
+            </div>
+
+    <!-- Card 1 -->
+    <div class="adw-tl-item left">
+      <div class="adw-dot"></div>
+      <div class="adw-tl-content">
+        <span class="card-date">2000</span>
+        <h3 class="card-title">Tudo Começa do Zero</h3>
+        <div class="logos-row">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Icon_desktop_antigo.webp" alt="icon de um desktop antigo">
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Icons_programacao.webp" alt="icon de liguagem de programação">
+        </div>
+        <p>Criação de websites de raiz com HTML, PHP, CSS e JavaScript.</p>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="adw-tl-item right">
+        <div class="adw-dot"></div>
+        <div class="adw-tl-content">
+    <span class="card-date">2010</span>
+    <h3 class="card-title">Antes de Ser Tendência</h3>
+    <div class="logos-row">
+      <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Logo_wordpress.png" alt="Logo do WordPress">
+      <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Logo_joomla.png" alt="Logo do Joomla">
+    </div>
+    <p>Desenvolvimento de websites com os progrmas Joomla e WordPress.</p>
+  </div>
+</div>
+
+    <!-- Card 3 -->
+    <div class="adw-tl-item left">
+      <div class="adw-dot"></div>
+      <div class="adw-tl-content">
+        <span class="card-date">2012</span>
+        <h3 class="card-title">De Sites a Sistemas</h3>
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Icon_digital_dashboard.webp" alt="Icon de uma dashboard">
+        <p>Desenvolvimento de plataformas focadas em gestão de informação.</p>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="adw-tl-item right">
+      <div class="adw-dot"></div>
+      <div class="adw-tl-content">
+        <span class="card-date">2017</span>
+        <h3 class="card-title">Nasce uma Marca com Propósito</h3>
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Logo_Alfaiatedaweb.webp" alt="Logo da marca Alfaiate da Web" class="logo-marca">
+        <p>Criação da Agência de Marketing - Alfaiate da Web.</p>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="adw-tl-item left">
+      <div class="adw-dot"></div>
+      <div class="adw-tl-content">
+        <span class="card-date">2020</span>
+        <h3 class="card-title">Onde os Negócios se Conectam</h3>
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Logo_businesspoint.png" alt="Logo da marca BusinessPoint" class="logo-marca">
+        <p>Plataforma criada para ligar empresas e gerar negócio.</p>
+      </div>
+    </div>
+    
+    <!-- Card 6 -->
+    <div class="adw-tl-item right">
+      <div class="adw-dot"></div>
+      <div class="adw-tl-content">
+        <span class="card-date">2023</span>
+        <h3 class="card-title">O Futuro Já Está em Curso</h3>
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Icon_inteligencia_artificial.webp" alt="Icon de inteligência artificial">
+        <p>Desenvolvimento de soluções com inteligência artificial.</p>
+      </div>
+    </div>
+    
+    <!-- Card 7 -->
+    <div class="adw-tl-item left">
+      <div class="adw-dot"></div>
+      <div class="adw-tl-content">
+        <span class="card-date">2026</span>
+        <h3 class="card-title">Resultados que Falam</h3>
+        <img src="https://alfaiatedaweb.pt/wp-content/uploads/2026/05/Icon_reviews.webp" alt="Icon das reviews dos clientes">
+        <p>Mais de 400 clientes com soluções digitais completas.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var filler = document.querySelector('.adw-tl-filler');
+  var container = document.querySelector('.adw-tl-container');
+  var dots = document.querySelectorAll('.adw-dot');
+  var cards = document.querySelectorAll('.adw-tl-content');
+
+  function updateTimeline() {
+    if (!container) return;
+    var rect = container.getBoundingClientRect();
+    var wh = window.innerHeight;
+    var trigger = wh / 2;
+    var progress = (trigger - rect.top) / rect.height;
+    progress = Math.max(0, Math.min(1, progress));
+    if (filler) filler.style.height = (progress * 100) + '%';
+
+    dots.forEach(function(dot) {
+      dot.classList.toggle('active', dot.getBoundingClientRect().top < trigger);
+    });
+    cards.forEach(function(card) {
+      if (card.getBoundingClientRect().top < wh * 0.80) {
+        card.classList.add('show');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateTimeline);
+  updateTimeline();
+})();
+</script>
+</body>
+</html>
