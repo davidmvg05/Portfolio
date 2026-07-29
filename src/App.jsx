@@ -31,6 +31,14 @@ import logoOmegaanalytics from './assets/logo_omegaanalytics.png';
 import logoOmegaanalyticsMobile from './assets/logo_omegaanalytics_mobile.png';
 import logoAdegasocalcos from './assets/logo_adegasocalcos.png';
 import logoAdegasocalcosMobile from './assets/logo_adegasocalcos_mobile.png';
+import logoAlfaiatedaweb from './assets/logo_alfaiatedaweb.png';
+import logoAlfaiatedawebMobile from './assets/logo_alfaiatedaweb_mobile.png';
+import logoCasasdapaula from './assets/logo_casasdapaula.png';
+import logoCasasdapaulaMobile from './assets/logo_casasdapaula_mobile.png';
+import logoBniequipas from './assets/logo_bniequipas.png';
+import logoBniequipasMobile from './assets/logo_bniequipas_mobile.png';
+import logoEstagio from './assets/logo_estagio.png';
+import logoEstagioMobile from './assets/logo_estagio_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -390,25 +398,40 @@ function App() {
 
   const mainProjects = [
     {
-      title: "Navegação Cósmica",
-      description: "Um painel interativo 3D para rastreio de coordenadas estelares com física de fluidos e distorções magnéticas.",
-      tags: ["React", "WebGL", "Three.js"],
-      link: "#projects",
-      icon: "compass"
+      id: "alfaiatedaweb",
+      title: "Website - Alfaiate da Web",
+      description: "Desenvolvimento do website da Alfaiate da Web com foco no fluxo de UX/UI e design responsivo.",
+      tags: ["WordPress", "UX/UI", "Elementor"],
+      link: "./documents/website_alfaiatedaweb.pdf",
+      image: logoAlfaiatedaweb,
+      mobileImage: logoAlfaiatedawebMobile
     },
     {
-      title: "Motor de Efeitos Stardust",
-      description: "Um motor de partículas de alto desempenho que cria constelações dinâmicas que reagem ao movimento e velocidade do cursor.",
-      tags: ["Canvas API", "CSS Keyframes", "Vite"],
-      link: "#projects",
-      icon: "briefcase"
+      id: "casasdapaula",
+      title: "Website - Casas da Paula",
+      description: "Desenvolvimento do website Casas da Paula para alojamento local em Armação de Pêra, com integração de reservas TalkGuest.",
+      tags: ["WordPress", "UX/UI", "Integration"],
+      link: "./documents/website_casasdapaula.pdf",
+      image: logoCasasdapaula,
+      mobileImage: logoCasasdapaulaMobile
     },
     {
-      title: "Curta-Metragem Gravity",
-      description: "Um projeto de animação CGI focado em simulação de fluidos, estética de gravidade zero e design de som ambiente.",
-      tags: ["Blender", "VFX", "After Effects"],
-      link: "#projects",
-      icon: "graduation"
+      id: "bniequipas",
+      title: "Gestão de Redes Sociais - BNI Equipas",
+      description: "Gestão das redes sociais do BNI Equipas, incluindo calendários editoriais, criação gráfica e otimização de perfil.",
+      tags: ["Social Media", "Content", "Management"],
+      link: "./documents/calendariodeconteudos_bni.pdf",
+      image: logoBniequipas,
+      mobileImage: logoBniequipasMobile
+    },
+    {
+      id: "estagio",
+      title: "Relatório de Estágio",
+      description: "Desenvolvimento do relatório formal de estágio curricular e respetiva apresentação académica de defesa.",
+      tags: ["Report", "Academic", "Presentation"],
+      link: "./documents/relatoriodeestagio.pdf",
+      image: logoEstagio,
+      mobileImage: logoEstagioMobile
     }
   ];
 
@@ -699,6 +722,49 @@ function App() {
       ],
       skills: ["Strategic Planning", "Campaign Strategy", "Market Segmentation", "Copywriting"],
       platforms: ["Notion", "Gemini", "ChatGPT", "Canva", "Google Sheets"]
+    },
+    alfaiatedaweb: {
+      title: "Website - Alfaiate da Web",
+      description: "Desenvolvimento completo do website da Alfaiate da Web com foco rigoroso no fluxo de UX/UI e design responsivo, perfeitamente adaptado a múltiplos dispositivos. O projeto envolveu o mapeamento detalhado da jornada do utilizador, a arquitetura da informação e a criação de uma estrutura visual moderna e profissional que otimiza a conversão.",
+      pdfUrl: "./documents/website_alfaiatedaweb.pdf",
+      documents: [
+        { name: "Website - Antigo Vs Novo", url: "./documents/website_alfaiatedaweb.pdf" }
+      ],
+      skills: ["UX/UI Design", "Responsive Design", "Information Architecture", "Web Development"],
+      platforms: ["WordPress", "Elementor", "Gemini", "Claude Code", "Visual Studio Code"]
+    },
+    casasdapaula: {
+      title: "Website - Casas da Paula",
+      description: "Desenvolvimento do website da Casas da Paula, uma marca focada em Alojamentos Locais em Armação de Pêra. O projeto envolveu a otimização de UX/UI para facilitar reservas diretas e a integração completa de uma plataforma externa de channel management - TalkGuest. O trabalho abrangeu desde a análise estrutural antiga até ao novo layout otimizado.",
+      pdfUrl: "./documents/website_casasdapaula.pdf",
+      documents: [
+        { name: "Website - Antigo Vs Novo", url: "./documents/website_casasdapaula.pdf" }
+      ],
+      skills: ["UX/UI Design", "Channel Manager Integration", "Frontend Development", "SEO Optimization"],
+      platforms: ["WordPress", "WPBakery Page Builder", "Claude Code", "Visual Studio Code", "Google Antigravity"]
+    },
+    bniequipas: {
+      title: "Gestão das Redes Sociais - BNI Equipas",
+      description: "Realizei a gestão das redes sociais do BNI Equipas, desenvolvendo e implementando uma estratégia de comunicação coordenada. O trabalho envolveu a elaboração de um calendário editorial sistemático, a criação e design gráfico dos posts e carrosséis com foco na atração orgânica, e a reformulação e otimização estética da biografia de perfil para reforço do posicionamento profissional.",
+      pdfUrl: "./documents/calendariodeconteudos_bni.pdf",
+      documents: [
+        { name: "Calendário de Conteúdos - BNI Equipas", url: "./documents/calendariodeconteudos_bni.pdf" },
+        { name: "Posts - BNI Equipas", url: "./documents/posts_redessociais.pdf" },
+        { name: "Otimização da Bio - BNI Equipas", url: "./documents/otimizacaodabio_bni.pdf" }
+      ],
+      skills: ["Social Media Management", "Content Strategy", "Graphic Design", "Profile Optimization"],
+      platforms: ["Canva", "Meta Business", "Calendar", "Pinterest", "ChatGPT", "Gemini"]
+    },
+    estagio: {
+      title: "Relatório de Estágio",
+      description: "Elaboração técnica e fundamentação teórica do meu relatório final de estágio curricular em marketing digital e desenvolvimento criativo, juntamente com o planeamento e design da respetiva apresentação académica de defesa. O documento reúne as metodologias de pesquisa aplicadas e a documentação dos projetos executados ao longo do percurso.",
+      pdfUrl: "./documents/relatoriodeestagio.pdf",
+      documents: [
+        { name: "Relatório de Estágio", url: "./documents/relatoriodeestagio.pdf" },
+        { name: "Apresentação - Relatório de Estágio", url: "./documents/apresentacao_relatoriodeestagio.pdf" }
+      ],
+      skills: ["Technical Writing", "Academic Presentation", "Market Research", "Project Documentation"],
+      platforms: ["b-on (Biblioteca Online do Conhecimento)", "Google Scholar", "Gemini", "Canva"]
     }
   };
 
