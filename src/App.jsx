@@ -23,6 +23,10 @@ import logoGotasalgada from './assets/logo_gotasalgada.png';
 import logoGotasalgadaMobile from './assets/logo_gotasalgada_mobile.png';
 import logoApadariaportuguesa from './assets/logo_apadariaportuguesa.png';
 import logoApadariaportuguesaMobile from './assets/logo_apadariaportuguesa_mobile.png';
+import logoEdp from './assets/logo_edp.png';
+import logoEdpMobile from './assets/logo_edp_mobile.png';
+import logoRebottle from './assets/logo_rebottle.png';
+import logoRebottleMobile from './assets/logo_rebottle_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -494,6 +498,24 @@ function App() {
       link: "./documents/projeto_apadariaportuguesa.pdf",
       image: logoApadariaportuguesa,
       mobileImage: logoApadariaportuguesaMobile
+    },
+    {
+      id: "edp",
+      title: "Consumo Digital Sustentável",
+      description: "Desenvolvimento de uma recensão descritiva sobre o tema 'Consumo Digital Sustentável', seguida de uma análise aprofundada da estratégia de sustentabilidade da EDP.",
+      tags: ["Sustainability", "Consumer Behavior", "Energy Transition"],
+      link: "./documents/consumodigitalsustentavel.pdf",
+      image: logoEdp,
+      mobileImage: logoEdpMobile
+    },
+    {
+      id: "rebottle",
+      title: "Google ADS - Search e Display",
+      description: "Análise crítica de campanhas digitais da LARQ e Stanley, e planeamento estratégico de campanhas de Google Ads Search & Display para a Rebottle.",
+      tags: ["Google Ads", "SEM", "Campaign Planning"],
+      link: "./documents/analisecritica_larqestanley.pdf",
+      image: logoRebottle,
+      mobileImage: logoRebottleMobile
     }
   ];
 
@@ -607,6 +629,32 @@ function App() {
       ],
       skills: ["Digital Presence Audit", "Campaign Evaluation", "Content Distribution Strategy", "Sponsorship Analysis"],
       platforms: ["Excel", "Google", "YouTube"]
+    },
+    edp: {
+      title: "Consumo Digital Sustentável",
+      description: "Na cadeira de Comportamento do Consumidor, desenvolvi em primeiro lugar uma recensão descritiva focada no tema do 'Consumo Digital Sustentável'. Numa segunda fase, o objetivo passou por aprofundar a análise da EDP, dado o seu posicionamento central e papel de destaque no epicentro da transição e revolução sustentável.",
+      pdfUrl: "./documents/consumodigitalsustentavel.pdf",
+      documents: [
+        { name: "Recensão Descritiva - Consumo Digital Sustentável", url: "./documents/consumodigitalsustentavel.pdf" },
+        { name: "Apresentação - Consumo Digital Sustentável", url: "./documents/apresentação_consumodigitalsustentavel.pdf" },
+        { name: "Transição Energética - EDP", url: "./documents/projetofinal_edp.pdf" },
+        { name: "Apresentação - EDP", url: "./documents/apresentacao_edp.pdf" }
+      ],
+      skills: ["Consumer Behavior", "Sustainability Analysis", "Descriptive Review", "Academic Research"],
+      platforms: ["Google Scholar", "Microsoft Word", "Microsoft PowerPoint", "Miro"]
+    },
+    rebottle: {
+      title: "Google ADS - Search e Display",
+      description: "Análise comparativa e crítica de mercado das marcas LARQ e Stanley, seguida pelo planeamento detalhado de campanhas no Google Ads para a Rebottle. O projeto envolveu a definição e mapeamento do objetivo estratégico e intenção por trás de cada keyword em campanhas de Search. Para a campanha de Display, utilizei o Google Web Designer para a criação de banners animados.",
+      pdfUrl: "./documents/analisecritica_larqestanley.pdf",
+      documents: [
+        { name: "Análise Crítica - LARQ e Stanley", url: "./documents/analisecritica_larqestanley.pdf" },
+        { name: "Apresentação - LARQ e Stanley", url: "./documents/apresentacao_larqestanley.pdf" },
+        { name: "Google ADS - ReBOTTLE", url: "./documents/projetofinal_rebottle.pdf" },
+        { name: "Apresentação - ReBOTTLE", url: "./documents/apresentacao_rebottle.pdf" }
+      ],
+      skills: ["SEM (Search Engine Marketing)", "Display Advertising", "Keyword Research", "Competitor Analysis"],
+      platforms: ["Google Ads", "Gemini", "Google Web Designer", "Google Sheets"]
     }
   };
 
