@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
-import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet } from 'lucide-react';
+import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText } from 'lucide-react';
 import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
 import logoOmega from './assets/logo_omega.png';
@@ -1210,16 +1210,35 @@ function App() {
                       </div>
                     </div>
                   ) : (
-                    <div className="pdf-viewer-card">
-                      <iframe 
-                        src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
-                        title={project.title} 
-                        className="pdf-iframe"
-                      ></iframe>
-                      <button className="btn btn-primary btn-sm pdf-fullscreen-btn" onClick={() => setIsPdfFullscreen(true)}>
-                        Ver em Ecrã Inteiro
-                      </button>
-                    </div>
+                    windowWidth <= 768 ? (
+                      <div className="pdf-mobile-fallback-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '450px', padding: '2.5rem 1.5rem', textAlign: 'center', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxSizing: 'border-box' }}>
+                        <FileText size={56} style={{ color: 'var(--accent-blue)', marginBottom: '1.2rem' }} />
+                        <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)', fontSize: '1.15rem' }}>Visualização do PDF</h4>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.8rem', lineHeight: '1.6', maxWidth: '300px' }}>
+                          Os telemóveis limitam a leitura de PDFs integrados. Abra o documento completo para ler todas as páginas de forma fluida.
+                        </p>
+                        <a 
+                          href={activePdfUrl || project.pdfUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn btn-primary btn-sm"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                        >
+                          Abrir Documento Completo <ExternalLink size={16} />
+                        </a>
+                      </div>
+                    ) : (
+                      <div className="pdf-viewer-card">
+                        <iframe 
+                          src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
+                          title={project.title} 
+                          className="pdf-iframe"
+                        ></iframe>
+                        <button className="btn btn-primary btn-sm pdf-fullscreen-btn" onClick={() => setIsPdfFullscreen(true)}>
+                          Ver em Ecrã Inteiro
+                        </button>
+                      </div>
+                    )
                   )}
                 </div>
 
