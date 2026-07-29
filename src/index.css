@@ -170,16 +170,6 @@ h1, h2, h3, h4 {
   box-shadow: var(--card-shadow);
 }
 
-/* Mobile specific Navbar - always active background, no scroll transition */
-@media (max-width: 768px) {
-  .navbar-header {
-    background-color: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
-  }
-}
-
 .navbar-container {
   max-width: 1300px;
   margin: 0 auto;
