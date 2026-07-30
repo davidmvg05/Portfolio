@@ -796,12 +796,18 @@ function App() {
     }
   };
 
+  const getDefaultPdfUrl = (id) => {
+    if (!projectDetails[id]) return null;
+    const proj = projectDetails[id];
+    return proj.documents && proj.documents.length > 0 
+      ? proj.documents[0].url 
+      : proj.pdfUrl;
+  };
+
   // Helper navigation routing functions with History pushState
   const navigateToProject = (id) => {
     setActiveProjectId(id);
-    if (projectDetails[id]) {
-      setActivePdfUrl(projectDetails[id].pdfUrl);
-    }
+    setActivePdfUrl(getDefaultPdfUrl(id));
     window.history.pushState({ projectId: id }, '', `?project=${id}`);
   };
 
@@ -829,18 +835,14 @@ function App() {
       const state = event.state;
       if (state && state.projectId) {
         setActiveProjectId(state.projectId);
-        if (projectDetails[state.projectId]) {
-          setActivePdfUrl(projectDetails[state.projectId].pdfUrl);
-        }
+        setActivePdfUrl(getDefaultPdfUrl(state.projectId));
       } else {
         const params = new URLSearchParams(window.location.search);
         const projectParam = params.get('project');
         const pageParam = params.get('page');
         if (projectParam) {
           setActiveProjectId(projectParam);
-          if (projectDetails[projectParam]) {
-            setActivePdfUrl(projectDetails[projectParam].pdfUrl);
-          }
+          setActivePdfUrl(getDefaultPdfUrl(projectParam));
         } else if (pageParam === 'privacy-policy') {
           setActiveProjectId('privacy-policy');
         } else {
@@ -857,9 +859,7 @@ function App() {
     const pageParam = params.get('page');
     if (projectParam) {
       setActiveProjectId(projectParam);
-      if (projectDetails[projectParam]) {
-        setActivePdfUrl(projectDetails[projectParam].pdfUrl);
-      }
+      setActivePdfUrl(getDefaultPdfUrl(projectParam));
     } else if (pageParam === 'privacy-policy') {
       setActiveProjectId('privacy-policy');
     }
