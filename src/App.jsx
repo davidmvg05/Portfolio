@@ -39,6 +39,8 @@ import logoBniequipas from './assets/logo_bniequipas.png';
 import logoBniequipasMobile from './assets/logo_bniequipas_mobile.png';
 import logoEstagio from './assets/logo_estagio.png';
 import logoEstagioMobile from './assets/logo_estagio_mobile.png';
+import logoPortfolio from './assets/logo_portfolio.png';
+import logoPortfolioMobile from './assets/logo_portfolio_mobile.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -432,6 +434,15 @@ function App() {
       link: "./documents/relatoriodeestagio.pdf",
       image: logoEstagio,
       mobileImage: logoEstagioMobile
+    },
+    {
+      id: "portfolio",
+      title: "Website - Portfólio Pessoal",
+      description: "Conceção, design de UX/UI e desenvolvimento de raiz do meu portefólio pessoal interativo e responsivo.",
+      tags: ["React", "UX/UI", "Vite"],
+      link: "portfolio-link",
+      image: logoPortfolio,
+      mobileImage: logoPortfolioMobile
     }
   ];
 
@@ -728,11 +739,11 @@ function App() {
       description: "Desenvolvimento completo do website da Alfaiate da Web com foco rigoroso no fluxo de UX/UI e design responsivo, perfeitamente adaptado a múltiplos dispositivos. O projeto envolveu o mapeamento detalhado da jornada do utilizador, a arquitetura da informação e a criação de uma estrutura visual moderna e profissional que otimiza a conversão.",
       pdfUrl: "alfaiate-link",
       documents: [
-        { name: "Website - Alfaiate da Web", url: "alfaiate-link" },
         { name: "Website - Antigo Vs Novo", url: "./documents/website_alfaiatedaweb.pdf" },
         { name: "Loop Infinito - Homepage", url: "./websites-phases/loopinfinite-alfaiatedaweb/index.html" },
         { name: "Página da História", url: "./websites-phases/historia-alfaiatedaweb/index.html" },
-        { name: "Secção Portfólio - Redes Sociais", url: "./websites-phases/portfolio-alfaiatedaweb/index.html" }
+        { name: "Secção Portfólio - Redes Sociais", url: "./websites-phases/portfolio-alfaiatedaweb/index.html" },
+        { name: "Website - Alfaiate da Web", url: "alfaiate-link" }
       ],
       skills: ["UX/UI Design", "Responsive Design", "Information Architecture", "Web Development"],
       platforms: ["WordPress", "Elementor", "Gemini", "Claude Code", "Visual Studio Code"]
@@ -742,10 +753,10 @@ function App() {
       description: "Desenvolvimento do website da Casas da Paula, uma marca focada em Alojamentos Locais em Armação de Pêra. O projeto envolveu a otimização de UX/UI para facilitar reservas diretas e a integração completa de uma plataforma externa de channel management - TalkGuest. O trabalho abrangeu desde a análise estrutural antiga até ao novo layout otimizado.",
       pdfUrl: "casasdapaula-link",
       documents: [
-        { name: "Website - Casas da Paula", url: "casasdapaula-link" },
         { name: "Website - Antigo Vs Novo", url: "./documents/website_casasdapaula.pdf" },
         { name: "Barra de Reservas", url: "./websites-phases/barradereservas_casasdapaula/barradereservas.html", desc: "Esta barra de reservas foi desenvolvida para integração no website, substituindo a da TalkGuest. O objetivo foi criar uma interface personalizada que comunicasse diretamente com o sistema de reservas deles." },
-        { name: "Título - Alojamentos Casas da Paula", url: "./websites-phases/title-casasdapaula/title.html" }
+        { name: "Título - Alojamentos Casas da Paula", url: "./websites-phases/title-casasdapaula/title.html" },
+        { name: "Website - Casas da Paula", url: "casasdapaula-link" }
       ],
       skills: ["UX/UI Design", "Channel Manager Integration", "Frontend Development", "SEO Optimization"],
       platforms: ["WordPress", "WPBakery Page Builder", "Claude Code", "Visual Studio Code", "Google Antigravity"]
@@ -772,6 +783,16 @@ function App() {
       ],
       skills: ["Technical Writing", "Academic Presentation", "Market Research", "Project Documentation"],
       platforms: ["b-on (Biblioteca Online do Conhecimento)", "Google Scholar", "Gemini", "Canva"]
+    },
+    portfolio: {
+      title: "Website - Portfólio Pessoal",
+      description: "Desenvolvimento do meu portefólio pessoal utilizando React, HTML5, CSS3, e JavaScript. O projeto focou-se em criar uma experiência imersiva com efeitos visuais dinâmicos (como constelações de partículas e fundo de nébula fluida), compatibilidade total com dispositivos móveis e tablets, otimização de SEO e acessibilidade.",
+      pdfUrl: "portfolio-link",
+      documents: [
+        { name: "Website - Portfólio Pessoal", url: "portfolio-link" }
+      ],
+      skills: ["UX/UI Design", "React Development", "Responsive Layouts", "Performance Optimization"],
+      platforms: ["React", "Vite", "Gemini", "VS Code", "GitHub Actions"]
     }
   };
 
@@ -1395,6 +1416,17 @@ function App() {
                       </p>
                       <a href="https://casasdapaula.pt/" target="_self" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                         Casas da Paula
+                      </a>
+                    </div>
+                  ) : activePdfUrl === 'portfolio-link' ? (
+                    <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
+                      <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
+                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Acesso Público</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
+                        O website do Portfólio Pessoal está disponível para consulta pública.
+                      </p>
+                      <a href="./" target="_self" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                        Portfólio Pessoal
                       </a>
                     </div>
                   ) : (
