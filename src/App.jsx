@@ -1393,7 +1393,7 @@ function App() {
                       <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
                         O website da Casas da Paula está disponível para consulta pública.
                       </p>
-                      <a href="https://casasdapaula.com/" target="_self" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <a href="https://casasdapaula.pt/" target="_self" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                         Casas da Paula
                       </a>
                     </div>
