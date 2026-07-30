@@ -1,0 +1,1093 @@
+<style>
+  /* Import premium fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+  body {
+    background-color: #000000;
+  }
+
+  #tg-booking-bar-root {
+    --font-primary: 'Inter', sans-serif;
+    --font-header: 'Inter', sans-serif;
+    
+    /* Brand colors */
+    --color-primary: #2dcbfe; /* Beautiful rich blue-indigo for buttons */
+    --color-primary-hover: #2dcbfe;
+    --color-text-main: #2b303a;
+    --color-text-muted: #868e96;
+    --color-text-light: #adb5bd;
+    --color-border: #e9ecef;
+    --color-bg-dropdown: #ffffff;
+    --color-hover-item: #f1f3f5;
+    
+    /* Layout values */
+    --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-dropdown: 0 15px 35px rgba(0, 0, 0, 0.12);
+    --border-radius-capsule: 100px;
+    --border-radius-dropdown: 16px;
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    width: 100%;
+    max-width: 1100px;
+    margin: 50px auto; /* Centered horizontally and spaced out vertically */
+    position: relative;
+    z-index: 100;
+  }
+
+  /* Booking Bar Capsule */
+  #tg-booking-bar-root .tg-booking-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: var(--border-radius-capsule);
+    box-shadow: var(--shadow-premium);
+    padding: 8px 12px 8px 32px;
+    width: 100%;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+  }
+
+  #tg-booking-bar-root .tg-booking-bar *,
+  #tg-booking-bar-root .tg-booking-bar *::before,
+  #tg-booking-bar-root .tg-booking-bar *::after {
+    box-sizing: border-box;
+  }
+
+  /* Container wrappers for alignment replacing inline styles */
+  #tg-booking-bar-root .tg-dropdown-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+  }
+
+  /* Section elements inside the bar */
+  #tg-booking-bar-root .tg-bar-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 16px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    min-height: 56px;
+    transition: var(--transition-smooth);
+  }
+
+  #tg-booking-bar-root .tg-bar-section::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background-color: var(--color-border);
+  }
+
+  #tg-booking-bar-root .tg-bar-section:last-of-type::after {
+    display: none;
+  }
+
+  #tg-booking-bar-root .tg-bar-section:hover {
+    border-radius: 24px;
+  }
+
+  #tg-booking-bar-root .tg-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #adb5bd;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+    font-family: var(--font-header);
+  }
+
+  #tg-booking-bar-root .tg-section-value-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  #tg-booking-bar-root .tg-section-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #tg-booking-bar-root .tg-section-arrow {
+    color: var(--color-text-light);
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    transition: var(--transition-smooth);
+  }
+
+  #tg-booking-bar-root .tg-bar-section.active .tg-section-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Custom Search Button styling */
+  #tg-booking-bar-root .tg-search-button {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: none;
+    padding: 14px 36px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--border-radius-capsule);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-family: var(--font-header);
+    letter-spacing: 0.5px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(59, 91, 219, 0.2);
+    margin-left: 12px;
+  }
+
+  #tg-booking-bar-root .tg-search-button:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(59, 91, 219, 0.3);
+  }
+
+  #tg-booking-bar-root .tg-search-button:active {
+    transform: translateY(0);
+  }
+
+  /* Dropdown styling */
+  #tg-booking-bar-root .tg-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    background-color: var(--color-bg-dropdown);
+    border-radius: var(--border-radius-dropdown);
+    box-shadow: var(--shadow-dropdown);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 16px;
+    display: none;
+    z-index: 1000;
+    min-width: 280px;
+    animation: tgSlideDownFade 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  #tg-booking-bar-root .tg-dropdown-menu.active {
+    display: block;
+  }
+
+  @keyframes tgSlideDownFade {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Location Dropdown items */
+  #tg-booking-bar-root .tg-location-menu {
+    width: 100%;
+    min-width: 250px;
+    padding: 8px 0;
+  }
+
+  #tg-booking-bar-root .tg-location-item {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    text-align: left;
+    border: none;
+    background: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-main);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+
+  #tg-booking-bar-root .tg-location-item:hover {
+    color: var(--color-primary);
+  }
+
+  #tg-booking-bar-root .tg-location-item.selected {
+    font-weight: 600;
+    color: var(--color-primary);
+    background-color: transparent;
+  }
+
+  #tg-booking-bar-root .tg-location-item.selected:hover {
+    color: var(--color-primary);
+  }
+
+  /* Guest Dropdown selectors styling */
+  #tg-booking-bar-root .tg-guest-menu {
+    width: 320px;
+    padding: 20px;
+  }
+
+  #tg-booking-bar-root .tg-guest-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  #tg-booking-bar-root .tg-guest-row:last-of-type {
+    margin-bottom: 0;
+  }
+
+  #tg-booking-bar-root .tg-guest-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #tg-booking-bar-root .tg-guest-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-main);
+  }
+
+  #tg-booking-bar-root .tg-guest-desc {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  #tg-booking-bar-root .tg-counter-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #tg-booking-bar-root .tg-counter-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--color-text-light);
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--color-text-main);
+    transition: var(--transition-smooth);
+    outline: none;
+    user-select: none;
+  }
+
+  #tg-booking-bar-root .tg-counter-btn:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: 0 2px 6px rgba(59, 91, 219, 0.1);
+  }
+
+  #tg-booking-bar-root .tg-counter-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  #tg-booking-bar-root .tg-counter-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-main);
+    min-width: 16px;
+    text-align: center;
+  }
+
+  /* Children Ages Sub-panel */
+  #tg-booking-bar-root .tg-children-ages-panel {
+    border-top: 1px solid var(--color-border);
+    margin-top: 16px;
+    padding-top: 16px;
+    display: none;
+  }
+
+  #tg-booking-bar-root .tg-children-ages-panel.active {
+    display: block;
+  }
+
+  #tg-booking-bar-root .tg-ages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  #tg-booking-bar-root .tg-age-select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #tg-booking-bar-root .tg-age-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+
+  #tg-booking-bar-root .tg-age-select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-text-light);
+    background-color: #ffffff;
+    font-size: 14px;
+    color: var(--color-text-main);
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+
+  #tg-booking-bar-root .tg-age-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
+  }
+
+  /* Hidden elements */
+  #tg-booking-bar-root .tg-hidden-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .flatpickr-calendar,
+  .flatpickr-calendar *,
+  .flatpickr-calendar *::before,
+  .flatpickr-calendar *::after {
+    box-sizing: border-box !important;
+  }
+
+  body .flatpickr-calendar {
+    border-radius: var(--border-radius-dropdown, 16px) !important;
+    box-shadow: var(--shadow-dropdown, 0 15px 35px rgba(0, 0, 0, 0.12)) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    font-family: var(--font-primary, sans-serif) !important;
+    padding: 8px !important;
+    margin-top: 12px !important;
+  }
+
+  body .flatpickr-months {
+    padding: 8px 0 !important;
+  }
+
+  body .flatpickr-month {
+    color: var(--color-text-main, #2b303a) !important;
+    pointer-events: none !important;
+  }
+
+  body .flatpickr-current-month {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 4px !important;
+    text-align: center !important;
+    pointer-events: none !important;
+  }
+
+  body .flatpickr-current-month .numInputWrapper {
+    display: inline-block !important;
+  }
+
+  body .flatpickr-current-month .numInputWrapper span.arrowUp,
+  body .flatpickr-current-month .numInputWrapper span.arrowDown {
+    display: none !important;
+  }
+
+  body .flatpickr-current-month input.cur-year {
+    font-weight: 600 !important;
+    color: inherit !important;
+    pointer-events: none !important;
+    background: transparent !important;
+  }
+
+  body .flatpickr-current-month input.cur-year:hover {
+    background: transparent !important;
+  }
+
+  body .flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: transparent !important;
+    border: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    pointer-events: none !important;
+    font-weight: 600 !important;
+    color: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  body .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+    background: transparent !important;
+  }
+
+  body .flatpickr-weekdays {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  body .flatpickr-weekday {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--color-text-muted, #868e96) !important;
+    display: inline-block !important;
+    flex: 1 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body .flatpickr-days {
+    display: flex !important;
+    width: auto !important;
+  }
+
+  body .dayContainer {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-around !important;
+    width: 307.875px !important;
+    min-width: 307.875px !important;
+    max-width: 307.875px !important;
+  }
+
+  body .flatpickr-day {
+    display: inline-block !important;
+    position: relative !important;
+    flex: none !important;
+    border-radius: 50% !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: var(--color-text-main, #2b303a) !important;
+    transition: var(--transition-smooth, all 0.25s cubic-bezier(0.4, 0, 0.2, 1)) !important;
+    box-sizing: border-box !important;
+  }
+
+  body .flatpickr-day.today {
+    border-color: var(--color-border, #e9ecef) !important;
+  }
+
+  body .flatpickr-day.selected, 
+  body .flatpickr-day.startRange, 
+  body .flatpickr-day.endRange,
+  body .flatpickr-day.selected.inRange,
+  body .flatpickr-day.startRange.inRange,
+  body .flatpickr-day.endRange.inRange,
+  body .flatpickr-day.selected:focus,
+  body .flatpickr-day.startRange:focus,
+  body .flatpickr-day.endRange:focus,
+  body .flatpickr-day.selected:hover,
+  body .flatpickr-day.startRange:hover,
+  body .flatpickr-day.endRange:hover {
+    background: var(--color-primary, #2dcbfe) !important;
+    border-color: var(--color-primary, #2dcbfe) !important;
+    color: #ffffff !important;
+  }
+
+  body .flatpickr-day.inRange {
+    background: rgba(45, 203, 254, 0.08) !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  body .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)), 
+  body .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)), 
+  body .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
+
+  /* Style days of adjacent months (prevMonthDay and nextMonthDay) to be light gray and opaque */
+  body .flatpickr-day.prevMonthDay,
+  body .flatpickr-day.nextMonthDay {
+    color: #cbd5e1 !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    opacity: 0.6 !important;
+    pointer-events: none !important; /* Disable clicking adjacent month days to prevent navigation errors */
+  }
+
+  /* Navigation arrows styling without relying on !important */
+  body .flatpickr-prev-month svg,
+  body .flatpickr-next-month svg,
+  body .flatpickr-prev-month:hover svg,
+  body .flatpickr-next-month:hover svg {
+    fill: rgba(0, 0, 0, 0.9) !important;
+  }
+
+  body .flatpickr-prev-month:hover,
+  body .flatpickr-next-month:hover,
+  body .flatpickr-prev-month:focus,
+  body .flatpickr-next-month:focus {
+    background: transparent !important;
+    opacity: 1 !important;
+  }
+  body .flatpickr-prev-month:hover svg,
+  body .flatpickr-next-month:hover svg,
+  body .flatpickr-prev-month:focus svg,
+  body .flatpickr-next-month:focus svg {
+    fill: rgba(0, 0, 0, 0.9) !important;
+  }
+
+  /* Media query adjustments - scoped, streamlined, and clean */
+  
+  /* Medium desktop / Laptops */
+  @media (min-width: 1024px) and (max-width: 1150px) {
+    #tg-booking-bar-root .tg-booking-bar {
+      padding: 8px 12px 8px 16px;
+    }
+    
+    #tg-booking-bar-root .tg-bar-section {
+      padding: 6px 10px;
+    }
+    
+    #tg-booking-bar-root .tg-section-value {
+      font-size: 13px;
+    }
+    
+    #tg-booking-bar-root .tg-search-button {
+      padding: 12px 24px;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+  }
+
+  /* Prevent clipping on desktop - Saturday columns clipping fix */
+  @media (min-width: 1024px) {
+    body .flatpickr-calendar {
+      width: 650px !important;
+    }
+  }
+
+  /* Mobile / Tablets */
+  @media (max-width: 1023px) {
+    #tg-booking-bar-root .tg-booking-bar {
+      flex-direction: column;
+      border-radius: 24px;
+      padding: 20px 24px;
+      gap: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      width: 90%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    
+    #tg-booking-bar-root .tg-booking-bar > div {
+      width: 100%;
+      flex: none;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #tg-booking-bar-root .tg-bar-section {
+      width: 100%;
+      padding: 8px 0 12px 0;
+      border-bottom: 1px solid var(--color-border);
+      border-radius: 0;
+      min-height: auto;
+    }
+    
+    #tg-booking-bar-root .tg-section-label {
+      font-size: 9px;
+      margin-bottom: 2px;
+    }
+
+    #tg-booking-bar-root .tg-section-value {
+      font-size: 14px;
+    }
+
+    #tg-booking-bar-root .tg-bar-section::after {
+      display: none;
+    }
+    
+    #tg-booking-bar-root .tg-bar-section:hover {
+      background-color: transparent;
+    }
+    
+    #tg-booking-bar-root #section-guests {
+      border-bottom: none;
+      padding-bottom: 6px;
+    }
+    
+    #tg-booking-bar-root .tg-search-button {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 12px;
+      padding: 12px 0;
+      border-radius: var(--border-radius-capsule);
+      font-size: 15px;
+      font-weight: 600;
+      background-color: #2dcbfe;
+      box-shadow: 0 4px 12px rgba(45, 203, 254, 0.2);
+    }
+    
+    #tg-booking-bar-root .tg-search-button:hover {
+      background-color: #2dcbfe;
+      box-shadow: 0 6px 16px rgba(45, 203, 254, 0.3);
+    }
+    
+    #tg-booking-bar-root .tg-dropdown-menu {
+      width: 100%;
+      left: 0;
+      right: 0;
+      top: 100%;
+      box-shadow: var(--shadow-dropdown);
+      border-radius: 20px;
+      padding: 16px;
+      margin-top: 4px;
+    }
+
+    body .flatpickr-calendar {
+      width: 320px;
+      margin: 0 auto;
+    }
+
+    /* Hide second month layout elements on mobile safely */
+    body .flatpickr-calendar .flatpickr-months .flatpickr-month:nth-of-type(2),
+    body .flatpickr-calendar .flatpickr-weekdays .flatpickr-weekdaycontainer:nth-of-type(2),
+    body .flatpickr-calendar .flatpickr-days .dayContainer:nth-of-type(2) {
+      display: none;
+    }
+  }
+
+  /* Specific screens like iPhone 14 Pro Max */
+  @media (max-width: 480px) {
+    #tg-booking-bar-root .tg-booking-bar {
+      max-width: 360px;
+      width: 90%;
+    }
+  }
+
+  /* Small screens like iPhone 12 Pro and below */
+  @media (max-width: 390px) {
+    #tg-booking-bar-root .tg-booking-bar {
+      max-width: 310px;
+      width: 90%;
+    }
+  }
+</style>
+
+<!-- Scope Wrapper ID to increase CSS specificity and eliminate !important conflicts with page builders/themes -->
+<div id="tg-booking-bar-root" class="tg-booking-bar-wrapper">
+  
+  <!-- CSS assets (loads FontAwesome and Flatpickr if they aren't loaded in WordPress already) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <div class="tg-booking-bar">
+    
+    <!-- Datepicker range input container -->
+    <div class="tg-bar-section" id="section-dates">
+      <span class="tg-section-label">Período de Viagem</span>
+      <div class="tg-section-value-wrapper">
+        <span class="tg-section-value" id="dates-value">Data de Início - Data de Fim</span>
+      </div>
+      <input type="text" id="hidden-dates-input" class="tg-hidden-input" autocomplete="off">
+    </div>
+
+    <!-- Location dropdown container -->
+    <div class="tg-dropdown-container">
+      <div class="tg-bar-section" id="section-location">
+        <span class="tg-section-label">Localização</span>
+        <div class="tg-section-value-wrapper">
+          <span class="tg-section-value" id="location-value">Cidade</span>
+          <span class="tg-section-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+      </div>
+      <!-- Location Dropdown Menu -->
+      <div class="tg-dropdown-menu tg-location-menu" id="location-menu">
+        <button type="button" class="tg-location-item selected" data-value="Cidade">Cidade</button>
+        <button type="button" class="tg-location-item" data-value="Lagoa (Algarve)">Lagoa (Algarve)</button>
+        <button type="button" class="tg-location-item" data-value="Silves">Silves</button>
+      </div>
+    </div>
+
+    <!-- Guest select dropdown container -->
+    <div class="tg-dropdown-container">
+      <div class="tg-bar-section" id="section-guests">
+        <span class="tg-section-label">Hóspedes</span>
+        <div class="tg-section-value-wrapper">
+          <span class="tg-section-value" id="guests-value">1 Hóspede</span>
+          <span class="tg-section-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+      </div>
+      <!-- Guest Dropdown Menu -->
+      <div class="tg-dropdown-menu tg-guest-menu" id="guest-menu">
+        <!-- Adults Row -->
+        <div class="tg-guest-row">
+          <div class="tg-guest-info">
+            <span class="tg-guest-title">Adultos</span>
+            <span class="tg-guest-desc">Mais de 18 anos</span>
+          </div>
+          <div class="tg-counter-controls">
+            <button type="button" class="tg-counter-btn" id="btn-adults-minus">-</button>
+            <span class="tg-counter-value" id="adults-val">1</span>
+            <button type="button" class="tg-counter-btn" id="btn-adults-plus">+</button>
+          </div>
+        </div>
+        <!-- Children Row -->
+        <div class="tg-guest-row">
+          <div class="tg-guest-info">
+            <span class="tg-guest-title">Crianças</span>
+            <span class="tg-guest-desc">0 a 17 anos</span>
+          </div>
+          <div class="tg-counter-controls">
+            <button type="button" class="tg-counter-btn" id="btn-children-minus">-</button>
+            <span class="tg-counter-value" id="children-val">0</span>
+            <button type="button" class="tg-counter-btn" id="btn-children-plus">+</button>
+          </div>
+        </div>
+        <!-- Dynamic Children Ages panel -->
+        <div class="tg-children-ages-panel" id="children-ages-panel">
+          <div class="tg-ages-grid" id="ages-grid">
+            <!-- Dynamically populated via javascript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search CTA button -->
+    <button type="button" class="tg-search-button" id="btn-search">
+      Pesquisar
+    </button>
+  </div>
+  
+  <!-- Flatpickr JS library resources -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+</div>
+
+<script>
+  /**
+   * TalkGuest Booking Bar - Code Integration Script (Optimized)
+   */
+  (function() {
+    const TGConfig = {
+      baseUrl: 'https://casasdapaula.talkguestwebsites.com/pt-PT/rentals/',
+      paramMapping: {
+        checkIn: 'checkinDate',
+        checkOut: 'checkoutDate',
+        location: 'city',
+        adults: 'adults',
+        children: 'children',
+        childAges: 'childrenAges'
+      }
+    };
+
+    function initBookingBar() {
+      // Widget State
+      const widgetState = {
+        checkIn: null,
+        checkOut: null,
+        location: 'Cidade',
+        adults: 1,
+        children: 0,
+        childAges: []
+      };
+
+      // DOM Elements Scoped to Container
+      const root = document.getElementById('tg-booking-bar-root');
+      if (!root) return;
+
+      const sectionDates = root.querySelector('#section-dates');
+      const sectionLocation = root.querySelector('#section-location');
+      const sectionGuests = root.querySelector('#section-guests');
+      
+      const datesValue = root.querySelector('#dates-value');
+      const locationValue = root.querySelector('#location-value');
+      const guestsValue = root.querySelector('#guests-value');
+      
+      const locationMenu = root.querySelector('#location-menu');
+      const guestMenu = root.querySelector('#guest-menu');
+      const childrenAgesPanel = root.querySelector('#children-ages-panel');
+      const agesGrid = root.querySelector('#ages-grid');
+      
+      const adultsValueEl = root.querySelector('#adults-val');
+      const childrenValueEl = root.querySelector('#children-val');
+      
+      const btnAdultsMinus = root.querySelector('#btn-adults-minus');
+      const btnAdultsPlus = root.querySelector('#btn-adults-plus');
+      const btnChildrenMinus = root.querySelector('#btn-children-minus');
+      const btnChildrenPlus = root.querySelector('#btn-children-plus');
+      
+      const btnSearch = root.querySelector('#btn-search');
+      const hiddenDatesInput = root.querySelector('#hidden-dates-input');
+
+      if (!sectionDates || !sectionLocation || !sectionGuests) return;
+
+      // Dropdown Toggle System
+      function closeAllDropdowns(exceptEl = null) {
+        const dropdowns = [locationMenu, guestMenu];
+        const sections = [sectionDates, sectionLocation, sectionGuests];
+        
+        dropdowns.forEach(menu => {
+          if (menu && menu !== exceptEl) menu.classList.remove('active');
+        });
+        
+        sections.forEach(sec => {
+          if (sec && (!exceptEl || sec.nextElementSibling !== exceptEl)) {
+            sec.classList.remove('active');
+          }
+        });
+      }
+
+      sectionLocation.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isActive = locationMenu.classList.contains('active');
+        closeAllDropdowns(isActive ? null : locationMenu);
+        if (!isActive) {
+          sectionLocation.classList.add('active');
+          locationMenu.classList.add('active');
+        }
+      });
+
+      sectionGuests.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isActive = guestMenu.classList.contains('active');
+        closeAllDropdowns(isActive ? null : guestMenu);
+        if (!isActive) {
+          sectionGuests.classList.add('active');
+          guestMenu.classList.add('active');
+        }
+      });
+
+      locationMenu.addEventListener('click', (e) => e.stopPropagation());
+      guestMenu.addEventListener('click', (e) => e.stopPropagation());
+      document.addEventListener('click', () => {
+        closeAllDropdowns();
+      });
+
+      // Datepicker Initialization
+      let fpInstance = null;
+
+      function getMonthsToShow() {
+        return window.innerWidth > 1023 ? 2 : 1;
+      }
+
+      function initFlatpickr() {
+        if (fpInstance) {
+          fpInstance.destroy();
+        }
+
+        fpInstance = flatpickr(hiddenDatesInput, {
+          mode: 'range',
+          locale: 'pt',
+          showMonths: getMonthsToShow(),
+          dateFormat: 'Y-m-d',
+          minDate: 'today',
+          position: 'auto',
+          showMonths: getMonthsToShow(),
+          prevMonthDays: true,
+          nextMonthDays: true,
+          onOpen: function(selectedDates, dateStr, instance) {
+            closeAllDropdowns();
+            sectionDates.classList.add('active');
+            
+            // Force calendar to open to the current month if no dates selected yet
+            if (selectedDates.length === 0) {
+              instance.jumpToDate(new Date());
+            }
+          },
+          onClose: function(selectedDates, dateStr, instance) {
+            sectionDates.classList.remove('active');
+            if (selectedDates.length === 2) {
+              const start = instance.formatDate(selectedDates[0], 'd/m/Y');
+              const end = instance.formatDate(selectedDates[1], 'd/m/Y');
+              datesValue.textContent = `${start} - ${end}`;
+              widgetState.checkIn = instance.formatDate(selectedDates[0], 'Y-m-d');
+              widgetState.checkOut = instance.formatDate(selectedDates[1], 'Y-m-d');
+            } else {
+              datesValue.textContent = 'Data de Início - Data de Fim';
+              widgetState.checkIn = null;
+              widgetState.checkOut = null;
+            }
+          }
+        });
+      }
+
+      // Initialize datepicker
+      initFlatpickr();
+
+      // Handle window resize dynamically to update showMonths
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          if (fpInstance) {
+            const currentShowMonths = fpInstance.config.showMonths;
+            const newShowMonths = getMonthsToShow();
+            if (currentShowMonths !== newShowMonths) {
+              // Reinitialize flatpickr config values to adapt to screens
+              initFlatpickr();
+            }
+          }
+        }, 150);
+      });
+
+      sectionDates.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (fpInstance) {
+          fpInstance.open();
+        }
+      });
+
+      // Location Selector
+      const locationItems = root.querySelectorAll('.tg-location-item');
+      locationItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const loc = item.getAttribute('data-value');
+          widgetState.location = loc;
+          locationValue.textContent = item.textContent.trim();
+          locationItems.forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          closeAllDropdowns();
+        });
+      });
+
+      // Guest Counter Logic
+      function updateGuestDisplay() {
+        const totalGuests = widgetState.adults + widgetState.children;
+        const label = totalGuests === 1 ? 'Hóspede' : 'Hóspedes';
+        guestsValue.textContent = `${totalGuests} ${label}`;
+        
+        adultsValueEl.textContent = widgetState.adults;
+        childrenValueEl.textContent = widgetState.children;
+        
+        btnAdultsMinus.disabled = widgetState.adults <= 1;
+        btnChildrenMinus.disabled = widgetState.children <= 0;
+        btnChildrenPlus.disabled = widgetState.children >= 6;
+        
+        renderChildrenAges();
+      }
+
+      function renderChildrenAges() {
+        if (widgetState.children > 0) {
+          childrenAgesPanel.classList.add('active');
+          while (widgetState.childAges.length < widgetState.children) {
+            widgetState.childAges.push(0);
+          }
+          while (widgetState.childAges.length > widgetState.children) {
+            widgetState.childAges.pop();
+          }
+          
+          agesGrid.innerHTML = '';
+          for (let i = 0; i < widgetState.children; i++) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'tg-age-select-wrapper';
+            
+            const label = document.createElement('label');
+            label.className = 'tg-age-label';
+            label.textContent = 'Idade';
+            
+            const select = document.createElement('select');
+            select.className = 'tg-age-select';
+            select.addEventListener('change', (e) => {
+              widgetState.childAges[i] = parseInt(e.target.value, 10);
+            });
+            
+            for (let age = 0; age <= 17; age++) {
+              const opt = document.createElement('option');
+              opt.value = age;
+              opt.textContent = age;
+              if (widgetState.childAges[i] === age) {
+                opt.selected = true;
+              }
+              select.appendChild(opt);
+            }
+            
+            wrapper.appendChild(label);
+            wrapper.appendChild(select);
+            agesGrid.appendChild(wrapper);
+          }
+        } else {
+          childrenAgesPanel.classList.remove('active');
+          agesGrid.innerHTML = '';
+          widgetState.childAges = [];
+        }
+      }
+
+      btnAdultsMinus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (widgetState.adults > 1) {
+          widgetState.adults--;
+          updateGuestDisplay();
+        }
+      });
+
+      btnAdultsPlus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        widgetState.adults++;
+        updateGuestDisplay();
+      });
+
+      btnChildrenMinus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (widgetState.children > 0) {
+          widgetState.children--;
+          updateGuestDisplay();
+        }
+      });
+
+      btnChildrenPlus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (widgetState.children < 6) {
+          widgetState.children++;
+          updateGuestDisplay();
+        }
+      });
+
+      updateGuestDisplay();
+
+      // Search Redirect
+      btnSearch.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        if (!widgetState.checkIn || !widgetState.checkOut) {
+          if (fpInstance) fpInstance.open();
+          return;
+        }
+        const mapping = TGConfig.paramMapping;
+        const queryParams = new URLSearchParams();
+        
+        queryParams.append(mapping.checkIn, widgetState.checkIn);
+        queryParams.append(mapping.checkOut, widgetState.checkOut);
+        
+        if (widgetState.location && widgetState.location !== 'Cidade') {
+          queryParams.append(mapping.location, widgetState.location.toLowerCase());
+        }
+        
+        queryParams.append(mapping.adults, widgetState.adults);
+        queryParams.append(mapping.children, widgetState.children);
+        
+        if (widgetState.children > 0) {
+          const agesStr = widgetState.childAges.join('|');
+          queryParams.append(mapping.childAges, agesStr);
+        }
+        // Add dynamic timestamp parameter as required by TalkGuest
+        queryParams.append('timestamp', new Date().toISOString());
+        const targetUrl = `${TGConfig.baseUrl}?${queryParams.toString()}`;
+        window.location.href = targetUrl;
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBookingBar);
+    } else {
+      initBookingBar();
+    }
+  })();
+</script>

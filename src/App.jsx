@@ -402,7 +402,7 @@ function App() {
       title: "Website - Alfaiate da Web",
       description: "Desenvolvimento do website da Alfaiate da Web com foco no fluxo de UX/UI e design responsivo.",
       tags: ["WordPress", "UX/UI", "Elementor"],
-      link: "./documents/website_alfaiatedaweb.pdf",
+      link: "alfaiate-link",
       image: logoAlfaiatedaweb,
       mobileImage: logoAlfaiatedawebMobile
     },
@@ -411,7 +411,7 @@ function App() {
       title: "Website - Casas da Paula",
       description: "Desenvolvimento do website Casas da Paula para alojamento local em Armação de Pêra, com integração de reservas TalkGuest.",
       tags: ["WordPress", "UX/UI", "Integration"],
-      link: "./documents/website_casasdapaula.pdf",
+      link: "casasdapaula-link",
       image: logoCasasdapaula,
       mobileImage: logoCasasdapaulaMobile
     },
@@ -726,8 +726,9 @@ function App() {
     alfaiatedaweb: {
       title: "Website - Alfaiate da Web",
       description: "Desenvolvimento completo do website da Alfaiate da Web com foco rigoroso no fluxo de UX/UI e design responsivo, perfeitamente adaptado a múltiplos dispositivos. O projeto envolveu o mapeamento detalhado da jornada do utilizador, a arquitetura da informação e a criação de uma estrutura visual moderna e profissional que otimiza a conversão.",
-      pdfUrl: "./documents/website_alfaiatedaweb.pdf",
+      pdfUrl: "alfaiate-link",
       documents: [
+        { name: "Website - Alfaiate da Web", url: "alfaiate-link" },
         { name: "Website - Antigo Vs Novo", url: "./documents/website_alfaiatedaweb.pdf" },
         { name: "Loop Infinito - Homepage", url: "./websites-phases/loopinfinite-alfaiatedaweb/index.html" },
         { name: "Página da História", url: "./websites-phases/historia-alfaiatedaweb/index.html" },
@@ -739,9 +740,12 @@ function App() {
     casasdapaula: {
       title: "Website - Casas da Paula",
       description: "Desenvolvimento do website da Casas da Paula, uma marca focada em Alojamentos Locais em Armação de Pêra. O projeto envolveu a otimização de UX/UI para facilitar reservas diretas e a integração completa de uma plataforma externa de channel management - TalkGuest. O trabalho abrangeu desde a análise estrutural antiga até ao novo layout otimizado.",
-      pdfUrl: "./documents/website_casasdapaula.pdf",
+      pdfUrl: "casasdapaula-link",
       documents: [
-        { name: "Website - Antigo Vs Novo", url: "./documents/website_casasdapaula.pdf" }
+        { name: "Website - Casas da Paula", url: "casasdapaula-link" },
+        { name: "Website - Antigo Vs Novo", url: "./documents/website_casasdapaula.pdf" },
+        { name: "Barra de Reservas", url: "./websites-phases/barradereservas_casasdapaula/barradereservas.html", desc: "Esta barra de reservas foi desenvolvida para integração no website, substituindo a da TalkGuest. O objetivo foi criar uma interface personalizada que comunicasse diretamente com o sistema de reservas deles." },
+        { name: "Título - Alojamentos Casas da Paula", url: "./websites-phases/title-casasdapaula/title.html" }
       ],
       skills: ["UX/UI Design", "Channel Manager Integration", "Frontend Development", "SEO Optimization"],
       platforms: ["WordPress", "WPBakery Page Builder", "Claude Code", "Visual Studio Code", "Google Antigravity"]
@@ -1366,31 +1370,64 @@ function App() {
                         <button className="btn btn-primary btn-sm" onClick={() => setIsOmegaModalOpen(true)}>
                           Enviar Mensagem
                         </button>
-                        <a href="https://omega-estore.myshopify.com/?pb=0" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <a href="https://omega-estore.myshopify.com/?pb=0" target="_self" className="btn btn-secondary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                           Ecommerce Omega
                         </a>
                       </div>
                     </div>
+                  ) : activePdfUrl === 'alfaiate-link' ? (
+                    <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
+                      <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
+                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Acesso Público</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
+                        O website da Alfaiate da Web está disponível para consulta pública.
+                      </p>
+                      <a href="https://alfaiatedaweb.pt/" target="_self" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                        Alfaiate da Web
+                      </a>
+                    </div>
+                  ) : activePdfUrl === 'casasdapaula-link' ? (
+                    <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
+                      <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
+                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Acesso Público</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
+                        O website da Casas da Paula está disponível para consulta pública.
+                      </p>
+                      <a href="https://casasdapaula.com/" target="_self" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                        Casas da Paula
+                      </a>
+                    </div>
                   ) : (
-                    windowWidth <= 768 ? (
-                      <div className="pdf-mobile-fallback-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '450px', padding: '2.5rem 1.5rem', textAlign: 'center', background: 'var(--bg-secondary)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxSizing: 'border-box' }}>
-                        <FileText size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.2rem' }} />
-                        <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)', fontSize: '1.15rem' }}>Visualização do PDF</h4>
-                        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.8rem', lineHeight: '1.6', maxWidth: '300px' }}>
-                          Os telemóveis limitam a leitura de PDFs integrados. Ao abrir o documento, poderá ler todas as páginas de forma fluída.
-                        </p>
-                        <a 
-                          href={activePdfUrl || project.pdfUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="btn btn-primary btn-sm"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.6rem 1.2rem' }}
-                        >
-                          <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>Abrir Documento</span>
-                          <ExternalLink size={20} style={{ display: 'inline-block', verticalAlign: 'middle' }} />
-                        </a>
-                      </div>
-                    ) : (
+                    windowWidth <= 768 ? (() => {
+                      const currentDoc = project.documents.find(d => d.url === activePdfUrl) || project.documents[0];
+                      const isHtml = activePdfUrl && (activePdfUrl.endsWith('.html') || activePdfUrl.includes('websites-phases'));
+                      const mobileDesc = currentDoc?.desc 
+                        ? currentDoc.desc 
+                        : isHtml 
+                          ? "Ao visualizar a página, poderá ver as fases de construção do website final." 
+                          : "Os telemóveis limitam a leitura de PDFs integrados. Ao abrir o documento, poderá ler todas as páginas de forma fluída.";
+                      const mobileTitle = isHtml ? "Visualização da Página Web" : "Visualização do PDF";
+                      const mobileCTA = isHtml ? "Ver Página" : "Abrir Documento";
+
+                      return (
+                        <div className="pdf-mobile-fallback-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '450px', padding: '2.5rem 1.5rem', textAlign: 'center', background: 'var(--bg-secondary)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxSizing: 'border-box' }}>
+                          <FileText size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.2rem' }} />
+                          <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)', fontSize: '1.15rem' }}>{mobileTitle}</h4>
+                          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.8rem', lineHeight: '1.6', maxWidth: '320px' }}>
+                            {mobileDesc}
+                          </p>
+                          <a 
+                            href={activePdfUrl || project.pdfUrl} 
+                            target="_self" 
+                            className="btn btn-primary btn-sm"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.6rem 1.2rem' }}
+                          >
+                            <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>{mobileCTA}</span>
+                            <ExternalLink size={20} style={{ display: 'inline-block', verticalAlign: 'middle' }} />
+                          </a>
+                        </div>
+                      );
+                    })() : (
                       <div className="pdf-viewer-card">
                         <iframe 
                           src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} 
@@ -1413,7 +1450,7 @@ function App() {
                       {project.documents.map((doc, idx) => (
                         <li key={idx}>
                           {doc.external ? (
-                            <a href={doc.url} target="_blank" rel="noopener noreferrer" className="doc-link">
+                            <a href={doc.url} target="_self" className="doc-link">
                               {doc.name}
                             </a>
                           ) : (
