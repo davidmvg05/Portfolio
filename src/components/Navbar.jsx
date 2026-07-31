@@ -1,12 +1,41 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }) {
+function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, lang = 'PT' }) {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = ['Home', 'Journey', 'Projects', 'Skills', 'Contact'];
+
+  const langTranslations = {
+    PT: {
+      home: 'Início',
+      journey: 'Percurso',
+      projects: 'Projetos',
+      skills: 'Skills',
+      contact: 'Contacto'
+    },
+    EN: {
+      home: 'Home',
+      journey: 'Journey',
+      projects: 'Projects',
+      skills: 'Skills',
+      contact: 'Contact'
+    },
+    ES: {
+      home: 'Inicio',
+      journey: 'Trayectoria',
+      projects: 'Proyectos',
+      skills: 'Competencias',
+      contact: 'Contacto'
+    }
+  };
+
+  const getLabel = (item) => {
+    const key = item.toLowerCase();
+    return langTranslations[lang]?.[key] || item;
+  };
 
   // Handle scroll to highlight active section and add background color to navbar
   useEffect(() => {
@@ -155,7 +184,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
                     className={`nav-link ${isActive ? 'active' : ''}`}
                   >
                     <span className="bracket">&lt;</span>
-                    <span className="link-text">{item}</span>
+                    <span className="link-text">{getLabel(item)}</span>
                     <span className="bracket">/&gt;</span>
                   </a>
                 );
@@ -235,7 +264,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId }
                   }}
                 >
                   <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginRight: '0.5rem', transition: 'var(--transition)' }}>&lt;</span>
-                  <span className="link-text">{item}</span>
+                  <span className="link-text">{getLabel(item)}</span>
                   <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginLeft: '0.5rem', transition: 'var(--transition)' }}>/&gt;</span>
                 </a>
               );

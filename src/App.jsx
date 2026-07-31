@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
-import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText } from 'lucide-react';
+import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText, Globe } from 'lucide-react';
 import logoLego from './assets/logo_lego.png';
 import logoMymatchcare from './assets/logo_mymatchcare.png';
 import logoOmega from './assets/logo_omega.png';
@@ -105,6 +105,20 @@ const CopyableText = ({ text }) => {
 };
 
 function App() {
+  const [lang, setLang] = useState('PT');
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const langSwitcherRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langSwitcherRef.current && !langSwitcherRef.current.contains(event.target)) {
+        setIsLangMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme ? savedTheme === 'dark' : true; // Starts in dark mode
@@ -144,6 +158,122 @@ function App() {
       window.history.scrollRestoration = 'manual';
     }
   }, []);
+
+  const translations = {
+    PT: {
+      heroTitle: "Desenvolvedor Criativo & Animador 3D",
+      heroSubtitle: "A dar vida a ideias através de código limpo, animações fluidas e experiências interativas intergalácticas.",
+      heroCTA: "Ver Projetos",
+      heroContact: "Entrar em Contacto",
+      academicTitle: "Trabalhos Académicos",
+      professionalTitle: "Projetos Profissionais",
+      journeyTitle: "O Meu Percurso",
+      skillsTitle: "Skills & Competências",
+      contactTitle: "Vamos Criar Algo Extraordinário?",
+      contactDesc: "Tem um projeto em mente ou gostaria de conversar sobre colaborações de desenvolvimento criativo? Envie uma mensagem!",
+      nameLabel: "Nome",
+      emailLabel: "E-mail",
+      messageLabel: "Mensagem",
+      sendButton: "Enviar Mensagem",
+      privacyPolicy: "Política de Privacidade",
+      rightsReserved: "Todos os direitos reservados.",
+      cookieHeader: "Política de Cookies",
+      cookieDesc: "Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website. Ao clicar em \"Aceitar Todos\", consente a utilização dos cookies.",
+      rejectBtn: "Rejeitar Essenciais",
+      acceptBtn: "Aceitar Todos",
+      backButton: "Voltar para o Início",
+      docTitle: "Documentos Disponíveis",
+      skillsLabel: "Skills e Competências",
+      platformsLabel: "Plataformas Utilizadas",
+      protectedAccess: "Acesso Protegido",
+      protectedDesc: "O acesso à loja está protegido por palavra-passe.",
+      publicAccess: "Acesso Público",
+      publicDesc: "O website está disponível para consulta pública.",
+      sendRequest: "Solicitar Acesso",
+      mobileFallbackTitle: "Visualização do PDF",
+      mobileFallbackDesc: "Os telemóveis limitam a leitura de PDFs integrados. Ao abrir o documento, poderá ler todas as páginas de forma fluída.",
+      mobileFallbackCTA: "Abrir Documento",
+      mobileHtmlTitle: "Visualização da Página Web",
+      mobileHtmlDesc: "Ao visualizar a página, poderá ver as fases de construção do website final.",
+      mobileHtmlCTA: "Ver Página"
+    },
+    EN: {
+      heroTitle: "Creative Developer & 3D Animator",
+      heroSubtitle: "Bringing ideas to life through clean code, fluid animations, and intergalactic interactive experiences.",
+      heroCTA: "View Projects",
+      heroContact: "Get in Touch",
+      academicTitle: "Academic Works",
+      professionalTitle: "Professional Projects",
+      journeyTitle: "My Journey",
+      skillsTitle: "Skills & Platforms",
+      contactTitle: "Let's Create Something Extraordinary?",
+      contactDesc: "Have a project in mind or want to talk about creative development collaborations? Send me a message!",
+      nameLabel: "Name",
+      emailLabel: "Email",
+      messageLabel: "Message",
+      sendButton: "Send Message",
+      privacyPolicy: "Privacy Policy",
+      rightsReserved: "All rights reserved.",
+      cookieHeader: "Cookie Policy",
+      cookieDesc: "We use cookies to improve your browsing experience and analyze website traffic. By clicking \"Accept All\", you consent to the use of cookies.",
+      rejectBtn: "Reject Essentials",
+      acceptBtn: "Accept All",
+      backButton: "Back to Home",
+      docTitle: "Available Documents",
+      skillsLabel: "Skills and Competencies",
+      platformsLabel: "Platforms Used",
+      protectedAccess: "Protected Access",
+      protectedDesc: "Access to this store is protected by a password.",
+      publicAccess: "Public Access",
+      publicDesc: "The website is available for public viewing.",
+      sendRequest: "Request Access",
+      mobileFallbackTitle: "PDF Preview",
+      mobileFallbackDesc: "Mobile phones limit integrated PDF reading. By opening the document, you will be able to read all pages fluidly.",
+      mobileFallbackCTA: "Open Document",
+      mobileHtmlTitle: "Web Page Preview",
+      mobileHtmlDesc: "By previewing the page, you can see the construction phases of the final website.",
+      mobileHtmlCTA: "View Page"
+    },
+    ES: {
+      heroTitle: "Desarrollador Creativo y Animador 3D",
+      heroSubtitle: "Dando vida a ideas a través de código limpio, animaciones fluidas y experiencias interactivas intergalácticas.",
+      heroCTA: "Ver Proyectos",
+      heroContact: "Ponerse en Contacto",
+      academicTitle: "Trabajos Académicos",
+      professionalTitle: "Proyectos Profesionales",
+      journeyTitle: "Mi Trayectoria",
+      skillsTitle: "Competencias y Plataformas",
+      contactTitle: "¿Creamos Algo Extraordinario?",
+      contactDesc: "¿Tiene un proyecto en mente o le gustaría hablar sobre colaboraciones de desarrollo creativo? ¡Envíeme un mensaje!",
+      nameLabel: "Nombre",
+      emailLabel: "Correo electrónico",
+      messageLabel: "Mensaje",
+      sendButton: "Enviar Mensaje",
+      privacyPolicy: "Política de Privacidad",
+      rightsReserved: "Todos los derechos reservados.",
+      cookieHeader: "Cookie Policy",
+      cookieDesc: "Utilizamos cookies para mejorar su experiencia de navegación y analizar el tráfico del sitio web. Al hacer clic en \"Aceptar todo\", acepta el uso de cookies.",
+      rejectBtn: "Rechazar Esenciales",
+      acceptBtn: "Aceptar Todo",
+      backButton: "Volver al Inicio",
+      docTitle: "Documentos Disponibles",
+      skillsLabel: "Habilidades y Competencias",
+      platformsLabel: "Plataformas Utilizadas",
+      protectedAccess: "Acceso Protegido",
+      protectedDesc: "El acceso a la tienda está protegido por contraseña.",
+      publicAccess: "Acceso Público",
+      publicDesc: "El sitio web está disponible para consulta pública.",
+      sendRequest: "Solicitar Acceso",
+      mobileFallbackTitle: "Vista Previa de PDF",
+      mobileFallbackDesc: "Los teléfonos móviles limitan la lectura de PDF integrados. Al abrir el documento, podrá leer todas las páginas con fluidez.",
+      mobileFallbackCTA: "Abrir Documento",
+      mobileHtmlTitle: "Vista Previa de Página Web",
+      mobileHtmlDesc: "Al visualizar la página, podrá ver las fases de construcción del sitio web final.",
+      mobileHtmlCTA: "Ver Página"
+    }
+  };
+
+  const t = (key) => translations[lang]?.[key] || translations['PT'][key];
 
   // Always scroll window to top immediately when active page routing changes
   useEffect(() => {
@@ -946,7 +1076,7 @@ function App() {
       )}
 
       {/* Floating Navbar */}
-      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={navigateHome} />
+      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={navigateHome} lang={lang} />
 
       <main className="container">
         {activeProjectId === null && (
@@ -955,21 +1085,25 @@ function App() {
             <section id="home">
               <div className="home-content">
                 <h1 className="home-title">David Gomes</h1>
-                <span className="home-subtitle">Digital Marketing and Creative Developer</span>
+                <span className="home-subtitle">Digital Marketing & Creative Developer</span>
                 <p className="home-description">
-                  Mais marketer do que developer… mas adoro brincar aos dois. 😎 Não sou programador. Só tenho ideias demasiado teimosas para não as criar. 🤫
+                  {lang === 'PT' 
+                    ? "Mais marketer do que developer… mas adoro brincar aos dois. 😎 Não sou programador. Só tenho ideias demasiado teimosas para não as criar. 🤫" 
+                    : lang === 'ES' 
+                      ? "Más marketer que desarrollador… pero me encanta jugar con ambos. 😎 No soy programador. Solo tengo ideas demasiado obstinadas como para no crearlas. 🤫" 
+                      : "More marketer than developer… but I love playing with both. 😎 I am not a programmer. I just have ideas too stubborn not to create them. 🤫"}
                 </p>
                 <div className="home-cta-container">
                   <a href="#projects" onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById('projects');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }} className="btn btn-primary">Ver Projetos</a>
+                  }} className="btn btn-primary">{t('heroCTA')}</a>
                   <a href="#contact" onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById('contact');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }} className="btn btn-secondary">Contactar</a>
+                  }} className="btn btn-secondary">{lang === 'PT' ? 'Contactar' : lang === 'ES' ? 'Contactar' : 'Contact'}</a>
                 </div>
               </div>
               <div className="scroll-indicator">
@@ -982,7 +1116,7 @@ function App() {
 
             {/* --- Journey Section --- */}
             <section id="journey" ref={journeyRef}>
-          <h2 className="section-title">My Journey</h2>
+          <h2 className="section-title">{t('journeyTitle')}</h2>
           <div className="journey-container">
             {/* Left Side: Waving Words & Stats */}
             <div className="journey-left">
@@ -1003,11 +1137,11 @@ function App() {
               <div className="journey-squares-grid">
                 <div className="journey-info-square">
                   <div className="journey-square-val-big">17.00</div>
-                  <div className="journey-square-lbl">Nota final</div>
+                  <div className="journey-square-lbl">{lang === 'PT' ? 'Nota final' : lang === 'ES' ? 'Nota final' : 'Final Grade'}</div>
                 </div>
                 <div className="journey-info-square">
-                  <div className="journey-square-val-text">Marketing Digital</div>
-                  <div className="journey-square-lbl">Especialização</div>
+                  <div className="journey-square-val-text">{lang === 'PT' ? 'Marketing Digital' : lang === 'ES' ? 'Marketing Digital' : 'Digital Marketing'}</div>
+                  <div className="journey-square-lbl">{lang === 'PT' ? 'Especialização' : lang === 'ES' ? 'Especialidad' : 'Specialization'}</div>
                 </div>
               </div>
             </div>
@@ -1028,7 +1162,7 @@ function App() {
                         style={{ marginTop: '1.2rem', padding: '0.4rem 1.2rem', fontSize: '0.85rem' }}
                         onClick={() => setActiveJourneyDetail(item)}
                       >
-                        Ver Mais
+                        {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'}
                       </button>
                     </div>
                   </div>
@@ -1040,7 +1174,7 @@ function App() {
 
         {/* --- Projects Section --- */}
         <section id="projects">
-          <h2 className="section-title">Projects</h2>
+          <h2 className="section-title">{lang === 'PT' ? 'Projetos' : lang === 'ES' ? 'Proyectos' : 'Projects'}</h2>
           
           {/* Projects/Academic Toggle Tab */}
           <div className="projects-toggle-container">
@@ -1048,13 +1182,13 @@ function App() {
               className={`projects-toggle-btn ${projectCategory === 'projects' ? 'active' : ''}`}
               onClick={() => setProjectCategory('projects')}
             >
-              Projetos
+              {t('professionalTitle')}
             </button>
             <button 
               className={`projects-toggle-btn ${projectCategory === 'academic' ? 'active' : ''}`}
               onClick={() => setProjectCategory('academic')}
             >
-              Trabalhos Académicos
+              {t('academicTitle')}
             </button>
           </div>
 
@@ -1198,11 +1332,11 @@ function App() {
                                 navigateToProject(project.id);
                               }}
                             >
-                              Ver Mais &rarr;
+                              {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'} &rarr;
                             </a>
                           ) : (
                             <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
-                              Ver Mais <ExternalLink size={16} />
+                              {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'} <ExternalLink size={16} />
                             </a>
                           )}
                         </div>
@@ -1225,7 +1359,7 @@ function App() {
 
         {/* --- Skills Section --- */}
         <section id="skills">
-          <h2 className="section-title">Skills & Competências</h2>
+          <h2 className="section-title">{t('skillsTitle')}</h2>
           <div className="skills-container" style={{ display: 'grid', gridAutoFlow: windowWidth > 768 ? 'column' : 'row', gridAutoColumns: windowWidth > 768 ? '1fr' : 'auto', gap: '2rem', alignItems: 'stretch' }}>
             {/* Card 1: Websites */}
             <div className="skills-category">
@@ -1287,24 +1421,24 @@ function App() {
 
         {/* --- Contact Section --- */}
         <section id="contact">
-          <h2 className="section-title">Contacto</h2>
+          <h2 className="section-title">{lang === 'PT' ? 'Contacto' : lang === 'ES' ? 'Contacto' : 'Contact'}</h2>
           <div className="contact-wrapper">
             <div className="contact-info">
-              <p>Tens um projeto interessante ou queres falar sobre animação? Envia uma mensagem!</p>
+              <p>{t('contactDesc')}</p>
             </div>
             <form className="contact-form" onSubmit={handleFormSubmit}>
               <div className="form-group">
                 <label htmlFor="name" className="form-label-bracketed">
                   <span className="bracket">&lt;</span>
-                  <span className="link-text">Nome</span>
+                  <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="name" name="name" required placeholder="O teu nome..." />
+                <input type="text" id="name" name="name" required placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
               </div>
               <div className="form-group">
                 <label htmlFor="email" className="form-label-bracketed">
                   <span className="bracket">&lt;</span>
-                  <span className="link-text">Email</span>
+                  <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
                 <input type="email" id="email" name="email" required placeholder="seu@email.com" />
@@ -1312,36 +1446,40 @@ function App() {
               <div className="form-group">
                 <label htmlFor="message" className="form-label-bracketed">
                   <span className="bracket">&lt;</span>
-                  <span className="link-text">Mensagem</span>
+                  <span className="link-text">{t('messageLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <textarea id="message" name="message" rows="5" required placeholder="Escreve a tua mensagem aqui..."></textarea>
+                <textarea id="message" name="message" rows="5" required placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
               </div>
               <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
                 <input 
-                  type="checkbox" 
-                  id="privacy-consent-main" 
-                  name="privacy_consent" 
-                  required 
-                  style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
-                />
+                   type="checkbox" 
+                   id="privacy-consent-main" 
+                   name="privacy_consent" 
+                   required 
+                   style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
+                 />
                 <label htmlFor="privacy-consent-main" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
-                  Li e aceito o tratamento dos meus dados pessoais como explicado pela{' '}
+                  {lang === 'PT' 
+                    ? "Li e aceito o tratamento dos meus dados pessoais como explicado pela " 
+                    : lang === 'ES' 
+                      ? "He leído y acepto el tratamiento de mis datos personales según lo explicado en la " 
+                      : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
-                    href="#privacy-policy" 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateToPrivacy();
-                    }}
-                    style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}
-                  >
-                    Política de Privacidade
-                  </a>.
+                     href="#privacy-policy" 
+                     onClick={(e) => {
+                       e.preventDefault();
+                       navigateToPrivacy();
+                     }}
+                     style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}
+                   >
+                     {t('privacyPolicy')}
+                   </a>.
                 </label>
               </div>
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Enviar Mensagem <Send size={16} />
+                  {t('sendButton')} <Send size={16} />
                 </button>
                 {contactStatus.message && (
                   <p className={`form-status-msg ${contactStatus.type}`} style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}>
@@ -1362,7 +1500,7 @@ function App() {
           return (
             <div className="project-page-view">
               <button className="btn btn-secondary btn-sm" onClick={handleBack} style={{ marginBottom: '2rem' }}>
-                &larr; Voltar
+                &larr; {t('backButton')}
               </button>
               <h1 className="project-page-title">{project.title}</h1>
               <p className="project-page-desc">{project.description}</p>
@@ -1373,12 +1511,20 @@ function App() {
                   {(!project.pdfUrl && activePdfUrl === null) ? (
                     <div className="pdf-viewer-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '550px', padding: '3rem', textAlign: 'center' }}>
                       <Tablet size={64} style={{ color: 'var(--accent-blue)', marginBottom: '1.5rem' }} />
-                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>Experiência Virtual</h3>
+                      <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>{lang === 'PT' ? 'Experiência Virtual' : lang === 'ES' ? 'Experiencia Virtual' : 'Virtual Experience'}</h3>
                       <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '350px', lineHeight: '1.6' }}>
-                        Modelos 3D interativos e experiências imersivas de realidade aumentada disponíveis para consulta externa.
+                        {lang === 'PT' 
+                          ? "Modelos 3D interativos e experiências imersivas de realidade aumentada disponíveis para consulta externa." 
+                          : lang === 'ES' 
+                            ? "Modelos 3D interactivos y experiencias inmersivas de realidad aumentada disponibles para consulta externa." 
+                            : "Interactive 3D models and immersive augmented reality experiences available for external viewing."}
                       </p>
                       <p style={{ fontSize: '0.9rem', color: 'var(--accent-purple)', fontWeight: '500' }}>
-                        Selecione as experiências na barra lateral para explorar.
+                        {lang === 'PT' 
+                          ? "Selecione as experiências na barra lateral para explorar." 
+                          : lang === 'ES' 
+                            ? "Seleccione las experiencias en la barra lateral para explorar." 
+                            : "Select the experiences in the sidebar to explore."}
                       </p>
                     </div>
                   ) : activePdfUrl === 'shopify' ? (
@@ -1437,10 +1583,10 @@ function App() {
                       const mobileDesc = currentDoc?.desc 
                         ? currentDoc.desc 
                         : isHtml 
-                          ? "Ao visualizar a página, poderá ver as fases de construção do website final." 
-                          : "Os telemóveis limitam a leitura de PDFs integrados. Ao abrir o documento, poderá ler todas as páginas de forma fluída.";
-                      const mobileTitle = isHtml ? "Visualização da Página Web" : "Visualização do PDF";
-                      const mobileCTA = isHtml ? "Ver Página" : "Abrir Documento";
+                          ? t('mobileHtmlDesc')
+                          : t('mobileFallbackDesc');
+                      const mobileTitle = isHtml ? t('mobileHtmlTitle') : t('mobileFallbackTitle');
+                      const mobileCTA = isHtml ? t('mobileHtmlCTA') : t('mobileFallbackCTA');
 
                       return (
                         <div className="pdf-mobile-fallback-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '450px', padding: '2.5rem 1.5rem', textAlign: 'center', background: 'var(--bg-secondary)', border: '1px solid var(--glass-border)', borderRadius: '16px', boxSizing: 'border-box' }}>
@@ -1478,7 +1624,7 @@ function App() {
                 {/* Right Column: Documents, Skills, Platforms */}
                 <div className="project-page-right">
                   <div className="project-info-card">
-                    <h3>Documentos Disponíveis</h3>
+                    <h3>{t('docTitle')}</h3>
                     <ul className="doc-list">
                       {project.documents.map((doc, idx) => (
                         <li key={idx}>
@@ -1515,14 +1661,14 @@ function App() {
                           Se deseja explorar e testar a loja, envie esta mensagem automática:
                         </p>
                         <button className="btn btn-primary" onClick={() => setIsOmegaModalOpen(true)}>
-                          Enviar Mensagem
+                          {lang === 'PT' ? 'Enviar Mensagem' : lang === 'ES' ? 'Enviar Mensaje' : 'Send Message'}
                         </button>
                       </div>
                     )}
                   </div>
 
                   <div className="project-info-card" style={{ marginTop: '1.5rem' }}>
-                    <h3>Skills</h3>
+                    <h3>{t('skillsLabel')}</h3>
                     <div className="project-page-tags">
                       {project.skills.map((skill, idx) => (
                         <span key={idx} className="tag">{skill}</span>
@@ -1531,7 +1677,7 @@ function App() {
                   </div>
 
                   <div className="project-info-card" style={{ marginTop: '1.5rem' }}>
-                    <h3>Plataformas</h3>
+                    <h3>{t('platformsLabel')}</h3>
                     <div className="project-page-tags">
                       {project.platforms.map((platform, idx) => (
                         <span key={idx} className="tag tag-platform">{platform}</span>
@@ -1801,6 +1947,39 @@ function App() {
           </div>
         </div>
       )}
+      {/* Floating Language Switcher */}
+      <div className="lang-switcher-widget" ref={langSwitcherRef}>
+        <div className={`lang-switcher-menu ${isLangMenuOpen ? 'open' : ''}`}>
+          <button 
+            className={`lang-option ${lang === 'PT' ? 'active' : ''}`} 
+            onClick={() => { setLang('PT'); setIsLangMenuOpen(false); }}
+          >
+            <span>Português (PT)</span>
+            {lang === 'PT' && <Check size={14} />}
+          </button>
+          <button 
+            className={`lang-option ${lang === 'EN' ? 'active' : ''}`} 
+            onClick={() => { setLang('EN'); setIsLangMenuOpen(false); }}
+          >
+            <span>English (EN)</span>
+            {lang === 'EN' && <Check size={14} />}
+          </button>
+          <button 
+            className={`lang-option ${lang === 'ES' ? 'active' : ''}`} 
+            onClick={() => { setLang('ES'); setIsLangMenuOpen(false); }}
+          >
+            <span>Español (ES)</span>
+            {lang === 'ES' && <Check size={14} />}
+          </button>
+        </div>
+        <button 
+          className={`lang-switcher-btn ${isLangMenuOpen ? 'active' : ''}`} 
+          onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+          aria-label="Alterar idioma / Change language"
+        >
+          <Globe size={20} />
+        </button>
+      </div>
     </>
   );
 }
