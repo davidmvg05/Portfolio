@@ -756,6 +756,7 @@ function App() {
         { name: "Website - Antigo Vs Novo", url: "./documents/website_casasdapaula.pdf" },
         { name: "Barra de Reservas", url: "./websites-phases/barradereservas_casasdapaula/barradereservas.html", desc: "Esta barra de reservas foi desenvolvida para integração no website, substituindo a da TalkGuest. O objetivo foi criar uma interface personalizada que comunicasse diretamente com o sistema de reservas deles." },
         { name: "Título - Alojamentos Casas da Paula", url: "./websites-phases/title-casasdapaula/title.html" },
+        { name: "Cards das casas", url: "./websites-phases/cards_casasdapaula/cardsdascasas.html" },
         { name: "Website - Casas da Paula", url: "casasdapaula-link" }
       ],
       skills: ["UX/UI Design", "Channel Manager Integration", "Frontend Development", "SEO Optimization"],
