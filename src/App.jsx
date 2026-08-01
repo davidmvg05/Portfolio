@@ -275,6 +275,433 @@ function App() {
 
   const t = (key) => translations[lang]?.[key] || translations['PT'][key];
 
+  const translateSubject = (subj) => {
+    const isPT = lang === 'PT';
+    const isES = lang === 'ES';
+    if (isPT) return subj;
+    
+    const map = {
+      "Marketing para Dispositivos Móveis": isES ? "Marketing para Dispositivos Móviles" : "Mobile Marketing",
+      "Marketing Digital": isES ? "Marketing Digital" : "Digital Marketing",
+      "Português e Técnicas de Comunicação": isES ? "Portugués y Técnicas de Comunicación" : "Portuguese and Communication Techniques",
+      "Fundamentos de Linguagens Web": isES ? "Fundamentos de Lenguajes Web" : "Web Language Fundamentals",
+      "Estratégia e Planeamento de Campanhas": isES ? "Estrategia y Planificación de Campañas" : "Strategy and Campaign Planning",
+      "Métricas e Avaliação de Desempenho": isES ? "Métricas y Evaluación de Rendimiento" : "Metrics and Performance Evaluation",
+      "Estágio": isES ? "Prácticas" : "Internship",
+      "Marketing em Redes Sociais": isES ? "Marketing en Redes Sociales" : "Social Media Marketing",
+      "Estudos de Mercado": isES ? "Estudios de Mercado" : "Market Research",
+      "Ecommerce": isES ? "Comercio Electrónico" : "E-commerce",
+      "E-mail Marketing": isES ? "Marketing por Correo Electrónico" : "Email Marketing",
+      "Composição de Imagem Digital": isES ? "Composición de Imagen Digital" : "Digital Image Composition",
+      "Optimização para Motores de Pesquisa": isES ? "Optimización de Motores de Búsqueda" : "Search Engine Optimization",
+      "Marketing de Conteúdos": isES ? "Marketing de Contenidos" : "Content Marketing",
+      "Sistemas e Gestão de Conteúdo Online": isES ? "Sistemas y Gestión de Contenido Online" : "Online Content Management & Systems",
+      "Publicidade Online": isES ? "Publicidad Online" : "Online Advertising",
+      "Direito da Comunicação e da Informação": isES ? "Derecho de la Comunicación y la Información" : "Communication and Information Law",
+      "Fundamentos de Marketing": isES ? "Fundamentos de Marketing" : "Marketing Fundamentals",
+      "Comportamento do Consumidor": isES ? "Comportamiento del Consumidor" : "Consumer Behavior",
+      "Inglês": isES ? "Inglés" : "English",
+      "Educação Física": isES ? "Educación Física" : "Physical Education",
+      "Biologia e Geologia": isES ? "Biología y Geología" : "Biology and Geology",
+      "Filosofia": isES ? "Filosofía" : "Philosophy",
+      "Psicologia B": isES ? "Psicología B" : "Psychology B",
+      "Português": isES ? "Portugués" : "Portuguese",
+      "Matemática A": isES ? "Matemáticas A" : "Mathematics A",
+      "Física e Química A": isES ? "Física y Química A" : "Physics and Chemistry A",
+      "Biologia": isES ? "Biología" : "Biology"
+    };
+    
+    return map[subj] || subj;
+  };
+
+  const getTranslatedProject = (proj) => {
+    const isPT = lang === 'PT';
+    const isES = lang === 'ES';
+    if (isPT) return proj;
+
+    const translationsMap = {
+      "alfaiatedaweb": {
+        description: isES 
+          ? "Desarrollo del sitio web de Alfaiate da Web centrado en el flujo de UX/UI y diseño responsivo."
+          : "Development of the Alfaiate da Web website with a focus on UX/UI flow and responsive design."
+      },
+      "casasdapaula": {
+        description: isES
+          ? "Desarrollo del sitio web de Casas da Paula para alojamiento local en Armação de Pêra, con integración de reservas de TalkGuest."
+          : "Development of the Casas da Paula website for local lodging in Armação de Pêra, with TalkGuest reservation integration."
+      },
+      "bniequipas": {
+        description: isES
+          ? "Gestión de redes sociales de BNI Equipas, incluyendo calendarios editoriales, creación gráfica y optimización de perfil."
+          : "Social media management for BNI Equipas, including editorial calendars, graphic creation, and profile optimization."
+      },
+      "estagio": {
+        title: isES ? "Informe de Prácticas" : "Internship Report",
+        description: isES
+          ? "Desarrollo del informe de prácticas curriculares y la respectiva presentación de defensa académica."
+          : "Development of the formal curriculum internship report and its respective academic defense presentation."
+      },
+      "portfolio": {
+        title: isES ? "Sitio Web - Portafolio Personal" : "Website - Personal Portfolio",
+        description: isES
+          ? "Concepción, diseño de UX/UI y desarrollo desde cero de mi portafolio personal interactivo y responsivo."
+          : "Conception, UX/UI design, and development from scratch of my interactive and responsive personal portfolio."
+      },
+      "lego": {
+        description: isES
+          ? "Plan estratégico enfocado en establecer la presencia digital de LEGO en las redes sociais en Portugal."
+          : "Strategic plan focused on establishing LEGO's digital presence on social media in Portugal."
+      },
+      "mymatchcare": {
+        description: isES
+          ? "Plan de marketing digital estratégico desarrollado para la plataforma de atención domiciliaria MyMatchCare."
+          : "Strategic digital marketing plan developed for the home care platform MyMatchCare."
+      },
+      "omega": {
+        description: isES
+          ? "Construcción de una tienda en línea completa (e-Store) para la marca OMEGA."
+          : "Construction of a complete online store (e-Store) for the OMEGA brand."
+      },
+      "shifter": {
+        description: isES
+          ? "Auditoría SEO estructurada de una publicación en línea existente, evaluando rendimiento en página, keywords y brechas de contenido."
+          : "Structured SEO audit of an existing online publication, evaluating on-page performance, keyword targeting, and content gaps."
+      },
+      "ciberseguranca": {
+        title: isES ? "Campaña de Ciberseguridad" : "Cybersecurity Campaign",
+        description: isES
+          ? "Trabajo realizado en la asignatura de marketing en dispositivos móviles, centrado en alertar y educar sobre amenazas en dispositivos móviles."
+          : "Project carried out in the mobile marketing class, focusing on alerting and educating users about mobile threats."
+      },
+      "omega3d": {
+        title: isES ? "Exposición en el Metaverso - Omega" : "Metaverse Exhibition - Omega",
+        description: isES
+          ? "Desarrollo de modelos 3D, experiencias AR en GitHub y creación de espacios en el metaverso con la plataforma Spatial."
+          : "Development of 3D models, AR experiences on GitHub, and creation of metaverse spaces using the Spatial platform."
+      },
+      "mimosa": {
+        description: isES
+          ? "Estudio de mercado estratégico enfocado en el lanzamiento de un nuevo segmento de yogures líquidos con trozos de fruta."
+          : "Strategic market research focused on the launch of a new liquid yogurt segment with fruit pieces."
+      },
+      "strongbulk": {
+        description: isES
+          ? "Análisis crítico del correo de marketing de Myprotein y desarrollo de campaña para StrongBulk, una marca de fitness ficticia."
+          : "Critical analysis of Myprotein's email marketing and development of an email campaign for StrongBulk, a fictional fitness brand."
+      },
+      "gotasalgada": {
+        description: isES
+          ? "Desarrollo creativo y humorístico de la marca Gota Salgada como competidora de Pingo Doce, incluyendo dosieres y presentaciones."
+          : "Creative and humorous development of the Gota Salgada brand as a competitor of Pingo Doce, including dossiers and presentations."
+      },
+      "apadariaportuguesa": {
+        description: isES
+          ? "Análisis detallado de la presencia digital de A Padaria Portuguesa, evaluando campañas digitales y distribución de contenidos."
+          : "Detailed analysis of A Padaria Portuguesa's digital presence, evaluating digital campaigns and content distribution."
+      },
+      "edp": {
+        description: isES
+          ? "Desarrollo de una reseña descriptiva sobre el tema 'Consumo Digital Sustentable', seguida de un análisis de la estratégia de EDP."
+          : "Development of a descriptive review on 'Sustainable Digital Consumption', followed by an in-depth analysis of EDP's strategy."
+      },
+      "rebottle": {
+        description: isES
+          ? "Análisis crítico de campañas digitales de LARQ y Stanley, y planificación estratégica de Google Ads para Rebottle."
+          : "Critical analysis of digital campaigns from LARQ and Stanley, and strategic planning of Google Ads for Rebottle."
+      },
+      "omegaanalytics": {
+        description: isES
+          ? "Análisis detallado de métricas digitales y evaluación de rendimiento para la tienda ficticia e-commerce Omega."
+          : "Detailed analysis of digital metrics and performance evaluation for the fictitious Omega e-commerce store."
+      },
+      "adegasocalcos": {
+        description: isES
+          ? "Estrategia de comunicação e planeamento detalhado de campanhas focadas na marca fictícia de vinhos Adega Socalcos."
+          : "Communication strategy and detailed campaign planning focused on the fictitious Adega Socalcos wine brand."
+      }
+    };
+
+    const trans = translationsMap[proj.id];
+    if (!trans) return proj;
+
+    return {
+      ...proj,
+      title: trans.title || proj.title,
+      description: trans.description || proj.description
+    };
+  };
+
+  const getTranslatedProjectDetails = (id, details) => {
+    if (!details) return details;
+    const isPT = lang === 'PT';
+    const isES = lang === 'ES';
+    if (isPT) return details;
+
+    const detailsMap = {
+      lego: {
+        description: isES 
+          ? "Plan estratégico enfocado en establecer la presencia digital de LEGO en las redes sociales en Portugal. Para evitar cancelaciones de cuentas por derechos de autor, se crearon bajo el nombre LE9O. El plan aborda análisis de público, calendario de publicaciones y dinámicas creativas para el público portugués."
+          : "Strategic plan focused on establishing LEGO's digital presence on social media in Portugal. To avoid copyright suspensions, social media accounts were created under the name LE9O. The plan covers audience analysis, post editorial calendar, and specific creative dynamics for the Portuguese audience.",
+        documents: [
+          { name: isES ? "Plan de Social Media LE9O" : "LE9O Social Media Plan" }
+        ]
+      },
+      mymatchcare: {
+        description: isES 
+          ? "Plan de marketing digital estratégico y operativo desarrollado para la plataforma de atención domiciliaria MyMatchCare. Creado durante las prácticas de marketing digital, se centra en la captación orgánica y de pago para conectar familias y cuidadores cualificados."
+          : "Strategic and operational digital marketing plan developed for the home care platform MyMatchCare during my digital marketing internship. Focuses on organic capture and paid traffic to connect families with qualified caregivers.",
+        documents: [
+          { name: isES ? "Plan de Marketing MyMatchCare" : "MyMatchCare Marketing Plan" }
+        ]
+      },
+      omega: {
+        description: isES 
+          ? "Construcción de una tienda online completa (e-Store) para la marca OMEGA. Proyecto académico premium de comercio electrónico diseñado con fricción positiva y enfoque de marca. Puede probar la tienda directamente en Shopify abajo."
+          : "Construction of a complete online store (e-Store) for the OMEGA brand. Academic project focused on premium e-commerce. OMEGA e-Store was designed with positive friction and branding in mind. You can test the store directly on Shopify below.",
+        documents: [
+          { name: isES ? "Memoria Descriptiva y Justificativa" : "Descriptive and Justificative Memoir" },
+          { name: isES ? "Tienda Online Shopify" : "Shopify Online Store" }
+        ]
+      },
+      shifter: {
+        description: isES 
+          ? "Auditoría SEO estructurada de una publicación digital existente, evaluando rendimiento en página, keywords y brechas de contenidos, con plan de acción."
+          : "Structured SEO audit of an existing online publication, evaluating on-page performance, keyword targeting, and content gaps, followed by a concrete action plan to improve organic visibility.",
+        documents: [
+          { name: isES ? "Auditoría de SEO Shifter" : "Shifter SEO Audit" }
+        ]
+      },
+      ciberseguranca: {
+        title: isES ? "Campaña de Ciberseguridad" : "Cybersecurity Campaign",
+        description: isES 
+          ? "Trabajo realizado en la asignatura de marketing en dispositivos móviles, enfocado en alertar a usuarios móviles sobre seguridad física y digital, privacidad y phishing."
+          : "Project carried out in the mobile marketing class, focusing on alerting mobile users about physical and digital security, privacy, and smartphone social engineering.",
+        documents: [
+          { name: isES ? "Trabajo de Ciberseguridad" : "Cybersecurity Work" }
+        ]
+      },
+      omega3d: {
+        title: isES ? "Exposición en el Metaverso - Omega" : "Metaverse Exhibition - Omega",
+        description: isES 
+          ? "Desarrollo de modelos 3D optimizados, experiencias interactivas de Realidad Aumentada (AR) alojadas en GitHub y showrooms en el metaverso con Spatial."
+          : "Development of optimized 3D models, integrated Augmented Reality (AR) experiences hosted on GitHub, and immersive showrooms on the Spatial metaverse platform.",
+        documents: [
+          { name: isES ? "Modelo 3D Reposapiés" : "3D Ottoman Model" },
+          { name: isES ? "Modelo 3D Piedra de Pedro" : "3D Pedro's Stone Model" },
+          { name: isES ? "Modelo 3D Route 66 de Daniel" : "3D Daniel's Route 66 Model" },
+          { name: isES ? "Modelo 3D Gemelos Omega" : "3D Omega Cufflink Model" },
+          { name: isES ? "Experiencia AR en Github" : "AR Experience on GitHub" }
+        ]
+      },
+      mimosa: {
+        description: isES 
+          ? "Estudio de mercado detallado sobre el lanzamiento de yogures líquidos con trozos de fruta para Mimosa. Incluyó encuestas, segmentación, posicionamiento y canales."
+          : "In-depth market research for launching a new liquid yogurt segment with fruit pieces for Mimosa. Covered consumer survey, segmentation, positioning, and channels.",
+        documents: [
+          { name: isES ? "Estudio de Mercado - Mimosa" : "Market Research - Mimosa" },
+          { name: isES ? "Presentación Mimosa" : "Mimosa Presentation" }
+        ]
+      },
+      strongbulk: {
+        description: isES 
+          ? "Dos proyectos en email marketing: análisis crítico del email de Myprotein y desarrollo de campaña para StrongBulk, una marca de fitness ficticia. Se dio continuidad a la marca ficticia tras crear previamente su sitio web."
+          : "In the email marketing class, I did two projects: a critical analysis of Myprotein's email marketing and a final email campaign developed for StrongBulk (a fictitious fitness brand), continuing the branding established on their website.",
+        documents: [
+          { name: isES ? "Análisis Crítico - Myprotein" : "Critical Analysis - Myprotein" },
+          { name: isES ? "Presentación - Myprotein" : "Presentation - Myprotein" },
+          { name: isES ? "Email de Marketing - StrongBulk" : "Email Marketing - StrongBulk" },
+          { name: isES ? "Presentación - StrongBulk" : "Presentation - StrongBulk" }
+        ]
+      },
+      gotasalgada: {
+        description: isES 
+          ? "Desarrollo creativo y humorístico de la marca Gota Salgada como competidora directa de Pingo Doce, con dosieres y presentaciones."
+          : "Creative and humorous development of the Gota Salgada brand as a competitor of Pingo Doce, including dossiers and presentations.",
+        documents: [
+          { name: isES ? "Dosier - Gota Salgada" : "Dossier - Gota Salgada" },
+          { name: isES ? "Presentación - Gota Salgada" : "Presentation - Gota Salgada" }
+        ]
+      },
+      apadariaportuguesa: {
+        description: isES 
+          ? "Análisis detallado de la presencia digital de A Padaria Portuguesa, evaluando sus campañas digitales, la distribución de contenidos y sus alianzas."
+          : "Detailed analysis of A Padaria Portuguesa's digital presence, evaluating digital campaigns, content distribution, and online sponsorships.",
+        documents: [
+          { name: isES ? "Análisis - A Padaria Portuguesa" : "Analysis - A Padaria Portuguesa" }
+        ]
+      },
+      edp: {
+        description: isES 
+          ? "Reseña descriptiva sobre Consumo Digital Sustentable y posterior análisis de EDP como actor central en la transición y revolución sustentable."
+          : "Descriptive review focused on 'Sustainable Digital Consumption' followed by an in-depth analysis of EDP as an energy revolution leader.",
+        documents: [
+          { name: isES ? "Reseña Descriptiva - Consumo Digital Sustentable" : "Descriptive Review - Sustainable Digital Consumption" },
+          { name: isES ? "Presentación - Consumo Digital Sustentable" : "Presentation - Sustainable Digital Consumption" },
+          { name: isES ? "Transição Energética - EDP" : "Energy Transition - EDP" },
+          { name: isES ? "Presentación - EDP" : "Presentation - EDP" }
+        ]
+      },
+      rebottle: {
+        description: isES 
+          ? "Análisis crítico de campañas digitales de LARQ y Stanley, y planificación estratégica de Google Ads para Rebottle (búsqueda y display con banners animados)."
+          : "Comparative market analysis of LARQ and Stanley, followed by Google Ads search and display campaign planning for Rebottle, including animated banners.",
+        documents: [
+          { name: isES ? "Análisis Crítico - LARQ y Stanley" : "Critical Analysis - LARQ and Stanley" },
+          { name: isES ? "Presentación - LARQ y Stanley" : "Presentation - LARQ and Stanley" },
+          { name: isES ? "Google ADS - ReBOTTLE" : "Google ADS - ReBOTTLE" },
+          { name: isES ? "Presentación - ReBOTTLE" : "Presentation - ReBOTTLE" }
+        ]
+      },
+      omegaanalytics: {
+        description: isES 
+          ? "Análisis detallado de métricas digitales y evaluación de rendimiento para la tienda ficticia e-commerce Omega."
+          : "Detailed analysis of digital metrics and performance evaluation for the fictitious Omega e-commerce store.",
+        documents: [
+          { name: isES ? "Proyecto Métricas - Omega" : "Metrics Project - Omega" },
+          { name: isES ? "Proyecto Renovado Métricas - Omega" : "Renewed Metrics Project - Omega" }
+        ]
+      },
+      adegasocalcos: {
+        description: isES 
+          ? "Estrategia y campaña para Adega Socalcos, marca ficticia. Exploré las castas de vinos portuguesas. Recomiendo Quinta do Crasto."
+          : "Communication strategy and campaign planning for Adega Socalcos, a fictitious brand. Explored Portuguese grape varieties and wine culture.",
+        documents: [
+          { name: isES ? "Proyecto - Adega Socalcos" : "Project - Adega Socalcos" },
+          { name: isES ? "Presentación - Adega Socalcos" : "Presentation - Adega Socalcos" }
+        ]
+      },
+      alfaiatedaweb: {
+        description: isES 
+          ? "Desarrollo completo del sitio web de Alfaiate da Web enfocado en UX/UI y diseño responsivo, con mapeo de jornada del usuario y arquitectura de información."
+          : "Complete development of the Alfaiate da Web website with a strict focus on UX/UI and responsive design, mapping user journeys and information architecture.",
+        documents: [
+          { name: isES ? "Sitio Web - Antigo Vs Nuevo" : "Website - Old Vs New" },
+          { name: isES ? "Loop Infinito - Homepage" : "Infinite Loop - Homepage" },
+          { name: isES ? "Página de la Historia" : "History Page" },
+          { name: isES ? "Sección Portafolio - Redes Sociales" : "Portfolio Section - Social Media" },
+          { name: "Website - Alfaiate da Web", url: "alfaiate-link" }
+        ]
+      },
+      casasdapaula: {
+        description: isES 
+          ? "Desarrollo del sitio web de Casas da Paula, alojamientos locales en Armação de Pêra. Optimizó UX/UI e integró TalkGuest."
+          : "Development of the Casas da Paula website for local lodging in Armação de Pêra. Focused on UX/UI and TalkGuest channel manager integration.",
+        documents: [
+          { name: isES ? "Sitio Web - Antigo Vs Nuevo" : "Website - Old Vs New" },
+          { name: isES ? "Barra de Reservas" : "Booking Bar", desc: isES ? "Esta barra de reservas fue desarrollada para integración en el sitio web, reemplazando la de TalkGuest. El objetivo fue crear una interfaz personalizada que comunicara directamente con su sistema." : "This booking bar was developed for website integration, replacing TalkGuest's default bar. The goal was to create a custom interface that communicates directly with their booking system." },
+          { name: isES ? "Título - Alojamientos Casas da Paula" : "Title - Casas da Paula Accommodations" },
+          { name: isES ? "Tarjetas de las casas" : "House Cards" },
+          { name: "Website - Casas da Paula", url: "casasdapaula-link" }
+        ]
+      },
+      portfolio: {
+        title: isES ? "Sitio Web - Portafolio Personal" : "Website - Personal Portfolio",
+        description: isES 
+          ? "Desarrollo de mi portafolio personal usando React, HTML5, CSS3 y JavaScript. Crea una experiencia inmersiva con partículas, nebula, responsive y SEO."
+          : "Development of my personal portfolio using React, HTML5, CSS3, and JavaScript. Focused on an immersive experience with dynamic effects, responsive design, and SEO.",
+        documents: [
+          { name: isES ? "Sitio Web - Portafolio Personal" : "Website - Personal Portfolio" }
+        ]
+      },
+      bniequipas: {
+        title: isES ? "Gestión de Redes Sociales - BNI Equipas" : "Social Media Management - BNI Equipas",
+        description: isES
+          ? "Gestión de las redes sociais do BNI Equipas, incluindo calendários editoriais, criação gráfica e otimização de perfil."
+          : "Social media management for BNI Equipas, including editorial calendars, graphic creation, and profile optimization.",
+        documents: [
+          { name: isES ? "Calendário de Conteúdos - BNI Equipas" : "Content Calendar - BNI Equipas" },
+          { name: isES ? "Publicações - BNI Equipas" : "Posts - BNI Equipas" },
+          { name: isES ? "Otimização da Bio - BNI Equipas" : "Bio Optimization - BNI Equipas" }
+        ]
+      },
+      estagio: {
+        title: isES ? "Relatório de Estágio" : "Internship Report",
+        description: isES
+          ? "Desenvolvimento do relatório formal de estágio curricular e respetiva apresentação académica de defesa."
+          : "Development of the formal curriculum internship report and its respective academic defense presentation.",
+        documents: [
+          { name: isES ? "Relatório de Estágio" : "Internship Report" },
+          { name: isES ? "Apresentação - Relatório de Estágio" : "Presentation - Internship Report" }
+        ]
+      }
+    };
+
+    const trans = detailsMap[id];
+    if (!trans) return details;
+
+    const translatedDocs = details.documents.map((doc, idx) => {
+      const docTrans = trans.documents?.[idx];
+      return {
+        ...doc,
+        name: docTrans?.name || doc.name,
+        desc: docTrans?.desc || doc.desc
+      };
+    });
+
+    return {
+      ...details,
+      title: trans.title || details.title,
+      description: trans.description || details.description,
+      documents: translatedDocs
+    };
+  };
+
+  const getTranslatedJourneyItems = () => {
+    const isPT = lang === 'PT';
+    const isES = lang === 'ES';
+    if (isPT) return journeyItems;
+
+    return journeyItems.map((item, idx) => {
+      if (idx === 0) { // Estágio
+        return {
+          ...item,
+          date: isES ? "Marzo 2026 - Julio 2026" : "March 2026 - July 2026",
+          title: isES ? "Prácticas" : "Internship",
+          description: isES 
+            ? "Experiencia práctica en planificación estratégica de marketing digital, gestión de redes sociales y desarrollo de sitios web."
+            : "Practical experience in digital marketing strategic planning, social media management, and website development.",
+          fullDescription: isES
+            ? "Como becario en el equipo de Marketing Digital de Alfaiate da Web, colaboré activamente en la planificación estratégica y ejecución de campañas multicanal. Mis principales responsabilidades incluyeron:\n\n• **Planificación de Campañas de Marketing**: Elaboración de calendarios editoriales y definición de objetivos (KPI) para clientes de diversos sectores.\n• **Gestión de Redes Sociales**: Creación, programación y optimización de contenido orgánico y anuncios pagados (Meta Ads, Google Ads) enfocados en la conversión.\n• **Optimización de Sitios Web**: Apoyo en el diseño y desarrollo de landing pages y sitios web enfocados en UX/UI, asegurando una navegación intuitiva orientada a la conversión.\n• **Análisis de Datos**: Uso de herramientas analíticas para monitorear el tráfico y el comportamiento del usuario, generando informes de rendimiento mensuales."
+            : "As an intern in the Digital Marketing team at Alfaiate da Web, I actively collaborated in strategic planning and execution of multi-channel campaigns. My main responsibilities included:\n\n• **Campaign Planning**: Preparing editorial calendars and defining KPIs for clients across various sectors.\n• **Social Media Management**: Creating, scheduling, and optimizing organic content and paid ads (Meta Ads, Google Ads) focused on conversion.\n• **Website Optimization**: Supporting UX/UI-focused landing page and website design and development, ensuring intuitive navigation and lead conversion.\n• **Data Analysis**: Using analytical tools to monitor traffic, clicks, and user behavior, generating monthly performance reports."
+        };
+      }
+      if (idx === 1) { // CTeSP
+        return {
+          ...item,
+          title: isES ? "CTeSP en Marketing Digital" : "Professional Technical Course in Digital Marketing",
+          description: isES 
+            ? "Finalización del CTeSP en IPLUSO con una nota media final de 17.00."
+            : "Completion of the CTeSP at IPLUSO with a final grade of 17.00 out of 20.",
+          fullDescription: isES
+            ? "Finalización del CTeSP en Marketing Digital en IPLUSO con una nota media final de 17.00. Habiendo obtenido las siguientes calificaciones:"
+            : "Completion of the CTeSP in Digital Marketing at IPLUSO with a final average grade of 17.00 out of 20. Having obtained the following grades:",
+          grades: item.grades.map(grade => ({
+            ...grade,
+            subject: translateSubject(grade.subject)
+          }))
+        };
+      }
+      if (idx === 2) { // Secundário
+        return {
+          ...item,
+          title: isES ? "Graduación de Educación Secundaria - Ciencias y Tecnología" : "High School Graduation - Sciences and Technology",
+          company: isES ? "Educación Secundaria" : "High School",
+          description: isES 
+            ? "Finalización de la Educación Secundaria - Curso Científico-Humanístico de Ciencias y Tecnologias, con una calificación final de 15."
+            : "Completion of High School - Scientific-Humanistic Course of Sciences and Technologies, with a final grade of 15 out of 20.",
+          fullDescription: isES
+            ? "Finalización de la Educación Secundaria - Curso Científico-Humanístico de Ciencias y Tecnologías, equivalente al nivel 3 del Marco Nacional de Cualificaciones, con una calificación final de 15. Habiendo obtenido las siguientes calificaciones:"
+            : "Completion of High School - Scientific-Humanistic Course of Sciences and Technologies, corresponding to level 3 of the National Qualifications Framework, with a final grade of 15 out of 20. Having obtained the following grades:",
+          grades: item.grades.map(grade => ({
+            ...grade,
+            subject: translateSubject(grade.subject)
+          }))
+        };
+      }
+      return item;
+    });
+  };
+
   // Always scroll window to top immediately when active page routing changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -998,7 +1425,7 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const activeProjects = projectCategory === 'projects' ? mainProjects : academicProjects;
+  const activeProjects = (projectCategory === 'projects' ? mainProjects : academicProjects).map(getTranslatedProject);
 
   const nextSlide = () => {
     const nextIdx = (activeSlideIdx + 1) % activeProjects.length;
@@ -1149,7 +1576,7 @@ function App() {
             {/* Right Side: Timeline Cards */}
             <div className="journey-right">
               <div className="timeline-right-aligned">
-                {journeyItems.map((item, idx) => (
+                {getTranslatedJourneyItems().map((item, idx) => (
                   <div key={idx} className="timeline-right-item">
                     <div className="timeline-right-dot"></div>
                     <div className="timeline-right-card">
@@ -1495,7 +1922,7 @@ function App() {
 
         {/* Project Subpage View */}
         {activeProjectId && activeProjectId !== 'privacy-policy' && (() => {
-          const project = projectDetails[activeProjectId];
+          const project = getTranslatedProjectDetails(activeProjectId, projectDetails[activeProjectId]);
           if (!project) return null;
           return (
             <div className="project-page-view">
@@ -1920,9 +2347,13 @@ function App() {
       {cookieConsent === null && (
         <div className="cookie-banner">
           <div className="cookie-banner-content">
-            <div className="cookie-banner-header">Política de Cookies</div>
+            <div className="cookie-banner-header">{t('cookieHeader')}</div>
             <div className="cookie-banner-desc">
-              Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website.<br />Ao clicar em "Aceitar Todos", consente a utilização dos cookies.
+              {lang === 'PT' 
+                ? "Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website.\nAo clicar em \"Aceitar Todos\", consente a utilização dos cookies."
+                : lang === 'ES'
+                  ? "Utilizamos cookies para mejorar su experiencia de navegación y analizar el tráfico del sitio web.\nAl hacer clic en \"Aceptar todo\", acepta el uso de cookies."
+                  : "We use cookies to improve your browsing experience and analyze website traffic.\nBy clicking \"Accept All\", you consent to the use of cookies."}
             </div>
           </div>
           <div className="cookie-banner-actions">
@@ -1933,7 +2364,7 @@ function App() {
                 setCookieConsent('rejected');
               }}
             >
-              Rejeitar Essenciais
+              {t('rejectBtn')}
             </button>
             <button 
               className="btn btn-primary btn-sm" 
@@ -1942,7 +2373,7 @@ function App() {
                 setCookieConsent('accepted');
               }}
             >
-              Aceitar Todos
+              {t('acceptBtn')}
             </button>
           </div>
         </div>
