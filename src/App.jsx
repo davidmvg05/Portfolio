@@ -138,6 +138,8 @@ function App() {
   const [activePdfUrl, setActivePdfUrl] = useState(null);
   const [activePcPart, setActivePcPart] = useState('cpu');
   const [pcViewMode, setPcViewMode] = useState('boxes');
+  const [isDecrypting, setIsDecrypting] = useState(false);
+  const [decryptionProgress, setDecryptionProgress] = useState(0);
   const [cookieConsent, setCookieConsent] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('cookieConsent');
@@ -1400,9 +1402,28 @@ function App() {
     window.history.pushState({ projectId: 'privacy-policy' }, '', '?page=privacy-policy');
   };
 
+  const triggerDecryptionPortal = () => {
+    setIsDecrypting(true);
+    setDecryptionProgress(0);
+    
+    let current = 0;
+    const interval = setInterval(() => {
+      current += Math.floor(Math.random() * 12) + 6;
+      if (current >= 100) {
+        current = 100;
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsDecrypting(false);
+          setActiveProjectId('mystery-hub');
+          window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
+        }, 500);
+      }
+      setDecryptionProgress(current);
+    }, 100);
+  };
+
   const navigateToMystery = () => {
-    setActiveProjectId('mystery-hub');
-    window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
+    triggerDecryptionPortal();
   };
 
   const navigateHome = () => {
@@ -1541,6 +1562,8 @@ function App() {
       <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={(val) => {
         if (val === null) {
           navigateHome();
+        } else if (val === 'mystery-hub') {
+          triggerDecryptionPortal();
         } else {
           setActiveProjectId(val);
         }
@@ -2841,6 +2864,56 @@ function App() {
           </div>
         </div>
       )}
+      {/* Decryption Animation Portal */}
+      {isDecrypting && (
+        <div className="decryption-overlay" style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: '#03000a',
+          zIndex: 100000,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontFamily: 'var(--font-mono)',
+          color: '#a855f7'
+        }}>
+          {/* Cyberpunk grid backdrop */}
+          <div className="decryption-grid-bg" />
+          
+          {/* Galactic particles / warp visual */}
+          <div className="decryption-stars" />
+          
+          <div className="decryption-content" style={{ zIndex: 2, textAlign: 'center', padding: '2rem' }}>
+            <div className="decryption-glitch-text" style={{ fontSize: '1.8rem', fontWeight: 'bold', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '1.5rem', color: '#fff', textShadow: '0 0 10px #2dcbfe' }}>
+              {lang === 'PT' ? 'INICIAR PORTAL COGNITIVO' : lang === 'ES' ? 'INICIAR PORTAL COGNITIVO' : 'INITIATING COGNITIVE PORTAL'}
+            </div>
+            
+            <div style={{ fontSize: '0.9rem', color: '#a855f7', opacity: 0.8, marginBottom: '2rem', height: '20px' }}>
+              {decryptionProgress < 30 ? (
+                lang === 'PT' ? 'AUTENTICAR ASSINATURA DIGITAL...' : lang === 'ES' ? 'AUTENTICANDO FIRMA DIGITAL...' : 'AUTHENTICATING DIGITAL SIGNATURE...'
+              ) : decryptionProgress < 60 ? (
+                lang === 'PT' ? 'ESTABELECER VÍNCULO INTERESTELAR...' : lang === 'ES' ? 'ESTABLECIENDO VÍNCULO INTERESTELAR...' : 'ESTABLISHING INTERSTELLAR LINK...'
+              ) : decryptionProgress < 90 ? (
+                lang === 'PT' ? 'DESENCRIPTAR SETORES DO COCKPIT...' : lang === 'ES' ? 'DESENCRIPTANDO SECTORES DEL COCKPIT...' : 'DECRYPTING COCKPIT SECTORS...'
+              ) : (
+                lang === 'PT' ? 'ACESSO AUTORIZADO' : lang === 'ES' ? 'ACCESO AUTORIZADO' : 'ACCESS GRANTED'
+              )}
+            </div>
+            
+            {/* Custom progress bar */}
+            <div style={{ width: '280px', height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '3px', overflow: 'hidden', border: '1px solid rgba(168, 85, 247, 0.2)', margin: '0 auto 1rem auto', position: 'relative' }}>
+              <div style={{ width: `${decryptionProgress}%`, height: '100%', background: 'linear-gradient(90deg, #2dcbfe, #a855f7)', transition: 'width 0.1s linear', boxShadow: '0 0 8px #a855f7' }} />
+            </div>
+            
+            <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#2dcbfe' }}>{decryptionProgress}%</span>
+          </div>
+        </div>
+      )}
+
       {/* Floating Language Switcher */}
       <div className="lang-switcher-widget" ref={langSwitcherRef}>
         <div className={`lang-switcher-menu ${isLangMenuOpen ? 'open' : ''}`}>

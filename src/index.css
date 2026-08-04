@@ -3680,3 +3680,56 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Decryption Animation Styles */
+.decryption-grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(168, 85, 247, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 85, 247, 0.07) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center;
+  transform: perspective(500px) rotateX(65deg) translateY(-30%);
+  transform-origin: top;
+  animation: gridScroll 8s linear infinite;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+@keyframes gridScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 500px; }
+}
+
+.decryption-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 150px 100px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 300px 250px, #2dcbfe, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 100px 350px, #a855f7, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 350px 120px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 220px 420px, #2dcbfe, rgba(0,0,0,0));
+  background-size: 400px 400px;
+  animation: warpSpeed 1.2s linear infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+@keyframes warpSpeed {
+  0% { transform: scale(0.6); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.decryption-glitch-text {
+  text-shadow: 0 0 10px rgba(45, 203, 254, 0.8), 0 0 20px rgba(168, 85, 247, 0.4);
+}
