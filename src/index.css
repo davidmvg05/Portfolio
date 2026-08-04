@@ -1178,7 +1178,7 @@ h1, h2, h3, h4 {
   opacity: 0.7;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .footer-columns {
     flex-direction: column;
     align-items: center;
@@ -3204,8 +3204,10 @@ h1, h2, h3, h4 {
   .project-card .project-content {
     padding: 0.8rem 1rem !important;
   }
+}
 
-  /* Footer Centering on Mobile */
+@media (max-width: 1024px) {
+  /* Footer Centering on Mobile & Tablets */
   .site-footer {
     text-align: center !important;
   }

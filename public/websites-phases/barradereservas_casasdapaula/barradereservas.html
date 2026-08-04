@@ -2,7 +2,7 @@
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.3, minimum-scale=1.3, maximum-scale=1.3, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Barra de Reservas</title>
 </head>
 <body>
@@ -586,11 +586,11 @@
     #tg-booking-bar-root .tg-booking-bar {
       flex-direction: column;
       border-radius: 24px;
-      padding: 20px 24px;
-      gap: 12px;
+      padding: 24px 28px;
+      gap: 16px;
       border: 1px solid rgba(0, 0, 0, 0.06);
-      width: 90%;
-      max-width: 420px;
+      width: 95%;
+      max-width: 480px;
       margin: 0 auto;
     }
     
@@ -603,19 +603,19 @@
     
     #tg-booking-bar-root .tg-bar-section {
       width: 100%;
-      padding: 8px 0 12px 0;
+      padding: 10px 0 14px 0;
       border-bottom: 1px solid var(--color-border);
       border-radius: 0;
       min-height: auto;
     }
     
     #tg-booking-bar-root .tg-section-label {
-      font-size: 9px;
-      margin-bottom: 2px;
+      font-size: 11px;
+      margin-bottom: 4px;
     }
 
     #tg-booking-bar-root .tg-section-value {
-      font-size: 14px;
+      font-size: 16px;
     }
 
     #tg-booking-bar-root .tg-bar-section::after {
@@ -634,10 +634,10 @@
     #tg-booking-bar-root .tg-search-button {
       width: 100%;
       margin-left: 0;
-      margin-top: 12px;
-      padding: 12px 0;
+      margin-top: 14px;
+      padding: 16px 0;
       border-radius: var(--border-radius-capsule);
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 600;
       background-color: #2dcbfe;
       box-shadow: 0 4px 12px rgba(45, 203, 254, 0.2);
@@ -655,12 +655,31 @@
       top: 100%;
       box-shadow: var(--shadow-dropdown);
       border-radius: 20px;
-      padding: 16px;
-      margin-top: 4px;
+      padding: 20px;
+      margin-top: 6px;
+    }
+
+    #tg-booking-bar-root .tg-guest-title {
+      font-size: 17px !important;
+    }
+
+    #tg-booking-bar-root .tg-guest-desc {
+      font-size: 13px !important;
+    }
+
+    #tg-booking-bar-root .tg-counter-value {
+      font-size: 18px !important;
+    }
+
+    #tg-booking-bar-root .tg-counter-btn {
+      width: 38px !important;
+      height: 38px !important;
+      font-size: 18px !important;
     }
 
     body .flatpickr-calendar {
-      width: 320px;
+      width: 100% !important;
+      max-width: 360px !important;
       margin: 0 auto;
     }
 
@@ -675,16 +694,16 @@
   /* Specific screens like iPhone 14 Pro Max */
   @media (max-width: 480px) {
     #tg-booking-bar-root .tg-booking-bar {
-      max-width: 360px;
-      width: 90%;
+      max-width: 440px;
+      width: 95%;
     }
   }
 
   /* Small screens like iPhone 12 Pro and below */
   @media (max-width: 390px) {
     #tg-booking-bar-root .tg-booking-bar {
-      max-width: 310px;
-      width: 90%;
+      max-width: 350px;
+      width: 95%;
     }
   }
 </style>
