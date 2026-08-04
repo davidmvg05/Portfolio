@@ -40,13 +40,13 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
   // Handle scroll to highlight active section and add background color to navbar
   useEffect(() => {
     const handleScroll = () => {
-      if (activeProjectId) return; // Don't track active sections when on subpages
-      
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
+
+      if (activeProjectId) return; // Don't track active sections when on subpages
 
       const scrollPosition = window.scrollY + 150;
       for (const item of menuItems) {

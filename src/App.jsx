@@ -2305,39 +2305,162 @@ function App() {
             {
               title: lang === 'PT' ? "A Verdade sobre o Caso Harry Quebert" : lang === 'ES' ? "La verdad sobre el caso Harry Quebert" : "The Truth About the Harry Quebert Affair",
               year: "2012",
-              author: "Joel Dicker"
+              author: "Joel Dicker",
+              bg: 'linear-gradient(135deg, #1e1b4b, #3b0764)',
+              border: '#c084fc',
+              coverIcon: '🔍'
             },
             {
               title: lang === 'PT' ? "O Livro dos Baltimore" : lang === 'ES' ? "El Libro de los Baltimore" : "The Baltimore Boys",
               year: "2015",
-              author: "Joel Dicker"
+              author: "Joel Dicker",
+              bg: 'linear-gradient(135deg, #0f172a, #1e293b)',
+              border: '#60a5fa',
+              coverIcon: '🏙️'
             },
             {
               title: lang === 'PT' ? "O Desaparecimento de Stephanie Mailer" : lang === 'ES' ? "La desaparición de Stephanie Mailer" : "The Disappearance of Stephanie Mailer",
               year: "2018",
-              author: "Joel Dicker"
+              author: "Joel Dicker",
+              bg: 'linear-gradient(135deg, #450a0a, #7f1d1d)',
+              border: '#f87171',
+              coverIcon: '🌲'
             },
             {
               title: lang === 'PT' ? "O Enigma do Quarto 622" : lang === 'ES' ? "El enigma de la habitación 622" : "The Enigma of Room 622",
               year: "2020",
-              author: "Joel Dicker"
+              author: "Joel Dicker",
+              bg: 'linear-gradient(135deg, #064e3b, #022c22)',
+              border: '#34d399',
+              coverIcon: '🏨'
             },
             {
               title: lang === 'PT' ? "O Caso Alaska Sanders" : lang === 'ES' ? "El caso Alaska Sanders" : "The Alaska Sanders Affair",
               year: "2022",
-              author: "Joel Dicker"
+              author: "Joel Dicker",
+              bg: 'linear-gradient(135deg, #3b0764, #1e1b4b)',
+              border: '#f472b6',
+              coverIcon: '❄️'
             }
           ];
 
           const hobbies = [
-            { name: lang === 'PT' ? "Animação 3D" : lang === 'ES' ? "Animación 3D" : "3D Animation", icon: "🎬" },
+            { name: lang === 'PT' ? "Leitura" : lang === 'ES' ? "Lectura" : "Reading", icon: "📚" },
+            { name: lang === 'PT' ? "Ginásio" : lang === 'ES' ? "Gimnasio" : "Gym", icon: "🏋️‍♂️" },
             { name: lang === 'PT' ? "Código Criativo" : lang === 'ES' ? "Código Creativo" : "Creative Coding", icon: "💻" },
-            { name: lang === 'PT' ? "Montagem de Computadores" : lang === 'ES' ? "Montaje de PCs" : "PC Building", icon: "🔧" },
-            { name: lang === 'PT' ? "Astronomia" : lang === 'ES' ? "Astronomía" : "Astronomy", icon: "🌌" },
-            { name: lang === 'PT' ? "Leitura" : lang === 'ES' ? "Lectura" : "Reading", icon: "📚" }
+            { name: lang === 'PT' ? "Psicologia" : lang === 'ES' ? "Psicología" : "Psychology", icon: "🧠" }
           ];
 
-          const currentPart = pcParts.find(p => p.id === activePcPart) || pcParts[0];
+          const renderPartIcon = (id) => {
+            const stroke = "var(--accent-blue)";
+            const strokeSec = "var(--accent-purple)";
+            switch (id) {
+              case 'cpu':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="25" y="25" width="50" height="50" rx="4" fill="none" stroke={stroke} strokeWidth="3" />
+                    <rect x="35" y="35" width="30" height="30" rx="2" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <line x1="20" y1="35" x2="25" y2="35" stroke={stroke} strokeWidth="2" />
+                    <line x1="20" y1="45" x2="25" y2="45" stroke={stroke} strokeWidth="2" />
+                    <line x1="20" y1="55" x2="25" y2="55" stroke={stroke} strokeWidth="2" />
+                    <line x1="20" y1="65" x2="25" y2="65" stroke={stroke} strokeWidth="2" />
+                    <line x1="75" y1="35" x2="80" y2="35" stroke={stroke} strokeWidth="2" />
+                    <line x1="75" y1="45" x2="80" y2="45" stroke={stroke} strokeWidth="2" />
+                    <line x1="75" y1="55" x2="80" y2="55" stroke={stroke} strokeWidth="2" />
+                    <line x1="75" y1="65" x2="80" y2="65" stroke={stroke} strokeWidth="2" />
+                    <line x1="35" y1="20" x2="35" y2="25" stroke={stroke} strokeWidth="2" />
+                    <line x1="45" y1="20" x2="45" y2="25" stroke={stroke} strokeWidth="2" />
+                    <line x1="55" y1="20" x2="55" y2="25" stroke={stroke} strokeWidth="2" />
+                    <line x1="65" y1="20" x2="65" y2="25" stroke={stroke} strokeWidth="2" />
+                    <line x1="35" y1="75" x2="35" y2="80" stroke={stroke} strokeWidth="2" />
+                    <line x1="45" y1="75" x2="45" y2="80" stroke={stroke} strokeWidth="2" />
+                    <line x1="55" y1="75" x2="55" y2="80" stroke={stroke} strokeWidth="2" />
+                    <line x1="65" y1="75" x2="65" y2="80" stroke={stroke} strokeWidth="2" />
+                  </svg>
+                );
+              case 'gpu':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="15" y="30" width="70" height="40" rx="4" fill="none" stroke={stroke} strokeWidth="3" />
+                    <circle cx="35" cy="50" r="12" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <circle cx="65" cy="50" r="12" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <line x1="15" y1="45" x2="85" y2="45" stroke={stroke} strokeWidth="1" opacity="0.3" />
+                    <rect x="20" y="25" width="10" height="5" fill={stroke} />
+                  </svg>
+                );
+              case 'ram':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="10" y="38" width="80" height="24" rx="2" fill="none" stroke={stroke} strokeWidth="3" />
+                    <rect x="15" y="42" width="70" height="8" rx="1" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <line x1="20" y1="62" x2="20" y2="66" stroke={stroke} strokeWidth="2" />
+                    <line x1="30" y1="62" x2="30" y2="66" stroke={stroke} strokeWidth="2" />
+                    <line x1="40" y1="62" x2="40" y2="66" stroke={stroke} strokeWidth="2" />
+                    <line x1="50" y1="62" x2="50" y2="66" stroke={stroke} strokeWidth="2" />
+                    <line x1="60" y1="62" x2="60" y2="66" stroke={stroke} strokeWidth="2" />
+                    <line x1="70" y1="62" x2="70" y2="66" stroke={stroke} strokeWidth="2" />
+                    <line x1="80" y1="62" x2="80" y2="66" stroke={stroke} strokeWidth="2" />
+                  </svg>
+                );
+              case 'mobo':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="20" y="20" width="60" height="60" rx="4" fill="none" stroke={stroke} strokeWidth="3" />
+                    <rect x="35" y="30" width="20" height="20" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <rect x="62" y="30" width="8" height="35" fill="none" stroke={stroke} strokeWidth="1.5" />
+                    <rect x="30" y="60" width="30" height="10" fill="none" stroke={stroke} strokeWidth="1.5" />
+                  </svg>
+                );
+              case 'cooler':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <circle cx="50" cy="50" r="30" fill="none" stroke={stroke} strokeWidth="3" />
+                    <circle cx="50" cy="50" r="10" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <path d="M 50,20 L 50,38 M 50,62 L 50,80 M 20,50 L 38,50 M 62,50 L 80,50" stroke={stroke} strokeWidth="2" />
+                    <path d="M 29,29 L 41,41 M 59,59 L 71,71 M 71,29 L 59,41 M 41,59 L 29,71" stroke={strokeSec} strokeWidth="1.5" />
+                  </svg>
+                );
+              case 'psu':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="20" y="20" width="60" height="60" rx="4" fill="none" stroke={stroke} strokeWidth="3" />
+                    <circle cx="50" cy="50" r="18" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <rect x="25" y="25" width="8" height="8" fill="none" stroke={stroke} strokeWidth="1.5" />
+                    <line x1="50" y1="20" x2="50" y2="80" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                  </svg>
+                );
+              case 'ssd1':
+              case 'ssd2':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="15" y="38" width="70" height="24" rx="2" fill="none" stroke={stroke} strokeWidth="3" />
+                    <rect x="25" y="44" width="12" height="12" fill={strokeSec} />
+                    <rect x="42" y="44" width="12" height="12" fill={strokeSec} />
+                    <rect x="59" y="44" width="12" height="12" fill={strokeSec} />
+                  </svg>
+                );
+              case 'hdd':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="20" y="20" width="60" height="60" rx="4" fill="none" stroke={stroke} strokeWidth="3" />
+                    <circle cx="50" cy="46" r="20" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <circle cx="50" cy="46" r="4" fill={strokeSec} />
+                    <path d="M 35,70 L 48,50" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                );
+              case 'case':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <rect x="25" y="15" width="50" height="70" rx="6" fill="none" stroke={stroke} strokeWidth="3" />
+                    <line x1="35" y1="25" x2="65" y2="25" stroke={strokeSec} strokeWidth="2" />
+                    <line x1="35" y1="35" x2="65" y2="35" stroke={strokeSec} strokeWidth="2" />
+                    <rect x="30" y="45" width="40" height="32" rx="2" fill="none" stroke={stroke} strokeWidth="1.5" />
+                  </svg>
+                );
+              default:
+                return null;
+            }
+          };
 
           return (
             <div className="mystery-hub-view">
@@ -2354,7 +2477,7 @@ function App() {
                 </button>
               </div>
 
-              <div className="grid-2-columns" style={{ display: 'grid', gridTemplateColumns: windowWidth <= 968 ? '1fr' : '1fr 1.2fr', gap: '3rem', alignItems: 'start' }}>
+              <div className="grid-2-columns" style={{ display: 'grid', gridTemplateColumns: windowWidth <= 968 ? '1fr' : '1.2fr 2fr', gap: '3rem', alignItems: 'start' }}>
                 
                 {/* Hobbies & Joel Dicker Books column */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -2362,9 +2485,9 @@ function App() {
                   {/* Hobbies Card */}
                   <div className="mystery-section-card">
                     <h2 className="mystery-section-title">{lang === 'PT' ? "Hobbies & Interesses" : lang === 'ES' ? "Hobbies e Intereses" : "Hobbies & Interests"}</h2>
-                    <div className="hobbies-grid">
+                    <div className="hobbies-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                       {hobbies.map((h, i) => (
-                        <div key={i} className="hobby-card-badge">
+                        <div key={i} className="hobby-card-badge" style={{ justifyContent: 'center' }}>
                           <span>{h.icon}</span>
                           <span>{h.name}</span>
                         </div>
@@ -2374,15 +2497,20 @@ function App() {
 
                   {/* Books Card */}
                   <div className="mystery-section-card">
-                    <h2 className="mystery-section-title">{t('hobbiesTitle')}</h2>
+                    <h2 className="mystery-section-title">{lang === 'PT' ? "Livros" : lang === 'ES' ? "Libros" : "Books"}</h2>
                     <div className="books-shelf-grid">
                       {books.map((b, i) => (
                         <div key={i} className="book-shelf-item">
-                          <div className="virtual-book-card">
-                            <span className="book-tag-year">{b.year}</span>
-                            <div>
-                              <h4 className="book-title-text">{b.title}</h4>
-                              <p className="book-author-text">{b.author}</p>
+                          <div className="virtual-book-card" style={{ background: b.bg, borderLeft: `5px solid ${b.border}`, height: 'auto', gap: '1.5rem' }}>
+                            {/* Visual cover of the book */}
+                            <div className="book-cover-illus" style={{ height: '140px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', position: 'relative' }}>
+                              <span style={{ fontSize: '2.5rem' }}>{b.coverIcon}</span>
+                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', marginTop: '0.5rem' }}>{b.year}</span>
+                            </div>
+                            {/* Text Details */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                              <h4 className="book-title-text" style={{ margin: 0, fontSize: '0.95rem', fontWeight: '700', color: '#ffffff' }}>{b.title}</h4>
+                              <p className="book-author-text" style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{b.author}</p>
                             </div>
                           </div>
                         </div>
@@ -2396,151 +2524,62 @@ function App() {
                 <div className="mystery-section-card">
                   <h2 className="mystery-section-title">{t('pcTitle')}</h2>
                   
-                  <div className="pc-view-mode-tabs">
-                    <button 
-                      className={`pc-tab-btn ${pcViewMode === 'boxes' ? 'active' : ''}`}
-                      onClick={() => { setPcViewMode('boxes'); setActivePcPart('cpu'); }}
-                    >
-                      {t('viewModeBoxes')}
-                    </button>
-                    <button 
-                      className={`pc-tab-btn ${pcViewMode === 'blueprint' ? 'active' : ''}`}
-                      onClick={() => { setPcViewMode('blueprint'); setActivePcPart('cpu'); }}
-                    >
-                      {t('viewModeBlueprint')}
-                    </button>
-                  </div>
-
-                  {pcViewMode === 'boxes' ? (
-                    /* Component retail boxes deck view */
-                    <div className="pc-parts-deck-grid">
-                      {pcParts.map((part) => (
+                  <div className="pc-parts-deck-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
+                    {pcParts.map((part) => {
+                      const isExpanded = activePcPart === part.id;
+                      return (
                         <div 
                           key={part.id} 
-                          className={`pc-part-box-card ${activePcPart === part.id ? 'active' : ''}`}
-                          style={{ borderColor: activePcPart === part.id ? 'var(--accent-purple)' : '' }}
-                          onClick={() => setActivePcPart(part.id)}
+                          className={`pc-part-box-card ${isExpanded ? 'active' : ''}`}
+                          style={{ 
+                            borderColor: isExpanded ? 'var(--accent-purple)' : '',
+                            padding: isExpanded ? '2rem' : '1.5rem',
+                            background: isExpanded ? 'rgba(255, 255, 255, 0.04)' : ''
+                          }}
+                          onClick={() => setActivePcPart(isExpanded ? null : part.id)}
                         >
-                          <span className="pc-part-category">{part.category}</span>
-                          <h4 className="pc-part-name">{part.name}</h4>
-                          <span className="pc-part-brand">{part.brand}</span>
+                          {isExpanded ? (
+                            /* Expanded State: Image/Illustration on the left, description on the right */
+                            <div style={{ display: 'flex', flexDirection: windowWidth <= 600 ? 'column' : 'row', gap: '2rem', alignItems: 'flex-start', width: '100%' }}>
+                              {/* Left Side: Image/Illustration */}
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: '120px', minHeight: '120px', padding: '1.2rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--glass-border)', selfAlign: windowWidth <= 600 ? 'center' : 'auto' }}>
+                                {renderPartIcon(part.id)}
+                              </div>
+                              {/* Right Side: Description */}
+                              <div style={{ flex: 1 }}>
+                                <span className="pc-part-category" style={{ color: 'var(--accent-purple)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{part.category}</span>
+                                <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginTop: '0.4rem', marginBottom: '1rem', fontWeight: '700' }}>{part.fullname}</h3>
+                                
+                                <div style={{ marginBottom: '1rem' }}>
+                                  <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.3rem', fontFamily: 'var(--font-mono)' }}>
+                                    {t('specifications')}
+                                  </strong>
+                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.5' }}>{part.specs}</p>
+                                </div>
+
+                                <div>
+                                  <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.3rem', fontFamily: 'var(--font-mono)' }}>
+                                    {t('whyChosen')}
+                                  </strong>
+                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.5', fontStyle: 'italic' }}>"{part.why}"</p>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            /* Compact State */
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <div>
+                                <span className="pc-part-category">{part.category}</span>
+                                <h4 className="pc-part-name" style={{ margin: '0.3rem 0' }}>{part.name}</h4>
+                                <span className="pc-part-brand">{part.brand}</span>
+                              </div>
+                              <span style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', opacity: 0.6 }}>+</span>
+                            </div>
+                          )}
                         </div>
-                      ))}
-                    </div>
-                  ) : (
-                    /* Blueprint schematic SVG case view with clickable hotspots */
-                    <div className="blueprint-chassis-wrapper">
-                      <svg viewBox="0 0 400 500" className="blueprint-svg">
-                        {/* Outer chassis frame */}
-                        <rect x="20" y="20" width="360" height="460" rx="10" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" />
-                        <line x1="80" y1="20" x2="80" y2="480" stroke="rgba(255,255,255,0.08)" />
-                        
-                        {/* Motherboard boundaries (Mobo hotspot) */}
-                        <rect 
-                          x="90" y="80" width="220" height="260" rx="5" 
-                          className={`blueprint-hotspot ${activePcPart === 'mobo' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('mobo')}
-                        />
-                        <text x="140" y="105" fill="rgba(255,255,255,0.4)" fontSize="11" fontFamily="monospace">Asus ROG Strix Mobo</text>
-
-                        {/* CPU hotspot */}
-                        <rect 
-                          x="160" y="120" width="60" height="60" rx="4"
-                          className={`blueprint-hotspot ${activePcPart === 'cpu' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('cpu')}
-                        />
-                        <text x="175" y="155" fill="rgba(255,255,255,0.7)" fontSize="10" fontFamily="monospace">Ryzen 5</text>
-
-                        {/* CPU Cooler (mounts over CPU) */}
-                        <rect 
-                          x="145" y="110" width="90" height="80" rx="6"
-                          className={`blueprint-hotspot ${activePcPart === 'cooler' ? 'active' : ''}`}
-                          onClick={() => setActivePcPart('cooler')}
-                          style={{ fill: 'rgba(45,203,254,0.02)', strokeWidth: activePcPart === 'cooler' ? '2' : '1' }}
-                        />
-                        <text x="155" y="205" fill="rgba(255,255,255,0.4)" fontSize="10" fontFamily="monospace">Hyper 212 Cooler</text>
-
-                        {/* RAM slots (right side of CPU) */}
-                        <rect 
-                          x="235" y="120" width="30" height="60" rx="3"
-                          className={`blueprint-hotspot ${activePcPart === 'ram' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('ram')}
-                        />
-                        <text x="240" y="105" fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="monospace">RAM</text>
-
-                        {/* GPU / Graphics card */}
-                        <rect 
-                          x="100" y="210" width="240" height="50" rx="4"
-                          className={`blueprint-hotspot ${activePcPart === 'gpu' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('gpu')}
-                        />
-                        <text x="170" y="240" fill="rgba(255,255,255,0.7)" fontSize="11" fontFamily="monospace">GTX 1660 Ti GPU</text>
-
-                        {/* NVMe SSD 1 / SSD 2 slots */}
-                        <rect 
-                          x="230" y="190" width="45" height="15" rx="2"
-                          className={`blueprint-hotspot ${activePcPart === 'ssd1' ? 'active' : ''}`}
-                          onClick={() => setActivePcPart('ssd1')}
-                        />
-                        <rect 
-                          x="140" y="275" width="45" height="15" rx="2"
-                          className={`blueprint-hotspot ${activePcPart === 'ssd2' ? 'active' : ''}`}
-                          onClick={() => setActivePcPart('ssd2')}
-                        />
-                        <text x="235" y="185" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="monospace">SN850</text>
-                        <text x="145" y="300" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="monospace">970 EVO</text>
-
-                        {/* Power Supply PSU (bottom) */}
-                        <rect 
-                          x="90" y="390" width="130" height="80" rx="5"
-                          className={`blueprint-hotspot ${activePcPart === 'psu' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('psu')}
-                        />
-                        <text x="135" y="435" fill="rgba(255,255,255,0.6)" fontSize="11" fontFamily="monospace">PSU CV550</text>
-
-                        {/* Hard Drive bays (bottom right) */}
-                        <rect 
-                          x="235" y="390" width="75" height="80" rx="5"
-                          className={`blueprint-hotspot ${activePcPart === 'hdd' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('hdd')}
-                        />
-                        <text x="245" y="435" fill="rgba(255,255,255,0.6)" fontSize="10" fontFamily="monospace">3TB HDD</text>
-
-                        {/* Case frame hotspot (covers chassis background) */}
-                        <rect 
-                          x="30" y="30" width="50" height="440" rx="5"
-                          className={`blueprint-hotspot ${activePcPart === 'case' ? 'active' : ''}`} 
-                          onClick={() => setActivePcPart('case')}
-                        />
-                        <text x="40" y="250" fill="rgba(255,255,255,0.4)" fontSize="10" fontFamily="monospace" transform="rotate(-90 40 250)">MasterBox Case</text>
-                      </svg>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '1rem', fontStyle: 'italic', textAlign: 'center' }}>
-                        {lang === 'PT' ? "Clica nos esquemas dos componentes no blueprint para ver os seus detalhes." : lang === 'ES' ? "Haz clic en los esquemas de los componentes en el plano para ver sus detalles." : "Click components on the chassis blueprint to view their details."}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Component Details drawer panel */}
-                  {currentPart && (
-                    <div className="pc-detail-drawer">
-                      <span className="pc-part-category" style={{ color: 'var(--accent-purple)' }}>{currentPart.category}</span>
-                      <h3 style={{ fontSize: '1.4rem', color: 'var(--text-primary)', marginTop: '0.4rem', marginBottom: '1rem' }}>{currentPart.fullname}</h3>
-                      
-                      <div style={{ marginBottom: '1.2rem' }}>
-                        <strong style={{ color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', fontFamily: 'var(--font-mono)' }}>
-                          {t('specifications')}
-                        </strong>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5' }}>{currentPart.specs}</p>
-                      </div>
-
-                      <div>
-                        <strong style={{ color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', fontFamily: 'var(--font-mono)' }}>
-                          {t('whyChosen')}
-                        </strong>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5', fontStyle: 'italic' }}>"{currentPart.why}"</p>
-                      </div>
-                    </div>
-                  )}
+                      );
+                    })}
+                  </div>
 
                 </div>
 
