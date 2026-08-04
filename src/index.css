@@ -3330,3 +3330,353 @@ h1, h2, h3, h4 {
     left: 1.5rem;
   }
 }
+
+/* Mystery Hub Dashboard styles */
+.mystery-hub-view {
+  padding: 8rem 2rem 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.mystery-header-panel {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 2.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.mystery-header-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-blue), transparent);
+}
+
+.mystery-title-glitch {
+  font-family: var(--font-mono);
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+  margin-bottom: 1rem;
+}
+
+.mystery-subtitle-desc {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.mystery-section-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  backdrop-filter: blur(12px);
+  margin-bottom: 3.5rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.mystery-section-title {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--accent-blue);
+  padding-left: 1rem;
+}
+
+/* Hobbies & Tags */
+.hobbies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hobby-card-badge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.hobby-card-badge:hover {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(168, 85, 247, 0.15);
+}
+
+/* Joel Dicker Books */
+.books-shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.book-shelf-item {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.virtual-book-card {
+  width: 100%;
+  height: 280px;
+  border-radius: 8px 16px 16px 8px;
+  background: linear-gradient(135deg, #1e1b4b, #311042);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.virtual-book-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+.virtual-book-card:hover {
+  transform: rotateY(-15deg) translateY(-8px) scale(1.02);
+  box-shadow: 12px 12px 28px rgba(0,0,0,0.5), 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+.book-tag-year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: rgba(255,255,255,0.08);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: var(--accent-blue);
+  align-self: flex-start;
+}
+
+.book-title-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+}
+
+.book-author-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* PC Build Assembly desk */
+.pc-view-mode-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.pc-tab-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pc-tab-btn.active {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+}
+
+.pc-parts-deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.pc-part-box-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-part-box-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-blue);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.pc-part-box-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px);
+  border-color: var(--accent-blue);
+  box-shadow: 0 10px 25px rgba(45, 203, 254, 0.1);
+}
+
+.pc-part-box-card:hover::before {
+  opacity: 1;
+}
+
+.pc-part-category {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.pc-part-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0.5rem 0;
+}
+
+.pc-part-brand {
+  font-size: 0.85rem;
+  color: var(--accent-purple);
+  font-family: var(--font-mono);
+}
+
+/* Blueprint chassis schematic */
+.blueprint-chassis-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.blueprint-svg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.blueprint-hotspot {
+  fill: rgba(45, 203, 254, 0.05);
+  stroke: var(--accent-blue);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 2;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.blueprint-hotspot:hover {
+  fill: rgba(168, 85, 247, 0.2);
+  stroke: var(--accent-purple);
+}
+
+.blueprint-hotspot.active {
+  fill: rgba(168, 85, 247, 0.3);
+  stroke: var(--accent-purple);
+  stroke-dasharray: none;
+}
+
+/* Modal Drawer Detail */
+.pc-detail-drawer {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-top: 3px solid var(--accent-purple);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  margin-top: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.mystery-portal-trigger {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.mystery-portal-trigger:hover .logo-name {
+  color: var(--accent-purple) !important;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+}
+
+.mystery-portal-trigger:hover .logo-bracket {
+  color: var(--accent-blue) !important;
+  animation: bracketPulse 0.8s infinite alternate;
+}
+
+@keyframes bracketPulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* responsive overrides for mystery cockpit */
+@media (max-width: 1024px) {
+  .mystery-title-glitch {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mystery-title-glitch {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  .books-shelf-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .virtual-book-card {
+    height: 240px;
+    padding: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .books-shelf-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -164,7 +164,18 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
       <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
           {/* Left Side: Name */}
-          <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="logo-link">
+          <a 
+            href="#mystery-hub" 
+            onClick={(e) => {
+              e.preventDefault();
+              if (setActiveProjectId) {
+                setActiveProjectId('mystery-hub');
+                window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
+              }
+            }} 
+            className="logo-link mystery-portal-trigger"
+            title={lang === 'PT' ? "Aceder ao Cockpit Secreto" : lang === 'ES' ? "Acceder al Cockpit Secreto" : "Access Secret Cockpit"}
+          >
             <span className="logo-bracket">&lt;</span>
             <span className="logo-name">David Gomes</span>
             <span className="logo-bracket">/ &gt;</span>

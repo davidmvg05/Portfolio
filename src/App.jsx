@@ -136,6 +136,8 @@ function App() {
   const [activeProjectId, setActiveProjectId] = useState(null);
   const [isPdfFullscreen, setIsPdfFullscreen] = useState(false);
   const [activePdfUrl, setActivePdfUrl] = useState(null);
+  const [activePcPart, setActivePcPart] = useState('cpu');
+  const [pcViewMode, setPcViewMode] = useState('boxes');
   const [cookieConsent, setCookieConsent] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('cookieConsent');
@@ -195,7 +197,15 @@ function App() {
       mobileFallbackCTA: "Abrir Documento",
       mobileHtmlTitle: "Visualização da Página Web",
       mobileHtmlDesc: "Ao visualizar a página, poderá ver as fases de construção do website final.",
-      mobileHtmlCTA: "Ver Página"
+      mobileHtmlCTA: "Ver Página",
+      mysteryTitle: "Terminal Desencriptado: Perfil Pessoal & Setup",
+      mysteryDesc: "Bem-vindo ao cockpit pessoal. Explora os meus passatempos, leituras recomendadas e a montagem detalhada do meu computador.",
+      hobbiesTitle: "Passatempos & Livros",
+      pcTitle: "Montagem do PC",
+      viewModeBoxes: "Componentes (Caixas)",
+      viewModeBlueprint: "Chassis (Esquema)",
+      whyChosen: "Porquê este componente:",
+      specifications: "Especificações:"
     },
     EN: {
       heroTitle: "Creative Developer & 3D Animator",
@@ -232,7 +242,15 @@ function App() {
       mobileFallbackCTA: "Open Document",
       mobileHtmlTitle: "Web Page Preview",
       mobileHtmlDesc: "By previewing the page, you can see the construction phases of the final website.",
-      mobileHtmlCTA: "View Page"
+      mobileHtmlCTA: "View Page",
+      mysteryTitle: "Decrypted Terminal: Personal Profile & Setup",
+      mysteryDesc: "Welcome to my personal cockpit. Explore my hobbies, recommended readings, and the detailed assembly of my custom computer.",
+      hobbiesTitle: "Hobbies & Books",
+      pcTitle: "PC Assembly Desk",
+      viewModeBoxes: "Components (Boxes)",
+      viewModeBlueprint: "Chassis (Blueprint)",
+      whyChosen: "Why this component:",
+      specifications: "Specifications:"
     },
     ES: {
       heroTitle: "Desarrollador Creativo y Animador 3D",
@@ -240,7 +258,7 @@ function App() {
       heroCTA: "Ver Proyectos",
       heroContact: "Ponerse en Contacto",
       academicTitle: "Trabajos Académicos",
-      professionalTitle: "Proyectos Profesionales",
+      professionalTitle: "Projetos Profesionales",
       journeyTitle: "Mi Trayectoria",
       skillsTitle: "Competencias y Plataformas",
       contactTitle: "¿Creamos Algo Extraordinario?",
@@ -269,7 +287,15 @@ function App() {
       mobileFallbackCTA: "Abrir Documento",
       mobileHtmlTitle: "Vista Previa de Página Web",
       mobileHtmlDesc: "Al visualizar la página, podrá ver las fases de construcción del sitio web final.",
-      mobileHtmlCTA: "Ver Página"
+      mobileHtmlCTA: "Ver Página",
+      mysteryTitle: "Terminal Desencriptado: Perfil Personal y Setup",
+      mysteryDesc: "Bienvenido al cockpit personal. Explora mis pasatiempos, lecturas recomendadas y el montaje detallado de mi ordenador.",
+      hobbiesTitle: "Pasatiempos y Libros",
+      pcTitle: "Montaje del PC",
+      viewModeBoxes: "Componentes (Cajas)",
+      viewModeBlueprint: "Chasis (Esquema)",
+      whyChosen: "Por qué este componente:",
+      specifications: "Especificaciones:"
     }
   };
 
@@ -1374,6 +1400,11 @@ function App() {
     window.history.pushState({ projectId: 'privacy-policy' }, '', '?page=privacy-policy');
   };
 
+  const navigateToMystery = () => {
+    setActiveProjectId('mystery-hub');
+    window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
+  };
+
   const navigateHome = () => {
     setActiveProjectId(null);
     window.history.pushState({ projectId: null }, '', window.location.pathname);
@@ -1403,6 +1434,8 @@ function App() {
           setActivePdfUrl(getDefaultPdfUrl(projectParam));
         } else if (pageParam === 'privacy-policy') {
           setActiveProjectId('privacy-policy');
+        } else if (pageParam === 'mystery-hub') {
+          setActiveProjectId('mystery-hub');
         } else {
           setActiveProjectId(null);
         }
@@ -1420,6 +1453,8 @@ function App() {
       setActivePdfUrl(getDefaultPdfUrl(projectParam));
     } else if (pageParam === 'privacy-policy') {
       setActiveProjectId('privacy-policy');
+    } else if (pageParam === 'mystery-hub') {
+      setActiveProjectId('mystery-hub');
     }
 
     return () => window.removeEventListener('popstate', handlePopState);
@@ -1503,7 +1538,13 @@ function App() {
       )}
 
       {/* Floating Navbar */}
-      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={navigateHome} lang={lang} />
+      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} activeProjectId={activeProjectId} setActiveProjectId={(val) => {
+        if (val === null) {
+          navigateHome();
+        } else {
+          setActiveProjectId(val);
+        }
+      }} lang={lang} />
 
       <main className="container">
         {activeProjectId === null && (
@@ -2121,6 +2162,389 @@ function App() {
                   <iframe src={`${activePdfUrl || project.pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`} title={project.title} className="pdf-fullscreen-iframe"></iframe>
                 </div>
               )}
+            </div>
+          );
+        })()}
+
+        {/* Mystery Hub Page View */}
+        {activeProjectId === 'mystery-hub' && (() => {
+          const pcParts = [
+            {
+              id: 'cpu',
+              category: 'Processor',
+              name: 'AMD Ryzen 5 5600X',
+              brand: 'AMD',
+              fullname: 'AMD Ryzen 5 5600X "Zen 3" 6-Core 3.7GHz (Turbo 4.6GHz) 35MB Cache AM4',
+              specs: '6 Cores, 12 Threads, 3.7GHz Base, 4.6GHz Turbo, 35MB Cache, AM4',
+              why: lang === 'PT' 
+                ? 'Escolha ideal para um desempenho gaming e de produtividade fantástico, com excelente eficiência de TDP a 65W.'
+                : lang === 'ES'
+                  ? 'Elección ideal para un fantástico rendimiento en juegos y productividad, con una excelente eficiencia de TDP a 65W.'
+                  : 'Ideal choice for fantastic gaming and productivity performance, with excellent TDP efficiency at 65W.'
+            },
+            {
+              id: 'gpu',
+              category: 'Graphics Card',
+              name: 'Asus GeForce GTX 1660 Ti Evo TUF Gaming',
+              brand: 'Asus / NVIDIA',
+              fullname: 'Asus GeForce GTX 1660 Ti Evo TUF Gaming 6GB GDDR6 OC Edition',
+              specs: '6GB GDDR6, Dual Fan, OC Edition, Auto-Extreme Technology',
+              why: lang === 'PT'
+                ? 'Excelente placa gráfica para jogar a 1080p, com o sistema robusto TUF que garante estabilidade de temperatura e durabilidade.'
+                : lang === 'ES'
+                  ? 'Excelente tarjeta gráfica para jugar a 1080p, con el robusto sistema TUF que garantiza estabilidad de temperatura y durabilidad.'
+                  : 'Excellent graphics card for 1080p gaming, with the robust TUF system that guarantees temperature stability and durability.'
+            },
+            {
+              id: 'ram',
+              category: 'Memory (RAM)',
+              name: 'Corsair Vengeance RGB Pro 16GB (2x8GB)',
+              brand: 'Corsair',
+              fullname: 'Corsair Vengeance RGB Pro 16GB (2x8GB) DDR4-3200MHz CL16',
+              specs: 'DDR4 3200MHz, CL16 (16-18-18-36), 1.35V, Intel XMP 2.0 support',
+              why: lang === 'PT'
+                ? 'Desempenho super rápido com iluminação RGB dinâmica personalizável para um visual premium dentro do chassis.'
+                : lang === 'ES'
+                  ? 'Rendimiento superrápido con iluminación RGB dinámica personalizable para un aspecto premium dentro del chasis.'
+                  : 'Super-fast performance with customizable dynamic RGB lighting for a premium look inside the chassis.'
+            },
+            {
+              id: 'mobo',
+              category: 'Motherboard',
+              name: 'Asus ROG Strix B450-F Gaming II',
+              brand: 'Asus ROG',
+              fullname: 'Asus ROG Strix B450-F Gaming II ATX Motherboard',
+              specs: 'ATX Form Factor, AMD AM4 Socket, DDR4 support, dual M.2 slots, Aura Sync',
+              why: lang === 'PT'
+                ? 'Uma base sólida com fornecimento de energia robusto, refrigeração passiva avançada e o estilo icónico da ROG.'
+                : lang === 'ES'
+                  ? 'Una base sólida con suministro de energía robusto, enfriamiento pasivo avanzado y el estilo icónico de ROG.'
+                  : 'A solid foundation with robust power delivery, advanced passive cooling, and the iconic ROG styling.'
+            },
+            {
+              id: 'cooler',
+              category: 'CPU Cooler',
+              name: 'Cooler Master Hyper 212 Black Edition',
+              brand: 'Cooler Master',
+              fullname: 'Cooler Master Hyper 212 Black Edition 120mm CPU Cooler',
+              specs: '120mm PWM Fan, 4 Direct Contact Heat Pipes, gunmetal black finish',
+              why: lang === 'PT'
+                ? 'Silencioso e ultra eficiente, mantém as temperaturas do Ryzen 5 controladas mesmo sob carga extrema.'
+                : lang === 'ES'
+                  ? 'Silencioso y ultra eficiente, mantiene las temperaturas del Ryzen 5 bajo control incluso bajo carga extrema.'
+                  : 'Quiet and ultra-efficient, keeping Ryzen 5 temperatures low even under heavy gaming or rendering loads.'
+            },
+            {
+              id: 'psu',
+              category: 'Power Supply (PSU)',
+              name: 'Corsair CV Series CV550 550W',
+              brand: 'Corsair',
+              fullname: 'Corsair CV Series CV550 550W 80 Plus Bronze ATX Power Supply',
+              specs: '550W, 80 Plus Bronze Certified, 120mm thermally controlled fan',
+              why: lang === 'PT'
+                ? 'Fornecimento de energia silencioso e estável de categoria 80 Plus Bronze para todo o sistema.'
+                : lang === 'ES'
+                  ? 'Suministro de energía silencioso y estable de categoría 80 Plus Bronze para todo el sistema.'
+                  : 'Quiet and stable 80 Plus Bronze certified power delivery for the entire build.'
+            },
+            {
+              id: 'ssd1',
+              category: 'Storage (NVMe SSD)',
+              name: 'WD_Black SN850 500GB M.2 NVMe',
+              brand: 'Western Digital',
+              fullname: 'SanDisk WD_Black SN850 500GB 3D NAND NVMe M.2 2280 SSD with Heatsink',
+              specs: 'PCIe Gen4 technology, read speeds up to 7000MB/s, custom heatsink',
+              why: lang === 'PT'
+                ? 'Instalado com dissipador de calor integrado para velocidades de carregamento ultrarrápidas no sistema operativo.'
+                : lang === 'ES'
+                  ? 'Instalado con disipador de calor integrado para velocidades de carga ultrarrápidas en el sistema operativo.'
+                  : 'Installed with integrated heatsink for lightning-fast operating system boot times and file transfers.'
+            },
+            {
+              id: 'ssd2',
+              category: 'Storage (NVMe SSD)',
+              name: 'Samsung 970 EVO Plus 500GB',
+              brand: 'Samsung',
+              fullname: 'Samsung 970 EVO Plus 500GB NVMe M.2 SSD',
+              specs: 'M.2 NVMe PCIe Gen3, read speeds up to 3500MB/s',
+              why: lang === 'PT'
+                ? 'Armazenamento ultra fiável e de alto desempenho secundário para jogos e ferramentas de edição.'
+                : lang === 'ES'
+                  ? 'Almacenamiento secundario ultra confiable y de alto rendimiento para juegos y herramientas de edición.'
+                  : 'Ultra-reliable and high-performance secondary storage for heavy games and editing tools.'
+            },
+            {
+              id: 'hdd',
+              category: 'Storage (HDD)',
+              name: 'WD_Black 2TB + 1TB 7200RPM',
+              brand: 'Western Digital',
+              fullname: 'Western Digital WD_Black 2TB + 1TB 7200RPM 64MB SATA III 3.5" HDDs',
+              specs: 'SATA III 3.5" HDD, 64MB Cache, 7200 RPM high performance',
+              why: lang === 'PT'
+                ? 'Combinação de 3TB de discos mecânicos WD_Black para armazenar projetos de animação 3D pesados e grandes bibliotecas de média.'
+                : lang === 'ES'
+                  ? 'Combinación de 3TB de discos mecánicos WD_Black para almacenar proyectos de animación 3D pesados y grandes bibliotecas de medios.'
+                  : 'Combined 3TB of high-performance WD_Black mechanical drives to store heavy 3D animation projects and media library archives.'
+            },
+            {
+              id: 'case',
+              category: 'Computer Case',
+              name: 'Cooler Master MasterBox MB510L',
+              brand: 'Cooler Master',
+              fullname: 'Cooler Master MasterBox MB510L ATX Case with Black/Red Window',
+              specs: 'ATX Mid-Tower, Carbon fiber texture front panel, Black with Red trim window',
+              why: lang === 'PT'
+                ? 'Design moderno com excelente fluxo de ar, janelas laterais transparentes e um contraste de tons vermelho/preto premium.'
+                : lang === 'ES'
+                  ? 'Diseño moderno con excelente flujo de aire, ventana lateral transparente y un contraste de tonos rojo/negro premium.'
+                  : 'Modern design with excellent ventilation, transparent side panel window, and premium red/black color trim.'
+            }
+          ];
+
+          const books = [
+            {
+              title: lang === 'PT' ? "A Verdade sobre o Caso Harry Quebert" : lang === 'ES' ? "La verdad sobre el caso Harry Quebert" : "The Truth About the Harry Quebert Affair",
+              year: "2012",
+              author: "Joel Dicker"
+            },
+            {
+              title: lang === 'PT' ? "O Livro dos Baltimore" : lang === 'ES' ? "El Libro de los Baltimore" : "The Baltimore Boys",
+              year: "2015",
+              author: "Joel Dicker"
+            },
+            {
+              title: lang === 'PT' ? "O Desaparecimento de Stephanie Mailer" : lang === 'ES' ? "La desaparición de Stephanie Mailer" : "The Disappearance of Stephanie Mailer",
+              year: "2018",
+              author: "Joel Dicker"
+            },
+            {
+              title: lang === 'PT' ? "O Enigma do Quarto 622" : lang === 'ES' ? "El enigma de la habitación 622" : "The Enigma of Room 622",
+              year: "2020",
+              author: "Joel Dicker"
+            },
+            {
+              title: lang === 'PT' ? "O Caso Alaska Sanders" : lang === 'ES' ? "El caso Alaska Sanders" : "The Alaska Sanders Affair",
+              year: "2022",
+              author: "Joel Dicker"
+            }
+          ];
+
+          const hobbies = [
+            { name: lang === 'PT' ? "Animação 3D" : lang === 'ES' ? "Animación 3D" : "3D Animation", icon: "🎬" },
+            { name: lang === 'PT' ? "Código Criativo" : lang === 'ES' ? "Código Creativo" : "Creative Coding", icon: "💻" },
+            { name: lang === 'PT' ? "Montagem de Computadores" : lang === 'ES' ? "Montaje de PCs" : "PC Building", icon: "🔧" },
+            { name: lang === 'PT' ? "Astronomia" : lang === 'ES' ? "Astronomía" : "Astronomy", icon: "🌌" },
+            { name: lang === 'PT' ? "Leitura" : lang === 'ES' ? "Lectura" : "Reading", icon: "📚" }
+          ];
+
+          const currentPart = pcParts.find(p => p.id === activePcPart) || pcParts[0];
+
+          return (
+            <div className="mystery-hub-view">
+              {/* Cockpit Title Panel */}
+              <div className="mystery-header-panel">
+                <h1 className="mystery-title-glitch">{t('mysteryTitle')}</h1>
+                <p className="mystery-subtitle-desc">{t('mysteryDesc')}</p>
+                <button 
+                  className="btn btn-secondary btn-sm" 
+                  onClick={handleBack} 
+                  style={{ marginTop: '1.5rem', padding: '0.4rem 1.5rem' }}
+                >
+                  &larr; {t('backButton')}
+                </button>
+              </div>
+
+              <div className="grid-2-columns" style={{ display: 'grid', gridTemplateColumns: windowWidth <= 968 ? '1fr' : '1fr 1.2fr', gap: '3rem', alignItems: 'start' }}>
+                
+                {/* Hobbies & Joel Dicker Books column */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                  
+                  {/* Hobbies Card */}
+                  <div className="mystery-section-card">
+                    <h2 className="mystery-section-title">{lang === 'PT' ? "Hobbies & Interesses" : lang === 'ES' ? "Hobbies e Intereses" : "Hobbies & Interests"}</h2>
+                    <div className="hobbies-grid">
+                      {hobbies.map((h, i) => (
+                        <div key={i} className="hobby-card-badge">
+                          <span>{h.icon}</span>
+                          <span>{h.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Books Card */}
+                  <div className="mystery-section-card">
+                    <h2 className="mystery-section-title">{t('hobbiesTitle')}</h2>
+                    <div className="books-shelf-grid">
+                      {books.map((b, i) => (
+                        <div key={i} className="book-shelf-item">
+                          <div className="virtual-book-card">
+                            <span className="book-tag-year">{b.year}</span>
+                            <div>
+                              <h4 className="book-title-text">{b.title}</h4>
+                              <p className="book-author-text">{b.author}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Interactive PC Build column */}
+                <div className="mystery-section-card">
+                  <h2 className="mystery-section-title">{t('pcTitle')}</h2>
+                  
+                  <div className="pc-view-mode-tabs">
+                    <button 
+                      className={`pc-tab-btn ${pcViewMode === 'boxes' ? 'active' : ''}`}
+                      onClick={() => { setPcViewMode('boxes'); setActivePcPart('cpu'); }}
+                    >
+                      {t('viewModeBoxes')}
+                    </button>
+                    <button 
+                      className={`pc-tab-btn ${pcViewMode === 'blueprint' ? 'active' : ''}`}
+                      onClick={() => { setPcViewMode('blueprint'); setActivePcPart('cpu'); }}
+                    >
+                      {t('viewModeBlueprint')}
+                    </button>
+                  </div>
+
+                  {pcViewMode === 'boxes' ? (
+                    /* Component retail boxes deck view */
+                    <div className="pc-parts-deck-grid">
+                      {pcParts.map((part) => (
+                        <div 
+                          key={part.id} 
+                          className={`pc-part-box-card ${activePcPart === part.id ? 'active' : ''}`}
+                          style={{ borderColor: activePcPart === part.id ? 'var(--accent-purple)' : '' }}
+                          onClick={() => setActivePcPart(part.id)}
+                        >
+                          <span className="pc-part-category">{part.category}</span>
+                          <h4 className="pc-part-name">{part.name}</h4>
+                          <span className="pc-part-brand">{part.brand}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    /* Blueprint schematic SVG case view with clickable hotspots */
+                    <div className="blueprint-chassis-wrapper">
+                      <svg viewBox="0 0 400 500" className="blueprint-svg">
+                        {/* Outer chassis frame */}
+                        <rect x="20" y="20" width="360" height="460" rx="10" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" />
+                        <line x1="80" y1="20" x2="80" y2="480" stroke="rgba(255,255,255,0.08)" />
+                        
+                        {/* Motherboard boundaries (Mobo hotspot) */}
+                        <rect 
+                          x="90" y="80" width="220" height="260" rx="5" 
+                          className={`blueprint-hotspot ${activePcPart === 'mobo' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('mobo')}
+                        />
+                        <text x="140" y="105" fill="rgba(255,255,255,0.4)" fontSize="11" fontFamily="monospace">Asus ROG Strix Mobo</text>
+
+                        {/* CPU hotspot */}
+                        <rect 
+                          x="160" y="120" width="60" height="60" rx="4"
+                          className={`blueprint-hotspot ${activePcPart === 'cpu' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('cpu')}
+                        />
+                        <text x="175" y="155" fill="rgba(255,255,255,0.7)" fontSize="10" fontFamily="monospace">Ryzen 5</text>
+
+                        {/* CPU Cooler (mounts over CPU) */}
+                        <rect 
+                          x="145" y="110" width="90" height="80" rx="6"
+                          className={`blueprint-hotspot ${activePcPart === 'cooler' ? 'active' : ''}`}
+                          onClick={() => setActivePcPart('cooler')}
+                          style={{ fill: 'rgba(45,203,254,0.02)', strokeWidth: activePcPart === 'cooler' ? '2' : '1' }}
+                        />
+                        <text x="155" y="205" fill="rgba(255,255,255,0.4)" fontSize="10" fontFamily="monospace">Hyper 212 Cooler</text>
+
+                        {/* RAM slots (right side of CPU) */}
+                        <rect 
+                          x="235" y="120" width="30" height="60" rx="3"
+                          className={`blueprint-hotspot ${activePcPart === 'ram' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('ram')}
+                        />
+                        <text x="240" y="105" fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="monospace">RAM</text>
+
+                        {/* GPU / Graphics card */}
+                        <rect 
+                          x="100" y="210" width="240" height="50" rx="4"
+                          className={`blueprint-hotspot ${activePcPart === 'gpu' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('gpu')}
+                        />
+                        <text x="170" y="240" fill="rgba(255,255,255,0.7)" fontSize="11" fontFamily="monospace">GTX 1660 Ti GPU</text>
+
+                        {/* NVMe SSD 1 / SSD 2 slots */}
+                        <rect 
+                          x="230" y="190" width="45" height="15" rx="2"
+                          className={`blueprint-hotspot ${activePcPart === 'ssd1' ? 'active' : ''}`}
+                          onClick={() => setActivePcPart('ssd1')}
+                        />
+                        <rect 
+                          x="140" y="275" width="45" height="15" rx="2"
+                          className={`blueprint-hotspot ${activePcPart === 'ssd2' ? 'active' : ''}`}
+                          onClick={() => setActivePcPart('ssd2')}
+                        />
+                        <text x="235" y="185" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="monospace">SN850</text>
+                        <text x="145" y="300" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="monospace">970 EVO</text>
+
+                        {/* Power Supply PSU (bottom) */}
+                        <rect 
+                          x="90" y="390" width="130" height="80" rx="5"
+                          className={`blueprint-hotspot ${activePcPart === 'psu' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('psu')}
+                        />
+                        <text x="135" y="435" fill="rgba(255,255,255,0.6)" fontSize="11" fontFamily="monospace">PSU CV550</text>
+
+                        {/* Hard Drive bays (bottom right) */}
+                        <rect 
+                          x="235" y="390" width="75" height="80" rx="5"
+                          className={`blueprint-hotspot ${activePcPart === 'hdd' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('hdd')}
+                        />
+                        <text x="245" y="435" fill="rgba(255,255,255,0.6)" fontSize="10" fontFamily="monospace">3TB HDD</text>
+
+                        {/* Case frame hotspot (covers chassis background) */}
+                        <rect 
+                          x="30" y="30" width="50" height="440" rx="5"
+                          className={`blueprint-hotspot ${activePcPart === 'case' ? 'active' : ''}`} 
+                          onClick={() => setActivePcPart('case')}
+                        />
+                        <text x="40" y="250" fill="rgba(255,255,255,0.4)" fontSize="10" fontFamily="monospace" transform="rotate(-90 40 250)">MasterBox Case</text>
+                      </svg>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '1rem', fontStyle: 'italic', textAlign: 'center' }}>
+                        {lang === 'PT' ? "Clica nos esquemas dos componentes no blueprint para ver os seus detalhes." : lang === 'ES' ? "Haz clic en los esquemas de los componentes en el plano para ver sus detalles." : "Click components on the chassis blueprint to view their details."}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Component Details drawer panel */}
+                  {currentPart && (
+                    <div className="pc-detail-drawer">
+                      <span className="pc-part-category" style={{ color: 'var(--accent-purple)' }}>{currentPart.category}</span>
+                      <h3 style={{ fontSize: '1.4rem', color: 'var(--text-primary)', marginTop: '0.4rem', marginBottom: '1rem' }}>{currentPart.fullname}</h3>
+                      
+                      <div style={{ marginBottom: '1.2rem' }}>
+                        <strong style={{ color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', fontFamily: 'var(--font-mono)' }}>
+                          {t('specifications')}
+                        </strong>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5' }}>{currentPart.specs}</p>
+                      </div>
+
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem', fontFamily: 'var(--font-mono)' }}>
+                          {t('whyChosen')}
+                        </strong>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5', fontStyle: 'italic' }}>"{currentPart.why}"</p>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+
+              </div>
             </div>
           );
         })()}
