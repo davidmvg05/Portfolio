@@ -3395,8 +3395,6 @@ h1, h2, h3, h4 {
   font-size: 1.8rem;
   color: var(--text-primary);
   margin-bottom: 2rem;
-  border-left: 4px solid var(--accent-blue);
-  padding-left: 1rem;
 }
 
 /* Hobbies & Tags */
@@ -3541,27 +3539,11 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
-.pc-part-box-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--accent-blue);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
 .pc-part-box-card:hover {
   background: rgba(255, 255, 255, 0.05);
   transform: translateY(-4px);
   border-color: var(--accent-blue);
   box-shadow: 0 10px 25px rgba(45, 203, 254, 0.1);
-}
-
-.pc-part-box-card:hover::before {
-  opacity: 1;
 }
 
 .pc-part-category {
