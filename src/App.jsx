@@ -1408,7 +1408,7 @@ function App() {
     
     let current = 0;
     const interval = setInterval(() => {
-      current += Math.floor(Math.random() * 12) + 6;
+      current += 1;
       if (current >= 100) {
         current = 100;
         clearInterval(interval);
@@ -1416,10 +1416,10 @@ function App() {
           setIsDecrypting(false);
           setActiveProjectId('mystery-hub');
           window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
-        }, 500);
+        }, 600);
       }
       setDecryptionProgress(current);
-    }, 100);
+    }, 80); // 80ms * 100 steps = 8000ms = 8 seconds total (exactly 2 seconds per 25% phase)
   };
 
   const navigateToMystery = () => {
