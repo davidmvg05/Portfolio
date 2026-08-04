@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
@@ -2374,8 +2374,7 @@ function App() {
             { name: lang === 'PT' ? "Leitura" : lang === 'ES' ? "Lectura" : "Reading", icon: "📚" },
             { name: lang === 'PT' ? "Ginásio" : lang === 'ES' ? "Gimnasio" : "Gym", icon: "🏋️‍♂️" },
             { name: lang === 'PT' ? "Psicologia" : lang === 'ES' ? "Psicología" : "Psychology", icon: "🧠" },
-            { name: lang === 'PT' ? "Espiões" : lang === 'ES' ? "Espías" : "Spies", icon: "🕵️" },
-            { name: lang === 'PT' ? "Código Criativo" : lang === 'ES' ? "Código Creativo" : "Creative Coding", icon: "💻" }
+            { name: lang === 'PT' ? "Espiões" : lang === 'ES' ? "Espías" : "Spies", icon: "🕵️" }
           ];
 
           const renderPartIcon = (id) => {
@@ -2495,19 +2494,18 @@ function App() {
               <div className="mystery-header-panel">
                 <h1 className="mystery-title-glitch">{t('mysteryTitle')}</h1>
                 <p className="mystery-subtitle-desc">{t('mysteryDesc')}</p>
-                <button 
-                  className="btn btn-secondary btn-sm mystery-back-btn" 
-                  onClick={handleBack} 
+                <button
+                  className="btn btn-secondary btn-sm mystery-back-btn"
+                  onClick={handleBack}
                 >
                   &larr; {lang === 'PT' ? 'Voltar para o Início' : lang === 'ES' ? 'Volver al Inicio' : 'Back to Home'}
                 </button>
               </div>
 
-              {/* Single-column vertical stack — responsive via CSS classes */}
               <div className="mystery-sections-stack">
 
                 {/* 1 — Hobbies */}
-                <div className="mystery-section-card">
+                <div className="mystery-section-block">
                   <h2 className="mystery-section-title">{lang === 'PT' ? 'Hobbies & Interesses' : lang === 'ES' ? 'Hobbies e Intereses' : 'Hobbies & Interests'}</h2>
                   <div className="hobbies-grid mystery-hobbies-grid">
                     {hobbies.map((h, i) => (
@@ -2520,32 +2518,23 @@ function App() {
                 </div>
 
                 {/* 2 — Books */}
-                <div className="mystery-section-card">
+                <div className="mystery-section-block">
                   <h2 className="mystery-section-title">{lang === 'PT' ? 'Livros' : lang === 'ES' ? 'Libros' : 'Books'}</h2>
-                  <div className="books-shelf-grid mystery-books-grid">
+                  <div className="mystery-books-grid">
                     {books.map((b, i) => (
-                      <div key={i} className="book-shelf-item">
-                        <div className="virtual-book-card" style={{ background: b.bg, borderLeft: `5px solid ${b.border}`, height: 'auto', padding: '0', overflow: 'hidden', gap: 0 }}>
-                          {/* Real or emoji cover */}
-                          <div className="book-cover-wrapper">
-                            {b.coverImg ? (
-                              <img
-                                src={b.coverImg}
-                                alt={b.title}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                              />
-                            ) : (
-                              <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.25)' }}>
-                                <span style={{ fontSize: '2.8rem' }}>{b.coverIcon}</span>
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', marginTop: '0.4rem' }}>{b.year}</span>
-                              </div>
-                            )}
-                          </div>
-                          {/* Text */}
-                          <div style={{ padding: '0.8rem 1rem' }}>
-                            <h4 style={{ margin: '0 0 0.2rem 0', fontSize: '0.88rem', fontWeight: '700', color: '#fff', lineHeight: 1.3 }}>{b.title}</h4>
-                            <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>{b.author}</p>
-                          </div>
+                      <div key={i} className="mystery-book-card">
+                        <div className="mystery-book-cover">
+                          {b.coverImg ? (
+                            <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                          ) : (
+                            <div className="mystery-book-cover-placeholder">
+                              <span style={{ fontSize: '2.5rem' }}>{b.coverIcon}</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="mystery-book-info">
+                          <h4 className="mystery-book-title">{b.title}</h4>
+                          <p className="mystery-book-author">{b.author}</p>
                         </div>
                       </div>
                     ))}
@@ -2553,7 +2542,7 @@ function App() {
                 </div>
 
                 {/* 3 — PC Build */}
-                <div className="mystery-section-card">
+                <div className="mystery-section-block">
                   <h2 className="mystery-section-title">{t('pcTitle')}</h2>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
                     {pcParts.map((part) => {
@@ -2571,7 +2560,6 @@ function App() {
                         >
                           {isExpanded ? (
                             <div className="pc-expanded-inner">
-                              {/* Left — text */}
                               <div style={{ flex: 1, minWidth: 0 }}>
                                 <span className="pc-part-category" style={{ color: 'var(--accent-purple)', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{part.category}</span>
                                 <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', marginTop: '0.3rem', marginBottom: '0.8rem', fontWeight: '700', lineHeight: 1.3 }}>{part.fullname}</h3>
@@ -2581,17 +2569,12 @@ function App() {
                                 </div>
                                 <div>
                                   <strong style={{ color: 'var(--text-primary)', fontSize: '0.78rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>{t('whyChosen')}</strong>
-                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5, fontStyle: 'italic', margin: 0 }}>"{part.why}"</p>
+                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5, fontStyle: 'italic', margin: 0 }}>"{ part.why}"</p>
                                 </div>
                               </div>
-                              {/* Right — real photo or SVG icon */}
                               <div className="pc-expanded-img">
                                 {part.photo ? (
-                                  <img
-                                    src={part.photo}
-                                    alt={part.name}
-                                    style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }}
-                                  />
+                                  <img src={part.photo} alt={part.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} />
                                 ) : renderPartIcon(part.id)}
                               </div>
                             </div>
@@ -2615,6 +2598,7 @@ function App() {
             </div>
           );
         })()}
+
 
 
         {/* Privacy Policy Page View */}
