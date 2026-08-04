@@ -41,6 +41,8 @@ import logoEstagio from './assets/logo_estagio.png';
 import logoEstagioMobile from './assets/logo_estagio_mobile.png';
 import logoPortfolio from './assets/logo_portfolio.png';
 import logoPortfolioMobile from './assets/logo_portfolio_mobile.png';
+import imgBookEnigma from './assets/oenigmadoquarto622.webp';
+import imgCpuRyzen from './assets/processador_amdryzen55600x.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -2199,6 +2201,7 @@ function App() {
               brand: 'AMD',
               fullname: 'AMD Ryzen 5 5600X "Zen 3" 6-Core 3.7GHz (Turbo 4.6GHz) 35MB Cache AM4',
               specs: '6 Cores, 12 Threads, 3.7GHz Base, 4.6GHz Turbo, 35MB Cache, AM4',
+              photo: imgCpuRyzen,
               why: lang === 'PT' 
                 ? 'Escolha ideal para um desempenho gaming e de produtividade fantástico, com excelente eficiência de TDP a 65W.'
                 : lang === 'ES'
@@ -2355,7 +2358,7 @@ function App() {
               author: "Joel Dicker",
               bg: 'linear-gradient(135deg, #064e3b, #022c22)',
               border: '#34d399',
-              coverIcon: '🏨'
+              coverImg: imgBookEnigma
             },
             {
               title: lang === 'PT' ? "O Caso Alaska Sanders" : lang === 'ES' ? "El caso Alaska Sanders" : "The Alaska Sanders Affair",
@@ -2370,8 +2373,9 @@ function App() {
           const hobbies = [
             { name: lang === 'PT' ? "Leitura" : lang === 'ES' ? "Lectura" : "Reading", icon: "📚" },
             { name: lang === 'PT' ? "Ginásio" : lang === 'ES' ? "Gimnasio" : "Gym", icon: "🏋️‍♂️" },
-            { name: lang === 'PT' ? "Código Criativo" : lang === 'ES' ? "Código Creativo" : "Creative Coding", icon: "💻" },
-            { name: lang === 'PT' ? "Psicologia" : lang === 'ES' ? "Psicología" : "Psychology", icon: "🧠" }
+            { name: lang === 'PT' ? "Psicologia" : lang === 'ES' ? "Psicología" : "Psychology", icon: "🧠" },
+            { name: lang === 'PT' ? "Espiões" : lang === 'ES' ? "Espías" : "Spies", icon: "🕵️" },
+            { name: lang === 'PT' ? "Código Criativo" : lang === 'ES' ? "Código Creativo" : "Creative Coding", icon: "💻" }
           ];
 
           const renderPartIcon = (id) => {
@@ -2447,9 +2451,9 @@ function App() {
                 return (
                   <svg viewBox="0 0 100 100" width="80" height="80">
                     <rect x="20" y="20" width="60" height="60" rx="4" fill="none" stroke={stroke} strokeWidth="3" />
-                    <circle cx="50" cy="50" r="18" fill="none" stroke={strokeSec} strokeWidth="2" />
-                    <rect x="25" y="25" width="8" height="8" fill="none" stroke={stroke} strokeWidth="1.5" />
-                    <line x1="50" y1="20" x2="50" y2="80" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <circle cx="50" cy="46" r="20" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <circle cx="50" cy="46" r="4" fill={strokeSec} />
+                    <path d="M 35,70 L 48,50" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" />
                   </svg>
                 );
               case 'ssd1':
@@ -2487,129 +2491,131 @@ function App() {
 
           return (
             <div className="mystery-hub-view">
-              {/* Cockpit Title Panel */}
+              {/* Cockpit Title Panel — Mobile optimised */}
               <div className="mystery-header-panel">
                 <h1 className="mystery-title-glitch">{t('mysteryTitle')}</h1>
                 <p className="mystery-subtitle-desc">{t('mysteryDesc')}</p>
                 <button 
-                  className="btn btn-secondary btn-sm" 
+                  className="btn btn-secondary btn-sm mystery-back-btn" 
                   onClick={handleBack} 
-                  style={{ marginTop: '1.5rem', padding: '0.4rem 1.5rem' }}
                 >
-                  &larr; {t('backButton')}
+                  &larr; {lang === 'PT' ? 'Voltar para o Início' : lang === 'ES' ? 'Volver al Inicio' : 'Back to Home'}
                 </button>
               </div>
 
-              <div className="grid-2-columns" style={{ display: 'grid', gridTemplateColumns: windowWidth <= 968 ? '1fr' : '1.2fr 2fr', gap: '3rem', alignItems: 'start' }}>
-                
-                {/* Hobbies & Joel Dicker Books column */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-                  
-                  {/* Hobbies Card */}
-                  <div className="mystery-section-card">
-                    <h2 className="mystery-section-title">{lang === 'PT' ? "Hobbies & Interesses" : lang === 'ES' ? "Hobbies e Intereses" : "Hobbies & Interests"}</h2>
-                    <div className="hobbies-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      {hobbies.map((h, i) => (
-                        <div key={i} className="hobby-card-badge" style={{ justifyContent: 'center' }}>
-                          <span>{h.icon}</span>
-                          <span>{h.name}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              {/* Single-column vertical stack — responsive via CSS classes */}
+              <div className="mystery-sections-stack">
 
-                  {/* Books Card */}
-                  <div className="mystery-section-card">
-                    <h2 className="mystery-section-title">{lang === 'PT' ? "Livros" : lang === 'ES' ? "Libros" : "Books"}</h2>
-                    <div className="books-shelf-grid">
-                      {books.map((b, i) => (
-                        <div key={i} className="book-shelf-item">
-                          <div className="virtual-book-card" style={{ background: b.bg, borderLeft: `5px solid ${b.border}`, height: 'auto', gap: '1.5rem' }}>
-                            {/* Visual cover of the book */}
-                            <div className="book-cover-illus" style={{ height: '140px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', position: 'relative' }}>
-                              <span style={{ fontSize: '2.5rem' }}>{b.coverIcon}</span>
-                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', marginTop: '0.5rem' }}>{b.year}</span>
-                            </div>
-                            {/* Text Details */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                              <h4 className="book-title-text" style={{ margin: 0, fontSize: '0.95rem', fontWeight: '700', color: '#ffffff' }}>{b.title}</h4>
-                              <p className="book-author-text" style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{b.author}</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                {/* 1 — Hobbies */}
+                <div className="mystery-section-card">
+                  <h2 className="mystery-section-title">{lang === 'PT' ? 'Hobbies & Interesses' : lang === 'ES' ? 'Hobbies e Intereses' : 'Hobbies & Interests'}</h2>
+                  <div className="hobbies-grid mystery-hobbies-grid">
+                    {hobbies.map((h, i) => (
+                      <div key={i} className="hobby-card-badge">
+                        <span>{h.icon}</span>
+                        <span>{h.name}</span>
+                      </div>
+                    ))}
                   </div>
-
                 </div>
 
-                {/* Interactive PC Build column */}
+                {/* 2 — Books */}
+                <div className="mystery-section-card">
+                  <h2 className="mystery-section-title">{lang === 'PT' ? 'Livros' : lang === 'ES' ? 'Libros' : 'Books'}</h2>
+                  <div className="books-shelf-grid mystery-books-grid">
+                    {books.map((b, i) => (
+                      <div key={i} className="book-shelf-item">
+                        <div className="virtual-book-card" style={{ background: b.bg, borderLeft: `5px solid ${b.border}`, height: 'auto', padding: '0', overflow: 'hidden', gap: 0 }}>
+                          {/* Real or emoji cover */}
+                          <div className="book-cover-wrapper">
+                            {b.coverImg ? (
+                              <img
+                                src={b.coverImg}
+                                alt={b.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                            ) : (
+                              <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.25)' }}>
+                                <span style={{ fontSize: '2.8rem' }}>{b.coverIcon}</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', marginTop: '0.4rem' }}>{b.year}</span>
+                              </div>
+                            )}
+                          </div>
+                          {/* Text */}
+                          <div style={{ padding: '0.8rem 1rem' }}>
+                            <h4 style={{ margin: '0 0 0.2rem 0', fontSize: '0.88rem', fontWeight: '700', color: '#fff', lineHeight: 1.3 }}>{b.title}</h4>
+                            <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>{b.author}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3 — PC Build */}
                 <div className="mystery-section-card">
                   <h2 className="mystery-section-title">{t('pcTitle')}</h2>
-                  
-                  <div className="pc-parts-deck-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
                     {pcParts.map((part) => {
                       const isExpanded = activePcPart === part.id;
                       return (
-                        <div 
-                          key={part.id} 
+                        <div
+                          key={part.id}
                           className={`pc-part-box-card ${isExpanded ? 'active' : ''}`}
-                          style={{ 
+                          style={{
                             borderColor: isExpanded ? 'var(--accent-purple)' : '',
-                            padding: isExpanded ? '2rem' : '1.5rem',
-                            background: isExpanded ? 'rgba(255, 255, 255, 0.04)' : ''
+                            padding: isExpanded ? '1.6rem' : '1.2rem',
+                            background: isExpanded ? 'rgba(255,255,255,0.04)' : ''
                           }}
                           onClick={() => setActivePcPart(isExpanded ? null : part.id)}
                         >
                           {isExpanded ? (
-                            /* Expanded State: Image/Illustration on the left, description on the right */
-                            <div style={{ display: 'flex', flexDirection: windowWidth <= 600 ? 'column' : 'row', gap: '2rem', alignItems: 'flex-start', width: '100%' }}>
-                              {/* Left Side: Image/Illustration */}
-                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: '120px', minHeight: '120px', padding: '1.2rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--glass-border)', selfAlign: windowWidth <= 600 ? 'center' : 'auto' }}>
-                                {renderPartIcon(part.id)}
-                              </div>
-                              {/* Right Side: Description */}
-                              <div style={{ flex: 1 }}>
-                                <span className="pc-part-category" style={{ color: 'var(--accent-purple)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{part.category}</span>
-                                <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginTop: '0.4rem', marginBottom: '1rem', fontWeight: '700' }}>{part.fullname}</h3>
-                                
-                                <div style={{ marginBottom: '1rem' }}>
-                                  <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.3rem', fontFamily: 'var(--font-mono)' }}>
-                                    {t('specifications')}
-                                  </strong>
-                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.5' }}>{part.specs}</p>
+                            <div className="pc-expanded-inner">
+                              {/* Left — text */}
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <span className="pc-part-category" style={{ color: 'var(--accent-purple)', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{part.category}</span>
+                                <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', marginTop: '0.3rem', marginBottom: '0.8rem', fontWeight: '700', lineHeight: 1.3 }}>{part.fullname}</h3>
+                                <div style={{ marginBottom: '0.8rem' }}>
+                                  <strong style={{ color: 'var(--text-primary)', fontSize: '0.78rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>{t('specifications')}</strong>
+                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5, margin: 0 }}>{part.specs}</p>
                                 </div>
-
                                 <div>
-                                  <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.3rem', fontFamily: 'var(--font-mono)' }}>
-                                    {t('whyChosen')}
-                                  </strong>
-                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.5', fontStyle: 'italic' }}>"{part.why}"</p>
+                                  <strong style={{ color: 'var(--text-primary)', fontSize: '0.78rem', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>{t('whyChosen')}</strong>
+                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5, fontStyle: 'italic', margin: 0 }}>"{part.why}"</p>
                                 </div>
+                              </div>
+                              {/* Right — real photo or SVG icon */}
+                              <div className="pc-expanded-img">
+                                {part.photo ? (
+                                  <img
+                                    src={part.photo}
+                                    alt={part.name}
+                                    style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }}
+                                  />
+                                ) : renderPartIcon(part.id)}
                               </div>
                             </div>
                           ) : (
-                            /* Compact State */
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                               <div>
                                 <span className="pc-part-category">{part.category}</span>
-                                <h4 className="pc-part-name" style={{ margin: '0.3rem 0' }}>{part.name}</h4>
+                                <h4 className="pc-part-name" style={{ margin: '0.25rem 0' }}>{part.name}</h4>
                                 <span className="pc-part-brand">{part.brand}</span>
                               </div>
-                              <span style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', opacity: 0.6 }}>+</span>
+                              <span style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', opacity: 0.5 }}>＋</span>
                             </div>
                           )}
                         </div>
                       );
                     })}
                   </div>
-
                 </div>
 
               </div>
             </div>
           );
         })()}
+
 
         {/* Privacy Policy Page View */}
         {activeProjectId === 'privacy-policy' && (

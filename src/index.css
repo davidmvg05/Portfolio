@@ -3733,3 +3733,165 @@ h1, h2, h3, h4 {
 .decryption-glitch-text {
   text-shadow: 0 0 10px rgba(45, 203, 254, 0.8), 0 0 20px rgba(168, 85, 247, 0.4);
 }
+
+/* =========================================================
+   Mystery Hub — Full Responsive System
+   ========================================================= */
+
+/* Back button: always horizontal, text on same line */
+.mystery-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  padding: 0.45rem 1.4rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Sections stack: single column, gap between cards */
+.mystery-sections-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Hobbies: responsive grid (auto-fit) */
+.mystery-hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.9rem;
+}
+
+/* Books: 3-column grid with real cover images */
+.mystery-books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+/* Book card: cover image on top, text below */
+.virtual-book-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.book-cover-wrapper {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+/* PC expanded state: text left, image right */
+.pc-expanded-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 1.8rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.pc-expanded-img {
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+/* ── Laptop: ≤ 1280px ─────────────────────────── */
+@media (max-width: 1280px) {
+  .mystery-hub-view {
+    padding: 7rem 1.8rem 4rem;
+  }
+  .mystery-books-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Tablet: ≤ 1024px ─────────────────────────── */
+@media (max-width: 1024px) {
+  .mystery-title-glitch {
+    font-size: 2rem;
+  }
+  .mystery-subtitle-desc {
+    font-size: 1rem;
+  }
+  .mystery-books-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .pc-expanded-img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+/* ── Mobile Large: ≤ 768px ────────────────────── */
+@media (max-width: 768px) {
+  .mystery-hub-view {
+    padding: 6rem 1rem 3rem;
+  }
+  .mystery-header-panel {
+    padding: 1.6rem 1.2rem;
+    text-align: center;
+  }
+  .mystery-title-glitch {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+  }
+  .mystery-subtitle-desc {
+    font-size: 0.88rem;
+  }
+  .mystery-back-btn {
+    font-size: 0.82rem;
+    padding: 0.4rem 1rem;
+    margin-top: 1rem;
+  }
+  .mystery-sections-stack {
+    gap: 1.8rem;
+  }
+  .mystery-hobbies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .mystery-books-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+  .pc-expanded-inner {
+    flex-direction: column-reverse;
+    gap: 1.2rem;
+  }
+  .pc-expanded-img {
+    width: 100%;
+    height: 160px;
+    align-self: center;
+  }
+}
+
+/* ── Mobile Small: ≤ 480px ────────────────────── */
+@media (max-width: 480px) {
+  .mystery-title-glitch {
+    font-size: 1.15rem;
+  }
+  .mystery-books-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .mystery-hobbies-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pc-expanded-img {
+    height: 140px;
+  }
+}
