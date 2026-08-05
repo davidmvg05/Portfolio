@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
@@ -3238,40 +3238,6 @@ function App() {
           </div>
         </div>
       )}
-
-      {/* Floating Language Switcher */}
-      <div className="lang-switcher-widget" ref={langSwitcherRef}>
-        <div className={`lang-switcher-menu ${isLangMenuOpen ? 'open' : ''}`}>
-          <button 
-            className={`lang-option ${lang === 'PT' ? 'active' : ''}`} 
-            onClick={() => { setLang('PT'); setIsLangMenuOpen(false); }}
-          >
-            <span>Português (PT)</span>
-            {lang === 'PT' && <Check size={14} />}
-          </button>
-          <button 
-            className={`lang-option ${lang === 'EN' ? 'active' : ''}`} 
-            onClick={() => { setLang('EN'); setIsLangMenuOpen(false); }}
-          >
-            <span>English (EN)</span>
-            {lang === 'EN' && <Check size={14} />}
-          </button>
-          <button 
-            className={`lang-option ${lang === 'ES' ? 'active' : ''}`} 
-            onClick={() => { setLang('ES'); setIsLangMenuOpen(false); }}
-          >
-            <span>Español (ES)</span>
-            {lang === 'ES' && <Check size={14} />}
-          </button>
-        </div>
-        <button 
-          className={`lang-switcher-btn ${isLangMenuOpen ? 'active' : ''}`} 
-          onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-          aria-label="Alterar idioma / Change language"
-        >
-          <Globe size={20} />
-        </button>
-      </div>
     </>
   );
 }
