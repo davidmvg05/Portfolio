@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
-function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, lang = 'PT' }) {
+function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, lang = 'PT', setLang }) {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const menuItems = ['Home', 'Journey', 'Projects', 'Skills', 'Contact'];
 
@@ -29,6 +31,81 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
       projects: 'Proyectos',
       skills: 'Competencias',
       contact: 'Contacto'
+    },
+    FR: {
+      home: 'Accueil',
+      journey: 'Parcours',
+      projects: 'Projets',
+      skills: 'Compétences',
+      contact: 'Contact'
+    },
+    DE: {
+      home: 'Startseite',
+      journey: 'Werdegang',
+      projects: 'Projekte',
+      skills: 'Fähigkeiten',
+      contact: 'Kontakt'
+    }
+  };
+
+  const languages = [
+    { code: 'PT', name: 'Português' },
+    { code: 'EN', name: 'English' },
+    { code: 'ES', name: 'Español' },
+    { code: 'FR', name: 'Français' },
+    { code: 'DE', name: 'Deutsch' }
+  ];
+
+  const renderFlag = (code) => {
+    switch (code) {
+      case 'PT':
+        return (
+          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+            <rect x="0" y="0" width="9.6" height="24" fill="#006600" />
+            <rect x="9.6" y="0" width="14.4" height="24" fill="#FF0000" />
+            <circle cx="9.6" cy="12" r="3.6" fill="#FFFF00" />
+          </svg>
+        );
+      case 'EN':
+        return (
+          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+            <clipPath id="circle-gb-nav"><circle cx="12" cy="12" r="12" /></clipPath>
+            <g clipPath="url(#circle-gb-nav)">
+              <rect width="24" height="24" fill="#00227F" />
+              <path d="M0 0 L24 24 M0 24 L24 0" stroke="#FFFFFF" strokeWidth="3" />
+              <path d="M0 0 L24 24 M0 24 L24 0" stroke="#CF142B" strokeWidth="1.5" />
+              <path d="M12 0 L12 24 M0 12 L24 12" stroke="#FFFFFF" strokeWidth="5" />
+              <path d="M12 0 L12 24 M0 12 L24 12" stroke="#CF142B" strokeWidth="3" />
+            </g>
+          </svg>
+        );
+      case 'ES':
+        return (
+          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+            <rect x="0" y="0" width="24" height="6" fill="#C60B1E" />
+            <rect x="0" y="6" width="24" height="12" fill="#FBE122" />
+            <rect x="0" y="18" width="24" height="6" fill="#C60B1E" />
+            <circle cx="7" cy="12" r="2" fill="#C60B1E" />
+          </svg>
+        );
+      case 'FR':
+        return (
+          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+            <rect x="0" y="0" width="8" height="24" fill="#002395" />
+            <rect x="8" y="0" width="8" height="24" fill="#FFFFFF" />
+            <rect x="16" y="0" width="8" height="24" fill="#ED2939" />
+          </svg>
+        );
+      case 'DE':
+        return (
+          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+            <rect x="0" y="0" width="24" height="8" fill="#000000" />
+            <rect x="0" y="8" width="24" height="8" fill="#FF0000" />
+            <rect x="0" y="16" width="24" height="8" fill="#FFCC00" />
+          </svg>
+        );
+      default:
+        return null;
     }
   };
 
@@ -36,6 +113,17 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
     const key = item.toLowerCase();
     return langTranslations[lang]?.[key] || item;
   };
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Handle scroll to highlight active section and add background color to navbar
   useEffect(() => {
@@ -181,7 +269,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             <span className="logo-bracket">/ &gt;</span>
           </a>
 
-          {/* Right Side: Desktop Navigation Menu & Theme Switcher */}
+          {/* Right Side: Desktop Navigation Menu, Language Selector & Theme Switcher */}
           <div className="nav-actions">
             <nav className="nav-menu">
               {menuItems.map((item) => {
@@ -201,6 +289,36 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                 );
               })}
             </nav>
+
+            {/* Language Selector Dropdown */}
+            <div className="nav-lang-dropdown" ref={dropdownRef}>
+              <button 
+                className="nav-lang-btn" 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                aria-label="Select language"
+              >
+                {renderFlag(lang)}
+                <span className="nav-lang-code">{lang}</span>
+                <ChevronDown size={14} className={`nav-lang-arrow ${isDropdownOpen ? 'open' : ''}`} />
+              </button>
+              {isDropdownOpen && (
+                <div className="nav-lang-options">
+                  {languages.map((l) => (
+                    <button 
+                      key={l.code} 
+                      className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
+                      onClick={() => {
+                        if (setLang) setLang(l.code);
+                        setIsDropdownOpen(false);
+                      }}
+                    >
+                      {renderFlag(l.code)}
+                      <span className="nav-lang-name">{l.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {renderBB8Toggle()}
           </div>
@@ -243,9 +361,46 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
           <X size={26} />
         </button>
         <div className="mobile-drawer-content" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '3rem', gap: '2rem' }}>
+          
           <div className="mobile-drawer-toggle-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Alterar Tema</span>
             {renderBB8Toggle()}
+          </div>
+
+          {/* Language Selection Chips on Mobile */}
+          <div className="mobile-drawer-lang-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+              {lang === 'PT' ? 'Alterar Idioma' : lang === 'ES' ? 'Cambiar Idioma' : lang === 'FR' ? 'Changer de Langue' : lang === 'DE' ? 'Sprache ändern' : 'Change Language'}
+            </span>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
+              {languages.map((l) => (
+                <button
+                  key={l.code}
+                  className={`mobile-lang-chip ${lang === l.code ? 'active' : ''}`}
+                  onClick={() => {
+                    if (setLang) setLang(l.code);
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.4rem 0.8rem',
+                    borderRadius: '20px',
+                    border: '1px solid',
+                    borderColor: lang === l.code ? 'var(--accent-purple)' : 'var(--glass-border)',
+                    background: lang === l.code ? 'rgba(168, 85, 247, 0.15)' : 'rgba(255, 255, 255, 0.02)',
+                    color: lang === l.code ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.8rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  {renderFlag(l.code)}
+                  <span>{l.code}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <nav className="mobile-drawer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -271,12 +426,12 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     padding: '0.5rem 0',
-                    transition: 'var(--transition)'
+                    transition: 'all 0.2s'
                   }}
                 >
-                  <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginRight: '0.5rem', transition: 'var(--transition)' }}>&lt;</span>
+                  <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginRight: '0.5rem', transition: 'all 0.2s' }}>&lt;</span>
                   <span className="link-text">{getLabel(item)}</span>
-                  <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginLeft: '0.5rem', transition: 'var(--transition)' }}>/&gt;</span>
+                  <span className="bracket" style={{ opacity: isActive ? 1 : 0, color: 'var(--accent-blue)', marginLeft: '0.5rem', transition: 'all 0.2s' }}>/&gt;</span>
                 </a>
               );
             })}
@@ -288,4 +443,5 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
 }
 
 export default Navbar;
+
 

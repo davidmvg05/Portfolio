@@ -3951,3 +3951,217 @@ h1, h2, h3, h4 {
     height: 140px;
   }
 }
+
+/* ==========================================================================
+   Language Dropdown & Books Filter Layout Styles
+   ========================================================================== */
+
+/* Navbar Language Dropdown */
+.nav-lang-dropdown {
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.nav-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.nav-lang-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+.nav-lang-code {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.nav-lang-arrow {
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.nav-lang-arrow.open {
+  transform: rotate(180deg);
+}
+
+.nav-lang-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.5rem;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.nav-lang-option-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.nav-lang-option-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.nav-lang-option-item.active {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+/* Books Filters Layout */
+.mystery-books-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+
+.mystery-books-filters {
+  flex-shrink: 0;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.filter-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.8px;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+.filter-btn.active {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: var(--accent-purple);
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.filter-select {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.6rem;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+}
+
+.filter-select option {
+  background: #111;
+  color: var(--text-primary);
+}
+
+.mystery-books-content {
+  flex-grow: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .mystery-books-layout {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .mystery-books-filters {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+  }
+  .filter-group {
+    flex: 1;
+  }
+  .filter-options {
+    flex-direction: row;
+  }
+  .filter-btn {
+    text-align: center;
+    flex: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .mystery-books-filters {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .filter-group {
+    width: 100%;
+  }
+  .filter-options {
+    flex-direction: column;
+  }
+}
+

@@ -3,46 +3,70 @@ import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText, Globe } from 'lucide-react';
-import logoLego from './assets/logo_lego.png';
-import logoMymatchcare from './assets/logo_mymatchcare.png';
-import logoOmega from './assets/logo_omega.png';
-import logoShifter from './assets/logo_shifter.png';
-import logoLegoMobile from './assets/logo_lego_mobile.png';
-import logoMymatchcareMobile from './assets/logo_mymatchcare_mobile.png';
-import logoOmegaMobile from './assets/logo_omega_mobile.png';
-import logoShifterMobile from './assets/logo_shifter_mobile.png';
-import logoCiberseguranca from './assets/logo_cibersegurança.png';
-import logoCibersegurancaMobile from './assets/logo_cibersegurança_mobile.png';
-import logoOmega3d from './assets/logo_omega3d.png';
-import logoOmega3dMobile from './assets/logo_omage3d_mobile.png';
-import logoMimosa from './assets/logo_mimosa.png';
-import logoMimosaMobile from './assets/logo_mimosa_mobile.png';
-import logoStrongbulk from './assets/logo_strongbulk.png';
-import logoStrongbulkMobile from './assets/logo_strongbulk_mobile.png';
-import logoGotasalgada from './assets/logo_gotasalgada.png';
-import logoGotasalgadaMobile from './assets/logo_gotasalgada_mobile.png';
-import logoApadariaportuguesa from './assets/logo_apadariaportuguesa.png';
-import logoApadariaportuguesaMobile from './assets/logo_apadariaportuguesa_mobile.png';
-import logoEdp from './assets/logo_edp.png';
-import logoEdpMobile from './assets/logo_edp_mobile.png';
-import logoRebottle from './assets/logo_rebottle.png';
-import logoRebottleMobile from './assets/logo_rebottle_mobile.png';
-import logoOmegaanalytics from './assets/logo_omegaanalytics.png';
-import logoOmegaanalyticsMobile from './assets/logo_omegaanalytics_mobile.png';
-import logoAdegasocalcos from './assets/logo_adegasocalcos.png';
-import logoAdegasocalcosMobile from './assets/logo_adegasocalcos_mobile.png';
-import logoAlfaiatedaweb from './assets/logo_alfaiatedaweb.png';
-import logoAlfaiatedawebMobile from './assets/logo_alfaiatedaweb_mobile.png';
-import logoCasasdapaula from './assets/logo_casasdapaula.png';
-import logoCasasdapaulaMobile from './assets/logo_casasdapaula_mobile.png';
-import logoBniequipas from './assets/logo_bniequipas.png';
-import logoBniequipasMobile from './assets/logo_bniequipas_mobile.png';
-import logoEstagio from './assets/logo_estagio.png';
-import logoEstagioMobile from './assets/logo_estagio_mobile.png';
-import logoPortfolio from './assets/logo_portfolio.png';
-import logoPortfolioMobile from './assets/logo_portfolio_mobile.png';
-import imgBookEnigma from './assets/oenigmadoquarto622.webp';
-import imgCpuRyzen from './assets/processador_amdryzen55600x.webp';
+import logoLego from './assets/logos/logo_lego.png';
+import logoMymatchcare from './assets/logos/logo_mymatchcare.png';
+import logoOmega from './assets/logos/logo_omega.png';
+import logoShifter from './assets/logos/logo_shifter.png';
+import logoLegoMobile from './assets/logos/logo_lego_mobile.png';
+import logoMymatchcareMobile from './assets/logos/logo_mymatchcare_mobile.png';
+import logoOmegaMobile from './assets/logos/logo_omega_mobile.png';
+import logoShifterMobile from './assets/logos/logo_shifter_mobile.png';
+import logoCiberseguranca from './assets/logos/logo_cibersegurança.png';
+import logoCibersegurancaMobile from './assets/logos/logo_cibersegurança_mobile.png';
+import logoOmega3d from './assets/logos/logo_omega3d.png';
+import logoOmega3dMobile from './assets/logos/logo_omage3d_mobile.png';
+import logoMimosa from './assets/logos/logo_mimosa.png';
+import logoMimosaMobile from './assets/logos/logo_mimosa_mobile.png';
+import logoStrongbulk from './assets/logos/logo_strongbulk.png';
+import logoStrongbulkMobile from './assets/logos/logo_strongbulk_mobile.png';
+import logoGotasalgada from './assets/logos/logo_gotasalgada.png';
+import logoGotasalgadaMobile from './assets/logos/logo_gotasalgada_mobile.png';
+import logoApadariaportuguesa from './assets/logos/logo_apadariaportuguesa.png';
+import logoApadariaportuguesaMobile from './assets/logos/logo_apadariaportuguesa_mobile.png';
+import logoEdp from './assets/logos/logo_edp.png';
+import logoEdpMobile from './assets/logos/logo_edp_mobile.png';
+import logoRebottle from './assets/logos/logo_rebottle.png';
+import logoRebottleMobile from './assets/logos/logo_rebottle_mobile.png';
+import logoOmegaanalytics from './assets/logos/logo_omegaanalytics.png';
+import logoOmegaanalyticsMobile from './assets/logos/logo_omegaanalytics_mobile.png';
+import logoAdegasocalcos from './assets/logos/logo_adegasocalcos.png';
+import logoAdegasocalcosMobile from './assets/logos/logo_adegasocalcos_mobile.png';
+import logoAlfaiatedaweb from './assets/logos/logo_alfaiatedaweb.png';
+import logoAlfaiatedawebMobile from './assets/logos/logo_alfaiatedaweb_mobile.png';
+import logoCasasdapaula from './assets/logos/logo_casasdapaula.png';
+import logoCasasdapaulaMobile from './assets/logos/logo_casasdapaula_mobile.png';
+import logoBniequipas from './assets/logos/logo_bniequipas.png';
+import logoBniequipasMobile from './assets/logos/logo_bniequipas_mobile.png';
+import logoEstagio from './assets/logos/logo_estagio.png';
+import logoEstagioMobile from './assets/logos/logo_estagio_mobile.png';
+import logoPortfolio from './assets/logos/logo_portfolio.png';
+import logoPortfolioMobile from './assets/logos/logo_portfolio_mobile.png';
+
+// Books
+import imgBookEnigma from './assets/books/oenigmadoquarto622.webp';
+import imgBookAgenteZigzag from './assets/books/agentezigzag.webp';
+import imgBookAfricaSul from './assets/books/daquialideportugalaafricadosuldebicicleta.webp';
+import imgBookSingapura from './assets/books/daquialideportugalasingapuraporterra.webp';
+import imgBookStephanie from './assets/books/odesaparecimentodestephaniemailer.webp';
+import imgBookEspiao from './assets/books/oespiaoisraelita.webp';
+import imgBookHipnotista from './assets/books/ohipnotista.webp';
+import imgBookIntruso from './assets/books/ointruso.webp';
+import imgBookBaltimore from './assets/books/olivrodosbaltimore.webp';
+import imgBookRostosMal from './assets/books/osrostosdomal.webp';
+import imgBookSemCulpa from './assets/books/semculpa.webp';
+import imgBookVidaPlaneta from './assets/books/umavidanonossoplaneta.webp';
+
+// PC parts
+import imgCpuRyzen from './assets/pc_parts/cpu_amdryzen55600x.webp';
+import imgGpuAsus from './assets/pc_parts/gpu_asus_gtx_1660_ti.webp';
+import imgRamCorsair from './assets/pc_parts/ram_corsair_16GB.webp';
+import imgMoboAsus from './assets/pc_parts/motherboard_b450-f_gaming_II.webp';
+import imgCoolerMaster from './assets/pc_parts/cpu_cooler_master_hyper_212.webp';
+import imgPsuCorsair from './assets/pc_parts/fonte_corsair_550w.webp';
+import imgSsdWd from './assets/pc_parts/nvme_wd_black_sn850.webp';
+import imgSsdSamsung from './assets/pc_parts/nvme_970_evo.webp';
+import imgHddWd from './assets/pc_parts/hdd_2tb.webp';
+import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -108,18 +132,8 @@ const CopyableText = ({ text }) => {
 
 function App() {
   const [lang, setLang] = useState('PT');
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-  const langSwitcherRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (langSwitcherRef.current && !langSwitcherRef.current.contains(event.target)) {
-        setIsLangMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const [bookStatusFilter, setBookStatusFilter] = useState('all'); // 'all', 'lido', 'vou-ler'
+  const [bookAuthorFilter, setBookAuthorFilter] = useState('all'); // 'all', or specific author
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -300,6 +314,96 @@ function App() {
       viewModeBlueprint: "Chasis (Esquema)",
       whyChosen: "Por qué este componente:",
       specifications: "Especificaciones:"
+    },
+    FR: {
+      heroTitle: "Développeur Créatif & Animateur 3D",
+      heroSubtitle: "Donner vie à des idées grâce à un code propre, des animations fluides et des expériences interactives intergalactiques.",
+      heroCTA: "Voir les Projets",
+      heroContact: "Me Contacter",
+      academicTitle: "Travaux Académiques",
+      professionalTitle: "Projets Professionnels",
+      journeyTitle: "Mon Parcours",
+      skillsTitle: "Compétences & Plateformes",
+      contactTitle: "Créons Quelque Chose d'Extraordinaire ?",
+      contactDesc: "Un projet en tête ou envie de discuter d'une collaboration créative ? Envoyez-moi un message !",
+      nameLabel: "Nom",
+      emailLabel: "E-mail",
+      messageLabel: "Message",
+      sendButton: "Envoyer le Message",
+      privacyPolicy: "Politique de Confidentialité",
+      rightsReserved: "Tous droits réservés.",
+      cookieHeader: "Politique de Cookies",
+      cookieDesc: "Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser le trafic du site. En cliquant sur \"Tout Accepter\", vous consentez à l'utilisation de ces cookies.",
+      rejectBtn: "Rejeter les Essentiels",
+      acceptBtn: "Tout Accepter",
+      backButton: "Retour à l'Accueil",
+      docTitle: "Documents Disponibles",
+      skillsLabel: "Compétences et Aptitudes",
+      platformsLabel: "Plateformes Utilisées",
+      protectedAccess: "Accès Protégé",
+      protectedDesc: "L'accès à cette boutique est protégé par un mot de passe.",
+      publicAccess: "Accès Public",
+      publicDesc: "Le site web est disponible pour consultation publique.",
+      sendRequest: "Demander l'Accès",
+      mobileFallbackTitle: "Aperçu du PDF",
+      mobileFallbackDesc: "Les téléphones portables limitent la lecture des PDF intégrés. En ouvrant le document, vous pourrez lire toutes les pages de manière fluide.",
+      mobileFallbackCTA: "Ouvrir le Document",
+      mobileHtmlTitle: "Aperçu de la Page Web",
+      mobileHtmlDesc: "En prévisualisant la page, vous pouvez voir les phases de construction du site web final.",
+      mobileHtmlCTA: "Voir la Page",
+      mysteryTitle: "Terminal Décrypté : Profil Personnel & Setup",
+      mysteryDesc: "Bienvenue dans mon cockpit personnel. Explorez mes hobbies, mes lectures recommandées et l'assemblage détaillé de mon ordinateur.",
+      hobbiesTitle: "Hobbies & Livros",
+      pcTitle: "Montage du PC",
+      viewModeBoxes: "Composants (Boîtes)",
+      viewModeBlueprint: "Châssis (Schéma)",
+      whyChosen: "Pourquoi ce composant :",
+      specifications: "Spécifications :"
+    },
+    DE: {
+      heroTitle: "Kreativer Entwickler & 3D-Animator",
+      heroSubtitle: "Ideen zum Leben erwecken durch sauberen Code, flüssige Animationen und intergalaktische Erlebnisse.",
+      heroCTA: "Projekte Anzeigen",
+      heroContact: "Kontakt Aufnehmen",
+      academicTitle: "Akademische Arbeiten",
+      professionalTitle: "Professionelle Projekte",
+      journeyTitle: "Mein Werdegang",
+      skillsTitle: "Fähigkeiten & Plattformen",
+      contactTitle: "Lass uns etwas Außergewöhnliches schaffen?",
+      contactDesc: "Haben Sie ein Projekt im Sinn oder möchten Sie über kreative Zusammenarbeit sprechen? Schreiben Sie mir eine Nachricht!",
+      nameLabel: "Name",
+      emailLabel: "E-Mail",
+      messageLabel: "Nachricht",
+      sendButton: "Nachricht Senden",
+      privacyPolicy: "Datenschutzerklärung",
+      rightsReserved: "Alle Rechte vorbehalten.",
+      cookieHeader: "Cookie-Richtlinie",
+      cookieDesc: "Wir verwenden Cookies, um Ihre Browser-Erfahrung zu verbessern und den Website-Verkehr zu analysieren. Durch Klicken auf \"Alle akzeptieren\" stimmen Sie der Verwendung von Cookies zu.",
+      rejectBtn: "Essenziell Ablehnen",
+      acceptBtn: "Alle Akzeptieren",
+      backButton: "Zurück zur Startseite",
+      docTitle: "Verfügbare Dokumente",
+      skillsLabel: "Fähigkeiten und Kompetenzen",
+      platformsLabel: "Verwendete Plattformen",
+      protectedAccess: "Geschützter Zugriff",
+      protectedDesc: "Der Zugriff auf diesen Shop ist passwortgeschützt.",
+      publicAccess: "Öffentlicher Zugriff",
+      publicDesc: "Die Website ist öffentlich einsehbar.",
+      sendRequest: "Zugang Anfordern",
+      mobileFallbackTitle: "PDF-Vorschau",
+      mobileFallbackDesc: "Mobiltelefone schränken das Lesen integrierter PDFs ein. Wenn Sie das Dokument öffnen, können Sie alle Seiten flüssig lesen.",
+      mobileFallbackCTA: "Dokument Öffnen",
+      mobileHtmlTitle: "Webseitenvorschau",
+      mobileHtmlDesc: "In der Vorschau sehen Sie die Bauphasen der endgültigen Website.",
+      mobileHtmlCTA: "Seite Anzeigen",
+      mysteryTitle: "Entschlüsseltes Terminal: Persönliches Profil & Setup",
+      mysteryDesc: "Willkommen in meinem persönlichen Cockpit. Entdecken Sie meine Hobbys, Buchempfehlungen und den detaillierten Aufbau meines PCs.",
+      hobbiesTitle: "Hobbys & Bücher",
+      pcTitle: "PC-Zusammenbau",
+      viewModeBoxes: "Komponenten (Boxen)",
+      viewModeBlueprint: "Chassis (Blueprint)",
+      whyChosen: "Warum diese Komponente:",
+      specifications: "Spezifikationen:"
     }
   };
 
@@ -1569,7 +1673,7 @@ function App() {
         } else {
           setActiveProjectId(val);
         }
-      }} lang={lang} />
+      }} lang={lang} setLang={setLang} />
 
       <main className="container">
         {activeProjectId === null && (
@@ -2215,6 +2319,7 @@ function App() {
               brand: 'Asus / NVIDIA',
               fullname: 'Asus GeForce GTX 1660 Ti Evo TUF Gaming 6GB GDDR6 OC Edition',
               specs: '6GB GDDR6, Dual Fan, OC Edition, Auto-Extreme Technology',
+              photo: imgGpuAsus,
               why: lang === 'PT'
                 ? 'Excelente placa gráfica para jogar a 1080p, com o sistema robusto TUF que garante estabilidade de temperatura e durabilidade.'
                 : lang === 'ES'
@@ -2228,6 +2333,7 @@ function App() {
               brand: 'Corsair',
               fullname: 'Corsair Vengeance RGB Pro 16GB (2x8GB) DDR4-3200MHz CL16',
               specs: 'DDR4 3200MHz, CL16 (16-18-18-36), 1.35V, Intel XMP 2.0 support',
+              photo: imgRamCorsair,
               why: lang === 'PT'
                 ? 'Desempenho super rápido com iluminação RGB dinâmica personalizável para um visual premium dentro do chassis.'
                 : lang === 'ES'
@@ -2241,6 +2347,7 @@ function App() {
               brand: 'Asus ROG',
               fullname: 'Asus ROG Strix B450-F Gaming II ATX Motherboard',
               specs: 'ATX Form Factor, AMD AM4 Socket, DDR4 support, dual M.2 slots, Aura Sync',
+              photo: imgMoboAsus,
               why: lang === 'PT'
                 ? 'Uma base sólida com fornecimento de energia robusto, refrigeração passiva avançada e o estilo icónico da ROG.'
                 : lang === 'ES'
@@ -2254,6 +2361,7 @@ function App() {
               brand: 'Cooler Master',
               fullname: 'Cooler Master Hyper 212 Black Edition 120mm CPU Cooler',
               specs: '120mm PWM Fan, 4 Direct Contact Heat Pipes, gunmetal black finish',
+              photo: imgCoolerMaster,
               why: lang === 'PT'
                 ? 'Silencioso e ultra eficiente, mantém as temperaturas do Ryzen 5 controladas mesmo sob carga extrema.'
                 : lang === 'ES'
@@ -2267,6 +2375,7 @@ function App() {
               brand: 'Corsair',
               fullname: 'Corsair CV Series CV550 550W 80 Plus Bronze ATX Power Supply',
               specs: '550W, 80 Plus Bronze Certified, 120mm thermally controlled fan',
+              photo: imgPsuCorsair,
               why: lang === 'PT'
                 ? 'Fornecimento de energia silencioso e estável de categoria 80 Plus Bronze para todo o sistema.'
                 : lang === 'ES'
@@ -2280,6 +2389,7 @@ function App() {
               brand: 'Western Digital',
               fullname: 'SanDisk WD_Black SN850 500GB 3D NAND NVMe M.2 2280 SSD with Heatsink',
               specs: 'PCIe Gen4 technology, read speeds up to 7000MB/s, custom heatsink',
+              photo: imgSsdWd,
               why: lang === 'PT'
                 ? 'Instalado com dissipador de calor integrado para velocidades de carregamento ultrarrápidas no sistema operativo.'
                 : lang === 'ES'
@@ -2293,6 +2403,7 @@ function App() {
               brand: 'Samsung',
               fullname: 'Samsung 970 EVO Plus 500GB NVMe M.2 SSD',
               specs: 'M.2 NVMe PCIe Gen3, read speeds up to 3500MB/s',
+              photo: imgSsdSamsung,
               why: lang === 'PT'
                 ? 'Armazenamento ultra fiável e de alto desempenho secundário para jogos e ferramentas de edição.'
                 : lang === 'ES'
@@ -2306,6 +2417,7 @@ function App() {
               brand: 'Western Digital',
               fullname: 'Western Digital WD_Black 2TB + 1TB 7200RPM 64MB SATA III 3.5" HDDs',
               specs: 'SATA III 3.5" HDD, 64MB Cache, 7200 RPM high performance',
+              photo: imgHddWd,
               why: lang === 'PT'
                 ? 'Combinação de 3TB de discos mecânicos WD_Black para armazenar projetos de animação 3D pesados e grandes bibliotecas de média.'
                 : lang === 'ES'
@@ -2319,6 +2431,7 @@ function App() {
               brand: 'Cooler Master',
               fullname: 'Cooler Master MasterBox MB510L ATX Case with Black/Red Window',
               specs: 'ATX Mid-Tower, Carbon fiber texture front panel, Black with Red trim window',
+              photo: imgCaseCoolerMaster,
               why: lang === 'PT'
                 ? 'Design moderno com excelente fluxo de ar, janelas laterais transparentes e um contraste de tons vermelho/preto premium.'
                 : lang === 'ES'
@@ -2329,44 +2442,193 @@ function App() {
 
           const books = [
             {
-              title: lang === 'PT' ? "A Verdade sobre o Caso Harry Quebert" : lang === 'ES' ? "La verdad sobre el caso Harry Quebert" : "The Truth About the Harry Quebert Affair",
+              title: lang === 'PT' ? "A Verdade sobre o Caso Harry Quebert" : lang === 'ES' ? "La verdad sobre el caso Harry Quebert" : lang === 'FR' ? "La Vérité sur l'affaire Harry Quebert" : lang === 'DE' ? "Die Wahrheit über den Fall Harry Quebert" : "The Truth About the Harry Quebert Affair",
               year: "2012",
               author: "Joel Dicker",
+              status: "lido",
               bg: 'linear-gradient(135deg, #1e1b4b, #3b0764)',
               border: '#c084fc',
               coverIcon: '🔍'
             },
             {
-              title: lang === 'PT' ? "O Livro dos Baltimore" : lang === 'ES' ? "El Libro de los Baltimore" : "The Baltimore Boys",
+              title: lang === 'PT' ? "O Livro dos Baltimore" : lang === 'ES' ? "El Libro de los Baltimore" : lang === 'FR' ? "Le Livre des Baltimore" : lang === 'DE' ? "Die Baltimore-Alten" : "The Baltimore Boys",
               year: "2015",
               author: "Joel Dicker",
+              status: "vou-ler",
               bg: 'linear-gradient(135deg, #0f172a, #1e293b)',
               border: '#60a5fa',
-              coverIcon: '🏙️'
+              coverImg: imgBookBaltimore
             },
             {
-              title: lang === 'PT' ? "O Desaparecimento de Stephanie Mailer" : lang === 'ES' ? "La desaparición de Stephanie Mailer" : "The Disappearance of Stephanie Mailer",
+              title: lang === 'PT' ? "O Desaparecimento de Stephanie Mailer" : lang === 'ES' ? "La desaparición de Stephanie Mailer" : lang === 'FR' ? "La Disparition de Stephanie Mailer" : lang === 'DE' ? "Das Verschwinden der Stephanie Mailer" : "The Disappearance of Stephanie Mailer",
               year: "2018",
               author: "Joel Dicker",
+              status: "lido",
               bg: 'linear-gradient(135deg, #450a0a, #7f1d1d)',
               border: '#f87171',
-              coverIcon: '🌲'
+              coverImg: imgBookStephanie
             },
             {
-              title: lang === 'PT' ? "O Enigma do Quarto 622" : lang === 'ES' ? "El enigma de la habitación 622" : "The Enigma of Room 622",
+              title: lang === 'PT' ? "O Enigma do Quarto 622" : lang === 'ES' ? "El enigma de la habitación 622" : lang === 'FR' ? "L'Énigme de la chambre 622" : lang === 'DE' ? "Das Geheimnis von Zimmer 622" : "The Enigma of Room 622",
               year: "2020",
               author: "Joel Dicker",
+              status: "lido",
               bg: 'linear-gradient(135deg, #064e3b, #022c22)',
               border: '#34d399',
               coverImg: imgBookEnigma
             },
             {
-              title: lang === 'PT' ? "O Caso Alaska Sanders" : lang === 'ES' ? "El caso Alaska Sanders" : "The Alaska Sanders Affair",
+              title: lang === 'PT' ? "O Caso Alaska Sanders" : lang === 'ES' ? "El caso Alaska Sanders" : lang === 'FR' ? "L'Affaire Alaska Sanders" : lang === 'DE' ? "Der Fall Alaska Sanders" : "The Alaska Sanders Affair",
               year: "2022",
               author: "Joel Dicker",
+              status: "lido",
               bg: 'linear-gradient(135deg, #3b0764, #1e1b4b)',
               border: '#f472b6',
               coverIcon: '❄️'
+            },
+            {
+              title: lang === 'PT' ? "Uma Catastrófica Visita ao Zoo" : lang === 'ES' ? "Una catastrófica visita al Zoo" : lang === 'FR' ? "Une catastrophique visite au Zoo" : lang === 'DE' ? "Ein katastrophaler Zoobesuch" : "A Catastrophic Visit to the Zoo",
+              year: "2025",
+              author: "Joel Dicker",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #1e3a8a, #0d9488)',
+              border: '#38bdf8',
+              coverIcon: '🦁'
+            },
+            {
+              title: lang === 'PT' ? "O Intruso" : lang === 'ES' ? "El visitante" : lang === 'FR' ? "L'Outsider" : lang === 'DE' ? "Der Outsider" : "The Outsider",
+              year: "2018",
+              author: "Stephen King",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #111827, #1f2937)',
+              border: '#9ca3af',
+              coverImg: imgBookIntruso
+            },
+            {
+              title: lang === 'PT' ? "O Espião Israelita" : lang === 'ES' ? "Un espía israelí" : lang === 'FR' ? "Un espion israélien" : lang === 'DE' ? "Ein israelischer Spion" : "A Brief Stop on the Road from Auschwitz",
+              year: "2019",
+              author: "Dov Alfon",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #0f172a, #0284c7)',
+              border: '#38bdf8',
+              coverImg: imgBookEspiao
+            },
+            {
+              title: lang === 'PT' ? "A Ilha Mortal" : lang === 'ES' ? "La isla mortal" : lang === 'FR' ? "L'île mortelle" : lang === 'DE' ? "Die Todesinsel" : "The Deadly Island",
+              year: "2025",
+              author: "Samuel Bjørk",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #581c87, #0f172a)',
+              border: '#c084fc',
+              coverIcon: '🏝️'
+            },
+            {
+              title: lang === 'PT' ? "A Mulher do Camarote 10" : lang === 'ES' ? "La mujer del camarote 10" : lang === 'FR' ? "La Femme de la cabine 10" : lang === 'DE' ? "Woman in Cabin 10" : "The Woman in Cabin 10",
+              year: "2016",
+              author: "Ruth Ware",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #1e293b, #0f172a)',
+              border: '#94a3b8',
+              coverIcon: '🚢'
+            },
+            {
+              title: lang === 'PT' ? "Uma Questão de Culpa" : lang === 'ES' ? "Una cuestión de culpa" : lang === 'FR' ? "Une question de culpabilité" : lang === 'DE' ? "Eine Frage der Schuld" : "A Question of Guilt",
+              year: "2013",
+              author: "Jørn Lier Horst",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #111827, #374151)',
+              border: '#9ca3af',
+              coverIcon: '⚖️'
+            },
+            {
+              title: lang === 'PT' ? "Sem Culpa" : lang === 'ES' ? "Sin culpa" : lang === 'FR' ? "Sans culpabilité" : lang === 'DE' ? "Ohne Schuld" : "Without Guilt",
+              year: "2020",
+              author: "Charlotte Link",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #7c2d12, #0f172a)',
+              border: '#fb923c',
+              coverImg: imgBookSemCulpa
+            },
+            {
+              title: lang === 'PT' ? "Os Rostos do Mal" : lang === 'ES' ? "Las caras del mal" : lang === 'FR' ? "Les visages du mal" : lang === 'DE' ? "Die Gesichter des Bösen" : "The Faces of Evil",
+              year: "2008",
+              author: "Ruth Newman",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #311005, #000000)',
+              border: '#f97316',
+              coverImg: imgBookRostosMal
+            },
+            {
+              title: lang === 'PT' ? "Uma Vida no Nosso Planeta" : lang === 'ES' ? "Una vida en nuestro planeta" : lang === 'FR' ? "Une vie sur notre planète" : lang === 'DE' ? "Ein Leben auf unserem Planeten" : "A Life on Our Planet",
+              year: "2020",
+              author: "David Attenborough",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #065f46, #064e3b)',
+              border: '#34d399',
+              coverImg: imgBookVidaPlaneta
+            },
+            {
+              title: lang === 'PT' ? "O Livro do Ric" : lang === 'ES' ? "El Libro de Ric" : lang === 'FR' ? "Le Livre de Ric" : lang === 'DE' ? "Rics Buch" : "Ric's Book",
+              year: "2022",
+              author: "RicFazeres",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #1e3a8a, #172554)',
+              border: '#3b82f6',
+              coverIcon: '🎮'
+            },
+            {
+              title: lang === 'PT' ? "Porque Sou Liberal" : lang === 'ES' ? "Por qué soy liberal" : lang === 'FR' ? "Pourquoi je suis libéral" : lang === 'DE' ? "Warum ich liberal bin" : "Why I Am Liberal",
+              year: "2025",
+              author: "João Cotrim de Figueiredo",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #0369a1, #0c4a6e)',
+              border: '#0ea5e9',
+              coverIcon: '🗽'
+            },
+            {
+              title: lang === 'PT' ? "O Assassinato de Roger Ackroyd" : lang === 'ES' ? "El asesinato de Roger Ackroyd" : lang === 'FR' ? "Le Meurtre de Roger Ackroyd" : lang === 'DE' ? "Alibi" : "The Murder of Roger Ackroyd",
+              year: "1926",
+              author: "Agatha Christie",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #18181b, #27272a)',
+              border: '#71717a',
+              coverIcon: '🕵️‍♀️'
+            },
+            {
+              title: lang === 'PT' ? "Daqui Ali: De Portugal a Singapura por Terra" : lang === 'ES' ? "De aquí para allá: De Portugal a Singapur por Tierra" : lang === 'FR' ? "D'ici là: Du Portugal à Singapour par Terre" : lang === 'DE' ? "Von hier nach da: Von Portugal nach Singapur über Land" : "From Here to There: From Portugal to Singapore by Land",
+              year: "2013",
+              author: "António Pedro Moreira",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #0f766e, #115e59)',
+              border: '#2dd4bf',
+              coverImg: imgBookSingapura
+            },
+            {
+              title: lang === 'PT' ? "Daqui Ali: De Portugal à África do Sul de Bicicleta" : lang === 'ES' ? "De aquí para allá: De Portugal a Sudáfrica en Bicicleta" : lang === 'FR' ? "D'ici là: Du Portugal à l'Afrique du Sud à Vélo" : lang === 'DE' ? "Von hier nach da: Von Portugal nach Südafrika mit dem Fahrrad" : "From Here to There: From Portugal to South Africa by Bicycle",
+              year: "2018",
+              author: "António Pedro Moreira",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #854d0e, #713f12)',
+              border: '#eab308',
+              coverImg: imgBookAfricaSul
+            },
+            {
+              title: lang === 'PT' ? "O Hipnotista" : lang === 'ES' ? "El hipnotista" : lang === 'FR' ? "L'Hypnotiseur" : lang === 'DE' ? "Der Hypnotiseur" : "The Hypnotist",
+              year: "2009",
+              author: "Lars Kepler",
+              status: "lido",
+              bg: 'linear-gradient(135deg, #4c1d95, #2e1065)',
+              border: '#a78bfa',
+              coverImg: imgBookHipnotista
+            },
+            {
+              title: lang === 'PT' ? "Agente Zigzag" : lang === 'ES' ? "Agente Zigzag" : lang === 'FR' ? "Agent Zigzag" : lang === 'DE' ? "Agent Zigzag" : "Agent Zigzag",
+              year: "2007",
+              author: "Ben Macintyre",
+              status: "vou-ler",
+              bg: 'linear-gradient(135deg, #1c1917, #292524)',
+              border: '#78716c',
+              coverImg: imgBookAgenteZigzag
             }
           ];
 
@@ -2519,25 +2781,98 @@ function App() {
 
                 {/* 2 — Books */}
                 <div className="mystery-section-block">
-                  <h2 className="mystery-section-title">{lang === 'PT' ? 'Livros' : lang === 'ES' ? 'Libros' : 'Books'}</h2>
-                  <div className="mystery-books-grid">
-                    {books.map((b, i) => (
-                      <div key={i} className="mystery-book-card">
-                        <div className="mystery-book-cover">
-                          {b.coverImg ? (
-                            <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                          ) : (
-                            <div className="mystery-book-cover-placeholder">
-                              <span style={{ fontSize: '2.5rem' }}>{b.coverIcon}</span>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mystery-book-info">
-                          <h4 className="mystery-book-title">{b.title}</h4>
-                          <p className="mystery-book-author">{b.author}</p>
+                  <h2 className="mystery-section-title">{lang === 'PT' ? 'Livros' : lang === 'ES' ? 'Libros' : lang === 'FR' ? 'Livres' : lang === 'DE' ? 'Bücher' : 'Books'}</h2>
+                  
+                  <div className="mystery-books-layout">
+                    {/* Filters Sidebar */}
+                    <div className="mystery-books-filters">
+                      <div className="filter-group">
+                        <label className="filter-label">
+                          {lang === 'PT' ? 'Status de Leitura' : lang === 'ES' ? 'Estado de Lectura' : lang === 'FR' ? 'Statut de Lecture' : lang === 'DE' ? 'Lesestatus' : 'Reading Status'}
+                        </label>
+                        <div className="filter-options">
+                          <button 
+                            className={`filter-btn ${bookStatusFilter === 'all' ? 'active' : ''}`}
+                            onClick={() => setBookStatusFilter('all')}
+                          >
+                            {lang === 'PT' ? 'Todos' : lang === 'ES' ? 'Todos' : lang === 'FR' ? 'Tous' : lang === 'DE' ? 'Alle' : 'All'}
+                          </button>
+                          <button 
+                            className={`filter-btn ${bookStatusFilter === 'lido' ? 'active' : ''}`}
+                            onClick={() => setBookStatusFilter('lido')}
+                          >
+                            {lang === 'PT' ? 'Lidos' : lang === 'ES' ? 'Leídos' : lang === 'FR' ? 'Lus' : lang === 'DE' ? 'Gelesen' : 'Read'}
+                          </button>
+                          <button 
+                            className={`filter-btn ${bookStatusFilter === 'vou-ler' ? 'active' : ''}`}
+                            onClick={() => setBookStatusFilter('vou-ler')}
+                          >
+                            {lang === 'PT' ? 'Por Ler' : lang === 'ES' ? 'Por Leer' : lang === 'FR' ? 'À Lire' : lang === 'DE' ? 'Ungelesen' : 'To Read'}
+                          </button>
                         </div>
                       </div>
-                    ))}
+
+                      <div className="filter-group" style={{ marginTop: '1.5rem' }}>
+                        <label className="filter-label">
+                          {lang === 'PT' ? 'Filtrar por Autor' : lang === 'ES' ? 'Filtrar por Autor' : lang === 'FR' ? 'Filtrer par Auteur' : lang === 'DE' ? 'Nach Autor filtern' : 'Filter by Author'}
+                        </label>
+                        <select 
+                          className="filter-select"
+                          value={bookAuthorFilter}
+                          onChange={(e) => setBookAuthorFilter(e.target.value)}
+                        >
+                          <option value="all">
+                            {lang === 'PT' ? 'Todos os Autores' : lang === 'ES' ? 'Todos los Autores' : lang === 'FR' ? 'Tous les Auteurs' : lang === 'DE' ? 'Alle Autoren' : 'All Authors'}
+                          </option>
+                          {[`Joel Dicker`, `Stephen King`, `Dov Alfon`, `Samuel Bjørk`, `Ruth Ware`, `Jørn Lier Horst`, `Charlotte Link`, `Ruth Newman`, `David Attenborough`, `RicFazeres`, `João Cotrim de Figueiredo`, `Agatha Christie`, `António Pedro Moreira`, `Lars Kepler`, `Ben Macintyre`].sort().map((author) => (
+                            <option key={author} value={author}>{author}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Books Grid */}
+                    <div className="mystery-books-content">
+                      {(() => {
+                        const filteredBooks = books.filter((b) => {
+                          const matchesStatus = bookStatusFilter === 'all' || b.status === bookStatusFilter;
+                          const matchesAuthor = bookAuthorFilter === 'all' || b.author === bookAuthorFilter;
+                          return matchesStatus && matchesAuthor;
+                        });
+
+                        if (filteredBooks.length > 0) {
+                          return (
+                            <div className="mystery-books-grid">
+                              {filteredBooks.map((b, i) => (
+                                <div key={i} className="mystery-book-card">
+                                  <div className="mystery-book-cover">
+                                    {b.coverImg ? (
+                                      <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                    ) : (
+                                      <div className="mystery-book-cover-placeholder" style={{ background: b.bg || 'rgba(0,0,0,0.25)' }}>
+                                        <span style={{ fontSize: '2.5rem' }}>{b.coverIcon || '📚'}</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <div className="mystery-book-info">
+                                    <h4 className="mystery-book-title">{b.title}</h4>
+                                    <p className="mystery-book-author">{b.author}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div className="mystery-no-books" style={{ textAlign: 'center', padding: '3rem 1.5rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px dashed var(--glass-border)', color: 'var(--text-secondary)' }}>
+                              <p style={{ margin: 0, fontFamily: 'var(--font-mono)' }}>
+                                {lang === 'PT' ? 'Nenhum livro encontrado com os filtros selecionados.' : lang === 'ES' ? 'No se encontraron libros con los filtros seleccionados.' : lang === 'FR' ? 'Aucun livre trouvé avec les filtres sélectionnés.' : lang === 'DE' ? 'Keine Bücher mit den ausgewählten Filtern gefunden.' : 'No books found with the selected filters.'}
+                              </p>
+                            </div>
+                          );
+                        }
+                      })()}
+                    </div>
                   </div>
                 </div>
 
