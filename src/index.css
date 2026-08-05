@@ -4070,3 +4070,33 @@ h1, h2, h3, h4 {
   }
 }
 
+/* Light Theme Overrides for Language Dropdown & Book Filters */
+[data-theme='light'] .nav-lang-options {
+  background: var(--bg-secondary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .nav-lang-option-item {
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .nav-lang-option-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .nav-lang-option-item.active {
+  background: rgba(123, 44, 191, 0.12);
+  color: var(--accent-purple);
+}
+
+[data-theme='light'] .filter-select {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .filter-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+

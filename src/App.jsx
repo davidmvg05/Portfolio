@@ -55,18 +55,26 @@ import imgBookBaltimore from './assets/books/olivrodosbaltimore.webp';
 import imgBookRostosMal from './assets/books/osrostosdomal.webp';
 import imgBookSemCulpa from './assets/books/semculpa.webp';
 import imgBookVidaPlaneta from './assets/books/umavidanonossoplaneta.webp';
+import imgBookHarryQuebert from './assets/books/averdadesobreocasoharryquebert.webp';
+import imgBookAlaskaSanders from './assets/books/ocasoalaskasanders.webp';
+import imgBookZoo from './assets/books/umacatastróficavisitaaozoo.webp';
+import imgBookIlhaMortal from './assets/books/ailhamortal.webp';
+import imgBookCamarote10 from './assets/books/amulherdocamarote10.webp';
+import imgBookQuestaoCulpa from './assets/books/umaquestaodeculpa.webp';
+import imgBookRic from './assets/books/olivrodoric.jpg';
+import imgBookLiberal from './assets/books/porquesouliberal.webp';
+import imgBookRogerAckroyd from './assets/books/oassassinatoderogerackroyd.webp';
 
 // PC parts
 import imgCpuRyzen from './assets/pc_parts/cpu_amdryzen55600x.webp';
 import imgGpuAsus from './assets/pc_parts/gpu_asus_gtx_1660_ti.webp';
 import imgRamCorsair from './assets/pc_parts/ram_corsair_16GB.webp';
-import imgMoboAsus from './assets/pc_parts/motherboard_b450-f_gaming_II.webp';
-import imgCoolerMaster from './assets/pc_parts/cpu_cooler_master_hyper_212.webp';
-import imgPsuCorsair from './assets/pc_parts/fonte_corsair_550w.webp';
-import imgSsdWd from './assets/pc_parts/nvme_wd_black_sn850.webp';
+import imgCoolerMaster from './assets/pc_parts/cpu_cooler_master_hyper_212-removebg-preview.png';
+import imgPsuCorsair from './assets/pc_parts/fonte_corsair_550w-removebg-preview.png';
+import imgSsdWd from './assets/pc_parts/nvme_wd_black_sn850-removebg-preview.png';
 import imgSsdSamsung from './assets/pc_parts/nvme_970_evo.webp';
 import imgHddWd from './assets/pc_parts/hdd_2tb.webp';
-import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l.webp';
+import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l-removebg-preview.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -2347,7 +2355,6 @@ function App() {
               brand: 'Asus ROG',
               fullname: 'Asus ROG Strix B450-F Gaming II ATX Motherboard',
               specs: 'ATX Form Factor, AMD AM4 Socket, DDR4 support, dual M.2 slots, Aura Sync',
-              photo: imgMoboAsus,
               why: lang === 'PT'
                 ? 'Uma base sólida com fornecimento de energia robusto, refrigeração passiva avançada e o estilo icónico da ROG.'
                 : lang === 'ES'
@@ -2448,7 +2455,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #1e1b4b, #3b0764)',
               border: '#c084fc',
-              coverIcon: '🔍'
+              coverImg: imgBookHarryQuebert
             },
             {
               title: lang === 'PT' ? "O Livro dos Baltimore" : lang === 'ES' ? "El Libro de los Baltimore" : lang === 'FR' ? "Le Livre des Baltimore" : lang === 'DE' ? "Die Baltimore-Alten" : "The Baltimore Boys",
@@ -2484,7 +2491,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #3b0764, #1e1b4b)',
               border: '#f472b6',
-              coverIcon: '❄️'
+              coverImg: imgBookAlaskaSanders
             },
             {
               title: lang === 'PT' ? "Uma Catastrófica Visita ao Zoo" : lang === 'ES' ? "Una catastrófica visita al Zoo" : lang === 'FR' ? "Une catastrophique visite au Zoo" : lang === 'DE' ? "Ein katastrophaler Zoobesuch" : "A Catastrophic Visit to the Zoo",
@@ -2493,7 +2500,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #1e3a8a, #0d9488)',
               border: '#38bdf8',
-              coverIcon: '🦁'
+              coverImg: imgBookZoo
             },
             {
               title: lang === 'PT' ? "O Intruso" : lang === 'ES' ? "El visitante" : lang === 'FR' ? "L'Outsider" : lang === 'DE' ? "Der Outsider" : "The Outsider",
@@ -2520,7 +2527,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #581c87, #0f172a)',
               border: '#c084fc',
-              coverIcon: '🏝️'
+              coverImg: imgBookIlhaMortal
             },
             {
               title: lang === 'PT' ? "A Mulher do Camarote 10" : lang === 'ES' ? "La mujer del camarote 10" : lang === 'FR' ? "La Femme de la cabine 10" : lang === 'DE' ? "Woman in Cabin 10" : "The Woman in Cabin 10",
@@ -2529,7 +2536,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #1e293b, #0f172a)',
               border: '#94a3b8',
-              coverIcon: '🚢'
+              coverImg: imgBookCamarote10
             },
             {
               title: lang === 'PT' ? "Uma Questão de Culpa" : lang === 'ES' ? "Una cuestión de culpa" : lang === 'FR' ? "Une question de culpabilité" : lang === 'DE' ? "Eine Frage der Schuld" : "A Question of Guilt",
@@ -2538,7 +2545,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #111827, #374151)',
               border: '#9ca3af',
-              coverIcon: '⚖️'
+              coverImg: imgBookQuestaoCulpa
             },
             {
               title: lang === 'PT' ? "Sem Culpa" : lang === 'ES' ? "Sin culpa" : lang === 'FR' ? "Sans culpabilité" : lang === 'DE' ? "Ohne Schuld" : "Without Guilt",
@@ -2574,7 +2581,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #1e3a8a, #172554)',
               border: '#3b82f6',
-              coverIcon: '🎮'
+              coverImg: imgBookRic
             },
             {
               title: lang === 'PT' ? "Porque Sou Liberal" : lang === 'ES' ? "Por qué soy liberal" : lang === 'FR' ? "Pourquoi je suis libéral" : lang === 'DE' ? "Warum ich liberal bin" : "Why I Am Liberal",
@@ -2583,7 +2590,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #0369a1, #0c4a6e)',
               border: '#0ea5e9',
-              coverIcon: '🗽'
+              coverImg: imgBookLiberal
             },
             {
               title: lang === 'PT' ? "O Assassinato de Roger Ackroyd" : lang === 'ES' ? "El asesinato de Roger Ackroyd" : lang === 'FR' ? "Le Meurtre de Roger Ackroyd" : lang === 'DE' ? "Alibi" : "The Murder of Roger Ackroyd",
@@ -2592,7 +2599,7 @@ function App() {
               status: "lido",
               bg: 'linear-gradient(135deg, #18181b, #27272a)',
               border: '#71717a',
-              coverIcon: '🕵️‍♀️'
+              coverImg: imgBookRogerAckroyd
             },
             {
               title: lang === 'PT' ? "Daqui Ali: De Portugal a Singapura por Terra" : lang === 'ES' ? "De aquí para allá: De Portugal a Singapur por Tierra" : lang === 'FR' ? "D'ici là: Du Portugal à Singapour par Terre" : lang === 'DE' ? "Von hier nach da: Von Portugal nach Singapur über Land" : "From Here to There: From Portugal to Singapore by Land",
@@ -2844,7 +2851,7 @@ function App() {
                           return (
                             <div className="mystery-books-grid">
                               {filteredBooks.map((b, i) => (
-                                <div key={i} className="mystery-book-card">
+                                <div key={i} className="mystery-book-card" title={`${b.title} - ${b.author}`}>
                                   <div className="mystery-book-cover">
                                     {b.coverImg ? (
                                       <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
@@ -2853,10 +2860,6 @@ function App() {
                                         <span style={{ fontSize: '2.5rem' }}>{b.coverIcon || '📚'}</span>
                                       </div>
                                     )}
-                                  </div>
-                                  <div className="mystery-book-info">
-                                    <h4 className="mystery-book-title">{b.title}</h4>
-                                    <p className="mystery-book-author">{b.author}</p>
                                   </div>
                                 </div>
                               ))}
