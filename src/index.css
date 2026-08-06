@@ -3020,6 +3020,10 @@ h1, h2, h3, h4 {
     display: block !important;
   }
 
+  .nav-menu {
+    display: none !important;
+  }
+
   .nav-actions {
     display: none !important; /* Hide desktop links and theme switcher */
   }
@@ -4100,3 +4104,24 @@ h1, h2, h3, h4 {
   color: var(--text-primary);
 }
 
+/* See More Books Button Styles */
+.see-more-books-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.8rem 2rem;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.see-more-books-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+  transform: translateY(-2px);
+}

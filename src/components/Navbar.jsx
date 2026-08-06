@@ -6,6 +6,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const menuItems = ['Home', 'Journey', 'Projects', 'Skills', 'Contact'];
@@ -269,27 +270,28 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             <span className="logo-bracket">/ &gt;</span>
           </a>
 
-          {/* Right Side: Desktop Navigation Menu, Language Selector & Theme Switcher */}
-          <div className="nav-actions">
-            <nav className="nav-menu">
-              {menuItems.map((item) => {
-                const id = item.toLowerCase();
-                const isActive = activeSection === id;
-                return (
-                  <a
-                    key={item}
-                    href={`#${id}`}
-                    onClick={(e) => handleLinkClick(e, id)}
-                    className={`nav-link ${isActive ? 'active' : ''}`}
-                  >
-                    <span className="bracket">&lt;</span>
-                    <span className="link-text">{getLabel(item)}</span>
-                    <span className="bracket">/&gt;</span>
-                  </a>
-                );
-              })}
-            </nav>
+          {/* Middle: Desktop Navigation Menu */}
+          <nav className="nav-menu">
+            {menuItems.map((item) => {
+              const id = item.toLowerCase();
+              const isActive = activeSection === id;
+              return (
+                <a
+                  key={item}
+                  href={`#${id}`}
+                  onClick={(e) => handleLinkClick(e, id)}
+                  className={`nav-link ${isActive ? 'active' : ''}`}
+                >
+                  <span className="bracket">&lt;</span>
+                  <span className="link-text">{getLabel(item)}</span>
+                  <span className="bracket">/&gt;</span>
+                </a>
+              );
+            })}
+          </nav>
 
+          {/* Right Side: Language Selector & Theme Switcher */}
+          <div className="nav-actions">
             {/* Language Selector Dropdown */}
             <div className="nav-lang-dropdown" ref={dropdownRef}>
               <button 
@@ -367,39 +369,41 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             {renderBB8Toggle()}
           </div>
 
-          {/* Language Selection Chips on Mobile */}
-          <div className="mobile-drawer-lang-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem' }}>
+          {/* Language Selection Dropdown on Mobile */}
+          <div className="mobile-drawer-lang-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem', width: '100%', position: 'relative' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
               {lang === 'PT' ? 'Alterar Idioma' : lang === 'ES' ? 'Cambiar Idioma' : lang === 'FR' ? 'Changer de Langue' : lang === 'DE' ? 'Sprache ändern' : 'Change Language'}
             </span>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
-              {languages.map((l) => (
-                <button
-                  key={l.code}
-                  className={`mobile-lang-chip ${lang === l.code ? 'active' : ''}`}
-                  onClick={() => {
-                    if (setLang) setLang(l.code);
-                  }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.4rem',
-                    padding: '0.4rem 0.8rem',
-                    borderRadius: '20px',
-                    border: '1px solid',
-                    borderColor: lang === l.code ? 'var(--accent-purple)' : 'var(--glass-border)',
-                    background: lang === l.code ? 'rgba(168, 85, 247, 0.15)' : 'rgba(255, 255, 255, 0.02)',
-                    color: lang === l.code ? 'var(--text-primary)' : 'var(--text-secondary)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.8rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  {renderFlag(l.code)}
-                  <span>{l.code}</span>
-                </button>
-              ))}
+            <div className="nav-lang-dropdown mobile-lang-dropdown" style={{ margin: 0, width: '180px', position: 'relative' }}>
+              <button 
+                className="nav-lang-btn" 
+                onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+                aria-label="Select language"
+                style={{ width: '100%', justifyContent: 'space-between' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  {renderFlag(lang)}
+                  <span className="nav-lang-code">{lang}</span>
+                </div>
+                <ChevronDown size={14} className={`nav-lang-arrow ${isMobileDropdownOpen ? 'open' : ''}`} />
+              </button>
+              {isMobileDropdownOpen && (
+                <div className="nav-lang-options" style={{ left: '50%', transform: 'translateX(-50%)', width: '100%', top: 'calc(100% + 4px)', position: 'absolute' }}>
+                  {languages.map((l) => (
+                    <button 
+                      key={l.code} 
+                      className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
+                      onClick={() => {
+                        if (setLang) setLang(l.code);
+                        setIsMobileDropdownOpen(false);
+                      }}
+                    >
+                      {renderFlag(l.code)}
+                      <span className="nav-lang-name">{l.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

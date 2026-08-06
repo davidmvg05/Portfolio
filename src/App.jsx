@@ -69,12 +69,13 @@ import imgBookRogerAckroyd from './assets/books/oassassinatoderogerackroyd.webp'
 import imgCpuRyzen from './assets/pc_parts/cpu_amdryzen55600x.webp';
 import imgGpuAsus from './assets/pc_parts/gpu_asus_gtx_1660_ti.webp';
 import imgRamCorsair from './assets/pc_parts/ram_corsair_16GB.webp';
-import imgCoolerMaster from './assets/pc_parts/cpu_cooler_master_hyper_212-removebg-preview.png';
-import imgPsuCorsair from './assets/pc_parts/fonte_corsair_550w-removebg-preview.png';
-import imgSsdWd from './assets/pc_parts/nvme_wd_black_sn850-removebg-preview.png';
+import imgMoboAsus from './assets/pc_parts/motherboard_b450-f_gaming_II.webp';
+import imgCoolerMaster from './assets/pc_parts/cpu_cooler_master_hyper_212.png';
+import imgPsuCorsair from './assets/pc_parts/fonte_corsair_550w.png';
+import imgSsdWd from './assets/pc_parts/nvme_wd_black_sn850.png';
 import imgSsdSamsung from './assets/pc_parts/nvme_970_evo.webp';
 import imgHddWd from './assets/pc_parts/hdd_2tb.webp';
-import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l-removebg-preview.png';
+import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l.png';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -142,6 +143,11 @@ function App() {
   const [lang, setLang] = useState('PT');
   const [bookStatusFilter, setBookStatusFilter] = useState('all'); // 'all', 'lido', 'vou-ler'
   const [bookAuthorFilter, setBookAuthorFilter] = useState('all'); // 'all', or specific author
+  const [visibleBooksCount, setVisibleBooksCount] = useState(8);
+
+  useEffect(() => {
+    setVisibleBooksCount(8);
+  }, [bookStatusFilter, bookAuthorFilter]);
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -2355,6 +2361,7 @@ function App() {
               brand: 'Asus ROG',
               fullname: 'Asus ROG Strix B450-F Gaming II ATX Motherboard',
               specs: 'ATX Form Factor, AMD AM4 Socket, DDR4 support, dual M.2 slots, Aura Sync',
+              photo: imgMoboAsus,
               why: lang === 'PT'
                 ? 'Uma base sólida com fornecimento de energia robusto, refrigeração passiva avançada e o estilo icónico da ROG.'
                 : lang === 'ES'
@@ -2847,23 +2854,38 @@ function App() {
                           return matchesStatus && matchesAuthor;
                         });
 
+                        const displayedBooks = filteredBooks.slice(0, visibleBooksCount);
+
                         if (filteredBooks.length > 0) {
                           return (
-                            <div className="mystery-books-grid">
-                              {filteredBooks.map((b, i) => (
-                                <div key={i} className="mystery-book-card" title={`${b.title} - ${b.author}`}>
-                                  <div className="mystery-book-cover">
-                                    {b.coverImg ? (
-                                      <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                                    ) : (
-                                      <div className="mystery-book-cover-placeholder" style={{ background: b.bg || 'rgba(0,0,0,0.25)' }}>
-                                        <span style={{ fontSize: '2.5rem' }}>{b.coverIcon || '📚'}</span>
-                                      </div>
-                                    )}
+                            <>
+                              <div className="mystery-books-grid">
+                                {displayedBooks.map((b, i) => (
+                                  <div key={i} className="mystery-book-card" title={`${b.title} - ${b.author}`}>
+                                    <div className="mystery-book-cover">
+                                      {b.coverImg ? (
+                                        <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                      ) : (
+                                        <div className="mystery-book-cover-placeholder" style={{ background: b.bg || 'rgba(0,0,0,0.25)' }}>
+                                          <span style={{ fontSize: '2.5rem' }}>{b.coverIcon || '📚'}</span>
+                                        </div>
+                                      )}
+                                    </div>
                                   </div>
+                                ))}
+                              </div>
+
+                              {filteredBooks.length > visibleBooksCount && (
+                                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+                                  <button 
+                                    className="see-more-books-btn"
+                                    onClick={() => setVisibleBooksCount(prev => prev + 8)}
+                                  >
+                                    {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : lang === 'FR' ? 'Voir Plus' : lang === 'DE' ? 'Mehr anzeigen' : 'See More'} &rarr;
+                                  </button>
                                 </div>
-                              ))}
-                            </div>
+                              )}
+                            </>
                           );
                         } else {
                           return (
