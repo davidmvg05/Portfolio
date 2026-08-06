@@ -210,7 +210,7 @@ function App() {
       emailLabel: "E-mail",
       messageLabel: "Mensagem",
       sendButton: "Enviar Mensagem",
-      privacyPolicy: "Política de Privacidade",
+      privacyPolicy: "{t('privacyPolicy')}",
       rightsReserved: "Todos os direitos reservados.",
       cookieHeader: "Política de Cookies",
       cookieDesc: "Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website. Ao clicar em \"Aceitar Todos\", consente a utilização dos cookies.",
@@ -423,6 +423,14 @@ function App() {
   };
 
   const t = (key) => translations[lang]?.[key] || translations['PT'][key];
+
+  const d = (pt, es, fr, de, en) => {
+    if (lang === 'PT') return pt;
+    if (lang === 'ES') return es || en;
+    if (lang === 'FR') return fr || en;
+    if (lang === 'DE') return de || en;
+    return en;
+  };
 
   const translateSubject = (subj) => {
     const isPT = lang === 'PT';
@@ -972,7 +980,7 @@ function App() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setContactStatus({ type: 'loading', message: '⚡ A enviar mensagem...' });
+    setContactStatus({ type: 'loading', message: lang === 'PT' ? "⚡ A enviar mensagem..." : lang === 'ES' ? "⚡ Enviando mensaje..." : lang === 'FR' ? "⚡ Envoi du message..." : lang === 'DE' ? "⚡ Nachricht wird gesendet..." : "⚡ Sending message..." });
     const formData = new FormData(e.target);
     formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
     formData.append("subject", "Contacto do Portfolio");
@@ -988,18 +996,18 @@ function App() {
       const data = await response.json();
 
       if (data.success) {
-        setContactStatus({ type: 'success', message: '✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve.' });
+        setContactStatus({ type: 'success', message: lang === 'PT' ? "✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve." : lang === 'ES' ? "✨ ¡Tu mensaje fue transmitido con éxito! David responderá pronto." : lang === 'FR' ? "✨ Votre message a été transmis avec succès ! David répondra bientôt." : lang === 'DE' ? "✨ Ihre Nachricht wurde erfolgreich gesendet! David wird bald antworten." : "Your message has been successfully transmitted! David will reply soon." });
         e.target.reset();
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       } else {
-        setContactStatus({ type: 'error', message: '❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.' });
+        setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : "❌ An error occurred while sending the message. Please try again." });
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       }
     } catch (error) {
       console.error("Form submit error:", error);
-      setContactStatus({ type: 'error', message: '❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.' });
+      setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al conectar con el servidor. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de la connexion au serveur. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler bei der Verbindung mit dem Server. Bitte versuchen Sie es erneut." : "❌ An error occurred while connecting to the server. Please try again." });
       // Clear message after 5 seconds
       setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
     }
@@ -1007,7 +1015,7 @@ function App() {
 
   const handleOmegaSubmit = async (e) => {
     e.preventDefault();
-    setOmegaStatus({ type: 'loading', message: '⚡ A enviar pedido...' });
+    setOmegaStatus({ type: 'loading', message: lang === 'PT' ? "⚡ A enviar pedido..." : lang === 'ES' ? "⚡ Enviando solicitud..." : lang === 'FR' ? "⚡ Envoi de la demande..." : lang === 'DE' ? "⚡ Anfrage wird gesendet..." : "⚡ Sending request..." });
     const formData = new FormData(e.target);
     formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
     formData.append("subject", "Pedido de Palavra-Passe Omega");
@@ -1023,7 +1031,7 @@ function App() {
       const data = await response.json();
 
       if (data.success) {
-        setOmegaStatus({ type: 'success', message: '✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve.' });
+        setOmegaStatus({ type: 'success', message: lang === 'PT' ? "✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve." : lang === 'ES' ? "✨ ¡Solicitud de acceso enviada con éxito! Te enviaré la contraseña pronto." : lang === 'FR' ? "✨ Demande d'accès envoyée avec succès ! Je vous enverrai le mot de passe bientôt." : lang === 'DE' ? "✨ Zugangsanfrage erfolgreich gesendet! Ich werde Ihnen das Passwort bald senden." : "✨ Access request sent successfully! I will send you the password soon." });
         e.target.reset();
         // Close modal after 5 seconds
         setTimeout(() => {
@@ -1031,13 +1039,13 @@ function App() {
           setOmegaStatus({ type: null, message: '' });
         }, 5000);
       } else {
-        setOmegaStatus({ type: 'error', message: '❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.' });
+        setOmegaStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar la solicitud. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut." : "❌ An error occurred while sending the request. Please try again." });
         // Clear message after 5 seconds
         setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
       }
     } catch (error) {
       console.error("Omega submit error:", error);
-      setOmegaStatus({ type: 'error', message: '❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente.' });
+      setOmegaStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al conectar con el servidor. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de la connexion au serveur. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler bei der Verbindung mit dem Server. Bitte versuchen Sie es erneut." : "❌ An error occurred while connecting to the server. Please try again." });
       // Clear message after 5 seconds
       setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
     }
@@ -2315,157 +2323,179 @@ function App() {
           const pcParts = [
             {
               id: 'cpu',
-              category: 'Processor',
+              category: d('Processador', 'Procesador', 'Processeur', 'Prozessor', 'Processor'),
               name: 'AMD Ryzen 5 5600X',
               brand: 'AMD',
               fullname: 'AMD Ryzen 5 5600X "Zen 3" 6-Core 3.7GHz (Turbo 4.6GHz) 35MB Cache AM4',
               specs: '6 Cores, 12 Threads, 3.7GHz Base, 4.6GHz Turbo, 35MB Cache, AM4',
               photo: imgCpuRyzen,
-              why: lang === 'PT' 
-                ? 'Escolha ideal para um desempenho gaming e de produtividade fantástico, com excelente eficiência de TDP a 65W.'
-                : lang === 'ES'
-                  ? 'Elección ideal para un fantástico rendimiento en juegos y productividad, con una excelente eficiencia de TDP a 65W.'
-                  : 'Ideal choice for fantastic gaming and productivity performance, with excellent TDP efficiency at 65W.'
+              why: d(
+                "Escolha ideal para um desempenho gaming e de produtividade fantástico, com excelente eficiência de TDP a 65W.",
+                "Elección ideal para un fantástico rendimiento en juegos y productividad, con una excelente eficiencia de TDP a 65W.",
+                "Choix idéal pour des performances de jeu et de productivité fantastiques, avec une excellente efficacité TDP à 65W.",
+                "Ideale Wahl für fantastische Gaming- und Produktivitätsleistung bei hervorragender TDP-Effizienz von 65 W.",
+                "Ideal choice for fantastic gaming and productivity performance, with excellent TDP efficiency at 65W."
+              )
             },
             {
               id: 'gpu',
-              category: 'Graphics Card',
+              category: d('Placa Gráfica', 'Tarjeta Gráfica', 'Carte Graphique', 'Grafikkarte', 'Graphics Card'),
               name: 'Asus GeForce GTX 1660 Ti Evo TUF Gaming',
               brand: 'Asus / NVIDIA',
               fullname: 'Asus GeForce GTX 1660 Ti Evo TUF Gaming 6GB GDDR6 OC Edition',
               specs: '6GB GDDR6, Dual Fan, OC Edition, Auto-Extreme Technology',
               photo: imgGpuAsus,
-              why: lang === 'PT'
-                ? 'Excelente placa gráfica para jogar a 1080p, com o sistema robusto TUF que garante estabilidade de temperatura e durabilidade.'
-                : lang === 'ES'
-                  ? 'Excelente tarjeta gráfica para jugar a 1080p, con el robusto sistema TUF que garantiza estabilidad de temperatura y durabilidad.'
-                  : 'Excellent graphics card for 1080p gaming, with the robust TUF system that guarantees temperature stability and durability.'
+              why: d(
+                "Excelente placa gráfica para jogar a 1080p, com o sistema robusto TUF que garante estabilidade de temperatura e durabilidade.",
+                "Excelente tarjeta gráfica para jugar a 1080p, con el robusto sistema TUF que garantiza estabilidad de temperatura y durabilidad.",
+                "Excellente carte graphique pour le jeu en 1080p, avec le système TUF robuste qui garantit stabilité thermique et durabilité.",
+                "Hervorragende Grafikkarte für 1080p-Gaming mit dem robusten TUF-System, das Temperaturstabilität und Langlebigkeit garantiert.",
+                "Excellent graphics card for 1080p gaming, with the robust TUF system that guarantees temperature stability and durability."
+              )
             },
             {
               id: 'ram',
-              category: 'Memory (RAM)',
+              category: d('Memória RAM', 'Memoria (RAM)', 'Mémoire (RAM)', 'Arbeitsspeicher (RAM)', 'Memory (RAM)'),
               name: 'Corsair Vengeance RGB Pro 16GB (2x8GB)',
               brand: 'Corsair',
               fullname: 'Corsair Vengeance RGB Pro 16GB (2x8GB) DDR4-3200MHz CL16',
               specs: 'DDR4 3200MHz, CL16 (16-18-18-36), 1.35V, Intel XMP 2.0 support',
               photo: imgRamCorsair,
-              why: lang === 'PT'
-                ? 'Desempenho super rápido com iluminação RGB dinâmica personalizável para um visual premium dentro do chassis.'
-                : lang === 'ES'
-                  ? 'Rendimiento superrápido con iluminación RGB dinámica personalizable para un aspecto premium dentro del chasis.'
-                  : 'Super-fast performance with customizable dynamic RGB lighting for a premium look inside the chassis.'
+              why: d(
+                "Desempenho super rápido com iluminação RGB dinâmica personalizável para um visual premium dentro do chassis.",
+                "Rendimiento superrápido con iluminación RGB dinámica personalizable para un aspecto premium dentro del chasis.",
+                "Performances ultra-rapides avec éclairage RGB dynamique personnalisable pour un aspect haut de gamme à l'intérieur du châssis.",
+                "Superschnelle Leistung mit anpassbarer dynamischer RGB-Beleuchtung für einen Premium-Look im Gehäuse.",
+                "Super-fast performance with customizable dynamic RGB lighting for a premium look inside the chassis."
+              )
             },
             {
               id: 'mobo',
-              category: 'Motherboard',
+              category: d('Placa Principal', 'Placa Base', 'Carte Mère', 'Mainboard', 'Motherboard'),
               name: 'Asus ROG Strix B450-F Gaming II',
               brand: 'Asus ROG',
               fullname: 'Asus ROG Strix B450-F Gaming II ATX Motherboard',
               specs: 'ATX Form Factor, AMD AM4 Socket, DDR4 support, dual M.2 slots, Aura Sync',
               photo: imgMoboAsus,
-              why: lang === 'PT'
-                ? 'Uma base sólida com fornecimento de energia robusto, refrigeração passiva avançada e o estilo icónico da ROG.'
-                : lang === 'ES'
-                  ? 'Una base sólida con suministro de energía robusto, enfriamiento pasivo avanzado y el estilo icónico de ROG.'
-                  : 'A solid foundation with robust power delivery, advanced passive cooling, and the iconic ROG styling.'
+              why: d(
+                "Uma base sólida com fornecimento de energia robusto, refrigeração passiva avançada e o estilo icónico da ROG.",
+                "Una base sólida con suministro de energía robusto, enfriamiento pasivo avanzado y el estilo icónico de ROG.",
+                "Une base solide avec une alimentation robuste, un refroidissement passif avancé et le style ROG emblématique.",
+                "Eine solide Basis mit robuster Stromversorgung, fortschrittlicher passiver Kühlung und dem ikonischen ROG-Design.",
+                "A solid foundation with robust power delivery, advanced passive cooling, and the iconic ROG styling."
+              )
             },
             {
               id: 'cooler',
-              category: 'CPU Cooler',
+              category: d('Cooler CPU', 'Disipador CPU', 'Refroidisseur CPU', 'CPU-Kühler', 'CPU Cooler'),
               name: 'Cooler Master Hyper 212 Black Edition',
               brand: 'Cooler Master',
               fullname: 'Cooler Master Hyper 212 Black Edition 120mm CPU Cooler',
               specs: '120mm PWM Fan, 4 Direct Contact Heat Pipes, gunmetal black finish',
               photo: imgCoolerMaster,
-              why: lang === 'PT'
-                ? 'Silencioso e ultra eficiente, mantém as temperaturas do Ryzen 5 controladas mesmo sob carga extrema.'
-                : lang === 'ES'
-                  ? 'Silencioso y ultra eficiente, mantiene las temperaturas del Ryzen 5 bajo control incluso bajo carga extrema.'
-                  : 'Quiet and ultra-efficient, keeping Ryzen 5 temperatures low even under heavy gaming or rendering loads.'
+              why: d(
+                "Silencioso e ultra eficiente, mantém as temperaturas do Ryzen 5 controladas mesmo sob carga extrema.",
+                "Silencioso y ultra eficiente, mantiene las temperaturas del Ryzen 5 bajo control incluso bajo carga extrema.",
+                "Silencieux et ultra-efficace, il maintient les températures du Ryzen 5 sous contrôle même sous une charge extrême.",
+                "Leise und extrem effizient, hält die Temperaturen des Ryzen 5 auch unter extremer Last unter Kontrolle.",
+                "Quiet and ultra-efficient, keeping Ryzen 5 temperatures low even under heavy gaming or rendering loads."
+              )
             },
             {
               id: 'psu',
-              category: 'Power Supply (PSU)',
+              category: d('Fonte de Alimentação', 'Fuente de Alimentación', 'Alimentation (PSU)', 'Netzteil (PSU)', 'Power Supply (PSU)'),
               name: 'Corsair CV Series CV550 550W',
               brand: 'Corsair',
               fullname: 'Corsair CV Series CV550 550W 80 Plus Bronze ATX Power Supply',
               specs: '550W, 80 Plus Bronze Certified, 120mm thermally controlled fan',
               photo: imgPsuCorsair,
-              why: lang === 'PT'
-                ? 'Fornecimento de energia silencioso e estável de categoria 80 Plus Bronze para todo o sistema.'
-                : lang === 'ES'
-                  ? 'Suministro de energía silencioso y estable de categoría 80 Plus Bronze para todo el sistema.'
-                  : 'Quiet and stable 80 Plus Bronze certified power delivery for the entire build.'
+              why: d(
+                "Fornecimento de energia silencioso e estável de categoria 80 Plus Bronze para todo o sistema.",
+                "Suministro de energía silencioso y estable de categoría 80 Plus Bronze para todo el sistema.",
+                "Alimentation silencieuse et stable certifiée 80 Plus Bronze pour l'ensemble du système.",
+                "Leise und stabile 80 Plus Bronze zertifizierte Stromversorgung für das gesamte System.",
+                "Quiet and stable 80 Plus Bronze certified power delivery for the entire build."
+              )
             },
             {
               id: 'ssd1',
-              category: 'Storage (NVMe SSD)',
+              category: d('Armazenamento NVMe', 'Almacenamiento (NVMe SSD)', 'Stockage (NVMe SSD)', 'Speicher (NVMe SSD)', 'Storage (NVMe SSD)'),
               name: 'WD_Black SN850 500GB M.2 NVMe',
               brand: 'Western Digital',
               fullname: 'SanDisk WD_Black SN850 500GB 3D NAND NVMe M.2 2280 SSD with Heatsink',
               specs: 'PCIe Gen4 technology, read speeds up to 7000MB/s, custom heatsink',
               photo: imgSsdWd,
-              why: lang === 'PT'
-                ? 'Instalado com dissipador de calor integrado para velocidades de carregamento ultrarrápidas no sistema operativo.'
-                : lang === 'ES'
-                  ? 'Instalado con disipador de calor integrado para velocidades de carga ultrarrápidas en el sistema operativo.'
-                  : 'Installed with integrated heatsink for lightning-fast operating system boot times and file transfers.'
+              why: d(
+                "Instalado com dissipador de calor integrado para velocidades de carregamento ultrarrápidas no sistema operativo.",
+                "Instalado con disipador de calor integrado para velocidades de carga ultrarrápidas en el sistema operativo.",
+                "Installé avec un dissipateur thermique intégré pour des vitesses de démarrage du système d'exploitation ultra-rapides.",
+                "Installiert mit integriertem Kühlkörper für blitzschnelle Systemstarts und Dateiübertragungen.",
+                "Installed with integrated heatsink for lightning-fast operating system boot times and file transfers."
+              )
             },
             {
               id: 'ssd2',
-              category: 'Storage (NVMe SSD)',
+              category: d('Armazenamento NVMe', 'Almacenamiento (NVMe SSD)', 'Stockage (NVMe SSD)', 'Speicher (NVMe SSD)', 'Storage (NVMe SSD)'),
               name: 'Samsung 970 EVO Plus 500GB',
               brand: 'Samsung',
               fullname: 'Samsung 970 EVO Plus 500GB NVMe M.2 SSD',
               specs: 'M.2 NVMe PCIe Gen3, read speeds up to 3500MB/s',
               photo: imgSsdSamsung,
-              why: lang === 'PT'
-                ? 'Armazenamento ultra fiável e de alto desempenho secundário para jogos e ferramentas de edição.'
-                : lang === 'ES'
-                  ? 'Almacenamiento secundario ultra confiable y de alto rendimiento para juegos y herramientas de edición.'
-                  : 'Ultra-reliable and high-performance secondary storage for heavy games and editing tools.'
+              why: d(
+                "Armazenamento ultra fiável e de alto desempenho secundário para jogos e ferramentas de edição.",
+                "Almacenamiento secundario ultra confiable y de alto rendimiento para juegos y herramientas de edición.",
+                "Stockage secondaire ultra-fiable et haute performance pour les jeux lourds et les outils d'édition.",
+                "Zuverlässiger und leistungsstarker Sekundärspeicher für anspruchsvolle Spiele und Bearbeitungswerkzeuge.",
+                "Ultra-reliable and high-performance secondary storage for heavy games and editing tools."
+              )
             },
             {
               id: 'hdd',
-              category: 'Storage (HDD)',
+              category: d('Armazenamento HDD', 'Almacenamiento (HDD)', 'Stockage (HDD)', 'Speicher (HDD)', 'Storage (HDD)'),
               name: 'WD_Black 2TB + 1TB 7200RPM',
               brand: 'Western Digital',
               fullname: 'Western Digital WD_Black 2TB + 1TB 7200RPM 64MB SATA III 3.5" HDDs',
               specs: 'SATA III 3.5" HDD, 64MB Cache, 7200 RPM high performance',
               photo: imgHddWd,
-              why: lang === 'PT'
-                ? 'Combinação de 3TB de discos mecânicos WD_Black para armazenar projetos de animação 3D pesados e grandes bibliotecas de média.'
-                : lang === 'ES'
-                  ? 'Combinación de 3TB de discos mecánicos WD_Black para almacenar proyectos de animación 3D pesados y grandes bibliotecas de medios.'
-                  : 'Combined 3TB of high-performance WD_Black mechanical drives to store heavy 3D animation projects and media library archives.'
+              why: d(
+                "Combinação de 3TB de discos mecânicos WD_Black para armazenar projetos de animação 3D pesados e grandes bibliotecas de média.",
+                "Combinación de 3TB de discos mecánicos WD_Black para almacenar proyectos de animación 3D pesados y grandes bibliotecas de medios.",
+                "Combinaison de 3 To de disques mécaniques WD_Black pour stocker des projets d'animation 3D volumineux et de grandes bibliothèques de médias.",
+                "Kombination aus 3 TB mechanischen WD_Black-Laufwerken zur Speicherung großer 3D-Animationsprojekte und Medienarchive.",
+                "Combined 3TB of high-performance WD_Black mechanical drives to store heavy 3D animation projects and media library archives."
+              )
             },
             {
               id: 'case',
-              category: 'Computer Case',
+              category: d('Caixa do PC', 'Caja de Ordenador', 'Boîtier PC', 'Computergehäuse', 'Computer Case'),
               name: 'Cooler Master MasterBox MB510L',
               brand: 'Cooler Master',
               fullname: 'Cooler Master MasterBox MB510L ATX Case with Black/Red Window',
               specs: 'ATX Mid-Tower, Carbon fiber texture front panel, Black with Red trim window',
               photo: imgCaseCoolerMaster,
-              why: lang === 'PT'
-                ? 'Design moderno com excelente fluxo de ar, janelas laterais transparentes e um contraste de tons vermelho/preto premium.'
-                : lang === 'ES'
-                  ? 'Diseño moderno con excelente flujo de aire, ventana lateral transparente y un contraste de tonos rojo/negro premium.'
-                  : 'Modern design with excellent ventilation, transparent side panel window, and premium red/black color trim.'
+              why: d(
+                "Design moderno com excelente fluxo de ar, janelas laterais transparentes e um contraste de tons vermelho/preto premium.",
+                "Diseño moderno con excelente flujo de aire, ventana lateral transparente y un contraste de tonos rojo/negro premium.",
+                "Design moderne avec une excellente ventilation, panneau latéral transparent et finitions premium rouge et noir.",
+                "Modernes Design mit hervorragender Belüftung, transparentem Seitenfenster und hochwertigen roten/schwarzen Zierleisten.",
+                "Modern design with excellent ventilation, transparent side panel window, and premium red/black color trim."
+              )
             },
             {
               id: 'ssd3',
-              category: 'Storage (SATA SSD)',
+              category: d('Armazenamento SSD', 'Almacenamiento (SATA SSD)', 'Stockage (SATA SSD)', 'Speicher (SATA SSD)', 'Storage (SATA SSD)'),
               name: 'Crucial BX500 2TB',
               brand: 'Crucial',
               fullname: 'Crucial BX500 2TB TLC NAND SATA III 2.5" SSD',
               specs: '2.5" Form Factor, SATA III 6 Gb/s, TLC NAND technology',
               photo: imgSsdCrucial,
-              why: lang === 'PT'
-                ? 'Espaço massivo para jogos e armazenamento de dados a uma velocidade fiável SATA III.'
-                : lang === 'ES'
-                  ? 'Espacio masivo para juegos y almacenamiento de datos a una velocidad confiable SATA III.'
-                  : 'Massive space for games and data storage at a reliable SATA III speed.'
+              why: d(
+                "Espaço massivo para jogos e armazenamento de dados a uma velocidade fiável SATA III.",
+                "Espacio masivo para juegos y almacenamiento de datos a una velocidad confiable SATA III.",
+                "Espace massif pour les jeux et le stockage de données à une vitesse SATA III fiable.",
+                "Massiver Speicherplatz für Spiele und Daten auf zuverlässiger SATA III-Geschwindigkeit.",
+                "Massive space for games and data storage at a reliable SATA III speed."
+              )
             }
           ];
 
@@ -3133,21 +3163,21 @@ function App() {
         <div className="journey-modal-overlay" onClick={() => setIsOmegaModalOpen(false)}>
           <div className="journey-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="journey-modal-close" onClick={() => setIsOmegaModalOpen(false)} aria-label="Fechar">&times;</button>
-            <h3 className="journey-modal-title" style={{ color: 'var(--accent-purple)' }}>Solicitar Acesso</h3>
+            <h3 className="journey-modal-title" style={{ color: 'var(--accent-purple)' }}>{t('sendRequest')}</h3>
             <h4 className="journey-modal-subtitle">Omega e-Store</h4>
             <form className="contact-form" style={{ marginTop: '1.5rem' }} onSubmit={handleOmegaSubmit}>
               <div className="form-group">
                 <label htmlFor="omega-name" className="form-label-bracketed">
                   <span className="bracket">&lt;</span>
-                  <span className="link-text">Nome</span>
+                  <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="omega-name" name="name" required placeholder="O teu nome..." />
+                <input type="text" id="omega-name" name="name" required placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-email" className="form-label-bracketed">
                   <span className="bracket">&lt;</span>
-                  <span className="link-text">Email</span>
+                  <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
                 <input type="email" id="omega-email" name="email" required placeholder="seu@email.com" />
@@ -3155,7 +3185,7 @@ function App() {
               <div className="form-group">
                 <label htmlFor="omega-message" className="form-label-bracketed">
                   <span className="bracket">&lt;</span>
-                  <span className="link-text">Mensagem</span>
+                  <span className="link-text">{t('messageLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
                 <textarea 
@@ -3163,7 +3193,7 @@ function App() {
                   name="message"
                   rows="4" 
                   required 
-                  defaultValue="Olá David, gostaria de solicitar a palavra-passe para aceder ao e-commerce da Omega."
+                  defaultValue={lang === 'PT' ? "Olá David, gostava de solicitar o acesso para ver a loja online da Omega." : lang === 'ES' ? "Hola David, me gustaría solicitar acceso para ver la tienda online de Omega." : lang === 'FR' ? "Bonjour David, je souhaite demander l'accès pour voir la boutique en ligne Omega." : lang === 'DE' ? "Hallo David, ich möchte Zugang anfordern, um den Omega-Online-Shop anzusehen." : "Hello David, I would like to request access to view the Omega online store."}
                 ></textarea>
               </div>
               <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
@@ -3175,7 +3205,7 @@ function App() {
                   style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                 />
                 <label htmlFor="privacy-consent-omega" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
-                  Li e aceito o tratamento dos meus dados pessoais como explicado pela{' '}
+                  {lang === 'PT' ? "Li e aceito o tratamento dos meus dados pessoais como explicado pela " : lang === 'ES' ? "He leído y acepto el tratamiento de mis datos personales según lo explicado en la " : lang === 'FR' ? "J'ai lu et j'accepte le traitement de mes données personnelles tel qu'expliqué dans la " : lang === 'DE' ? "Ich habe die Verarbeitung meiner personenbezogenen Daten gelesen und akzeptiere sie wie in der " : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
                     href="#privacy-policy" 
                     onClick={(e) => {
@@ -3191,7 +3221,7 @@ function App() {
               </div>
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Solicitar Acesso <Send size={16} />
+                  {t('sendRequest')} <Send size={16} />
                 </button>
                 {omegaStatus.message && (
                   <p className={`form-status-msg ${omegaStatus.type}`} style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}>
