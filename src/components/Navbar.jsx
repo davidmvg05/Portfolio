@@ -362,7 +362,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
         >
           <X size={26} />
         </button>
-        <div className="mobile-drawer-content" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '3rem', gap: '2rem' }}>
+        <div className="mobile-drawer-content" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '3rem', gap: '1rem' }}>
           
           <div className="mobile-drawer-toggle-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Alterar Tema</span>
@@ -407,7 +407,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             </div>
           </div>
 
-          <nav className="mobile-drawer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <nav className="mobile-drawer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             {menuItems.map((item) => {
               const id = item.toLowerCase();
               const isActive = activeSection === id;

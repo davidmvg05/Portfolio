@@ -76,6 +76,7 @@ import imgSsdWd from './assets/pc_parts/nvme_wd_black_sn850.png';
 import imgSsdSamsung from './assets/pc_parts/nvme_970_evo.webp';
 import imgHddWd from './assets/pc_parts/hdd_2tb.webp';
 import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l.png';
+import imgSsdCrucial from './assets/pc_parts/ssd_crucial_2tb.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -2451,6 +2452,20 @@ function App() {
                 : lang === 'ES'
                   ? 'Diseño moderno con excelente flujo de aire, ventana lateral transparente y un contraste de tonos rojo/negro premium.'
                   : 'Modern design with excellent ventilation, transparent side panel window, and premium red/black color trim.'
+            },
+            {
+              id: 'ssd3',
+              category: 'Storage (SATA SSD)',
+              name: 'Crucial BX500 2TB',
+              brand: 'Crucial',
+              fullname: 'Crucial BX500 2TB TLC NAND SATA III 2.5" SSD',
+              specs: '2.5" Form Factor, SATA III 6 Gb/s, TLC NAND technology',
+              photo: imgSsdCrucial,
+              why: lang === 'PT'
+                ? 'Espaço massivo para jogos e armazenamento de dados a uma velocidade fiável SATA III.'
+                : lang === 'ES'
+                  ? 'Espacio masivo para juegos y almacenamiento de datos a una velocidad confiable SATA III.'
+                  : 'Massive space for games and data storage at a reliable SATA III speed.'
             }
           ];
 
@@ -2864,7 +2879,7 @@ function App() {
                                   <div key={i} className="mystery-book-card" title={`${b.title} - ${b.author}`}>
                                     <div className="mystery-book-cover">
                                       {b.coverImg ? (
-                                        <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                        <img src={b.coverImg} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
                                       ) : (
                                         <div className="mystery-book-cover-placeholder" style={{ background: b.bg || 'rgba(0,0,0,0.25)' }}>
                                           <span style={{ fontSize: '2.5rem' }}>{b.coverIcon || '📚'}</span>
@@ -2875,14 +2890,23 @@ function App() {
                                 ))}
                               </div>
 
-                              {filteredBooks.length > visibleBooksCount && (
+                              {filteredBooks.length > 8 && (
                                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
-                                  <button 
-                                    className="see-more-books-btn"
-                                    onClick={() => setVisibleBooksCount(prev => prev + 8)}
-                                  >
-                                    {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : lang === 'FR' ? 'Voir Plus' : lang === 'DE' ? 'Mehr anzeigen' : 'See More'} &rarr;
-                                  </button>
+                                  {filteredBooks.length > visibleBooksCount ? (
+                                    <button 
+                                      className="see-more-books-btn"
+                                      onClick={() => setVisibleBooksCount(prev => prev + 8)}
+                                    >
+                                      {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : lang === 'FR' ? 'Voir Plus' : lang === 'DE' ? 'Mehr anzeigen' : 'See More'} &rarr;
+                                    </button>
+                                  ) : (
+                                    <button 
+                                      className="see-more-books-btn"
+                                      onClick={() => setVisibleBooksCount(8)}
+                                    >
+                                      &larr; {lang === 'PT' ? 'Ocultar' : lang === 'ES' ? 'Ocultar' : lang === 'FR' ? 'Masquer' : lang === 'DE' ? 'Ausblenden' : 'Hide'}
+                                    </button>
+                                  )}
                                 </div>
                               )}
                             </>
@@ -2904,7 +2928,7 @@ function App() {
                 {/* 3 — PC Build */}
                 <div className="mystery-section-block">
                   <h2 className="mystery-section-title">{t('pcTitle')}</h2>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+                  <div className="pc-build-grid">
                     {pcParts.map((part) => {
                       const isExpanded = activePcPart === part.id;
                       return (
