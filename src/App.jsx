@@ -2106,8 +2106,9 @@ function App() {
                    </a>.
                 </label>
               </div>
+              <TurnstileWidget tabIndex={5} theme="dark" />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendButton')} <Send size={16} />
                 </button>
                 {contactStatus.message && (
