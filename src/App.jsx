@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
+import TurnstileWidget from './components/TurnstileWidget';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText, Globe } from 'lucide-react';
 import logoLego from './assets/logos/logo_lego.png';
 import logoMymatchcare from './assets/logos/logo_mymatchcare.png';
@@ -210,7 +211,7 @@ function App() {
       emailLabel: "E-mail",
       messageLabel: "Mensagem",
       sendButton: "Enviar Mensagem",
-      privacyPolicy: "{t('privacyPolicy')}",
+      privacyPolicy: "Política de Privacidade",
       rightsReserved: "Todos os direitos reservados.",
       cookieHeader: "Política de Cookies",
       cookieDesc: "Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do website. Ao clicar em \"Aceitar Todos\", consente a utilização dos cookies.",
@@ -982,7 +983,10 @@ function App() {
     e.preventDefault();
     setContactStatus({ type: 'loading', message: lang === 'PT' ? "⚡ A enviar mensagem..." : lang === 'ES' ? "⚡ Enviando mensaje..." : lang === 'FR' ? "⚡ Envoi du message..." : lang === 'DE' ? "⚡ Nachricht wird gesendet..." : "⚡ Sending message..." });
     const formData = new FormData(e.target);
-    formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
+    const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (web3formsKey) {
+      formData.append("access_key", web3formsKey);
+    }
     formData.append("subject", "Contacto do Portfolio");
 
     try {
@@ -1001,7 +1005,7 @@ function App() {
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       } else {
-        setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : "❌ An error occurred while sending the message. Please try again." });
+        setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the message. Please try again.") });
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       }
@@ -1017,7 +1021,10 @@ function App() {
     e.preventDefault();
     setOmegaStatus({ type: 'loading', message: lang === 'PT' ? "⚡ A enviar pedido..." : lang === 'ES' ? "⚡ Enviando solicitud..." : lang === 'FR' ? "⚡ Envoi de la demande..." : lang === 'DE' ? "⚡ Anfrage wird gesendet..." : "⚡ Sending request..." });
     const formData = new FormData(e.target);
-    formData.append("access_key", "dd93b252-c2a2-4fd8-aaac-88cdd0a94aa4");
+    const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (web3formsKey) {
+      formData.append("access_key", web3formsKey);
+    }
     formData.append("subject", "Pedido de Palavra-Passe Omega");
 
     try {
@@ -2053,7 +2060,7 @@ function App() {
                   <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="name" name="name" required placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
+                <input type="text" id="name" name="name" required tabIndex={1} placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
               </div>
               <div className="form-group">
                 <label htmlFor="email" className="form-label-bracketed">
@@ -2061,7 +2068,7 @@ function App() {
                   <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+                <input type="email" id="email" name="email" required tabIndex={2} placeholder="seu@email.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="message" className="form-label-bracketed">
@@ -2069,7 +2076,7 @@ function App() {
                   <span className="link-text">{t('messageLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <textarea id="message" name="message" rows="5" required placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
+                <textarea id="message" name="message" rows="5" required tabIndex={3} placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
               </div>
               <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
                 <input 
@@ -2077,6 +2084,7 @@ function App() {
                    id="privacy-consent-main" 
                    name="privacy_consent" 
                    required 
+                   tabIndex={4}
                    style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                  />
                 <label htmlFor="privacy-consent-main" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
@@ -2087,6 +2095,7 @@ function App() {
                       : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
                      href="#privacy-policy" 
+                     tabIndex={-1}
                      onClick={(e) => {
                        e.preventDefault();
                        navigateToPrivacy();
@@ -3172,7 +3181,7 @@ function App() {
                   <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="omega-name" name="name" required placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
+                <input type="text" id="omega-name" name="name" required tabIndex={1} placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-email" className="form-label-bracketed">
@@ -3180,7 +3189,7 @@ function App() {
                   <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="email" id="omega-email" name="email" required placeholder="seu@email.com" />
+                <input type="email" id="omega-email" name="email" required tabIndex={2} placeholder="seu@email.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-message" className="form-label-bracketed">
@@ -3193,6 +3202,7 @@ function App() {
                   name="message"
                   rows="4" 
                   required 
+                  tabIndex={3}
                   defaultValue={lang === 'PT' ? "Olá David, gostava de solicitar o acesso para ver a loja online da Omega." : lang === 'ES' ? "Hola David, me gustaría solicitar acceso para ver la tienda online de Omega." : lang === 'FR' ? "Bonjour David, je souhaite demander l'accès pour voir la boutique en ligne Omega." : lang === 'DE' ? "Hallo David, ich möchte Zugang anfordern, um den Omega-Online-Shop anzusehen." : "Hello David, I would like to request access to view the Omega online store."}
                 ></textarea>
               </div>
@@ -3202,12 +3212,14 @@ function App() {
                   id="privacy-consent-omega" 
                   name="privacy_consent" 
                   required 
+                  tabIndex={4}
                   style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                 />
                 <label htmlFor="privacy-consent-omega" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
                   {lang === 'PT' ? "Li e aceito o tratamento dos meus dados pessoais como explicado pela " : lang === 'ES' ? "He leído y acepto el tratamiento de mis datos personales según lo explicado en la " : lang === 'FR' ? "J'ai lu et j'accepte le traitement de mes données personnelles tel qu'expliqué dans la " : lang === 'DE' ? "Ich habe die Verarbeitung meiner personenbezogenen Daten gelesen und akzeptiere sie wie in der " : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
                     href="#privacy-policy" 
+                    tabIndex={-1}
                     onClick={(e) => {
                       e.preventDefault();
                       setIsOmegaModalOpen(false);
@@ -3215,12 +3227,13 @@ function App() {
                     }}
                     style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}
                   >
-                    Política de Privacidade
+                    {t('privacyPolicy')}
                   </a>.
                 </label>
               </div>
+              <TurnstileWidget tabIndex={5} theme="dark" />
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
-                <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendRequest')} <Send size={16} />
                 </button>
                 {omegaStatus.message && (

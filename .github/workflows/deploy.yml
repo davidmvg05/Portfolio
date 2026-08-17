@@ -36,6 +36,9 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY || secrets.WEB3FORMS_ACCESS_KEY }}
+          VITE_CLOUDFLARE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || secrets.CLOUDFLARE_TURNSTILE_SITE_KEY || secrets.TURNSTILE_SITE_KEY }}
         run: npm run build
 
       - name: Setup Pages
