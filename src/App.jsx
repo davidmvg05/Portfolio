@@ -78,6 +78,7 @@ import imgSsdSamsung from './assets/pc_parts/nvme_970_evo.webp';
 import imgHddWd from './assets/pc_parts/hdd_2tb.webp';
 import imgCaseCoolerMaster from './assets/pc_parts/caixa_mb510l.png';
 import imgSsdCrucial from './assets/pc_parts/ssd_crucial_2tb.webp';
+import imgFanCorsair from './assets/pc_parts/fan_corsair_120mm.webp';
 
 const GithubIcon = ({ size = 24, ...props }) => (
   <svg
@@ -142,7 +143,16 @@ const CopyableText = ({ text }) => {
 };
 
 function App() {
-  const [lang, setLang] = useState('PT');
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('lang') || 'PT';
+    }
+    return 'PT';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
+  }, [lang]);
   const [bookStatusFilter, setBookStatusFilter] = useState('all'); // 'all', 'lido', 'vou-ler'
   const [bookAuthorFilter, setBookAuthorFilter] = useState('all'); // 'all', or specific author
   const [visibleBooksCount, setVisibleBooksCount] = useState(8);
@@ -168,7 +178,7 @@ function App() {
   const [activeProjectId, setActiveProjectId] = useState(null);
   const [isPdfFullscreen, setIsPdfFullscreen] = useState(false);
   const [activePdfUrl, setActivePdfUrl] = useState(null);
-  const [activePcPart, setActivePcPart] = useState('cpu');
+  const [activePcPart, setActivePcPart] = useState(null);
   const [pcViewMode, setPcViewMode] = useState('boxes');
   const [isDecrypting, setIsDecrypting] = useState(false);
   const [decryptionProgress, setDecryptionProgress] = useState(0);
@@ -1121,6 +1131,15 @@ function App() {
 
   const mainProjects = [
     {
+      id: "portfolio",
+      title: "Website - Portfólio Pessoal",
+      description: "Conceção, design de UX/UI e desenvolvimento de raiz do meu portefólio pessoal interativo e responsivo.",
+      tags: ["React", "UX/UI", "Vite"],
+      link: "portfolio-link",
+      image: logoPortfolio,
+      mobileImage: logoPortfolioMobile
+    },
+    {
       id: "alfaiatedaweb",
       title: "Website - Alfaiate da Web",
       description: "Desenvolvimento do website da Alfaiate da Web com foco no fluxo de UX/UI e design responsivo.",
@@ -1155,15 +1174,6 @@ function App() {
       link: "./documents/relatoriodeestagio.pdf",
       image: logoEstagio,
       mobileImage: logoEstagioMobile
-    },
-    {
-      id: "portfolio",
-      title: "Website - Portfólio Pessoal",
-      description: "Conceção, design de UX/UI e desenvolvimento de raiz do meu portefólio pessoal interativo e responsivo.",
-      tags: ["React", "UX/UI", "Vite"],
-      link: "portfolio-link",
-      image: logoPortfolio,
-      mobileImage: logoPortfolioMobile
     }
   ];
 
@@ -2501,10 +2511,26 @@ function App() {
               photo: imgSsdCrucial,
               why: d(
                 "Espaço massivo para jogos e armazenamento de dados a uma velocidade fiável SATA III.",
-                "Espacio masivo para juegos y almacenamiento de datos a una velocidad confiable SATA III.",
-                "Espace massif pour les jeux et le stockage de données à une vitesse SATA III fiable.",
+                "Espacio masivo para juegos y armazenamento de dados a uma velocidade confiable SATA III.",
+                "Espace massif para les jeux et le stockage de données à une vitesse SATA III fiable.",
                 "Massiver Speicherplatz für Spiele und Daten auf zuverlässiger SATA III-Geschwindigkeit.",
                 "Massive space for games and data storage at a reliable SATA III speed."
+              )
+            },
+            {
+              id: 'fan',
+              category: d('Ventoinha do PC', 'Ventilador de PC', 'Ventilateur PC', 'Gehäuselüfter', 'PC Fan'),
+              name: 'Corsair ML120 Pro LED',
+              brand: 'Corsair',
+              fullname: 'Corsair ML120 Pro LED Red 120mm Premium Magnetic Levitation Fan',
+              specs: '120mm PWM, Magnetic Levitation bearing, Red LED illumination, 400 - 1,600 RPM',
+              photo: imgFanCorsair,
+              why: d(
+                "Ventoinha premium com tecnologia de levitação magnética, oferecendo excelente fluxo de ar silencioso com iluminação LED vermelha correspondente ao esquema de cores do setup.",
+                "Ventilador premium con tecnología de levitación magnética, ofreciendo excelente flujo de aire silencioso con iluminación LED roja a juego con el setup.",
+                "Ventilateur haut de gamme à lévitation magnétique, offrant un excellent flux d'air silencieux et un éclairage LED rouge assorti au setup.",
+                "Premium-Lüfter mit Magnetschwebetechnologie, der einen hervorragenden leisen Luftstrom mit roter LED-Beleuchtung passend zum Setup bietet.",
+                "Premium magnetic levitation fan offering excellent, quiet airflow with red LED illumination matching the setup color scheme."
               )
             }
           ];
@@ -2814,6 +2840,17 @@ function App() {
                     <rect x="30" y="45" width="40" height="32" rx="2" fill="none" stroke={stroke} strokeWidth="1.5" />
                   </svg>
                 );
+              case 'fan':
+                return (
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <circle cx="50" cy="50" r="38" fill="none" stroke={stroke} strokeWidth="3" />
+                    <circle cx="50" cy="50" r="8" fill="none" stroke={strokeSec} strokeWidth="2" />
+                    <path d="M 50,12 C 55,25 45,35 50,42" fill="none" stroke={stroke} strokeWidth="2" />
+                    <path d="M 50,88 C 45,75 55,65 50,58" fill="none" stroke={stroke} strokeWidth="2" />
+                    <path d="M 12,50 C 25,45 35,55 42,50" fill="none" stroke={stroke} strokeWidth="2" />
+                    <path d="M 88,50 C 75,55 65,45 58,50" fill="none" stroke={stroke} strokeWidth="2" />
+                  </svg>
+                );
               default:
                 return null;
             }
@@ -3026,30 +3063,96 @@ function App() {
 
 
         {/* Privacy Policy Page View */}
-        {activeProjectId === 'privacy-policy' && (
-          <div className="privacy-page-view" style={{ padding: '8rem 1.5rem 4rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1 className="project-page-title" style={{ marginBottom: '2.5rem', textAlign: 'center', fontSize: '2.5rem' }}>Política de Privacidade</h1>
-            <div className="privacy-content-wrapper" style={{ maxWidth: '800px', width: '100%', color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '0.98rem' }}>
-              <p style={{ marginBottom: '1.2rem' }}>
-                <strong>1. Introdução:</strong> Bem-vindo à nossa Política de Privacidade. Valorizamos a confiança que deposita em nós ao partilhar as suas informações pessoais. Esta página descreve de forma clara e transparente como recolhemos, guardamos e processamos os seus dados pessoais ao navegar no nosso website, em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD).
-              </p>
-              <p style={{ marginBottom: '1.2rem' }}>
-                <strong>2. Recolha de Dados:</strong> As informações pessoais são recolhidas principalmente quando nos envia mensagens voluntariamente através dos formulários de contacto (tanto o formulário geral de contacto na página principal quanto o formulário de pedido de palavra-passe para o projeto Omega). Recolhemos o seu nome, endereço de e-mail e a mensagem que decidir escrever. Estes dados são tratados exclusivamente para responder ao seu contacto.
-              </p>
-              <p style={{ marginBottom: '1.2rem' }}>
-                <strong>3. Cookies:</strong> Além dos cookies essenciais que garantem o funcionamento básico do site, utilizamos cookies estatísticos e analíticos de terceiros através do Google Analytics 4 e do Google Tag Manager (GTM). Estes cookies só serão carregados e ativados após o seu consentimento explícito clicando em "Aceitar Todos" no nosso banner de cookies. Se decidir rejeitá-los ou não fizer uma escolha, os mesmos não serão instalados.
-              </p>
-              <p style={{ marginBottom: '1.2rem' }}>
-                <strong>4. Os Seus Direitos:</strong> De acordo com as leis em vigor, tem o direito de solicitar o acesso, retificação ou eliminação total de quaisquer dados que tenhamos armazenado relacionados consigo.
-              </p>
-              <div style={{ background: 'rgba(255, 107, 107, 0.05)', borderLeft: '3px solid #ff6b6b', padding: '1rem', borderRadius: '8px', marginTop: '1.5rem' }}>
-                <p style={{ color: 'var(--text-primary)', fontWeight: 'bold', margin: 0 }}>
-                  ⚠️ Importante: Se desejar que eu elimine definitivamente todos os seus dados pessoais recolhidos a partir deste site, deverá submeter o seu pedido contactando-me diretamente através do formulário de contacto presente na página inicial (homepage).
+        {activeProjectId === 'privacy-policy' && (() => {
+          const privacyTranslations = {
+            PT: {
+              title: "Política de Privacidade",
+              introTitle: "1. Introdução:",
+              introText: "Bem-vindo à nossa Política de Privacidade. Valorizamos a confiança que deposita em nós ao partilhar as suas informações pessoais. Esta página descreve de forma clara e transparente como recolhemos, guardamos e processamos os seus dados pessoais ao navegar no nosso website, em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD).",
+              dataTitle: "2. Recolha de Dados:",
+              dataText: "As informações pessoais são recolhidas principalmente quando nos envia mensagens voluntariamente através dos formulários de contacto (tanto o formulário geral de contacto na página principal quanto o formulário de pedido de palavra-passe para o projeto Omega). Recolhemos o seu nome, endereço de e-mail e a mensagem que decidir escrever. Estes dados são tratados exclusivamente para responder ao seu contacto.",
+              cookiesTitle: "3. Cookies:",
+              cookiesText: "Além dos cookies essenciais que garantem o funcionamento básico do site, utilizamos cookies estatísticos e analíticos de terceiros através do Google Analytics 4 e do Google Tag Manager (GTM). Estes cookies só serão carregados e ativados após o seu consentimento explícito clicando em \"Aceitar Todos\" no nosso banner de cookies. Se decidir rejeitá-los ou não fizer uma escolha, os mesmos não serão instalados.",
+              rightsTitle: "4. Os Seus Direitos:",
+              rightsText: "De acordo com as leis em vigor, tem o direito de solicitar o acesso, retificação ou eliminação total de quaisquer dados que tenhamos armazenado relacionados consigo.",
+              warningText: "⚠️ Importante: Se desejar que eu elimine definitivamente todos os seus dados pessoais recolhidos a partir deste site, deverá submeter o seu pedido contactando-me diretamente através do formulário de contacto presente na página inicial (homepage)."
+            },
+            EN: {
+              title: "Privacy Policy",
+              introTitle: "1. Introduction:",
+              introText: "Welcome to our Privacy Policy. We value the trust you place in us when sharing your personal information. This page describes clearly and transparently how we collect, store, and process your personal data while you browse our website, in compliance with the General Data Protection Regulation (GDPR).",
+              dataTitle: "2. Data Collection:",
+              dataText: "Personal information is collected mainly when you voluntarily send us messages through the contact forms (both the general contact form on the main page and the password request form for the Omega project). We collect your name, email address, and the message you choose to write. This data is processed exclusively to respond to your contact request.",
+              cookiesTitle: "3. Cookies:",
+              cookiesText: "In addition to the essential cookies that guarantee the basic operation of the site, we use third-party statistical and analytical cookies through Google Analytics 4 and Google Tag Manager (GTM). These cookies will only be loaded and activated after your explicit consent by clicking \"Accept All\" on our cookie banner. If you choose to reject them or do not make a choice, they will not be installed.",
+              rightsTitle: "4. Your Rights:",
+              rightsText: "In accordance with current laws, you have the right to request access, rectification, or complete deletion of any data we have stored related to you.",
+              warningText: "⚠️ Important: If you wish for me to permanently delete all your personal data collected from this site, you must submit your request by contacting me directly through the contact form on the home page."
+            },
+            ES: {
+              title: "Política de Privacidad",
+              introTitle: "1. Introducción:",
+              introText: "Bienvenido a nuestra Política de Privacidad. Valoramos la confianza que deposita en nosotros al compartir su información personal. Esta página describe de forma clara y transparente cómo recopilamos, almacenamos y procesamos sus datos personales al navegar por nuestro sitio web, de conformidad con el Reglamento General de Protección de Datos (RGPD).",
+              dataTitle: "2. Recopilación de Datos:",
+              dataText: "La información personal se recopila principalmente cuando nos envía mensajes voluntariamente a través de los formularios de contacto (tanto el formulario general de contacto en la página principal como el formulario de solicitud de contraseña para el proyecto Omega). Recopilamos su nombre, dirección de correo electrónico y el mensaje que decida escribir. Estos datos se procesan exclusivamente para responder a su contacto.",
+              cookiesTitle: "3. Cookies:",
+              cookiesText: "Además de las cookies esenciales que garantizan el funcionamiento básico del sitio, utilizamos cookies estadísticas y analíticas de terceros a través de Google Analytics 4 y Google Tag Manager (GTM). Estas cookies solo se cargarán y activarán tras su consentimiento explícito haciendo clic en \"Aceptar todo\" en nuestro banner de cookies. Si decide rechazarlas o no realiza una elección, no se instalarán.",
+              rightsTitle: "4. Sus Derechos:",
+              rightsText: "De conformidad con las leyes vigentes, tiene derecho a solicitar el acceso, rectificación o eliminación total de cualquier dato que hayamos almacenado relacionado con usted.",
+              warningText: "⚠️ Importante: Si desea que elimine definitivamente todos sus datos personales recopilados de este sitio, debe enviar su solicitud comunicándose conmigo directamente a través del formulario de contacto en la página de inicio."
+            },
+            FR: {
+              title: "Politique de Confidentialité",
+              introTitle: "1. Introduction :",
+              introText: "Bienvenue dans notre Politique de Confidentialité. Nous apprécions la confiance que vous nous accordez en partageant vos informations personnelles. Cette page décrit de manière claire et transparente comment nous collectons, stockons et traitons vos données personnelles lorsque vous naviguez sur notre site web, conformément au Règlement Général sur la Protection des Données (RGPD).",
+              dataTitle: "2. Collecte de Données :",
+              dataText: "Les informations personnelles sont collectées principalement lorsque vous nous envoyez volontairement des messages via les formulaires de contact (le formulaire général sur la page principale ainsi que le formulaire de demande de mot de passe pour le projet Omega). Nous collectons votre nom, votre adresse e-mail et le message que vous décidez d'écrire. Ces données sont traitées exclusivement pour répondre à votre demande de contact.",
+              cookiesTitle: "3. Cookies :",
+              cookiesText: "En plus des cookies essentiels garantissant le fonctionnement de base du site, nous utilisons des cookies statistiques et analytiques tiers via Google Analytics 4 et Google Tag Manager (GTM). Ces cookies ne seront chargés et activés qu'après votre consentement explicite en cliquant sur \"Tout accepter\" sur notre bannière de cookies. Si vous choisissez de les rejeter ou si vous ne faites pas de choix, ils ne seront pas installés.",
+              rightsTitle: "4. Vos Droits :",
+              rightsText: "Conformément aux lois en vigueur, vous disposez d'un droit d'accès, de rectification ou de suppression totale de toutes les données vous concernant que nous avons stockées.",
+              warningText: "⚠️ Important : Si vous souhaitez que je supprime définitivement toutes vos données personnelles collectées sur ce site, vous devez soumettre votre demande en me contactant directement via le formulaire de contact de la page d'accueil."
+            },
+            DE: {
+              title: "Datenschutzerklärung",
+              introTitle: "1. Einführung:",
+              introText: "Willkommen in unserer Datenschutzerklärung. Wir schätzen das Vertrauen, das Sie uns entgegenbringen, wenn Sie Ihre persönlichen Daten mit uns teilen. Diese Seite beschreibt klar und transparent, wie wir Ihre personenbezogenen Daten erfassen, speichern und verarbeiten, während Sie unsere Website durchsuchen, in Übereinstimmung mit der Datenschutz-Grundverordnung (DSGVO).",
+              dataTitle: "2. Datenerfassung:",
+              dataText: "Persönliche Daten werden hauptsächlich erfasst, wenn Sie uns freiwillig Nachrichten über die Kontaktformulare senden (sowohl über das allgemeine Kontaktformular auf der Hauptseite als auch über das Passwort-Anfrageformular für das Omega-Projekt). Wir erfassen Ihren Namen, Ihre E-Mail-Adresse und die Nachricht, die Sie schreiben möchten. Diese Daten werden ausschließlich zur Beantwortung Ihrer Kontaktaufnahme verarbeitet.",
+              cookiesTitle: "3. Cookies:",
+              cookiesText: "Zusätzlich zu den essenziellen Cookies, die den grundlegenden Betrieb der Website gewährleisten, verwenden wir statistische und analytische Cookies von Drittanbietern über Google Analytics 4 und den Google Tag Manager (GTM). Diese Cookies werden erst geladen und aktiviert, nachdem Sie Ihre ausdrückliche Zustimmung erteilt haben, indem Sie auf unserem Cookie-Banner auf \"Alle akzeptieren\" klicken. Wenn Sie sich entscheiden, sie abzulehnen oder keine Auswahl zu treffen, werden sie nicht installiert.",
+              rightsTitle: "4. Ihre Rechte:",
+              rightsText: "In Übereinstimmung mit den geltenden Gesetzen haben Sie das Recht, Zugang, Berichtigung oder vollständige Löschung aller von uns über Sie gespeicherten Daten zu verlangen.",
+              warningText: "⚠️ Wichtig: Wenn Sie möchten, dass ich alle von dieser Website erfassten personenbezogenen Daten dauerhaft lösche, müssen Sie Ihre Anfrage über das Kontaktformular auf der Homepage direkt an mich senden."
+            }
+          };
+
+          const pt = privacyTranslations[lang] || privacyTranslations.EN;
+          return (
+            <div className="privacy-page-view" style={{ padding: '8rem 1.5rem 4rem 1.5rem', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <h1 className="project-page-title" style={{ marginBottom: '2.5rem', textAlign: 'center', fontSize: '2.5rem' }}>{pt.title}</h1>
+              <div className="privacy-content-wrapper" style={{ maxWidth: '800px', width: '100%', color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '0.98rem' }}>
+                <p style={{ marginBottom: '1.2rem' }}>
+                  <strong>{pt.introTitle}</strong> {pt.introText}
                 </p>
+                <p style={{ marginBottom: '1.2rem' }}>
+                  <strong>{pt.dataTitle}</strong> {pt.dataText}
+                </p>
+                <p style={{ marginBottom: '1.2rem' }}>
+                  <strong>{pt.cookiesTitle}</strong> {pt.cookiesText}
+                </p>
+                <p style={{ marginBottom: '1.2rem' }}>
+                  <strong>{pt.rightsTitle}</strong> {pt.rightsText}
+                </p>
+                <div style={{ background: 'rgba(255, 107, 107, 0.05)', borderLeft: '3px solid #ff6b6b', padding: '1rem', borderRadius: '8px', marginTop: '1.5rem' }}>
+                  <p style={{ color: 'var(--text-primary)', fontWeight: 'bold', margin: 0 }}>
+                    {pt.warningText}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </main>
 
       <footer className="site-footer">

@@ -2993,14 +2993,16 @@ h1, h2, h3, h4 {
 }
 
 .checkbox-group input[type="checkbox"]:checked {
-  background: var(--accent-purple) !important;
-  border-color: var(--accent-purple) !important;
-  box-shadow: 0 0 10px var(--accent-purple-glow) !important;
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 10px var(--accent-blue-glow) !important;
 }
 
 .checkbox-group input[type="checkbox"]:checked::after {
-  content: "🚀" !important;
-  font-size: 0.85rem !important;
+  content: "\2713" !important;
+  font-size: 0.95rem !important;
+  color: white !important;
+  font-weight: bold !important;
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
