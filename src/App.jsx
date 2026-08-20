@@ -1008,6 +1008,7 @@ function App() {
       
       const [response] = await Promise.all([fetchPromise, delayPromise]);
       const data = await response.json();
+      console.log("Web3Forms API response:", data);
 
       if (data.success) {
         setContactStatus({ type: 'success', message: lang === 'PT' ? "✨ A tua mensagem foi transmitida com sucesso! O David responderá em breve." : lang === 'ES' ? "✨ ¡Tu mensaje fue transmitido con éxito! David responderá pronto." : lang === 'FR' ? "✨ Votre message a été transmis avec succès ! David répondra bientôt." : lang === 'DE' ? "✨ Ihre Nachricht wurde erfolgreich gesendet! David wird bald antworten." : "Your message has been successfully transmitted! David will reply soon." });
@@ -1015,7 +1016,7 @@ function App() {
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       } else {
-        setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the message. Please try again.") });
+        setContactStatus({ type: 'error', message: lang === 'PT' ? ("❌ " + (data.message || "Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.")) : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the message. Please try again.") });
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       }
@@ -1046,6 +1047,7 @@ function App() {
 
       const [response] = await Promise.all([fetchPromise, delayPromise]);
       const data = await response.json();
+      console.log("Web3Forms API response:", data);
 
       if (data.success) {
         setOmegaStatus({ type: 'success', message: lang === 'PT' ? "✨ Pedido de acesso enviado com sucesso! Enviarei a palavra-passe em breve." : lang === 'ES' ? "✨ ¡Solicitud de acceso enviada con éxito! Te enviaré la contraseña pronto." : lang === 'FR' ? "✨ Demande d'accès envoyée avec succès ! Je vous enverrai le mot de passe bientôt." : lang === 'DE' ? "✨ Zugangsanfrage erfolgreich gesendet! Ich werde Ihnen das Passwort bald senden." : "✨ Access request sent successfully! I will send you the password soon." });
@@ -1056,7 +1058,7 @@ function App() {
           setOmegaStatus({ type: null, message: '' });
         }, 5000);
       } else {
-        setOmegaStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar la solicitud. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut." : "❌ An error occurred while sending the request. Please try again." });
+        setOmegaStatus({ type: 'error', message: lang === 'PT' ? ("❌ " + (data.message || "Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.")) : lang === 'ES' ? "❌ Ocurrió un error al enviar la solicitud. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the request. Please try again.") });
         // Clear message after 5 seconds
         setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
       }
