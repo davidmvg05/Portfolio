@@ -173,8 +173,7 @@ function App() {
   const [isOmegaModalOpen, setIsOmegaModalOpen] = useState(false);
   const [contactStatus, setContactStatus] = useState({ type: null, message: '' });
   const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
-  const [mainCaptchaKey, setMainCaptchaKey] = useState(0);
-  const [omegaCaptchaKey, setOmegaCaptchaKey] = useState(0);
+
   const [typedWords, setTypedWords] = useState(["", "", ""]);
   const [activeWordIdx, setActiveWordIdx] = useState(0);
   const [activeProjectId, setActiveProjectId] = useState(null);
@@ -1022,7 +1021,7 @@ function App() {
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       }
-      setMainCaptchaKey(prev => prev + 1);
+      if (window.resetAllHCaptchas) window.resetAllHCaptchas();
     } catch (error) {
       console.error("Form submit error:", error);
       setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al conectar con el servidor. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de la connexion au serveur. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler bei der Verbindung mit dem Server. Bitte versuchen Sie es erneut." : "❌ An error occurred while connecting to the server. Please try again." });
@@ -1065,7 +1064,7 @@ function App() {
         // Clear message after 5 seconds
         setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
       }
-      setOmegaCaptchaKey(prev => prev + 1);
+      if (window.resetAllHCaptchas) window.resetAllHCaptchas();
     } catch (error) {
       console.error("Omega submit error:", error);
       setOmegaStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao ligar ao servidor. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al conectar con el servidor. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de la connexion au serveur. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler bei der Verbindung mit dem Server. Bitte versuchen Sie es erneut." : "❌ An error occurred while connecting to the server. Please try again." });
@@ -2135,7 +2134,7 @@ function App() {
                    </a>.
                 </label>
               </div>
-              <HCaptchaWidget key={mainCaptchaKey} tabIndex={5} theme="dark" />
+              <HCaptchaWidget tabIndex={5} theme="dark" />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendButton')} <Send size={16} />
@@ -3367,7 +3366,7 @@ function App() {
                   </a>.
                 </label>
               </div>
-              <HCaptchaWidget key={omegaCaptchaKey} tabIndex={5} theme="dark" />
+              <HCaptchaWidget tabIndex={5} theme="dark" />
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendRequest')} <Send size={16} />

@@ -32,7 +32,7 @@ export default function HCaptchaWidget({
         }
 
         try {
-          widgetIdRef.current = window.hcaptcha.render(containerRef.current, {
+          const id = window.hcaptcha.render(containerRef.current, {
             sitekey: siteKey,
             theme: theme,
             tabindex: tabIndex,
@@ -46,6 +46,22 @@ export default function HCaptchaWidget({
               if (onExpire) onExpire();
             }
           });
+          widgetIdRef.current = id;
+          if (typeof window !== 'undefined') {
+            window.myHCaptchaWidgets = window.myHCaptchaWidgets || [];
+            if (!window.myHCaptchaWidgets.includes(id)) {
+              window.myHCaptchaWidgets.push(id);
+            }
+            window.resetAllHCaptchas = () => {
+              if (window.myHCaptchaWidgets && window.hcaptcha) {
+                window.myHCaptchaWidgets.forEach(wid => {
+                  try {
+                    window.hcaptcha.reset(wid);
+                  } catch (e) {}
+                });
+              }
+            };
+          }
         } catch (err) {
           console.warn('hCaptcha render failed or already initialized:', err);
         }
@@ -72,22 +88,30 @@ export default function HCaptchaWidget({
         isMounted = false;
         clearInterval(interval);
         clearTimeout(timeout);
-        if (widgetIdRef.current !== null && window.hcaptcha) {
+        const id = widgetIdRef.current;
+        if (id !== null && window.hcaptcha) {
           try {
-            window.hcaptcha.reset(widgetIdRef.current);
+            window.hcaptcha.reset(id);
           } catch (e) {}
           widgetIdRef.current = null;
+          if (typeof window !== 'undefined' && window.myHCaptchaWidgets) {
+            window.myHCaptchaWidgets = window.myHCaptchaWidgets.filter(w => w !== id);
+          }
         }
       };
     }
 
     return () => {
       isMounted = false;
-      if (widgetIdRef.current !== null && window.hcaptcha) {
+      const id = widgetIdRef.current;
+      if (id !== null && window.hcaptcha) {
         try {
-          window.hcaptcha.reset(widgetIdRef.current);
+          window.hcaptcha.reset(id);
         } catch (e) {}
         widgetIdRef.current = null;
+        if (typeof window !== 'undefined' && window.myHCaptchaWidgets) {
+          window.myHCaptchaWidgets = window.myHCaptchaWidgets.filter(w => w !== id);
+        }
       }
     };
   }, [siteKey, theme, tabIndex]);
