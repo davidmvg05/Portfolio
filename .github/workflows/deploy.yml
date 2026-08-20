@@ -37,8 +37,8 @@ jobs:
 
       - name: Build
         env:
-          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY || secrets.WEB3FORMS_ACCESS_KEY }}
-          VITE_HCAPTCHA_SITE_KEY: ${{ secrets.VITE_HCAPTCHA_SITE_KEY || secrets.HCAPTCHA_SITE_KEY || '661a4714-a744-4da8-9be8-903e6394d018' }}
+          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
+          VITE_HCAPTCHA_SITE_KEY: ${{ secrets.VITE_HCAPTCHA_SITE_KEY }}
         run: npm run build
 
       - name: Setup Pages

@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
  * Explicit rendering with cleanup, dark theme, and strict tabindex (5).
  */
 export default function HCaptchaWidget({ 
-  siteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || '661a4714-a744-4da8-9be8-903e6394d018',
+  siteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY,
   theme = 'dark',
   tabIndex = 5,
   onVerify,
