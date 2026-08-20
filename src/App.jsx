@@ -1,8 +1,8 @@
-﻿import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
-import TurnstileWidget from './components/TurnstileWidget';
+import HCaptchaWidget from './components/HCaptchaWidget';
 import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText, Globe } from 'lucide-react';
 import logoLego from './assets/logos/logo_lego.png';
 import logoMymatchcare from './assets/logos/logo_mymatchcare.png';
@@ -2116,7 +2116,7 @@ function App() {
                    </a>.
                 </label>
               </div>
-              <TurnstileWidget tabIndex={5} theme="dark" />
+              <HCaptchaWidget tabIndex={5} theme="dark" />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendButton')} <Send size={16} />
@@ -3335,7 +3335,7 @@ function App() {
                   </a>.
                 </label>
               </div>
-              <TurnstileWidget tabIndex={5} theme="dark" />
+              <HCaptchaWidget tabIndex={5} theme="dark" />
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendRequest')} <Send size={16} />

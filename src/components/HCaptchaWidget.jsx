@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
 /**
- * Cloudflare Turnstile Widget Component
+ * hCaptcha Widget Component
  * Explicit rendering with cleanup, dark theme, and strict tabindex (5).
  */
-export default function TurnstileWidget({ 
-  siteKey = import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA',
+export default function HCaptchaWidget({ 
+  siteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || '80fe1ece-b124-453a-9800-524c2278b362',
   theme = 'dark',
   tabIndex = 5,
   onVerify,
@@ -20,19 +20,19 @@ export default function TurnstileWidget({
 
     const tryRender = () => {
       if (!isMounted || !containerRef.current) return;
-      if (typeof window !== 'undefined' && window.turnstile) {
-        // If a widget was previously rendered in this container, remove it first
+      if (typeof window !== 'undefined' && window.hcaptcha) {
+        // If a widget was previously rendered in this container, reset it first
         if (widgetIdRef.current !== null) {
           try {
-            window.turnstile.remove(widgetIdRef.current);
+            window.hcaptcha.reset(widgetIdRef.current);
           } catch (e) {
-            // ignore removal errors
+            // ignore errors
           }
           widgetIdRef.current = null;
         }
 
         try {
-          widgetIdRef.current = window.turnstile.render(containerRef.current, {
+          widgetIdRef.current = window.hcaptcha.render(containerRef.current, {
             sitekey: siteKey,
             theme: theme,
             tabindex: tabIndex,
@@ -47,18 +47,18 @@ export default function TurnstileWidget({
             }
           });
         } catch (err) {
-          console.warn('Turnstile render failed or already initialized:', err);
+          console.warn('hCaptcha render failed or already initialized:', err);
         }
       }
     };
 
-    // If turnstile script is already ready
-    if (typeof window !== 'undefined' && window.turnstile) {
+    // If hcaptcha script is already ready
+    if (typeof window !== 'undefined' && window.hcaptcha) {
       tryRender();
     } else {
-      // Poll until the Turnstile API script is available
+      // Poll until the hCaptcha API script is available
       const interval = setInterval(() => {
-        if (typeof window !== 'undefined' && window.turnstile) {
+        if (typeof window !== 'undefined' && window.hcaptcha) {
           clearInterval(interval);
           tryRender();
         }
@@ -72,9 +72,9 @@ export default function TurnstileWidget({
         isMounted = false;
         clearInterval(interval);
         clearTimeout(timeout);
-        if (widgetIdRef.current !== null && window.turnstile) {
+        if (widgetIdRef.current !== null && window.hcaptcha) {
           try {
-            window.turnstile.remove(widgetIdRef.current);
+            window.hcaptcha.reset(widgetIdRef.current);
           } catch (e) {}
           widgetIdRef.current = null;
         }
@@ -83,9 +83,9 @@ export default function TurnstileWidget({
 
     return () => {
       isMounted = false;
-      if (widgetIdRef.current !== null && window.turnstile) {
+      if (widgetIdRef.current !== null && window.hcaptcha) {
         try {
-          window.turnstile.remove(widgetIdRef.current);
+          window.hcaptcha.reset(widgetIdRef.current);
         } catch (e) {}
         widgetIdRef.current = null;
       }
@@ -94,18 +94,18 @@ export default function TurnstileWidget({
 
   return (
     <div 
-      className="turnstile-container" 
+      className="hcaptcha-container" 
       style={{ 
         margin: '20px 0', 
         display: 'flex', 
         justifyContent: 'center', 
         width: '100%',
-        minHeight: '65px' 
+        minHeight: '80px'
       }}
     >
       <div 
         ref={containerRef} 
-        className="cf-turnstile" 
+        className="h-captcha" 
         data-sitekey={siteKey}
         data-theme={theme}
         data-tabindex={tabIndex}
