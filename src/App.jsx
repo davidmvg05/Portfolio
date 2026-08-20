@@ -1017,7 +1017,7 @@ function App() {
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       } else {
-        setContactStatus({ type: 'error', message: lang === 'PT' ? ("❌ " + (data.message || "Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente.")) : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the message. Please try again.") });
+        setContactStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar a mensagem. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar el mensaje. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi du message. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the message. Please try again.") });
         // Clear message after 5 seconds
         setTimeout(() => setContactStatus({ type: null, message: '' }), 5000);
       }
@@ -1060,7 +1060,7 @@ function App() {
           setOmegaStatus({ type: null, message: '' });
         }, 5000);
       } else {
-        setOmegaStatus({ type: 'error', message: lang === 'PT' ? ("❌ " + (data.message || "Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente.")) : lang === 'ES' ? "❌ Ocurrió un error al enviar la solicitud. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the request. Please try again.") });
+        setOmegaStatus({ type: 'error', message: lang === 'PT' ? "❌ Ocorreu um erro ao enviar o pedido. Por favor, tenta novamente." : lang === 'ES' ? "❌ Ocurrió un error al enviar la solicitud. Por favor, inténtelo de nuevo." : lang === 'FR' ? "❌ Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer." : lang === 'DE' ? "❌ Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut." : (data.message || "❌ An error occurred while sending the request. Please try again.") });
         // Clear message after 5 seconds
         setTimeout(() => setOmegaStatus({ type: null, message: '' }), 5000);
       }
