@@ -4146,3 +4146,21 @@ h1, h2, h3, h4 {
     gap: 1rem;
   }
 }
+
+/* Responsive Contact Form for Mobile */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    width: calc(100% - 2rem) !important;
+    margin: 0 auto !important;
+    padding: 1.5rem !important;
+    box-sizing: border-box !important;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem !important;
+    padding: 0.8rem !important;
+  }
+  .form-group label {
+    font-size: 0.8rem !important;
+  }
+}
