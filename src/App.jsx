@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
@@ -2096,6 +2096,19 @@ function App() {
                    required 
                    tabIndex={4}
                    style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
+                   onInvalid={(e) => {
+                     const msg = lang === 'PT' 
+                       ? "Deve aceitar a política de privacidade para continuar." 
+                       : lang === 'ES' 
+                         ? "Debe aceptar la política de privacidad para continuar." 
+                         : lang === 'FR'
+                           ? "Vous devez accepter la politique de confidentialité pour continuer."
+                           : lang === 'DE'
+                             ? "Sie müssen die Datenschutzerklärung akzeptieren, um fortzufahren."
+                             : "You must accept the privacy policy to proceed.";
+                     e.target.setCustomValidity(msg);
+                   }}
+                   onInput={(e) => e.target.setCustomValidity('')}
                  />
                 <label htmlFor="privacy-consent-main" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
                   {lang === 'PT' 
@@ -3312,13 +3325,26 @@ function App() {
               </div>
               <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
                 <input 
-                  type="checkbox" 
-                  id="privacy-consent-omega" 
-                  name="privacy_consent" 
-                  required 
-                  tabIndex={4}
-                  style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
-                />
+                   type="checkbox" 
+                   id="privacy-consent-omega" 
+                   name="privacy_consent" 
+                   required 
+                   tabIndex={4}
+                   style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
+                   onInvalid={(e) => {
+                     const msg = lang === 'PT' 
+                       ? "Deve aceitar a política de privacidade para continuar." 
+                       : lang === 'ES' 
+                         ? "Debe aceptar la política de privacidad para continuar." 
+                         : lang === 'FR'
+                           ? "Vous devez accepter la politique de confidentialité pour continuer."
+                           : lang === 'DE'
+                             ? "Sie müssen die Datenschutzerklärung akzeptieren, um fortzufahren."
+                             : "You must accept the privacy policy to proceed.";
+                     e.target.setCustomValidity(msg);
+                   }}
+                   onInput={(e) => e.target.setCustomValidity('')}
+                 />
                 <label htmlFor="privacy-consent-omega" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer', lineHeight: '1.4' }}>
                   {lang === 'PT' ? "Li e aceito o tratamento dos meus dados pessoais como explicado pela " : lang === 'ES' ? "He leído y acepto el tratamiento de mis datos personales según lo explicado en la " : lang === 'FR' ? "J'ai lu et j'accepte le traitement de mes données personnelles tel qu'expliqué dans la " : lang === 'DE' ? "Ich habe die Verarbeitung meiner personenbezogenen Daten gelesen und akzeptiere sie wie in der " : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
