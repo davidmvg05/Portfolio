@@ -207,11 +207,12 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
     setActiveSection(id);
   };
 
-  const renderBB8Toggle = () => (
+  const renderBB8Toggle = (tbIdx) => (
     <label className="bb8-toggle" aria-label="Alterar tema (BB-8)">
       <input 
         className="bb8-toggle__checkbox" 
-        type="checkbox" tabIndex={-1} 
+        type="checkbox" 
+        tabIndex={tbIdx !== undefined ? tbIdx : 0} 
         aria-label="Alterar tema (BB-8)"
         checked={isDarkMode}
         onChange={toggleTheme}
@@ -263,7 +264,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                 window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
               }
             }} 
-            tabIndex={-1} className="logo-link mystery-portal-trigger"
+            className="logo-link mystery-portal-trigger"
             title={lang === 'PT' ? "Aceder ao Cockpit Secreto" : lang === 'ES' ? "Acceder al Cockpit Secreto" : "Access Secret Cockpit"}
           >
             <span className="logo-bracket">&lt;</span>
@@ -281,7 +282,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                   key={item}
                   href={`#${id}`}
                   onClick={(e) => handleLinkClick(e, id)}
-                  tabIndex={-1} className={`nav-link ${isActive ? 'active' : ''}`}
+                  className={`nav-link ${isActive ? 'active' : ''}`}
                 >
                   <span className="bracket">&lt;</span>
                   <span className="link-text">{getLabel(item)}</span>
@@ -296,7 +297,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             {/* Language Selector Dropdown */}
             <div className="nav-lang-dropdown" ref={dropdownRef}>
               <button 
-                tabIndex={-1} className="nav-lang-btn" 
+                className="nav-lang-btn" 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 aria-label="Select language"
               >
@@ -309,7 +310,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                   {languages.map((l) => (
                     <button 
                       key={l.code} 
-                      tabIndex={-1} className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
+                      className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
                       onClick={() => {
                         if (setLang) setLang(l.code);
                         setIsDropdownOpen(false);
@@ -328,7 +329,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
 
           {/* Hamburger Icon (Visible on Mobile) */}
           <button 
-            tabIndex={-1} className="hamburger-btn" 
+            className="hamburger-btn" 
             onClick={() => setIsOpen(!isOpen)} 
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
           >
@@ -341,12 +342,13 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
       <div 
         className={`mobile-drawer-overlay ${isOpen ? 'open' : ''}`} 
         onClick={() => setIsOpen(false)} 
+        aria-hidden={!isOpen}
       />
 
       {/* Mobile Drawer Navigation (Visible on Mobile) */}
-      <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
+      <div className={`mobile-drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
         <button 
-          tabIndex={-1} className="mobile-drawer-close" 
+          tabIndex={isOpen ? 0 : -1} className="mobile-drawer-close" 
           onClick={() => setIsOpen(false)}
           aria-label="Fechar menu"
           style={{
@@ -367,7 +369,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
           
           <div className="mobile-drawer-toggle-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderBottom: '1px dashed var(--glass-border)', paddingBottom: '1.5rem' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Alterar Tema</span>
-            {renderBB8Toggle()}
+            {renderBB8Toggle(isOpen ? 0 : -1)}
           </div>
 
           {/* Language Selection Dropdown on Mobile */}
@@ -377,7 +379,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             </span>
             <div className="nav-lang-dropdown mobile-lang-dropdown" style={{ margin: 0, width: '180px', position: 'relative' }}>
               <button 
-                tabIndex={-1} className="nav-lang-btn" 
+                tabIndex={isOpen ? 0 : -1} className="nav-lang-btn" 
                 onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
                 aria-label="Select language"
                 style={{ width: '100%', justifyContent: 'space-between' }}
@@ -393,7 +395,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                   {languages.map((l) => (
                     <button 
                       key={l.code} 
-                      tabIndex={-1} className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
+                      tabIndex={isOpen ? 0 : -1} className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
                       onClick={() => {
                         if (setLang) setLang(l.code);
                         setIsMobileDropdownOpen(false);
@@ -420,7 +422,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                     setIsOpen(false);
                     handleLinkClick(e, id);
                   }}
-                  tabIndex={-1} className={`mobile-drawer-link ${isActive ? 'active' : ''}`}
+                  tabIndex={isOpen ? 0 : -1} className={`mobile-drawer-link ${isActive ? 'active' : ''}`}
                   style={{
                     textDecoration: 'none',
                     fontFamily: 'var(--font-mono)',

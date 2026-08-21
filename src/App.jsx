@@ -174,6 +174,25 @@ function App() {
   const [contactStatus, setContactStatus] = useState({ type: null, message: '' });
   const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
 
+  const prevFocusedElementRef = useRef(null);
+
+  useEffect(() => {
+    if (activeJourneyDetail || isOmegaModalOpen) {
+      prevFocusedElementRef.current = document.activeElement;
+      setTimeout(() => {
+        const closeButton = document.querySelector('.journey-modal-close');
+        if (closeButton) {
+          closeButton.focus();
+        }
+      }, 50);
+    } else {
+      if (prevFocusedElementRef.current && typeof prevFocusedElementRef.current.focus === 'function') {
+        prevFocusedElementRef.current.focus();
+        prevFocusedElementRef.current = null;
+      }
+    }
+  }, [activeJourneyDetail, isOmegaModalOpen]);
+
   const [typedWords, setTypedWords] = useState(["", "", ""]);
   const [activeWordIdx, setActiveWordIdx] = useState(0);
   const [activeProjectId, setActiveProjectId] = useState(null);
@@ -1862,13 +1881,6 @@ function App() {
                   <a 
                     href="#projects" 
                     id="hero-cta-projects"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Tab' && e.shiftKey) {
-                        e.preventDefault();
-                        const lastEl = document.querySelector('.contact-form button[type="submit"]');
-                        if (lastEl) lastEl.focus();
-                      }
-                    }}
                     onClick={(e) => {
                       e.preventDefault();
                       const el = document.getElementById('projects');
@@ -1975,7 +1987,6 @@ function App() {
           <div className="projects-carousel-container">
             <button 
               className="carousel-nav-btn prev-btn" 
-              tabIndex={-1}
               onClick={prevSlide} 
               aria-label={lang === 'PT' ? "Projeto anterior" : lang === 'ES' ? "Proyecto anterior" : lang === 'FR' ? "Projet précédent" : lang === 'DE' ? "Vorheriges Projekt" : "Previous project"}
             >
@@ -2072,12 +2083,15 @@ function App() {
                     }
                   }
 
+                  const isCardActive = idx === activeSlideIdx;
+
                   return (
                     <div 
                       key={idx} 
                       className={cardClass}
                       onClick={handleCardClick}
                       style={cardStyle}
+                      tabIndex={isCardActive ? 0 : -1}
                     >
                       <div className="project-image-container">
                         {cardImage ? (
@@ -2106,7 +2120,7 @@ function App() {
                           {project.id ? (
                             <a 
                               href={`#project-${project.id}`} 
-                              tabIndex={-1}
+                              tabIndex={isCardActive ? 0 : -1}
                               className="project-link" 
                               onClick={(e) => {
                                 e.preventDefault();
@@ -2116,7 +2130,7 @@ function App() {
                               {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'} &rarr;
                             </a>
                           ) : (
-                            <a href={project.link} tabIndex={-1} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                            <a href={project.link} tabIndex={isCardActive ? 0 : -1} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
                               {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'} <ExternalLink size={16} />
                             </a>
                           )}
@@ -2130,7 +2144,6 @@ function App() {
 
             <button 
               className="carousel-nav-btn next-btn" 
-              tabIndex={-1}
               onClick={nextSlide} 
               aria-label={lang === 'PT' ? "Próximo projeto" : lang === 'ES' ? "Próximo proyecto" : lang === 'FR' ? "Projet suivant" : lang === 'DE' ? "Nächstes Projekt" : "Next project"}
             >
@@ -2263,7 +2276,6 @@ function App() {
                       : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
                      href="#privacy-policy" 
-                     tabIndex={-1}
                      onClick={(e) => {
                        e.preventDefault();
                        navigateToPrivacy();
@@ -2279,13 +2291,6 @@ function App() {
                 <button 
                   type="submit" 
                   className="btn btn-primary" 
-                  onKeyDown={(e) => {
-                    if (e.key === 'Tab' && !e.shiftKey) {
-                      e.preventDefault();
-                      const firstEl = document.getElementById('hero-cta-projects');
-                      if (firstEl) firstEl.focus();
-                    }
-                  }}
                   style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                 >
                   {t('sendButton')} <Send size={16} />
@@ -3347,7 +3352,6 @@ function App() {
                     <a 
                       key={item} 
                       href={`#${id}`} 
-                      tabIndex={-1}
                       onClick={(e) => {
                         e.preventDefault();
                         if (activeProjectId) {
@@ -3377,10 +3381,10 @@ function App() {
             <div className="footer-column">
               <p className="footer-title">&lt; / social &gt;</p>
               <div className="footer-social-links">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-linkedin" aria-label="LinkedIn">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon-linkedin" aria-label="LinkedIn">
                   <LinkedinIcon size={22} />
                 </a>
-                <a href="https://github.com/davidmvg05" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-github" aria-label="GitHub">
+                <a href="https://github.com/davidmvg05" target="_blank" rel="noopener noreferrer" className="social-icon-github" aria-label="GitHub">
                   <GithubIcon size={22} />
                 </a>
               </div>
@@ -3391,7 +3395,6 @@ function App() {
             <p style={{ margin: 0 }}>/* © 2026 David Gomes - Developed with Google Antigravity */</p>
             <a 
               href="#privacy-policy" 
-              tabIndex={-1}
               onClick={(e) => {
                 e.preventDefault();
                 navigateToPrivacy();
@@ -3409,10 +3412,22 @@ function App() {
       {/* Journey Detail Modal overlay */}
       {activeJourneyDetail && (
         <div className="journey-modal-overlay" onClick={() => setActiveJourneyDetail(null)}>
-          <div className="journey-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="journey-modal-close" onClick={() => setActiveJourneyDetail(null)}>&times;</button>
+          <div 
+            className="journey-modal-content" 
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="journey-modal-title"
+          >
+            <button 
+              className="journey-modal-close" 
+              onClick={() => setActiveJourneyDetail(null)}
+              aria-label={lang === 'PT' ? "Fechar detalhes" : lang === 'ES' ? "Cerrar detalles" : "Close details"}
+            >
+              &times;
+            </button>
             <span className="journey-modal-date">{activeJourneyDetail.date}</span>
-            <h3 className="journey-modal-title">{activeJourneyDetail.title}</h3>
+            <h3 id="journey-modal-title" className="journey-modal-title">{activeJourneyDetail.title}</h3>
             <h4 className="journey-modal-subtitle">{activeJourneyDetail.company}</h4>
             <div className="journey-modal-body">
               <p style={{ whiteSpace: 'pre-wrap' }}>{activeJourneyDetail.fullDescription}</p>
@@ -3445,9 +3460,21 @@ function App() {
       {/* Omega Password Request Modal */}
       {isOmegaModalOpen && (
         <div className="journey-modal-overlay" onClick={() => setIsOmegaModalOpen(false)}>
-          <div className="journey-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="journey-modal-close" onClick={() => setIsOmegaModalOpen(false)} aria-label="Fechar">&times;</button>
-            <h3 className="journey-modal-title" style={{ color: 'var(--accent-purple)' }}>{t('sendRequest')}</h3>
+          <div 
+            className="journey-modal-content" 
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="omega-modal-title"
+          >
+            <button 
+              className="journey-modal-close" 
+              onClick={() => setIsOmegaModalOpen(false)} 
+              aria-label={lang === 'PT' ? "Fechar formulário" : lang === 'ES' ? "Cerrar formulario" : "Close form"}
+            >
+              &times;
+            </button>
+            <h3 id="omega-modal-title" className="journey-modal-title" style={{ color: 'var(--accent-purple)' }}>{t('sendRequest')}</h3>
             <h4 className="journey-modal-subtitle">Omega e-Store</h4>
             <form className="contact-form" style={{ marginTop: '1.5rem' }} onSubmit={handleOmegaSubmit}>
               <div className="form-group">
@@ -3456,7 +3483,7 @@ function App() {
                   <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="omega-name" name="name" required tabIndex={1} aria-required="true" placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
+                <input type="text" id="omega-name" name="name" required aria-required="true" placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-email" className="form-label-bracketed">
@@ -3464,7 +3491,7 @@ function App() {
                   <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="email" id="omega-email" name="email" required tabIndex={2} aria-required="true" placeholder="seu@email.com" />
+                <input type="email" id="omega-email" name="email" required aria-required="true" placeholder="seu@email.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-message" className="form-label-bracketed">
@@ -3477,7 +3504,6 @@ function App() {
                   name="message"
                   rows="4" 
                   required 
-                  tabIndex={3}
                   aria-required="true"
                   defaultValue={lang === 'PT' ? "Olá David, gostava de solicitar o acesso para ver a loja online da Omega." : lang === 'ES' ? "Hola David, me gustaría solicitar acceso para ver la tienda online de Omega." : lang === 'FR' ? "Bonjour David, je souhaite demander l'accès pour voir la boutique en ligne Omega." : lang === 'DE' ? "Hallo David, ich möchte Zugang anfordern, um den Omega-Online-Shop anzusehen." : "Hello David, I would like to request access to view the Omega online store."}
                 ></textarea>
@@ -3488,7 +3514,6 @@ function App() {
                    id="privacy-consent-omega" 
                    name="privacy_consent" 
                    required 
-                   tabIndex={4}
                    aria-required="true"
                    style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                    onInvalid={(e) => {
@@ -3509,7 +3534,6 @@ function App() {
                   {lang === 'PT' ? "Li e aceito o tratamento dos meus dados pessoais como explicado pela " : lang === 'ES' ? "He leído y acepto el tratamiento de mis datos personales según lo explicado en la " : lang === 'FR' ? "J'ai lu et j'accepte le traitement de mes données personnelles tel qu'expliqué dans la " : lang === 'DE' ? "Ich habe die Verarbeitung meiner personenbezogenen Daten gelesen und akzeptiere sie wie in der " : "I have read and accept the processing of my personal data as explained in the "}
                   <a 
                     href="#privacy-policy" 
-                    tabIndex={-1}
                     onClick={(e) => {
                       e.preventDefault();
                       setIsOmegaModalOpen(false);
@@ -3521,9 +3545,9 @@ function App() {
                   </a>.
                 </label>
               </div>
-              <HCaptchaWidget tabIndex={5} theme={isDarkMode ? 'dark' : 'light'} />
+              <HCaptchaWidget theme={isDarkMode ? 'dark' : 'light'} />
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
-                <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendRequest')} <Send size={16} />
                 </button>
                 {omegaStatus.message && (
