@@ -4150,7 +4150,7 @@ h1, h2, h3, h4 {
 /* Responsive Contact Form for Mobile */
 @media (max-width: 768px) {
   .contact-wrapper {
-    width: calc(100% - 2rem) !important;
+    width: calc(100% - 1.2rem) !important;
     margin: 0 auto !important;
     padding: 1.5rem !important;
     box-sizing: border-box !important;
@@ -4176,4 +4176,207 @@ select:focus-visible,
 .hamburger-btn:focus-visible {
   outline: 2.5px solid var(--accent-purple) !important;
   outline-offset: 3px !important;
+}
+
+/* --- Accessibility Panel Widget & Overrides --- */
+
+.a11y-widget-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9999;
+  font-family: var(--font-sans);
+}
+
+.a11y-floating-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+}
+
+.a11y-floating-btn:hover {
+  transform: scale(1.08);
+  background: #9333ea;
+}
+
+.a11y-control-panel {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  width: 280px;
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+[data-theme='light'] .a11y-control-panel {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.a11y-panel-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-purple);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.a11y-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.a11y-section-title {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.a11y-text-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+.a11y-option-btn {
+  padding: 0.4rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.a11y-option-btn:hover {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: var(--accent-purple);
+}
+
+.a11y-option-btn.active {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+  font-weight: bold;
+}
+
+.a11y-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.a11y-toggle-row input {
+  cursor: pointer;
+  accent-color: var(--accent-purple);
+  width: 16px;
+  height: 16px;
+}
+
+.a11y-reset-btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px dashed rgba(168, 85, 247, 0.4);
+  background: transparent;
+  color: var(--accent-purple);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.a11y-reset-btn:hover {
+  background: rgba(168, 85, 247, 0.05);
+  border-style: solid;
+}
+
+/* Override Rules applied by Wrapper classes */
+
+/* 1. Text Scale Overrides */
+.app-accessibility-wrapper.a11y-text-large p,
+.app-accessibility-wrapper.a11y-text-large li,
+.app-accessibility-wrapper.a11y-text-large span:not(.copyable-text-content),
+.app-accessibility-wrapper.a11y-text-large a {
+  font-size: 1.15rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large h1,
+.app-accessibility-wrapper.a11y-text-large .hero-title {
+  font-size: 3.5rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large h2 {
+  font-size: 2.2rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large h3 {
+  font-size: 1.5rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-extra-large p,
+.app-accessibility-wrapper.a11y-text-extra-large li,
+.app-accessibility-wrapper.a11y-text-extra-large span:not(.copyable-text-content),
+.app-accessibility-wrapper.a11y-text-extra-large a {
+  font-size: 1.3rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-extra-large h1,
+.app-accessibility-wrapper.a11y-text-extra-large .hero-title {
+  font-size: 4rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-extra-large h2 {
+  font-size: 2.5rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-extra-large h3 {
+  font-size: 1.7rem !important;
+}
+
+/* 2. Highlight Links Overrides */
+.app-accessibility-wrapper.a11y-highlight-links a {
+  text-decoration: underline !important;
+  font-weight: 700 !important;
+  outline: 2px solid var(--accent-purple) !important;
+  outline-offset: 2px !important;
+}
+
+/* 3. Readable Font Overrides */
+.app-accessibility-wrapper.a11y-readable-font * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.03em !important;
+  line-height: 1.6 !important;
+}
+
+/* 4. Reduced Motion Overrides */
+.app-accessibility-wrapper.a11y-reduced-motion * {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
 }

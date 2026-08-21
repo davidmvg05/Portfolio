@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Starfield from './components/Starfield';
 import SplashCursor from './components/SplashCursor';
 import HCaptchaWidget from './components/HCaptchaWidget';
-import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText, Globe } from 'lucide-react';
+import { ExternalLink, Send, Award, Briefcase, GraduationCap, Code, Compass, ChevronLeft, ChevronRight, Copy, Check, Tablet, FileText, Globe, Accessibility } from 'lucide-react';
 import logoLego from './assets/logos/logo_lego.png';
 import logoMymatchcare from './assets/logos/logo_mymatchcare.png';
 import logoOmega from './assets/logos/logo_omega.png';
@@ -189,6 +189,128 @@ function App() {
     }
     return null;
   });
+  const [textScale, setTextScale] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('a11y-textScale') || 'normal';
+    }
+    return 'normal';
+  });
+  const [highlightLinks, setHighlightLinks] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('a11y-highlightLinks') === 'true';
+    }
+    return false;
+  });
+  const [readableFont, setReadableFont] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('a11y-readableFont') === 'true';
+    }
+    return false;
+  });
+  const [reducedMotion, setReducedMotion] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('a11y-reducedMotion') === 'true';
+    }
+    return false;
+  });
+  const [isA11yOpen, setIsA11yOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('a11y-textScale', textScale);
+    }
+  }, [textScale]);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('a11y-highlightLinks', highlightLinks ? 'true' : 'false');
+    }
+  }, [highlightLinks]);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('a11y-readableFont', readableFont ? 'true' : 'false');
+    }
+  }, [readableFont]);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('a11y-reducedMotion', reducedMotion ? 'true' : 'false');
+    }
+  }, [reducedMotion]);
+
+  const a11yRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (a11yRef.current && !a11yRef.current.contains(event.target)) {
+        setIsA11yOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const a11yTranslations = {
+    PT: {
+      title: 'Acessibilidade',
+      textSize: 'Tamanho do Texto',
+      highlightLinks: 'Destacar Links',
+      readableFont: 'Fonte Legível',
+      reducedMotion: 'Movimento Reduzido',
+      reset: 'Restaurar Predefinições',
+      normal: 'Normal',
+      large: 'Grande',
+      extraLarge: 'Extra Grande',
+      btnLabel: 'Painel de Acessibilidade'
+    },
+    EN: {
+      title: 'Accessibility',
+      textSize: 'Text Size',
+      highlightLinks: 'Highlight Links',
+      readableFont: 'Readable Font',
+      reducedMotion: 'Reduced Motion',
+      reset: 'Reset Defaults',
+      normal: 'Normal',
+      large: 'Large',
+      extraLarge: 'Extra Large',
+      btnLabel: 'Accessibility Panel'
+    },
+    ES: {
+      title: 'Accesibilidad',
+      textSize: 'Tamaño del Texto',
+      highlightLinks: 'Destacar Enlaces',
+      readableFont: 'Fuente Legible',
+      reducedMotion: 'Movimiento Reducido',
+      reset: 'Restablecer Ajustes',
+      normal: 'Normal',
+      large: 'Grande',
+      extraLarge: 'Extra Grande',
+      btnLabel: 'Panel de Accesibilidad'
+    },
+    FR: {
+      title: 'Accessibilité',
+      textSize: 'Taille du Texte',
+      highlightLinks: 'Surligner les Liens',
+      readableFont: 'Police Lisible',
+      reducedMotion: 'Mouvement Réduit',
+      reset: 'Réinitialiser',
+      normal: 'Normal',
+      large: 'Grand',
+      extraLarge: 'Très Grand',
+      btnLabel: 'Panneau d\'Accessibilité'
+    },
+    DE: {
+      title: 'Barrierefreiheit',
+      textSize: 'Textgröße',
+      highlightLinks: 'Links hervorheben',
+      readableFont: 'Lesbare Schriftart',
+      reducedMotion: 'Reduzierte Bewegung',
+      reset: 'Zurücksetzen',
+      normal: 'Normal',
+      large: 'Groß',
+      extraLarge: 'Sehr groß',
+      btnLabel: 'Barrierefreiheit-Panel'
+    }
+  };
+
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // Touch/Mouse swipe drag states for mobile projects carousel loop
@@ -1689,9 +1811,10 @@ function App() {
 
   return (
     <>
-      {/* Background Starfield and Fluid Simulation Cursor */}
-      <Starfield isDarkMode={isDarkMode} />
-      <div className="nebula-bg" />
+      <div className={`app-accessibility-wrapper a11y-text-${textScale} ${highlightLinks ? 'a11y-highlight-links' : ''} ${readableFont ? 'a11y-readable-font' : ''} ${reducedMotion ? 'a11y-reduced-motion' : ''}`}>
+        {/* Background Starfield and Fluid Simulation Cursor */}
+        <Starfield isDarkMode={isDarkMode} reducedMotion={reducedMotion} />
+        <div className="nebula-bg" />
       {/* SplashCursor - Rendered only on desktops for mouse hover trails */}
       {windowWidth > 768 && (
         <div style={{ pointerEvents: 'none' }}>
@@ -2155,7 +2278,7 @@ function App() {
                    </a>.
                 </label>
               </div>
-              <HCaptchaWidget tabIndex={12} theme="dark" />
+              <HCaptchaWidget tabIndex={12} theme={isDarkMode ? 'dark' : 'light'} />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button 
                   type="submit" 
@@ -3403,7 +3526,7 @@ function App() {
                   </a>.
                 </label>
               </div>
-              <HCaptchaWidget tabIndex={5} theme="dark" />
+              <HCaptchaWidget tabIndex={5} theme={isDarkMode ? 'dark' : 'light'} />
               <div className="form-submit-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem' }}>
                 <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendRequest')} <Send size={16} />
@@ -3502,6 +3625,93 @@ function App() {
           </div>
         </div>
       )}
+      {/* Floating Accessibility Control Panel */}
+      <div className={`a11y-widget-container ${isA11yOpen ? 'open' : ''}`} ref={a11yRef}>
+        <button 
+          className="a11y-floating-btn" 
+          onClick={() => setIsA11yOpen(!isA11yOpen)} 
+          aria-label={a11yTranslations[lang]?.btnLabel || 'Accessibility Panel'}
+          aria-expanded={isA11yOpen}
+        >
+          <Accessibility size={24} />
+        </button>
+        
+        {isA11yOpen && (
+          <div className="a11y-control-panel">
+            <h4 className="a11y-panel-title">{a11yTranslations[lang]?.title || 'Accessibility'}</h4>
+            
+            <div className="a11y-section">
+              <span className="a11y-section-title">{a11yTranslations[lang]?.textSize || 'Text Size'}</span>
+              <div className="a11y-text-options">
+                <button 
+                  className={`a11y-option-btn ${textScale === 'normal' ? 'active' : ''}`}
+                  onClick={() => setTextScale('normal')}
+                >
+                  {a11yTranslations[lang]?.normal || 'Normal'}
+                </button>
+                <button 
+                  className={`a11y-option-btn ${textScale === 'large' ? 'active' : ''}`}
+                  onClick={() => setTextScale('large')}
+                >
+                  {a11yTranslations[lang]?.large || 'Large'}
+                </button>
+                <button 
+                  className={`a11y-option-btn ${textScale === 'extra-large' ? 'active' : ''}`}
+                  onClick={() => setTextScale('extra-large')}
+                >
+                  {a11yTranslations[lang]?.extraLarge || 'Extra Large'}
+                </button>
+              </div>
+            </div>
+
+            <div className="a11y-section">
+              <label className="a11y-toggle-row">
+                <span>{a11yTranslations[lang]?.highlightLinks || 'Highlight Links'}</span>
+                <input 
+                  type="checkbox" 
+                  checked={highlightLinks} 
+                  onChange={(e) => setHighlightLinks(e.target.checked)} 
+                />
+              </label>
+            </div>
+
+            <div className="a11y-section">
+              <label className="a11y-toggle-row">
+                <span>{a11yTranslations[lang]?.readableFont || 'Readable Font'}</span>
+                <input 
+                  type="checkbox" 
+                  checked={readableFont} 
+                  onChange={(e) => setReadableFont(e.target.checked)} 
+                />
+              </label>
+            </div>
+
+            <div className="a11y-section">
+              <label className="a11y-toggle-row">
+                <span>{a11yTranslations[lang]?.reducedMotion || 'Reduced Motion'}</span>
+                <input 
+                  type="checkbox" 
+                  checked={reducedMotion} 
+                  onChange={(e) => setReducedMotion(e.target.checked)} 
+                />
+              </label>
+            </div>
+
+            <button 
+              className="a11y-reset-btn"
+              onClick={() => {
+                setTextScale('normal');
+                setHighlightLinks(false);
+                setReadableFont(false);
+                setReducedMotion(false);
+              }}
+            >
+              {a11yTranslations[lang]?.reset || 'Reset Defaults'}
+            </button>
+          </div>
+        )}
+      </div>
+      </div>
     </>
   );
 }

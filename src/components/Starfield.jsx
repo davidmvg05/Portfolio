@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function Starfield({ isDarkMode }) {
+function Starfield({ isDarkMode, reducedMotion }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -26,6 +26,10 @@ function Starfield({ isDarkMode }) {
       canvas.width = currentWidth;
       canvas.height = currentHeight;
       initStars();
+      // If motion is reduced, render stars statically immediately after resize
+      if (reducedMotion) {
+        renderStatic();
+      }
     };
 
     // Initialize stars
@@ -53,6 +57,19 @@ function Starfield({ isDarkMode }) {
           direction: Math.random() > 0.5 ? 1 : -1
         });
       }
+    };
+
+    const renderStatic = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach((star) => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        const finalAlpha = isDarkMode ? star.alpha : star.alpha * 0.4;
+        const starColor = isDarkMode ? star.color : 'rgba(100, 100, 150, ';
+        ctx.fillStyle = `${starColor}${finalAlpha})`;
+        ctx.shadowBlur = 0;
+        ctx.fill();
+      });
     };
 
     // Animation loop
@@ -91,13 +108,19 @@ function Starfield({ isDarkMode }) {
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-    animate();
+    if (!reducedMotion) {
+      animate();
+    } else {
+      renderStatic();
+    }
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
-  }, [isDarkMode]);
+  }, [isDarkMode, reducedMotion]);
 
   return (
     <canvas
