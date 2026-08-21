@@ -1736,12 +1736,12 @@ function App() {
                       : "More marketer than developer… but I love playing with both. 😎 I am not a programmer. I just have ideas too stubborn not to create them. 🤫"}
                 </p>
                 <div className="home-cta-container">
-                  <a href="#projects" onClick={(e) => {
+                  <a href="#projects" tabIndex={1} onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById('projects');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }} className="btn btn-primary">{t('heroCTA')}</a>
-                  <a href="#contact" onClick={(e) => {
+                  <a href="#contact" tabIndex={2} onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById('contact');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -1801,6 +1801,7 @@ function App() {
                       <p>{item.description}</p>
                       <button 
                         className="btn btn-secondary btn-sm" 
+                        tabIndex={3 + idx}
                         style={{ marginTop: '1.2rem', padding: '0.4rem 1.2rem', fontSize: '0.85rem' }}
                         onClick={() => setActiveJourneyDetail(item)}
                       >
@@ -1822,12 +1823,14 @@ function App() {
           <div className="projects-toggle-container">
             <button 
               className={`projects-toggle-btn ${projectCategory === 'projects' ? 'active' : ''}`}
+              tabIndex={6}
               onClick={() => setProjectCategory('projects')}
             >
               {t('professionalTitle')}
             </button>
             <button 
               className={`projects-toggle-btn ${projectCategory === 'academic' ? 'active' : ''}`}
+              tabIndex={7}
               onClick={() => setProjectCategory('academic')}
             >
               {t('academicTitle')}
@@ -1839,7 +1842,7 @@ function App() {
             <button 
               className="carousel-nav-btn prev-btn" 
               onClick={prevSlide} 
-              aria-label="Projeto anterior"
+              aria-label={lang === 'PT' ? "Projeto anterior" : lang === 'ES' ? "Proyecto anterior" : lang === 'FR' ? "Projet précédent" : lang === 'DE' ? "Vorheriges Projekt" : "Previous project"}
             >
               <ChevronLeft size={24} />
             </button>
@@ -1992,7 +1995,7 @@ function App() {
             <button 
               className="carousel-nav-btn next-btn" 
               onClick={nextSlide} 
-              aria-label="Próximo projeto"
+              aria-label={lang === 'PT' ? "Próximo projeto" : lang === 'ES' ? "Próximo proyecto" : lang === 'FR' ? "Projet suivant" : lang === 'DE' ? "Nächstes Projekt" : "Next project"}
             >
               <ChevronRight size={24} />
             </button>
@@ -2075,7 +2078,7 @@ function App() {
                   <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="name" name="name" required tabIndex={1} placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
+                <input type="text" id="name" name="name" required tabIndex={8} aria-required="true" placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
               </div>
               <div className="form-group">
                 <label htmlFor="email" className="form-label-bracketed">
@@ -2083,7 +2086,7 @@ function App() {
                   <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="email" id="email" name="email" required tabIndex={2} placeholder="seu@email.com" />
+                <input type="email" id="email" name="email" required tabIndex={9} aria-required="true" placeholder="seu@email.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="message" className="form-label-bracketed">
@@ -2091,7 +2094,7 @@ function App() {
                   <span className="link-text">{t('messageLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <textarea id="message" name="message" rows="5" required tabIndex={3} placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
+                <textarea id="message" name="message" rows="5" required tabIndex={10} aria-required="true" placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
               </div>
               <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
                 <input 
@@ -2099,7 +2102,8 @@ function App() {
                    id="privacy-consent-main" 
                    name="privacy_consent" 
                    required 
-                   tabIndex={4}
+                   tabIndex={11}
+                   aria-required="true"
                    style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                    onInvalid={(e) => {
                      const msg = lang === 'PT' 
@@ -2134,9 +2138,9 @@ function App() {
                    </a>.
                 </label>
               </div>
-              <HCaptchaWidget tabIndex={5} theme="dark" />
+              <HCaptchaWidget tabIndex={12} theme="dark" />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <button type="submit" className="btn btn-primary" tabIndex={6} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button type="submit" className="btn btn-primary" tabIndex={13} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   {t('sendButton')} <Send size={16} />
                 </button>
                 {contactStatus.message && (
@@ -3303,7 +3307,7 @@ function App() {
                   <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="omega-name" name="name" required tabIndex={1} placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
+                <input type="text" id="omega-name" name="name" required tabIndex={1} aria-required="true" placeholder={lang === 'PT' ? "O teu nome..." : lang === 'ES' ? "Tu nombre..." : lang === 'FR' ? "Votre nom..." : lang === 'DE' ? "Ihr Name..." : "Your name..."} />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-email" className="form-label-bracketed">
@@ -3311,7 +3315,7 @@ function App() {
                   <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="email" id="omega-email" name="email" required tabIndex={2} placeholder="seu@email.com" />
+                <input type="email" id="omega-email" name="email" required tabIndex={2} aria-required="true" placeholder="seu@email.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="omega-message" className="form-label-bracketed">
@@ -3325,6 +3329,7 @@ function App() {
                   rows="4" 
                   required 
                   tabIndex={3}
+                  aria-required="true"
                   defaultValue={lang === 'PT' ? "Olá David, gostava de solicitar o acesso para ver a loja online da Omega." : lang === 'ES' ? "Hola David, me gustaría solicitar acceso para ver la tienda online de Omega." : lang === 'FR' ? "Bonjour David, je souhaite demander l'accès pour voir la boutique en ligne Omega." : lang === 'DE' ? "Hallo David, ich möchte Zugang anfordern, um den Omega-Online-Shop anzusehen." : "Hello David, I would like to request access to view the Omega online store."}
                 ></textarea>
               </div>
@@ -3335,6 +3340,7 @@ function App() {
                    name="privacy_consent" 
                    required 
                    tabIndex={4}
+                   aria-required="true"
                    style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                    onInvalid={(e) => {
                      const msg = lang === 'PT' 

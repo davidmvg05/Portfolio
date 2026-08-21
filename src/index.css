@@ -4164,3 +4164,16 @@ h1, h2, h3, h4 {
     font-size: 0.8rem !important;
   }
 }
+
+/* --- Accessibility Focus Indicators --- */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.projects-toggle-btn:focus-visible,
+.carousel-nav-btn:focus-visible,
+.hamburger-btn:focus-visible {
+  outline: 2.5px solid var(--accent-purple) !important;
+  outline-offset: 3px !important;
+}
