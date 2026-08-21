@@ -1861,7 +1861,7 @@ function App() {
                 <div className="home-cta-container">
                   <a 
                     href="#projects" 
-                    tabIndex={1} 
+                    id="hero-cta-projects"
                     onKeyDown={(e) => {
                       if (e.key === 'Tab' && e.shiftKey) {
                         e.preventDefault();
@@ -1878,7 +1878,7 @@ function App() {
                   >
                     {t('heroCTA')}
                   </a>
-                  <a href="#contact" tabIndex={2} onClick={(e) => {
+                  <a href="#contact" onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById('contact');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -1938,7 +1938,6 @@ function App() {
                       <p>{item.description}</p>
                       <button 
                         className="btn btn-secondary btn-sm" 
-                        tabIndex={3 + idx}
                         style={{ marginTop: '1.2rem', padding: '0.4rem 1.2rem', fontSize: '0.85rem' }}
                         onClick={() => setActiveJourneyDetail(item)}
                       >
@@ -1960,14 +1959,12 @@ function App() {
           <div className="projects-toggle-container">
             <button 
               className={`projects-toggle-btn ${projectCategory === 'projects' ? 'active' : ''}`}
-              tabIndex={6}
               onClick={() => setProjectCategory('projects')}
             >
               {t('professionalTitle')}
             </button>
             <button 
               className={`projects-toggle-btn ${projectCategory === 'academic' ? 'active' : ''}`}
-              tabIndex={7}
               onClick={() => setProjectCategory('academic')}
             >
               {t('academicTitle')}
@@ -2218,7 +2215,7 @@ function App() {
                   <span className="link-text">{t('nameLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="text" id="name" name="name" required tabIndex={8} aria-required="true" placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
+                <input type="text" id="name" name="name" required aria-required="true" placeholder={lang === 'PT' ? 'O teu nome...' : lang === 'ES' ? 'Tu nombre...' : 'Your name...'} />
               </div>
               <div className="form-group">
                 <label htmlFor="email" className="form-label-bracketed">
@@ -2226,7 +2223,7 @@ function App() {
                   <span className="link-text">{t('emailLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <input type="email" id="email" name="email" required tabIndex={9} aria-required="true" placeholder="seu@email.com" />
+                <input type="email" id="email" name="email" required aria-required="true" placeholder="seu@email.com" />
               </div>
               <div className="form-group">
                 <label htmlFor="message" className="form-label-bracketed">
@@ -2234,7 +2231,7 @@ function App() {
                   <span className="link-text">{t('messageLabel')}</span>
                   <span className="bracket">/&gt;</span>
                 </label>
-                <textarea id="message" name="message" rows="5" required tabIndex={10} aria-required="true" placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
+                <textarea id="message" name="message" rows="5" required aria-required="true" placeholder={lang === 'PT' ? 'Escreve a tua mensagem aqui...' : lang === 'ES' ? 'Escribe tu mensaje aquí...' : 'Write your message here...'}></textarea>
               </div>
               <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', margin: '1.2rem 0' }}>
                 <input 
@@ -2242,7 +2239,6 @@ function App() {
                    id="privacy-consent-main" 
                    name="privacy_consent" 
                    required 
-                   tabIndex={11}
                    aria-required="true"
                    style={{ width: 'auto', marginTop: '0.25rem', cursor: 'pointer' }} 
                    onInvalid={(e) => {
@@ -2278,16 +2274,15 @@ function App() {
                    </a>.
                 </label>
               </div>
-              <HCaptchaWidget tabIndex={12} theme={isDarkMode ? 'dark' : 'light'} />
+              <HCaptchaWidget theme={isDarkMode ? 'dark' : 'light'} />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <button 
                   type="submit" 
                   className="btn btn-primary" 
-                  tabIndex={13} 
                   onKeyDown={(e) => {
                     if (e.key === 'Tab' && !e.shiftKey) {
                       e.preventDefault();
-                      const firstEl = document.querySelector('a[href="#projects"][tabindex="1"]');
+                      const firstEl = document.getElementById('hero-cta-projects');
                       if (firstEl) firstEl.focus();
                     }
                   }}
@@ -3334,17 +3329,17 @@ function App() {
           <div className="footer-columns">
             {/* Column 1 */}
             <div className="footer-column">
-              <h4 className="footer-logo">
+              <p className="footer-logo">
                 <span className="logo-bracket">&lt;</span>
                 <span className="logo-name">David Gomes</span>
                 <span className="logo-bracket">/ &gt;</span>
-              </h4>
+              </p>
               <p className="footer-subtext">Digital Marketing</p>
             </div>
             
             {/* Column 2 */}
             <div className="footer-column">
-              <h4 className="footer-title">&lt; / div&gt;</h4>
+              <p className="footer-title">&lt; / div&gt;</p>
               <div className="footer-nav-links">
                 {['Home', 'Journey', 'Projects', 'Skills', 'Contact'].map((item) => {
                   const id = item.toLowerCase();
@@ -3380,12 +3375,12 @@ function App() {
             
             {/* Column 3 */}
             <div className="footer-column">
-              <h4 className="footer-title">&lt; / social &gt;</h4>
+              <p className="footer-title">&lt; / social &gt;</p>
               <div className="footer-social-links">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-linkedin">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-linkedin" aria-label="LinkedIn">
                   <LinkedinIcon size={22} />
                 </a>
-                <a href="https://github.com/davidmvg05" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-github">
+                <a href="https://github.com/davidmvg05" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-github" aria-label="GitHub">
                   <GithubIcon size={22} />
                 </a>
               </div>
@@ -3638,7 +3633,7 @@ function App() {
         
         {isA11yOpen && (
           <div className="a11y-control-panel">
-            <h4 className="a11y-panel-title">{a11yTranslations[lang]?.title || 'Accessibility'}</h4>
+            <p className="a11y-panel-title">{a11yTranslations[lang]?.title || 'Accessibility'}</p>
             
             <div className="a11y-section">
               <span className="a11y-section-title">{a11yTranslations[lang]?.textSize || 'Text Size'}</span>

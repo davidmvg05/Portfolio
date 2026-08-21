@@ -61,7 +61,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
     switch (code) {
       case 'PT':
         return (
-          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
             <rect x="0" y="0" width="9.6" height="24" fill="#006600" />
             <rect x="9.6" y="0" width="14.4" height="24" fill="#FF0000" />
             <circle cx="9.6" cy="12" r="3.6" fill="#FFFF00" />
@@ -69,7 +69,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
         );
       case 'EN':
         return (
-          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
             <clipPath id="circle-gb-nav"><circle cx="12" cy="12" r="12" /></clipPath>
             <g clipPath="url(#circle-gb-nav)">
               <rect width="24" height="24" fill="#00227F" />
@@ -82,7 +82,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
         );
       case 'ES':
         return (
-          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
             <rect x="0" y="0" width="24" height="6" fill="#C60B1E" />
             <rect x="0" y="6" width="24" height="12" fill="#FBE122" />
             <rect x="0" y="18" width="24" height="6" fill="#C60B1E" />
@@ -91,7 +91,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
         );
       case 'FR':
         return (
-          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
             <rect x="0" y="0" width="8" height="24" fill="#002395" />
             <rect x="8" y="0" width="8" height="24" fill="#FFFFFF" />
             <rect x="16" y="0" width="8" height="24" fill="#ED2939" />
@@ -99,7 +99,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
         );
       case 'DE':
         return (
-          <svg viewBox="0 0 24 24" width="16" height="16" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ borderRadius: '50%', display: 'inline-block', verticalAlign: 'middle' }}>
             <rect x="0" y="0" width="24" height="8" fill="#000000" />
             <rect x="0" y="8" width="24" height="8" fill="#FF0000" />
             <rect x="0" y="16" width="24" height="8" fill="#FFCC00" />
@@ -212,6 +212,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
       <input 
         className="bb8-toggle__checkbox" 
         type="checkbox" tabIndex={-1} 
+        aria-label="Alterar tema (BB-8)"
         checked={isDarkMode}
         onChange={toggleTheme}
       />

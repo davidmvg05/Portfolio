@@ -27,16 +27,16 @@
   --bg-primary: #e5e5e5;
   --bg-secondary: #ffffff;
   --text-primary: #121829;
-  --text-secondary: #5a6485;
+  --text-secondary: #2c354e;
   --accent-purple: #7b2cbf;
-  --accent-blue: #0077b6;
+  --accent-blue: #005086;
   --accent-purple-glow: rgba(123, 44, 191, 0.25);
-  --accent-blue-glow: rgba(0, 119, 182, 0.25);
+  --accent-blue-glow: rgba(0, 80, 134, 0.25);
   --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(0, 0, 0, 0.08);
   --card-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15);
   --nebula-glow-1: rgba(123, 44, 191, 0.06);
-  --nebula-glow-2: rgba(0, 119, 182, 0.06);
+  --nebula-glow-2: rgba(0, 80, 134, 0.06);
 }
 
 /* --- Base Styles --- */
@@ -4379,4 +4379,68 @@ select:focus-visible,
   transition: none !important;
   animation: none !important;
   scroll-behavior: auto !important;
+}
+
+/* 5. Project Card Layout & Dimensions Overrides for Text Scale Options */
+.project-image-container {
+  flex-shrink: 0 !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large .project-card {
+  height: 520px !important;
+}
+.app-accessibility-wrapper.a11y-text-large .projects-carousel-viewport {
+  height: 540px !important;
+}
+
+.app-accessibility-wrapper.a11y-text-extra-large .project-card {
+  height: 580px !important;
+}
+.app-accessibility-wrapper.a11y-text-extra-large .projects-carousel-viewport {
+  height: 600px !important;
+}
+
+/* 6. Navbar layout adjustments to prevent title wrap in large text modes */
+.app-accessibility-wrapper.a11y-text-large .navbar-container,
+.app-accessibility-wrapper.a11y-text-extra-large .navbar-container {
+  max-width: 100% !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large .logo-link {
+  font-size: 1.4rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-extra-large .logo-link {
+  font-size: 1.45rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large .nav-actions,
+.app-accessibility-wrapper.a11y-text-extra-large .nav-actions {
+  gap: 1rem !important;
+}
+
+.app-accessibility-wrapper.a11y-text-large .nav-menu,
+.app-accessibility-wrapper.a11y-text-extra-large .nav-menu {
+  gap: 1.2rem !important;
+}
+
+/* Mobile responsive height overrides for project cards with large text */
+@media (max-width: 768px) {
+  .app-accessibility-wrapper.a11y-text-large .project-card {
+    width: 290px !important;
+    height: 560px !important;
+  }
+  .app-accessibility-wrapper.a11y-text-large .projects-carousel-viewport {
+    height: 600px !important;
+  }
+
+  .app-accessibility-wrapper.a11y-text-extra-large .project-card {
+    width: 300px !important;
+    height: 640px !important;
+  }
+  .app-accessibility-wrapper.a11y-text-extra-large .projects-carousel-viewport {
+    height: 680px !important;
+  }
 }

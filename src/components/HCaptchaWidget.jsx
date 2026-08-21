@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from 'react';
 export default function HCaptchaWidget({ 
   siteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
   theme = 'dark',
-  tabIndex = 5,
+  tabIndex = 0,
   onVerify,
   onError,
   onExpire
