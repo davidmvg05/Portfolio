@@ -1736,11 +1736,25 @@ function App() {
                       : "More marketer than developer… but I love playing with both. 😎 I am not a programmer. I just have ideas too stubborn not to create them. 🤫"}
                 </p>
                 <div className="home-cta-container">
-                  <a href="#projects" tabIndex={1} onClick={(e) => {
-                    e.preventDefault();
-                    const el = document.getElementById('projects');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }} className="btn btn-primary">{t('heroCTA')}</a>
+                  <a 
+                    href="#projects" 
+                    tabIndex={1} 
+                    onKeyDown={(e) => {
+                      if (e.key === 'Tab' && e.shiftKey) {
+                        e.preventDefault();
+                        const lastEl = document.querySelector('.contact-form button[type="submit"]');
+                        if (lastEl) lastEl.focus();
+                      }
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const el = document.getElementById('projects');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }} 
+                    className="btn btn-primary"
+                  >
+                    {t('heroCTA')}
+                  </a>
                   <a href="#contact" tabIndex={2} onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById('contact');
@@ -1841,6 +1855,7 @@ function App() {
           <div className="projects-carousel-container">
             <button 
               className="carousel-nav-btn prev-btn" 
+              tabIndex={-1}
               onClick={prevSlide} 
               aria-label={lang === 'PT' ? "Projeto anterior" : lang === 'ES' ? "Proyecto anterior" : lang === 'FR' ? "Projet précédent" : lang === 'DE' ? "Vorheriges Projekt" : "Previous project"}
             >
@@ -1971,6 +1986,7 @@ function App() {
                           {project.id ? (
                             <a 
                               href={`#project-${project.id}`} 
+                              tabIndex={-1}
                               className="project-link" 
                               onClick={(e) => {
                                 e.preventDefault();
@@ -1980,7 +1996,7 @@ function App() {
                               {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'} &rarr;
                             </a>
                           ) : (
-                            <a href={project.link} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                            <a href={project.link} tabIndex={-1} className="project-link" target={project.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
                               {lang === 'PT' ? 'Ver Mais' : lang === 'ES' ? 'Ver Más' : 'See More'} <ExternalLink size={16} />
                             </a>
                           )}
@@ -1994,6 +2010,7 @@ function App() {
 
             <button 
               className="carousel-nav-btn next-btn" 
+              tabIndex={-1}
               onClick={nextSlide} 
               aria-label={lang === 'PT' ? "Próximo projeto" : lang === 'ES' ? "Próximo proyecto" : lang === 'FR' ? "Projet suivant" : lang === 'DE' ? "Nächstes Projekt" : "Next project"}
             >
@@ -2140,7 +2157,19 @@ function App() {
               </div>
               <HCaptchaWidget tabIndex={12} theme="dark" />
               <div className="form-submit-container" style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <button type="submit" className="btn btn-primary" tabIndex={13} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary" 
+                  tabIndex={13} 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Tab' && !e.shiftKey) {
+                      e.preventDefault();
+                      const firstEl = document.querySelector('a[href="#projects"][tabindex="1"]');
+                      if (firstEl) firstEl.focus();
+                    }
+                  }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                >
                   {t('sendButton')} <Send size={16} />
                 </button>
                 {contactStatus.message && (
@@ -3200,6 +3229,7 @@ function App() {
                     <a 
                       key={item} 
                       href={`#${id}`} 
+                      tabIndex={-1}
                       onClick={(e) => {
                         e.preventDefault();
                         if (activeProjectId) {
@@ -3229,10 +3259,10 @@ function App() {
             <div className="footer-column">
               <h4 className="footer-title">&lt; / social &gt;</h4>
               <div className="footer-social-links">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon-linkedin">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-linkedin">
                   <LinkedinIcon size={22} />
                 </a>
-                <a href="https://github.com/davidmvg05" target="_blank" rel="noopener noreferrer" className="social-icon-github">
+                <a href="https://github.com/davidmvg05" target="_blank" rel="noopener noreferrer" tabIndex={-1} className="social-icon-github">
                   <GithubIcon size={22} />
                 </a>
               </div>
@@ -3243,6 +3273,7 @@ function App() {
             <p style={{ margin: 0 }}>/* © 2026 David Gomes - Developed with Google Antigravity */</p>
             <a 
               href="#privacy-policy" 
+              tabIndex={-1}
               onClick={(e) => {
                 e.preventDefault();
                 navigateToPrivacy();

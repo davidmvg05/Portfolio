@@ -211,7 +211,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
     <label className="bb8-toggle" aria-label="Alterar tema (BB-8)">
       <input 
         className="bb8-toggle__checkbox" 
-        type="checkbox" 
+        type="checkbox" tabIndex={-1} 
         checked={isDarkMode}
         onChange={toggleTheme}
       />
@@ -262,7 +262,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                 window.history.pushState({ projectId: 'mystery-hub' }, '', '?page=mystery-hub');
               }
             }} 
-            className="logo-link mystery-portal-trigger"
+            tabIndex={-1} className="logo-link mystery-portal-trigger"
             title={lang === 'PT' ? "Aceder ao Cockpit Secreto" : lang === 'ES' ? "Acceder al Cockpit Secreto" : "Access Secret Cockpit"}
           >
             <span className="logo-bracket">&lt;</span>
@@ -280,7 +280,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                   key={item}
                   href={`#${id}`}
                   onClick={(e) => handleLinkClick(e, id)}
-                  className={`nav-link ${isActive ? 'active' : ''}`}
+                  tabIndex={-1} className={`nav-link ${isActive ? 'active' : ''}`}
                 >
                   <span className="bracket">&lt;</span>
                   <span className="link-text">{getLabel(item)}</span>
@@ -295,7 +295,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             {/* Language Selector Dropdown */}
             <div className="nav-lang-dropdown" ref={dropdownRef}>
               <button 
-                className="nav-lang-btn" 
+                tabIndex={-1} className="nav-lang-btn" 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 aria-label="Select language"
               >
@@ -308,7 +308,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                   {languages.map((l) => (
                     <button 
                       key={l.code} 
-                      className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
+                      tabIndex={-1} className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
                       onClick={() => {
                         if (setLang) setLang(l.code);
                         setIsDropdownOpen(false);
@@ -327,7 +327,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
 
           {/* Hamburger Icon (Visible on Mobile) */}
           <button 
-            className="hamburger-btn" 
+            tabIndex={-1} className="hamburger-btn" 
             onClick={() => setIsOpen(!isOpen)} 
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
           >
@@ -345,7 +345,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
       {/* Mobile Drawer Navigation (Visible on Mobile) */}
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
         <button 
-          className="mobile-drawer-close" 
+          tabIndex={-1} className="mobile-drawer-close" 
           onClick={() => setIsOpen(false)}
           aria-label="Fechar menu"
           style={{
@@ -376,7 +376,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
             </span>
             <div className="nav-lang-dropdown mobile-lang-dropdown" style={{ margin: 0, width: '180px', position: 'relative' }}>
               <button 
-                className="nav-lang-btn" 
+                tabIndex={-1} className="nav-lang-btn" 
                 onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
                 aria-label="Select language"
                 style={{ width: '100%', justifyContent: 'space-between' }}
@@ -392,7 +392,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                   {languages.map((l) => (
                     <button 
                       key={l.code} 
-                      className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
+                      tabIndex={-1} className={`nav-lang-option-item ${lang === l.code ? 'active' : ''}`} 
                       onClick={() => {
                         if (setLang) setLang(l.code);
                         setIsMobileDropdownOpen(false);
@@ -419,7 +419,7 @@ function Navbar({ isDarkMode, toggleTheme, activeProjectId, setActiveProjectId, 
                     setIsOpen(false);
                     handleLinkClick(e, id);
                   }}
-                  className={`mobile-drawer-link ${isActive ? 'active' : ''}`}
+                  tabIndex={-1} className={`mobile-drawer-link ${isActive ? 'active' : ''}`}
                   style={{
                     textDecoration: 'none',
                     fontFamily: 'var(--font-mono)',
