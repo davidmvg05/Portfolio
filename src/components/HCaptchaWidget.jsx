@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * hCaptcha Widget Component
@@ -14,12 +14,37 @@ export default function HCaptchaWidget({
 }) {
   const containerRef = useRef(null);
   const widgetIdRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Set up IntersectionObserver to lazy-load hCaptcha when it is close to the viewport
+  useEffect(() => {
+    if (typeof window === 'undefined' || !containerRef.current) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      });
+    }, {
+      rootMargin: '300px' // Initialize when container is within 300px of viewport
+    });
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
 
     const tryRender = () => {
-      if (!isMounted || !containerRef.current) return;
+      if (!isMounted || !containerRef.current || !isVisible) return;
       if (typeof window !== 'undefined' && window.hcaptcha) {
         // Save current scroll position
         const scrollX = window.scrollX || window.pageXOffset || 0;
@@ -38,6 +63,11 @@ export default function HCaptchaWidget({
             // ignore errors
           }
           widgetIdRef.current = null;
+        }
+
+        // Clear HTML content of container to ensure clean slate
+        if (containerRef.current) {
+          containerRef.current.innerHTML = "";
         }
 
         try {
@@ -130,7 +160,7 @@ export default function HCaptchaWidget({
         }
       }
     };
-  }, [siteKey, theme, tabIndex]);
+  }, [siteKey, theme, tabIndex, isVisible]);
 
   return (
     <div 
