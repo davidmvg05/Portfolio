@@ -21,6 +21,15 @@ export default function HCaptchaWidget({
     const tryRender = () => {
       if (!isMounted || !containerRef.current) return;
       if (typeof window !== 'undefined' && window.hcaptcha) {
+        // Save current scroll position
+        const scrollX = window.scrollX || window.pageXOffset || 0;
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        
+        // Temporarily disable smooth scroll behavior on the document element
+        const htmlEl = document.documentElement;
+        const originalScrollBehavior = htmlEl.style.scrollBehavior;
+        htmlEl.style.scrollBehavior = 'auto';
+
         // If a widget was previously rendered in this container, reset it first
         if (widgetIdRef.current !== null) {
           try {
@@ -65,6 +74,13 @@ export default function HCaptchaWidget({
         } catch (err) {
           console.warn('hCaptcha render failed or already initialized:', err);
         }
+
+        // Restore scroll position immediately and in a deferred timeout to ensure hCaptcha rendering cycle completes
+        window.scrollTo(scrollX, scrollY);
+        setTimeout(() => {
+          window.scrollTo(scrollX, scrollY);
+          htmlEl.style.scrollBehavior = originalScrollBehavior;
+        }, 50);
       }
     };
 
