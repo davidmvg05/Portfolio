@@ -4353,4 +4353,182 @@ select:focus-visible,
   flex-shrink: 0 !important;
 }
 
+/* 6. Sticky Audio Playback Controller Bar */
+.audio-narrator-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+  background: rgba(10, 8, 20, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.8rem 1rem;
+}
+
+.audio-bar-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.audio-status-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  min-width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.audio-bar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.audio-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.audio-btn:hover {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+}
+
+.audio-btn:active {
+  transform: scale(0.95);
+}
+
+.play-pause-btn {
+  width: 44px;
+  height: 44px;
+  font-size: 1.3rem;
+  background: var(--accent-purple);
+  border-color: var(--accent-purple);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+}
+
+.play-pause-btn:hover {
+  background: #b866ff;
+  border-color: #b866ff;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+}
+
+.audio-volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 140px;
+}
+
+.audio-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--accent-purple);
+}
+
+.audio-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.8);
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Offset the floating accessibility widget button if narration bar is visible */
+.a11y-widget-container.has-audio-bar {
+  bottom: 5.5rem !important;
+  transition: bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Mobile responsive styling for audio narration bar */
+@media (max-width: 600px) {
+  .audio-narrator-bar {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .audio-bar-content {
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.2rem 0;
+  }
+
+  .audio-status-text {
+    min-width: unset;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .audio-bar-buttons {
+    gap: 0.6rem;
+  }
+
+  .audio-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .play-pause-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .audio-volume-control {
+    justify-content: center;
+    width: 100%;
+    min-width: unset;
+  }
+
+  .audio-volume-slider {
+    width: 120px;
+  }
+
+  .a11y-widget-container.has-audio-bar {
+    bottom: 9rem !important;
+  }
+}
+
 

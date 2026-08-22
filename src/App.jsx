@@ -227,6 +227,16 @@ function App() {
     }
     return false;
   });
+  const [isAudioNarratorEnabled, setIsAudioNarratorEnabled] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('a11y-audioNarrator') === 'true';
+    }
+    return false;
+  });
+  const [audioPlaybackState, setAudioPlaybackState] = useState('stopped'); // 'stopped', 'playing', 'paused'
+  const [audioCurrentIndex, setAudioCurrentIndex] = useState(0);
+  const [audioVolume, setAudioVolume] = useState(1);
+
   const [isA11yOpen, setIsA11yOpen] = useState(false);
 
   useEffect(() => {
@@ -244,6 +254,18 @@ function App() {
       localStorage.setItem('a11y-reducedMotion', reducedMotion ? 'true' : 'false');
     }
   }, [reducedMotion]);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('a11y-audioNarrator', isAudioNarratorEnabled ? 'true' : 'false');
+    }
+    if (!isAudioNarratorEnabled) {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      setAudioPlaybackState('stopped');
+      setAudioCurrentIndex(0);
+    }
+  }, [isAudioNarratorEnabled]);
 
   const a11yRef = useRef(null);
 
@@ -263,6 +285,7 @@ function App() {
       highlightLinks: 'Destacar Links',
       readableFont: 'Fonte Legível',
       reducedMotion: 'Movimento Reduzido',
+      hearPage: 'Ouvir conteúdo da página',
       reset: 'Restaurar Predefinições',
       btnLabel: 'Painel de Acessibilidade'
     },
@@ -271,6 +294,7 @@ function App() {
       highlightLinks: 'Highlight Links',
       readableFont: 'Readable Font',
       reducedMotion: 'Reduced Motion',
+      hearPage: 'Hear page content',
       reset: 'Reset Defaults',
       btnLabel: 'Accessibility Panel'
     },
@@ -279,6 +303,7 @@ function App() {
       highlightLinks: 'Destacar Enlaces',
       readableFont: 'Fuente Legible',
       reducedMotion: 'Movimiento Reducido',
+      hearPage: 'Escuchar contenido de la página',
       reset: 'Restablecer Ajustes',
       btnLabel: 'Panel de Accesibilidad'
     },
@@ -287,6 +312,7 @@ function App() {
       highlightLinks: 'Surligner les Liens',
       readableFont: 'Police Lisible',
       reducedMotion: 'Mouvement Réduit',
+      hearPage: 'Écouter le contenu de la page',
       reset: 'Réinitialiser',
       btnLabel: 'Panneau d\'Accessibilité'
     },
@@ -295,6 +321,7 @@ function App() {
       highlightLinks: 'Links hervorheben',
       readableFont: 'Lesbare Schriftart',
       reducedMotion: 'Reduzierte Bewegung',
+      hearPage: 'Seiteninhalt anhören',
       reset: 'Zurücksetzen',
       btnLabel: 'Barrierefreiheit-Panel'
     }
@@ -1813,6 +1840,194 @@ function App() {
   };
 
 
+  const getPageTextBlocks = (projectId, language) => {
+    const t = (key) => translations[language]?.[key] || translations['EN']?.[key] || '';
+    
+    if (projectId === null) {
+      const blocks = [
+        t('heroTitle'),
+        t('heroSubtitle'),
+        t('journeyTitle'),
+        language === 'PT' 
+          ? "Em 2026, comecei a trabalhar como Freelancer, com foco em websites, anúncios digitais e automação." 
+          : language === 'ES'
+            ? "En 2026, comencé a trabajar como Freelancer, centrándose en sitios web, anuncios digitales y automatización."
+            : "In 2026, started freelancing with focus on websites, digital ads, and automation.",
+        language === 'PT' 
+          ? "Desenvolvimento de e-commerce e sites institucionais modernos, dinâmicos e adaptados a qualquer dispositivo." 
+          : language === 'ES'
+            ? "Desarrollo de e-commerce y sitios web institucionales modernos, dinámicos y adaptados a cualquier dispositivo."
+            : "Development of e-commerce and modern institutional websites adapted to any device.",
+        language === 'PT' 
+          ? "Em 2024, estagiário no Alfaiate da Web com foco em front-end." 
+          : language === 'ES'
+            ? "En 2024, pasante en Alfaiate da Web con enfoque en front-end."
+            : "In 2024, intern at Alfaiate da Web with focus on front-end.",
+        t('professionalTitle'),
+        t('academicTitle'),
+        t('skillsTitle'),
+        t('contactTitle'),
+        t('contactDesc')
+      ];
+      return blocks.filter(Boolean);
+    } else if (projectId === 'mystery-hub') {
+      const blocks = [
+        t('mysteryTitle'),
+        t('mysteryDesc'),
+        language === 'PT' 
+          ? "Hobbies e Interesses: Programação, Animação 3D, Leituras de Mistério, Gaming, Montagem de Computadores." 
+          : language === 'ES'
+            ? "Hobbies e Intereses: Programación, Animación 3D, Lecturas de Misterio, Gaming, Ensamblado de Computadoras."
+            : "Hobbies & Interests: Coding, 3D Animation, Mystery Books, Gaming, Custom PC Building.",
+        language === 'PT' 
+          ? "Livros recomendados: O Livro do Ric, A Ilha Mortal, O Intruso, O Hipnotista." 
+          : language === 'ES'
+            ? "Libros recomendados: El Libro de Ric, La Isla Mortal, El Intruso, El Hipnotista."
+            : "Recommended Books: Ric's Book, The Deadly Island, The Intruder, The Hypnotist.",
+        t('pcTitle'),
+        language === 'PT' 
+          ? "Chassis do Computador: Ryzen 5, Asus GTX 1660 Ti, 16 Gigas RAM Corsair, SSD Crucial 2 Terabytes." 
+          : language === 'ES'
+            ? "Chasis de la Computadora: Ryzen 5, Asus GTX 1660 Ti, 16 Gigas RAM Corsair, SSD Crucial 2 Terabytes."
+            : "PC Configuration: Ryzen 5, Asus GTX 1660 Ti, 16 Gigabytes Corsair RAM, 2 Terabytes Crucial SSD."
+      ];
+      return blocks.filter(Boolean);
+    } else if (projectId === 'privacy-policy') {
+      const blocks = [
+        t('privacyPolicy'),
+        language === 'PT' 
+          ? "Esta Política de Privacidade explica como recolhemos e tratamos os seus dados pessoais quando utiliza o formulário." 
+          : language === 'ES'
+            ? "Esta Política de Privacidad explica cómo recopilamos y tratamos sus datos personales al usar el formulario."
+            : "This Privacy Policy explains how we collect and process your personal data when you use the form.",
+        language === 'PT' 
+          ? "Os dados introduzidos (Nome, Email e Mensagem) destinam-se exclusivamente a responder ao seu contacto." 
+          : language === 'ES'
+            ? "Los datos introducidos (Nombre, Correo electrónico y Mensaje) se destinan exclusivamente a responder a su contacto."
+            : "The data entered (Name, Email and Message) is solely used to respond to your inquiry.",
+        language === 'PT' 
+          ? "Garantimos a segurança dos dados e o utilizador pode solicitar a sua eliminação a qualquer momento." 
+          : language === 'ES'
+            ? "Garantizamos la seguridad de los datos y el usuario puede solicitar su eliminación en cualquier momento."
+            : "We guarantee data security and users can request deletion at any time."
+      ];
+      return blocks.filter(Boolean);
+    } else {
+      const projectDetailsMap = projectDetails[projectId] || {};
+      const proj = getTranslatedProjectDetails(projectId, projectDetailsMap);
+      if (proj) {
+        return [
+          proj.title,
+          proj.description,
+          proj.detailedDescription || '',
+          t('skillsLabel') + ": " + (proj.skills ? proj.skills.join(', ') : ''),
+          t('platformsLabel') + ": " + (proj.platforms ? proj.platforms.join(', ') : '')
+        ].filter(Boolean);
+      }
+      return [];
+    }
+  };
+
+  const audioVolumeRef = useRef(audioVolume);
+  useEffect(() => {
+    audioVolumeRef.current = audioVolume;
+  }, [audioVolume]);
+
+  const speakBlock = (index) => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+
+    window.speechSynthesis.cancel();
+    const blocks = getPageTextBlocks(activeProjectId, lang);
+    if (index < 0 || index >= blocks.length) {
+      stopAudio();
+      return;
+    }
+
+    setAudioCurrentIndex(index);
+    const text = blocks[index];
+    if (!text) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Precise selected voice accents:
+    const voiceLangMap = {
+      PT: 'pt-PT',
+      EN: 'en-GB',
+      ES: 'es-ES',
+      FR: 'fr-FR',
+      DE: 'de-DE'
+    };
+    utterance.lang = voiceLangMap[lang] || 'pt-PT';
+    utterance.volume = audioVolumeRef.current;
+
+    // Use local voices if available
+    const voices = window.speechSynthesis.getVoices();
+    const matchedVoice = voices.find(v => v.lang.startsWith(utterance.lang));
+    if (matchedVoice) {
+      utterance.voice = matchedVoice;
+    }
+
+    utterance.onend = () => {
+      const nextIndex = index + 1;
+      if (nextIndex < blocks.length) {
+        speakBlock(nextIndex);
+      } else {
+        stopAudio();
+      }
+    };
+
+    utterance.onerror = (e) => {
+      if (e.error !== 'interrupted') {
+        console.warn('SpeechSynthesis error:', e);
+      }
+    };
+
+    window.speechSynthesis.speak(utterance);
+    setAudioPlaybackState('playing');
+  };
+
+  const playAudio = () => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    if (audioPlaybackState === 'paused') {
+      window.speechSynthesis.resume();
+      setAudioPlaybackState('playing');
+    } else {
+      speakBlock(audioCurrentIndex);
+    }
+  };
+
+  const pauseAudio = () => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    window.speechSynthesis.pause();
+    setAudioPlaybackState('paused');
+  };
+
+  const stopAudio = () => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    setAudioPlaybackState('stopped');
+    setAudioCurrentIndex(0);
+  };
+
+  const skipForwardAudio = () => {
+    const blocks = getPageTextBlocks(activeProjectId, lang);
+    const nextIndex = Math.min(blocks.length, audioCurrentIndex + 1);
+    if (nextIndex < blocks.length) {
+      speakBlock(nextIndex);
+    } else {
+      stopAudio();
+    }
+  };
+
+  const skipBackwardAudio = () => {
+    const prevIndex = Math.max(0, audioCurrentIndex - 1);
+    speakBlock(prevIndex);
+  };
+
+  // Reset audio playback when page navigation or language changes
+  useEffect(() => {
+    stopAudio();
+  }, [activeProjectId, lang]);
 
   return (
     <>
@@ -3656,15 +3871,21 @@ function App() {
           </div>
         </div>
       )}
-      {/* Floating Accessibility Control Panel */}
-      <div className={`a11y-widget-container ${isA11yOpen ? 'open' : ''}`} ref={a11yRef}>
+      <div className={`a11y-widget-container ${isA11yOpen ? 'open' : ''} ${isAudioNarratorEnabled ? 'has-audio-bar' : ''}`} ref={a11yRef}>
         <button 
           className="a11y-floating-btn" 
           onClick={() => setIsA11yOpen(!isA11yOpen)} 
           aria-label={a11yTranslations[lang]?.btnLabel || 'Accessibility Panel'}
           aria-expanded={isA11yOpen}
+          alt="Web Accessibility Symbol"
         >
-          <Accessibility size={24} />
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" role="img" aria-label="Web Accessibility Symbol">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="6.5" r="1.5" fill="currentColor" />
+            <path d="M 7,10.5 C 9.5,9.2 14.5,9.2 17,10.5" />
+            <path d="M 12,8 L 12,13.5" />
+            <path d="M 9.5,17.5 L 12,13.5 L 14.5,17.5" />
+          </svg>
         </button>
         
         {isA11yOpen && (
@@ -3704,12 +3925,30 @@ function App() {
               </label>
             </div>
 
+            <div className="a11y-section">
+              <label className="a11y-toggle-row">
+                <span>{a11yTranslations[lang]?.hearPage || 'Hear page content'}</span>
+                <input 
+                  type="checkbox" 
+                  checked={isAudioNarratorEnabled} 
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setIsAudioNarratorEnabled(checked);
+                    if (checked) {
+                      setTimeout(() => speakBlock(0), 50);
+                    }
+                  }} 
+                />
+              </label>
+            </div>
+
             <button 
               className="a11y-reset-btn"
               onClick={() => {
                 setHighlightLinks(false);
                 setReadableFont(false);
                 setReducedMotion(false);
+                setIsAudioNarratorEnabled(false);
               }}
             >
               {a11yTranslations[lang]?.reset || 'Reset Defaults'}
@@ -3717,6 +3956,85 @@ function App() {
           </div>
         )}
       </div>
+      {/* Audio Playback Controller Bar */}
+      {isAudioNarratorEnabled && (
+        <div className="audio-narrator-bar" role="region" aria-label="Audio Playback Controller">
+          <div className="audio-bar-content">
+            <span className="audio-status-text">
+              {audioPlaybackState === 'playing' ? '🔊' : audioPlaybackState === 'paused' ? '⏸️' : '⏹️'} {audioPlaybackState === 'playing' ? (lang === 'PT' ? 'A narrar...' : lang === 'ES' ? 'Narrando...' : lang === 'FR' ? 'Narration en cours...' : lang === 'DE' ? 'Vorlesen...' : 'Narrating...') : audioPlaybackState === 'paused' ? (lang === 'PT' ? 'Pausado' : lang === 'ES' ? 'Pausado' : lang === 'FR' ? 'En pause' : lang === 'DE' ? 'Pausiert' : 'Paused') : (lang === 'PT' ? 'Parado' : lang === 'ES' ? 'Detenido' : lang === 'FR' ? 'Arrêté' : lang === 'DE' ? 'Angehalten' : 'Stopped')}
+            </span>
+            
+            <div className="audio-bar-buttons">
+              {/* Rewind Button */}
+              <button 
+                onClick={skipBackwardAudio} 
+                className="audio-btn" 
+                title={lang === 'PT' ? 'Recuar' : 'Rewind'}
+                aria-label={lang === 'PT' ? 'Recuar' : 'Rewind'}
+              >
+                ⏪
+              </button>
+              
+              {/* Play / Pause Toggle Button */}
+              {audioPlaybackState === 'playing' ? (
+                <button 
+                  onClick={pauseAudio} 
+                  className="audio-btn play-pause-btn" 
+                  title={lang === 'PT' ? 'Pausar' : 'Pause'}
+                  aria-label={lang === 'PT' ? 'Pausar' : 'Pause'}
+                >
+                  ⏸️
+                </button>
+              ) : (
+                <button 
+                  onClick={playAudio} 
+                  className="audio-btn play-pause-btn" 
+                  title={lang === 'PT' ? 'Ouvir' : 'Play'}
+                  aria-label={lang === 'PT' ? 'Ouvir' : 'Play'}
+                >
+                  ▶️
+                </button>
+              )}
+              
+              {/* Stop Button */}
+              <button 
+                onClick={stopAudio} 
+                className="audio-btn" 
+                title={lang === 'PT' ? 'Parar' : 'Stop'}
+                aria-label={lang === 'PT' ? 'Parar' : 'Stop'}
+              >
+                ⏹️
+              </button>
+
+              {/* Fast-Forward Button */}
+              <button 
+                onClick={skipForwardAudio} 
+                className="audio-btn" 
+                title={lang === 'PT' ? 'Avançar' : 'Fast forward'}
+                aria-label={lang === 'PT' ? 'Avançar' : 'Fast forward'}
+              >
+                ⏩
+              </button>
+            </div>
+
+            {/* Volume Control */}
+            <div className="audio-volume-control">
+              <span style={{ fontSize: '0.9rem' }} aria-hidden="true">🔊</span>
+              <input 
+                type="range" 
+                min="0" 
+                max="1" 
+                step="0.1" 
+                value={audioVolume} 
+                onChange={(e) => setAudioVolume(parseFloat(e.target.value))} 
+                className="audio-volume-slider"
+                title={lang === 'PT' ? 'Volume do áudio' : 'Audio volume'}
+                aria-label={lang === 'PT' ? 'Volume do áudio' : 'Audio volume'}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </>
   );
