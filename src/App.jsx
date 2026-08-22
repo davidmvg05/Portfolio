@@ -175,6 +175,7 @@ function App() {
   const [omegaStatus, setOmegaStatus] = useState({ type: null, message: '' });
 
   const prevFocusedElementRef = useRef(null);
+  const decryptionIntervalRef = useRef(null);
 
   useEffect(() => {
     if (activeJourneyDetail || isOmegaModalOpen) {
@@ -1667,12 +1668,17 @@ function App() {
     setIsDecrypting(true);
     setDecryptionProgress(0);
     
+    if (decryptionIntervalRef.current) {
+      clearInterval(decryptionIntervalRef.current);
+    }
+
     let current = 0;
     const interval = setInterval(() => {
       current += 1;
       if (current >= 100) {
         current = 100;
         clearInterval(interval);
+        decryptionIntervalRef.current = null;
         setTimeout(() => {
           setIsDecrypting(false);
           setActiveProjectId('mystery-hub');
@@ -1681,6 +1687,17 @@ function App() {
       }
       setDecryptionProgress(current);
     }, 80); // 80ms * 100 steps = 8000ms = 8 seconds total (exactly 2 seconds per 25% phase)
+    decryptionIntervalRef.current = interval;
+  };
+
+  const cancelDecryption = () => {
+    if (decryptionIntervalRef.current) {
+      clearInterval(decryptionIntervalRef.current);
+      decryptionIntervalRef.current = null;
+    }
+    setIsDecrypting(false);
+    setDecryptionProgress(0);
+    navigateHome();
   };
 
   const navigateToMystery = () => {
@@ -3609,7 +3626,33 @@ function App() {
               <div style={{ width: `${decryptionProgress}%`, height: '100%', background: 'linear-gradient(90deg, #2dcbfe, #a855f7)', transition: 'width 0.1s linear', boxShadow: '0 0 8px #a855f7' }} />
             </div>
             
-            <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#2dcbfe' }}>{decryptionProgress}%</span>
+            <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#2dcbfe', display: 'block', marginBottom: '1.5rem' }}>{decryptionProgress}%</span>
+            
+            <button 
+              className="btn btn-secondary btn-sm"
+              onClick={cancelDecryption}
+              style={{
+                border: '1px solid rgba(168, 85, 247, 0.4)',
+                background: 'rgba(168, 85, 247, 0.05)',
+                color: '#fff',
+                fontFamily: 'var(--font-mono)',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                zIndex: 10
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(168, 85, 247, 0.2)';
+                e.target.style.borderColor = '#a855f7';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(168, 85, 247, 0.05)';
+                e.target.style.borderColor = 'rgba(168, 85, 247, 0.4)';
+              }}
+            >
+              &larr; {lang === 'PT' ? 'Cancelar / Voltar' : lang === 'ES' ? 'Cancelar / Volver' : 'Cancel / Go Back'}
+            </button>
           </div>
         </div>
       )}

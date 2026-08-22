@@ -15,6 +15,7 @@ export default function HCaptchaWidget({
   const containerRef = useRef(null);
   const widgetIdRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const prevThemeRef = useRef(theme);
 
   // Set up IntersectionObserver to lazy-load hCaptcha when it is close to the viewport
   useEffect(() => {
@@ -46,14 +47,23 @@ export default function HCaptchaWidget({
     const tryRender = () => {
       if (!isMounted || !containerRef.current || !isVisible) return;
       if (typeof window !== 'undefined' && window.hcaptcha) {
-        // Save current scroll position
-        const scrollX = window.scrollX || window.pageXOffset || 0;
-        const scrollY = window.scrollY || window.pageYOffset || 0;
-        
-        // Temporarily disable smooth scroll behavior on the document element
+        const themeChanged = prevThemeRef.current !== theme;
+        prevThemeRef.current = theme;
+
+        let scrollX = 0;
+        let scrollY = 0;
+        let originalScrollBehavior = '';
         const htmlEl = document.documentElement;
-        const originalScrollBehavior = htmlEl.style.scrollBehavior;
-        htmlEl.style.scrollBehavior = 'auto';
+
+        if (themeChanged) {
+          // Save current scroll position
+          scrollX = window.scrollX || window.pageXOffset || 0;
+          scrollY = window.scrollY || window.pageYOffset || 0;
+          
+          // Temporarily disable smooth scroll behavior on the document element
+          originalScrollBehavior = htmlEl.style.scrollBehavior;
+          htmlEl.style.scrollBehavior = 'auto';
+        }
 
         // If a widget was previously rendered in this container, reset it first
         if (widgetIdRef.current !== null) {
@@ -105,12 +115,14 @@ export default function HCaptchaWidget({
           console.warn('hCaptcha render failed or already initialized:', err);
         }
 
-        // Restore scroll position immediately and in a deferred timeout to ensure hCaptcha rendering cycle completes
-        window.scrollTo(scrollX, scrollY);
-        setTimeout(() => {
+        if (themeChanged) {
+          // Restore scroll position immediately and in a deferred timeout to ensure hCaptcha rendering cycle completes
           window.scrollTo(scrollX, scrollY);
-          htmlEl.style.scrollBehavior = originalScrollBehavior;
-        }, 50);
+          setTimeout(() => {
+            window.scrollTo(scrollX, scrollY);
+            htmlEl.style.scrollBehavior = originalScrollBehavior;
+          }, 50);
+        }
       }
     };
 
