@@ -4252,34 +4252,7 @@ select:focus-visible,
   color: var(--text-secondary);
 }
 
-.a11y-text-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.4rem;
-}
 
-.a11y-option-btn {
-  padding: 0.4rem;
-  font-size: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.a11y-option-btn:hover {
-  background: rgba(168, 85, 247, 0.1);
-  border-color: var(--accent-purple);
-}
-
-.a11y-option-btn.active {
-  background: var(--accent-purple);
-  color: #fff;
-  border-color: var(--accent-purple);
-  font-weight: bold;
-}
 
 .a11y-toggle-row {
   display: flex;
@@ -4318,46 +4291,7 @@ select:focus-visible,
 
 /* Override Rules applied by Wrapper classes */
 
-/* 1. Text Scale Overrides */
-.app-accessibility-wrapper.a11y-text-large p,
-.app-accessibility-wrapper.a11y-text-large li,
-.app-accessibility-wrapper.a11y-text-large span:not(.copyable-text-content),
-.app-accessibility-wrapper.a11y-text-large a {
-  font-size: 1.15rem !important;
-}
 
-.app-accessibility-wrapper.a11y-text-large h1,
-.app-accessibility-wrapper.a11y-text-large .hero-title {
-  font-size: 3.5rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-large h2 {
-  font-size: 2.2rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-large h3 {
-  font-size: 1.5rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-extra-large p,
-.app-accessibility-wrapper.a11y-text-extra-large li,
-.app-accessibility-wrapper.a11y-text-extra-large span:not(.copyable-text-content),
-.app-accessibility-wrapper.a11y-text-extra-large a {
-  font-size: 1.3rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-extra-large h1,
-.app-accessibility-wrapper.a11y-text-extra-large .hero-title {
-  font-size: 4rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-extra-large h2 {
-  font-size: 2.5rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-extra-large h3 {
-  font-size: 1.7rem !important;
-}
 
 /* 2. Highlight Links Overrides */
 .app-accessibility-wrapper.a11y-highlight-links a {
@@ -4386,69 +4320,4 @@ select:focus-visible,
   flex-shrink: 0 !important;
 }
 
-.app-accessibility-wrapper.a11y-text-large .project-card {
-  height: 520px !important;
-}
-.app-accessibility-wrapper.a11y-text-large .projects-carousel-viewport {
-  height: 540px !important;
-}
 
-.app-accessibility-wrapper.a11y-text-extra-large .project-card {
-  height: 580px !important;
-}
-.app-accessibility-wrapper.a11y-text-extra-large .projects-carousel-viewport {
-  height: 600px !important;
-}
-
-/* 6. Navbar layout adjustments to prevent title wrap in large text modes */
-.app-accessibility-wrapper.a11y-text-large .navbar-container,
-.app-accessibility-wrapper.a11y-text-extra-large .navbar-container {
-  padding-left: 1.2rem !important;
-  padding-right: 1.2rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-large .logo-link {
-  font-size: 1.4rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-extra-large .logo-link {
-  font-size: 1.45rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-large .nav-actions {
-  gap: 1.2rem !important;
-}
-.app-accessibility-wrapper.a11y-text-extra-large .nav-actions {
-  gap: 0.9rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-large .nav-menu {
-  gap: 0.9rem !important;
-}
-.app-accessibility-wrapper.a11y-text-extra-large .nav-menu {
-  gap: 0.6rem !important;
-}
-
-.app-accessibility-wrapper.a11y-text-large .nav-link,
-.app-accessibility-wrapper.a11y-text-extra-large .nav-link {
-  padding: 0.4rem 0.4rem !important;
-}
-
-/* Mobile responsive height overrides for project cards with large text */
-@media (max-width: 768px) {
-  .app-accessibility-wrapper.a11y-text-large .project-card {
-    width: 290px !important;
-    height: 560px !important;
-  }
-  .app-accessibility-wrapper.a11y-text-large .projects-carousel-viewport {
-    height: 600px !important;
-  }
-
-  .app-accessibility-wrapper.a11y-text-extra-large .project-card {
-    width: 300px !important;
-    height: 640px !important;
-  }
-  .app-accessibility-wrapper.a11y-text-extra-large .projects-carousel-viewport {
-    height: 680px !important;
-  }
-}

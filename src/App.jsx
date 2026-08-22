@@ -208,12 +208,6 @@ function App() {
     }
     return null;
   });
-  const [textScale, setTextScale] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('a11y-textScale') || 'normal';
-    }
-    return 'normal';
-  });
   const [highlightLinks, setHighlightLinks] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('a11y-highlightLinks') === 'true';
@@ -234,11 +228,6 @@ function App() {
   });
   const [isA11yOpen, setIsA11yOpen] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('a11y-textScale', textScale);
-    }
-  }, [textScale]);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('a11y-highlightLinks', highlightLinks ? 'true' : 'false');
@@ -270,62 +259,42 @@ function App() {
   const a11yTranslations = {
     PT: {
       title: 'Acessibilidade',
-      textSize: 'Tamanho do Texto',
       highlightLinks: 'Destacar Links',
       readableFont: 'Fonte Legível',
       reducedMotion: 'Movimento Reduzido',
       reset: 'Restaurar Predefinições',
-      normal: 'Normal',
-      large: 'Grande',
-      extraLarge: 'Extra Grande',
       btnLabel: 'Painel de Acessibilidade'
     },
     EN: {
       title: 'Accessibility',
-      textSize: 'Text Size',
       highlightLinks: 'Highlight Links',
       readableFont: 'Readable Font',
       reducedMotion: 'Reduced Motion',
       reset: 'Reset Defaults',
-      normal: 'Normal',
-      large: 'Large',
-      extraLarge: 'Extra Large',
       btnLabel: 'Accessibility Panel'
     },
     ES: {
       title: 'Accesibilidad',
-      textSize: 'Tamaño del Texto',
       highlightLinks: 'Destacar Enlaces',
       readableFont: 'Fuente Legible',
       reducedMotion: 'Movimiento Reducido',
       reset: 'Restablecer Ajustes',
-      normal: 'Normal',
-      large: 'Grande',
-      extraLarge: 'Extra Grande',
       btnLabel: 'Panel de Accesibilidad'
     },
     FR: {
       title: 'Accessibilité',
-      textSize: 'Taille du Texte',
       highlightLinks: 'Surligner les Liens',
       readableFont: 'Police Lisible',
       reducedMotion: 'Mouvement Réduit',
       reset: 'Réinitialiser',
-      normal: 'Normal',
-      large: 'Grand',
-      extraLarge: 'Très Grand',
       btnLabel: 'Panneau d\'Accessibilité'
     },
     DE: {
       title: 'Barrierefreiheit',
-      textSize: 'Textgröße',
       highlightLinks: 'Links hervorheben',
       readableFont: 'Lesbare Schriftart',
       reducedMotion: 'Reduzierte Bewegung',
       reset: 'Zurücksetzen',
-      normal: 'Normal',
-      large: 'Groß',
-      extraLarge: 'Sehr groß',
       btnLabel: 'Barrierefreiheit-Panel'
     }
   };
@@ -1830,7 +1799,7 @@ function App() {
 
   return (
     <>
-      <div className={`app-accessibility-wrapper a11y-text-${textScale} ${highlightLinks ? 'a11y-highlight-links' : ''} ${readableFont ? 'a11y-readable-font' : ''} ${reducedMotion ? 'a11y-reduced-motion' : ''}`}>
+      <div className={`app-accessibility-wrapper ${highlightLinks ? 'a11y-highlight-links' : ''} ${readableFont ? 'a11y-readable-font' : ''} ${reducedMotion ? 'a11y-reduced-motion' : ''}`}>
         {/* Background Starfield and Fluid Simulation Cursor */}
         <Starfield isDarkMode={isDarkMode} reducedMotion={reducedMotion} />
         <div className="nebula-bg" />
@@ -3660,30 +3629,6 @@ function App() {
             <p className="a11y-panel-title">{a11yTranslations[lang]?.title || 'Accessibility'}</p>
             
             <div className="a11y-section">
-              <span className="a11y-section-title">{a11yTranslations[lang]?.textSize || 'Text Size'}</span>
-              <div className="a11y-text-options">
-                <button 
-                  className={`a11y-option-btn ${textScale === 'normal' ? 'active' : ''}`}
-                  onClick={() => setTextScale('normal')}
-                >
-                  {a11yTranslations[lang]?.normal || 'Normal'}
-                </button>
-                <button 
-                  className={`a11y-option-btn ${textScale === 'large' ? 'active' : ''}`}
-                  onClick={() => setTextScale('large')}
-                >
-                  {a11yTranslations[lang]?.large || 'Large'}
-                </button>
-                <button 
-                  className={`a11y-option-btn ${textScale === 'extra-large' ? 'active' : ''}`}
-                  onClick={() => setTextScale('extra-large')}
-                >
-                  {a11yTranslations[lang]?.extraLarge || 'Extra Large'}
-                </button>
-              </div>
-            </div>
-
-            <div className="a11y-section">
               <label className="a11y-toggle-row">
                 <span>{a11yTranslations[lang]?.highlightLinks || 'Highlight Links'}</span>
                 <input 
@@ -3719,7 +3664,6 @@ function App() {
             <button 
               className="a11y-reset-btn"
               onClick={() => {
-                setTextScale('normal');
                 setHighlightLinks(false);
                 setReadableFont(false);
                 setReducedMotion(false);
